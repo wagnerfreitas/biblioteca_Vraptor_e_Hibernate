@@ -47,7 +47,7 @@
 				$("#adicionarUsuario").click(function(){
 					$('form').hide();
 					$.ajax({
-						url: "usuario",
+						url: "usuario/novo",
 						type : "GET",
 						success: function(result){
 							$("#result").html(result);
@@ -60,7 +60,7 @@
 				$("#adicionarLivro").click(function(){
 					$('form').hide();
 					$.ajax({
-						url: "livro",
+						url: "livro/novo",
 						type: "GET",
 						success: function(result){
 							$("#result").html(result);
@@ -166,7 +166,7 @@
 					</tr>
 				</table>
 			</form>
-			<form id="Emprestimo">
+			<form id="Emprestimo" action="emprestimo/lista">
 				<h1>Pesquisar</h1>
 				<table>
 					<tr>
