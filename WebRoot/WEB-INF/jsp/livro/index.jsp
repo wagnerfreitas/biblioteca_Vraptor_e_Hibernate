@@ -8,7 +8,34 @@
     <title>Livros</title>
   </head>
   <body>
-	<table>
+	Adicionar Livro
+		<form action="livro/adiciona" method="post">
+			<table>
+				<tr>
+					<td>
+						Nome:
+					</td>
+					<td>
+						<input type="text" name="livro.nome" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Autor:
+					</td>
+					<td>
+						<input type="text" name="livro.autor" />
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="Enviar" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	<!--<table>
 		<c:forEach var="livro" items="${livroList}">
 			<tr>
 				<td>Nome: </td>
@@ -16,7 +43,7 @@
 				<td>Autor: </td>
 				<td style="width:150px">${livro.autor}</td>
 			</tr>
-		</c:forEach>
-	</table>   
+		</c:forEach> 
+	</table>   -->
   </body>
 </html>
