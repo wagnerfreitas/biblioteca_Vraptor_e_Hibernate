@@ -1,27 +1,37 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<head>		
+	<link rel="stylesheet" type="text/css" href="usuario.css" />
+	<title>Adicionar Usuário</title>
+</head>
 <form method="post" action="usuario/novo">
-<h1>Adicionar usu&aacute;rio</h1>
-	<table>
-		<tr>
-			<td>
-				Nome:
-			</td>
-			<td>
-				<input type="text" name="usuario.nome" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Email:
-			</td>
-			<td>
-				<input type="text" name="usuario.email">
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type="submit" value="Enviar" />
-			</td>
-		</tr>
-	</table>
+	<fieldset>
+	<img src="imagens/usuario.png" style="float: right" />
+		<legend>
+			Adicionar Usuário
+		</legend>
+		<table>
+			<tr>
+				<td>
+					Nome:
+				</td>
+				<td>
+					<input type="text" name="usuario.nome" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Email:
+				</td>
+				<td>
+					<input type="text" name="usuario.email">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" value="Enviar" />
+				</td>
+			</tr>
+		</table>
+	</fieldset>
 </form>

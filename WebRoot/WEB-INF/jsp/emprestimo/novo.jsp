@@ -1,3 +1,4 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <form action="emprestimo/novo" method="post">
 	<h1>
 		Emprestar

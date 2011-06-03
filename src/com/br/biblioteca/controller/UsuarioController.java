@@ -18,6 +18,5 @@ public class UsuarioController {
 	@Get
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
-		//
 	}
 }
