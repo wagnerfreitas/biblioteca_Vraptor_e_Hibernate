@@ -24,7 +24,7 @@
 			#tabela{
 				border-bottom:1px dotted red;
 			}
-			#Usuario, #Livro{
+			#Usuario, #Livro, #Emprestimo{
 				display: none;
 			}
 		</style>
@@ -40,6 +40,10 @@
 					$('form').hide();
 					$('form#Livro').show();
 				});
+				$('#pesquisarEmprestimo').click(function(){
+					$('form').hide();
+					$('form#Emprestimo').show();
+				});			
 				$("#adicionarUsuario").click(function(){
 					$('form').hide();
 					$.ajax({
@@ -67,13 +71,8 @@
 					});
 				});
 			});
-			var pesquisarLivro = function() {
-			}
-			var pesquisarEmprestimo = function() {
-			}
 		</script>
 	</head>
-
 	<body>
 		<div id="geral">
 			<h1>
@@ -126,7 +125,7 @@
 						Pesquisar empr&eacute;stimos:
 					</td>
 					<td>
-						<button onclick="pesquisarEmprestimo()">
+						<button id="pesquisarEmprestimo">
 							Pesquisar
 						</button>
 					</td>
@@ -160,6 +159,22 @@
 						</td>
 						<td>
 							<input type="text" name="livro.nome" />
+						</td>
+						<td>
+							<input type="submit" value="Enviar" />
+						</td>
+					</tr>
+				</table>
+			</form>
+			<form id="Emprestimo">
+				<h1>Pesquisar</h1>
+				<table>
+					<tr>
+						<td>
+							Pesquisar empréstimo por livro: 
+						</td>
+						<td>
+							<input type="text" name="emprestimo.livro" />
 						</td>
 						<td>
 							<input type="submit" value="Enviar" />
