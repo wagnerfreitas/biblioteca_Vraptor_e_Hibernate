@@ -11,12 +11,17 @@
 	<body>
 		<h1>Lista de livro</h1>
 		<table>
-			<c:forEach items="${livroList}" var="livro">
+			<c:forEach items="${livros}" var="livro">
 				<tr>
 					<td>Nome: </td>
 					<td style="width: 220px">${livro.nome}</td>
 					<td>Autor: </td>
 					<td>${livro.autor}</td>
+					<td>
+						<c:if test="${livro.emprestado}">
+							<button id="devolver">Devolver</button>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -1,8 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <form action="livro/adiciona" method="post">
 	<fieldset>
+	<img src="imagens/livro.png" style="float: right" />
 		<legend>
-			Adicionar Livro
+			Adicionar livro
 		</legend>
 		<table>
 			<tr>

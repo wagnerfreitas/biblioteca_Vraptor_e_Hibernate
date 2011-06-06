@@ -29,49 +29,10 @@
 			}
 		</style>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<script type="text/javascript" src="js/jquery-1.5.2.min.js">	</script>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#pesquisarUsuario").click(function(){
-					$('form').hide();
-					$('form#Usuario').show();
-				});
-				$("#pesquisarLivro").click(function(){
-					$('form').hide();
-					$('form#Livro').show();
-				});
-				$('#pesquisarEmprestimo').click(function(){
-					$('form').hide();
-					$('form#Emprestimo').show();
-				});			
-				$("#adicionarUsuario").click(function(){
-					$('form').hide();
-					$.ajax({
-						url: "usuario/novo",
-						type : "GET",
-						success: function(result){
-							$("#result").html(result);
-						},
-						failure: function(){
-							$("#result").alert("Erro");
-						}
-					});
-				});
-				$("#adicionarLivro").click(function(){
-					$('form').hide();
-					$.ajax({
-						url: "livro/novo",
-						type: "GET",
-						success: function(result){
-							$("#result").html(result);
-						},
-						failure: function(){
-							$("#result").alert("Erro");
-						}
-					});
-				});
-			});
-		</script>
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
+		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
 	</head>
 	<body>
 		<div id="geral">
@@ -150,18 +111,18 @@
 					</tr>
 				</table>
 			</form>
-			<form id="Livro">
-			<h1>Pesquisar</h1>
+			<form id="Livro" method="get" action="livros/busca">
+				<h1>Pesquisar</h1>
 				<table>
 					<tr>
 						<td>
 							Digite o nome do livro:
 						</td>
 						<td>
-							<input type="text" name="livro.nome" />
+							<input type="text" id="pesquisaLivroNome" name="nome" />
 						</td>
 						<td>
-							<input type="submit" value="Enviar" />
+							<input type="button" value="Enviar" id="enviaPesquisaLivro" />
 						</td>
 					</tr>
 				</table>

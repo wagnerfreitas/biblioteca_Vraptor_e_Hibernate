@@ -7,7 +7,7 @@
 	<fieldset>
 	<img src="imagens/usuario.png" style="float: right" />
 		<legend>
-			Adicionar Usuário
+			Adicionar usuário
 		</legend>
 		<table>
 			<tr>
@@ -23,7 +23,7 @@
 					Email:
 				</td>
 				<td>
-					<input type="text" name="usuario.email">
+					<input type="text" name="usuario.email" />
 				</td>
 			</tr>
 			<tr>
