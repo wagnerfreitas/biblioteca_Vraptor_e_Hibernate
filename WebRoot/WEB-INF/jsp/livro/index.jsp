@@ -1,6 +1,3 @@
-<%@page import="com.br.biblioteca.controller.EmprestimoController"%>
-<%@page import="java.util.List"%>
-<%@page import="com.br.biblioteca.entitades.Emprestimo"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>

@@ -22,6 +22,7 @@ public class LivroDAO {
 	
 	public void adiciona(Livro livro){
 		Transaction tx = session.beginTransaction();
+		livro.setEmprestado(false);
 		session.save(livro);
 		tx.commit();
 	}

@@ -94,7 +94,7 @@
 				</tr>
 			</table>
 			<div id="result"></div>
-			<form id="Usuario">
+			<form id="Usuario" method="get" action="usuarios">
 				<h1>Pesquisar</h1>
 				<table>
 					<tr>
@@ -102,7 +102,7 @@
 							Digite o nome do usuário:
 						</td>
 						<td>
-							<input type="text" name="usuario.nome" />
+							<input type="text" name="nome" />
 						</td>
 						<td>
 							<input type="submit" value="Enviar" />

@@ -4,19 +4,40 @@ import java.util.List;
 
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
 
+import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
 
 @Resource
 public class UsuarioController {
-	@Get
-	@Path("/usuario")
-	public List<Usuario> index(String nomeDoUsuario){
-		return null;
+	
+	private Result result;
+	private UsuarioDAO usuarioDAO;
+	
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO){
+		this.result = result;
+		this.usuarioDAO = usuarioDAO;
 	}
+	
+	@Get
+	@Path("/usuarios")
+	public void index(String nome){
+		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
+		result.include("usuarios", usuarios);
+	}
+	
 	@Get
 	@Path("/usuario/novo")
-	public void novo(Usuario usuario){
+	public void novo(){
 	}
+	
+	@Post
+	public void novo(Usuario usuario){
+		usuarioDAO.adiciona(usuario);
+		result.forwardTo("../index.jsp");
+	} 
+	
 }
