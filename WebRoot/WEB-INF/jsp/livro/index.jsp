@@ -1,12 +1,37 @@
+<%@page import="com.br.biblioteca.controller.EmprestimoController"%>
+<%@page import="java.util.List"%>
+<%@page import="com.br.biblioteca.entitades.Emprestimo"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta http-equiv="Content-Type"
-			content="text/html; charset=ISO-8859-1">
 		<title>Lista de Livros</title>
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
+		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".emprestar").click(function(){
+					$("#DevolverLivro").hide();
+					$("#EmprestarLivro").show();
+					var valor = $(this).parent().parent().children(':nth-child(1)').text();
+					$("#IDLivro").val(valor);
+				});
+				$(".devolver").click(function(){
+					$("#EmprestarLivro").hide();
+					$("#DevolverLivro").show();
+				});
+				$('.calendario').datepicker();
+			});
+		</script>
+		<style type="text/css">
+			#EmprestarLivro, #DevolverLivro{
+				display: none;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Lista de livros</h1>
@@ -29,6 +54,61 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="javascript: history.go(-1)">Voltar</a><br/>	
+		
+		<a href="index.jsp">Voltar</a><br/>
+			
+		<div id="EmprestarLivro">
+			<form method="post">
+			<h1>Emprestar livro</h1>
+				<table>
+					<tr>
+						<td>
+							<input type="hidden" name="livro.id" id="IDLivro">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Digite o ID do usuário:
+						</td>
+						<td>
+							<input type="text" name="usuario.id" id="IDUsuario" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Digite a data do empréstimo:
+						</td>
+						<td>
+							<input type="text" class="calendario" name="dataDeEmprestimo" />
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<input type="submit" value="Enviar" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+		<div id="DevolverLivro">
+		<h1>Devolver livro</h1>
+			<form method="post">
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Data de devolução: </td>
+						<td><input type="text" class="calendario" name="emprestimo.dataDeDevolucao" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Enviar" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</body>
 </html>

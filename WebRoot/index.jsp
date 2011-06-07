@@ -28,7 +28,6 @@
 				display: none;
 			}
 		</style>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
@@ -111,7 +110,7 @@
 					</tr>
 				</table>
 			</form>
-			<form id="Livro" method="get" action="livros/busca">
+			<form id="Livro" method="get" action="livros">
 				<h1>Pesquisar</h1>
 				<table>
 					<tr>

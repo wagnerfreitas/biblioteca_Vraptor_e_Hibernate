@@ -23,13 +23,6 @@ public class LivroController {
 	}
 	@Get
 	@Path("/livros")
-	public void index(){
-		List<Livro> livros = livroDAO.listaDeLivro();
-		result.include("livros", livros);
-	}
-	
-	@Get
-	@Path("/livros/busca")
 	public void index(String nome){
 		List<Livro> livros = livroDAO.listaDeLivro(nome);
 		result.include("livros", livros);
