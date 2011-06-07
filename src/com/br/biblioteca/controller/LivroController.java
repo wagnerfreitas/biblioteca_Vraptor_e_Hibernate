@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -29,19 +30,20 @@ public class LivroController {
 	
 	@Get
 	@Path("/livros/busca")
-	public void busca(String nome){
+	public void index(String nome){
 		List<Livro> livros = livroDAO.listaDeLivro(nome);
 		result.include("livros", livros);
 	}
-	@Get
-	@Path("/livros")
-	public void index(String nomeDoLivro){
-		List<Livro> livros = livroDAO.listaDeLivro(nomeDoLivro);
-		result.include("livros", livros);
-	}
+	
 	@Get
 	@Path("/livro/novo")
+	public void novo(){
+	}
+	
+	@Post
 	public void novo(Livro livro){
 		livroDAO.adiciona(livro);
-	}
+		result.include("novo", livro);
+		result.forwardTo("../index.jsp");
+	} 
 }

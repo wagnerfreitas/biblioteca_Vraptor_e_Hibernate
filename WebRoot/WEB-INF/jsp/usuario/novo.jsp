@@ -5,7 +5,6 @@
 </head>
 <form method="post" action="usuario/novo">
 	<fieldset>
-	<img src="imagens/usuario.png" style="float: right" />
 		<legend>
 			Adicionar usuário
 		</legend>

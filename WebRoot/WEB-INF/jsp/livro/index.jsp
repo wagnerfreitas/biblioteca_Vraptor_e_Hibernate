@@ -9,21 +9,26 @@
 		<title>Lista de Livros</title>
 	</head>
 	<body>
-		<h1>Lista de livro</h1>
+		<h1>Lista de livros</h1>
 		<table>
 			<c:forEach items="${livros}" var="livro">
 				<tr>
+					<td style="display: none">${livro.id}</td>
 					<td>Nome: </td>
 					<td style="width: 220px">${livro.nome}</td>
 					<td>Autor: </td>
-					<td>${livro.autor}</td>
+					<td style="width: 120px">${livro.autor}</td>
 					<td>
 						<c:if test="${livro.emprestado}">
-							<button id="devolver">Devolver</button>
+							<button class="devolver">Devolver</button>
+						</c:if>
+						<c:if test="${!livro.emprestado}">
+							<button class="emprestar">Emprestar</button>
 						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
+		<a href="javascript: history.go(-1)">Voltar</a><br/>	
 	</body>
 </html>

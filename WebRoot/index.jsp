@@ -122,7 +122,7 @@
 							<input type="text" id="pesquisaLivroNome" name="nome" />
 						</td>
 						<td>
-							<input type="button" value="Enviar" id="enviaPesquisaLivro" />
+							<input type="button" value="Enviar" id="btn-PesquisaLivro" />
 						</td>
 					</tr>
 				</table>

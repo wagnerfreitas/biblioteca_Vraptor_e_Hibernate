@@ -28,15 +28,8 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('#pesquisaLivroNome').keydown(function(event){
-		if(event.keyCode === 13){
-			$('#enviaPesquisaLivro').click();
-		}
-	});
-	
-	$("#enviaPesquisaLivro").click(function(){
+	$("#btn-PesquisaLivro").click(function(){
 		$("#Livro").submit();
-		location = 'livros/busca/' + $("#pesquisaLivroNome").val();
 	});
 	
 	$("#adicionarLivro").click(function(){
