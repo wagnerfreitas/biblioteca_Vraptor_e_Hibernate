@@ -27,6 +27,13 @@ public class UsuarioDAO {
 		session.save(usuario);
 		tx.commit();
 	}
+	public void atualiza(Usuario usuario){
+		Transaction tx = session.getTransaction();
+		usuario.setUsuarioAtivo(false);
+		session.update(usuario);
+		tx.commit();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisa(String nome){
 		List<Usuario> usuarios = this.session
@@ -36,5 +43,11 @@ public class UsuarioDAO {
 				.addOrder(Order.asc("nome"))
 			.list();
 		return usuarios; 
+	}
+	public Usuario pesquisarUsuarioPorId(Long id){
+		return (Usuario) this.session
+			.createCriteria(Usuario.class)
+				.add(Restrictions.eq("id", id))
+			.uniqueResult();
 	}
 }

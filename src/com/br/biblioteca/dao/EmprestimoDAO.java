@@ -23,4 +23,14 @@ public class EmprestimoDAO {
 				.list();
 		return emprestimos;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Emprestimo> procuraPorIdUsuario(Long id){
+		List<Emprestimo> emprestimos = this.session
+			.createCriteria(Emprestimo.class)
+				.add(Restrictions.isNull("dataDeDevolucao"))
+				.add(Restrictions.eq("usuario.id", id))
+			.list();
+		return emprestimos;
+	}
 }
