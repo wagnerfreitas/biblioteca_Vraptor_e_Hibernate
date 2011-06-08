@@ -12,9 +12,11 @@ import com.br.biblioteca.entitades.Emprestimo;
 
 @Resource
 public class EmprestimoController {
+	
 	@SuppressWarnings("unused")
 	private Result result;
 	private EmprestimoDAO emprestimoDAO;
+	
 	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;

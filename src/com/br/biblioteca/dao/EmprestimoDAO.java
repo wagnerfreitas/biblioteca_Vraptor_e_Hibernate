@@ -5,8 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.ioc.RequestScoped;
+
 import com.br.biblioteca.entitades.Emprestimo;
 
+@Component
+@RequestScoped
 public class EmprestimoDAO {
 	private Session session;
 	
@@ -16,8 +21,9 @@ public class EmprestimoDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro) {
-		List<Emprestimo> emprestimos = this.session.createCriteria(
-				Emprestimo.class).add(Restrictions.isNull("dataDeDevolucao"))
+		List<Emprestimo> emprestimos = this.session
+				.createCriteria(Emprestimo.class)
+					.add(Restrictions.isNull("dataDeDevolucao"))
 				.createCriteria("livro")
 					.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
 				.list();

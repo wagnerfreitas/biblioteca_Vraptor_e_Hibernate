@@ -2,6 +2,7 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -22,16 +23,34 @@ public class UsuarioDAO {
 	}
 	
 	public void adiciona(Usuario usuario) {
-		Transaction tx = session.beginTransaction();
-		usuario.setUsuarioAtivo(true);
-		session.save(usuario);
-		tx.commit();
+		try {
+			Transaction tx = session.beginTransaction();
+			usuario.setUsuarioAtivo(true);
+			session.save(usuario);
+			tx.commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(session != null){
+				session.close();
+			}
+		}
 	}
 	public void atualiza(Usuario usuario){
-		Transaction tx = session.getTransaction();
-		usuario.setUsuarioAtivo(false);
-		session.update(usuario);
-		tx.commit();
+		try {
+			Transaction tx = session.beginTransaction();
+			usuario.setUsuarioAtivo(false);
+			session.update(usuario);
+			tx.commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(session != null){
+				session.close();
+			}
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -44,6 +63,7 @@ public class UsuarioDAO {
 			.list();
 		return usuarios; 
 	}
+	
 	public Usuario pesquisarUsuarioPorId(Long id){
 		return (Usuario) this.session
 			.createCriteria(Usuario.class)

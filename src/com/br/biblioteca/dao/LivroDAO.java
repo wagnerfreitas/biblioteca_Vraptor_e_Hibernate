@@ -2,6 +2,7 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -21,10 +22,19 @@ public class LivroDAO {
 	}
 	
 	public void adiciona(Livro livro){
-		Transaction tx = session.beginTransaction();
-		livro.setEmprestado(false);
-		session.save(livro);
-		tx.commit();
+		try {
+			Transaction tx = session.beginTransaction();
+			livro.setEmprestado(false);
+			session.save(livro);
+			tx.commit();	
+		} catch (HibernateException e) {
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(session != null){
+				session.close();
+			}
+		}
 	}
 	
 	public void atualiza(Livro livro){
