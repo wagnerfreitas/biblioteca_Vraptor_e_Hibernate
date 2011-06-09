@@ -38,9 +38,18 @@ public class LivroDAO {
 	}
 	
 	public void atualiza(Livro livro){
-		Transaction tx = session.beginTransaction();
-		session.update(livro);
-		tx.commit();
+		try {
+			Transaction tx = session.beginTransaction();
+			session.update(livro);
+			tx.commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException();
+		}
+		finally{
+			if(session != null){
+				session.close();
+			}
+		}
 	}
 	
 	public void remove(Livro livro){

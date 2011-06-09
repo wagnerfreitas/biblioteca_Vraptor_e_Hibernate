@@ -32,14 +32,8 @@
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript">
-			$("#Erro").dialog(${Erro});
-		</script>
 	</head>
 	<body>
-	<div id="Erro" style="display: none">
-		${Erro}
-	</div>
 		<div id="geral">
 			<h1>
 				Biblioteca

@@ -49,7 +49,7 @@
 		</table>
 		<div id="devolverLivro">
 			<h1>Devolver Livro</h1>
-			<form method="post" action="#">
+			<form method="post" action="livro/devolve">
 				<table>
 					<tr>
 						<td>Data de devolução: </td>

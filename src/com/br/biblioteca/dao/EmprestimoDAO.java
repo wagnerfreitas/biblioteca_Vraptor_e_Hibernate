@@ -2,7 +2,9 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -28,6 +30,27 @@ public class EmprestimoDAO {
 					.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
 				.list();
 		return emprestimos;
+	}
+	
+	public Emprestimo procuraPorId(Long id){
+		return (Emprestimo) this.session
+			.createCriteria(Emprestimo.class)
+				.add(Restrictions.eq("id", id))
+			.uniqueResult();
+	}
+	
+	public void atualiza(Emprestimo emprestimo){
+		try {
+			Transaction tx = session.beginTransaction();
+			session.update(emprestimo);
+			tx.commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException();
+		}finally{
+			if(session != null){
+				session.close();
+			}
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
