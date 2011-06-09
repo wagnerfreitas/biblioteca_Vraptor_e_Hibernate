@@ -53,6 +53,20 @@ public class EmprestimoDAO {
 		}
 	}
 	
+	public void empresta(Emprestimo emprestimo){
+		try {
+			Transaction tx = session.beginTransaction();
+			session.save(emprestimo);
+			tx.commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException();
+		}finally{
+			if(session != null){
+				session.close();
+			}
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Emprestimo> procuraPorIdUsuario(Long id){
 		List<Emprestimo> emprestimos = this.session

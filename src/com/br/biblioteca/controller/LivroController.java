@@ -11,8 +11,10 @@ import br.com.caelum.vraptor.Result;
 
 import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.LivroDAO;
+import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
+import com.br.biblioteca.entitades.Usuario;
 
 @Resource
 public class LivroController {
@@ -20,11 +22,13 @@ public class LivroController {
 	private Result result;
 	private LivroDAO livroDAO;
 	private EmprestimoDAO emprestimoDAO;
+	private UsuarioDAO usuarioDAO;
 	
-	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO){
+	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO){
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;
+		this.usuarioDAO = usuarioDAO;
 	}
 	@Get
 	@Path("/livros")
@@ -49,6 +53,25 @@ public class LivroController {
 			result.forwardTo("../index.jsp");
 		}
 	} 
+	
+	@Post
+	public void emprestar(Long IdUsuario, Long idLivro, Calendar dataDeEmprestimo){
+		Emprestimo emprestimo = new Emprestimo();
+
+		Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(IdUsuario);
+		emprestimo.setUsuario(usuario);
+		
+		Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
+		livro.setEmprestado(true);
+		livroDAO.atualiza(livro);
+		
+		emprestimo.setLivro(livro);
+		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
+
+		emprestimoDAO.empresta(emprestimo);
+		result.forwardTo("../livros");
+	}
+	
 	@Post
 	public void devolve(Long id, Calendar dataDeDevolucao){
 		Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);

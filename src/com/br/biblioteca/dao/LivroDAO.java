@@ -69,4 +69,11 @@ public class LivroDAO {
 	public List<Livro> listaDeLivro(){
 		return session.createCriteria(Livro.class).list();
 	}
+
+	public Livro pesquisarLivroPorId(Long id) {
+		return (Livro) this.session
+			.createCriteria(Livro.class)
+				.add(Restrictions.eq("id", id))
+			.uniqueResult();
+	}
 }

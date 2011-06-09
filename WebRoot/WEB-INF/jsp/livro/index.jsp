@@ -28,6 +28,9 @@
 			#EmprestarLivro, #DevolverLivro{
 				display: none;
 			}
+			button{
+				width:100px;
+			}
 		</style>
 	</head>
 	<body>
@@ -55,12 +58,12 @@
 		<a href="index.jsp">Voltar</a><br/>
 			
 		<div id="EmprestarLivro">
-			<form method="post">
+			<form method="post" action="livro/emprestar">
 			<h1>Emprestar livro</h1>
 				<table>
 					<tr>
 						<td>
-							<input type="hidden" name="livro.id" id="IDLivro">
+							<input type="hidden" name="idLivro" id="IDLivro">
 						</td>
 					</tr>
 					<tr>
@@ -68,7 +71,7 @@
 							Digite o ID do usuário:
 						</td>
 						<td>
-							<input type="text" name="usuario.id" id="IDUsuario" />
+							<input type="text" name="IdUsuario" id="IDUsuario" />
 						</td>
 					</tr>
 					<tr>
@@ -98,7 +101,7 @@
 					</tr>
 					<tr>
 						<td>Data de devolução: </td>
-						<td><input type="text" class="calendario" name="emprestimo.dataDeDevolucao" /></td>
+						<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
 					</tr>
 					<tr>
 						<td></td>
