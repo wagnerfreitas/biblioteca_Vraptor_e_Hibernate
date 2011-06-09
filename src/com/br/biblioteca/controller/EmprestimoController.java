@@ -13,7 +13,6 @@ import com.br.biblioteca.entitades.Emprestimo;
 @Resource
 public class EmprestimoController {
 	
-	@SuppressWarnings("unused")
 	private Result result;
 	private EmprestimoDAO emprestimoDAO;
 	
@@ -22,9 +21,10 @@ public class EmprestimoController {
 		this.emprestimoDAO = emprestimoDAO;
 	}
 	@Get
-	@Path("/emprestimo")
-	public List<Emprestimo> pesquisaEmprestimoPorLivro(String nomeDoLivro){
-		return emprestimoDAO.pesquisarEmprestimo(nomeDoLivro);
+	@Path("/emprestimos")
+	public void index(String nomeDoLivro){
+		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro);
+		result.include("emprestimos", emprestimos);
 	}
 	@Get
 	@Path("/emprestimo/novo")

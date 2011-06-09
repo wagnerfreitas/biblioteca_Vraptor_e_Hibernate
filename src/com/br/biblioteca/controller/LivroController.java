@@ -34,9 +34,14 @@ public class LivroController {
 	}
 	
 	@Post
-	public void novo(Livro livro){
-		livroDAO.adiciona(livro);
-		result.include("novo", livro);
-		result.forwardTo("../index.jsp");
+	public void novo(Livro livro) {
+		if(livro.getNome().equals("") || livro.getAutor().equals("")){
+			result.include("Erro" , "Nome ou email nulos");
+			result.forwardTo("../index.jsp");
+		}else{
+			livroDAO.adiciona(livro);
+			result.include("novo", livro);
+			result.forwardTo(LivroController.class).index("");
+		}
 	} 
 }

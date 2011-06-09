@@ -32,8 +32,14 @@
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			$("#Erro").dialog(${Erro});
+		</script>
 	</head>
 	<body>
+	<div id="Erro" style="display: none">
+		${Erro}
+	</div>
 		<div id="geral">
 			<h1>
 				Biblioteca
@@ -126,7 +132,7 @@
 					</tr>
 				</table>
 			</form>
-			<form id="Emprestimo" action="emprestimo/lista">
+			<form id="Emprestimo" action="emprestimos">
 				<h1>Pesquisar</h1>
 				<table>
 					<tr>
@@ -134,7 +140,7 @@
 							Pesquisar empréstimo por livro: 
 						</td>
 						<td>
-							<input type="text" name="emprestimo.livro" />
+							<input type="text" name="nomeDoLivro" />
 						</td>
 						<td>
 							<input type="submit" value="Enviar" />

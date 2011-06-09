@@ -40,6 +40,9 @@ public class UsuarioController {
 	
 	@Post
 	public void novo(Usuario usuario){
+		if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
+			throw new NullPointerException();
+		}
 		usuarioDAO.adiciona(usuario);
 		result.forwardTo("../index.jsp");
 	} 
