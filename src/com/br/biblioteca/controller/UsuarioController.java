@@ -45,15 +45,16 @@ public class UsuarioController {
 		}
 		usuarioDAO.adiciona(usuario);
 		result.forwardTo("../index.jsp");
-	} 
-	@Post
-	public void delete(Long id){
-		Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
-		List<Emprestimo> emprestimos = emprestimoDAO.procuraPorIdUsuario(id);
-		if(emprestimos.size() > 0){
-			throw new RuntimeException("Morreu");
-		}
-		usuarioDAO.atualiza(usuario);
-		result.forwardTo("../index.jsp");
 	}
+	
+//	@Post
+//	public void delete(Long id){
+//		Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
+//		List<Emprestimo> emprestimos = emprestimoDAO.procuraPorIdUsuario(id);
+//		if(emprestimos.size() > 0){
+//			throw new RuntimeException("Morreu");
+//		}
+//		usuarioDAO.atualiza(usuario);
+//		result.forwardTo("../index.jsp");
+//	}
 }

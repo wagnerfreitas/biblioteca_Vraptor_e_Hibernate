@@ -69,16 +69,17 @@ public class LivroController {
 		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 
 		emprestimoDAO.empresta(emprestimo);
-		result.forwardTo("../livros");
+		result.forwardTo("../index.jsp");
 	}
 	
 	@Post
 	public void devolve(Long id, Calendar dataDeDevolucao){
-		Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
+		Emprestimo emprestimo = emprestimoDAO.procuraLivroPorId(id);
 		Livro livro = emprestimo.getLivro();
 		livro.setEmprestado(false);
 		emprestimo.setDataDeDevolucao(dataDeDevolucao);
 		livroDAO.atualiza(livro);
 		emprestimoDAO.atualiza(emprestimo);
+		result.forwardTo("emprestimo/index.jsp");
 	}   
 }

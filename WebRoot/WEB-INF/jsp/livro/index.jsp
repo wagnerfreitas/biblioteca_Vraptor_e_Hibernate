@@ -47,6 +47,7 @@
 						<c:if test="${livro.emprestado}">
 							<button class="devolver">Devolver</button>
 						</c:if>
+
 						<c:if test="${!livro.emprestado}">
 							<button class="emprestar">Emprestar</button>
 						</c:if>
@@ -55,8 +56,6 @@
 			</c:forEach>
 		</table>
 		
-		<a href="index.jsp">Voltar</a><br/>
-			
 		<div id="EmprestarLivro">
 			<form method="post" action="livro/emprestar">
 			<h1>Emprestar livro</h1>
@@ -94,9 +93,10 @@
 		
 		<div id="DevolverLivro">
 		<h1>Devolver livro</h1>
-			<form method="post">
+			<form method="post" action="livro/devolve">
 				<table>
 					<tr>
+					<!-- Colokar o id do usuario aki pra enviar -->
 						<td></td>
 					</tr>
 					<tr>
@@ -110,5 +110,6 @@
 				</table>
 			</form>
 		</div>
+		<a href="index.jsp">Voltar</a><br/>
 	</body>
 </html>
