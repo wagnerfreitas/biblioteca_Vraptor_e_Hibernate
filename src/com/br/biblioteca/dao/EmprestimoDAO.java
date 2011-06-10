@@ -67,12 +67,14 @@ public class EmprestimoDAO {
 		}
 	}
 	
-	public Emprestimo procuraPorIdUsuario(Long id){
-		return (Emprestimo) this.session
+	@SuppressWarnings("unchecked")
+	public List<Emprestimo> procuraPorIdUsuario(Long id){
+		List<Emprestimo> emprestimos = this.session
 			.createCriteria(Emprestimo.class)
 				.add(Restrictions.isNull("dataDeDevolucao"))
 				.add(Restrictions.eq("usuario.id", id))
-			.uniqueResult();
+			.list();
+		return emprestimos;
 	}
 
 	public Emprestimo procuraLivroPorId(Long id) {

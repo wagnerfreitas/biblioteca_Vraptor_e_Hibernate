@@ -20,6 +20,8 @@
 				$(".devolver").click(function(){
 					$("#EmprestarLivro").hide();
 					$("#DevolverLivro").show();
+					var valor = $(this).parent().parent().children(':nth-child(1)').text();
+					$("#id").val(valor);
 				});
 				$('.calendario').datepicker();
 			});
@@ -96,8 +98,7 @@
 			<form method="post" action="livro/devolve">
 				<table>
 					<tr>
-					<!-- Colokar o id do usuario aki pra enviar -->
-						<td></td>
+						<td><input type="hidden" name="id" id="id" /></td>
 					</tr>
 					<tr>
 						<td>Data de devolução: </td>

@@ -40,6 +40,6 @@ public class EmprestimoController {
 		emprestimo.setDataDeDevolucao(dataDeDevolucao);
 		livroDAO.atualiza(livro);
 		emprestimoDAO.atualiza(emprestimo);
-		result.forwardTo("index.jsp");
+		result.forwardTo("../index.jsp");
 	}
 }
