@@ -34,6 +34,13 @@ public class UsuarioController {
 	}
 	
 	@Get
+	@Path("/usuarios/list")
+	public void usuarios(String pesquisarUsuario){
+		List<Usuario> usuarios = usuarioDAO.pesquisa(pesquisarUsuario);
+		result.include("list", usuarios);
+	}
+	
+	@Get
 	@Path("/usuario/novo")
 	public void novo(){
 	}

@@ -77,7 +77,7 @@ public class EmprestimoDAO {
 		return emprestimos;
 	}
 
-	public Emprestimo procuraLivroPorId(Long id) {
+	public Emprestimo procuraPorIdLivro(Long id) {
 		return (Emprestimo) this.session
 			.createCriteria(Emprestimo.class)
 				.add(Restrictions.isNull("dataDeDevolucao"))

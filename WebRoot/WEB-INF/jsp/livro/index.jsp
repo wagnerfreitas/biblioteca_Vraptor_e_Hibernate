@@ -1,6 +1,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctx">${pageContext.request.contextPath}</c:set>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -24,6 +26,21 @@
 					$("#id").val(valor);
 				});
 				$('.calendario').datepicker();
+				
+				$('#btn-pesquisar').click(function(){
+					$.ajax({
+						url: "usuarios/list",
+						data: "$btn-pesquisar=" + $("#pesquisarUsuario").val(),
+						type: "POST",
+						success: function(retorno){
+							$("#retornoUsuarios").html(retorno);
+							$("#retornoUsuarios").dialog({ width: 600 } ,{ title: 'Usuários' });
+						},
+						failure: function(){
+							$("#retornoUsuarios").alert("Erro");							
+						}
+					});
+				});
 			});
 		</script>
 		<style type="text/css">
@@ -52,6 +69,7 @@
 
 						<c:if test="${!livro.emprestado}">
 							<button class="emprestar">Emprestar</button>
+							<input type="checkbox" name="remove" value="${livro.id}" />Apagar livro
 						</c:if>
 					</td>
 				</tr>
@@ -59,8 +77,15 @@
 		</table>
 		
 		<div id="EmprestarLivro">
-			<form method="post" action="livro/emprestar">
 			<h1>Emprestar livro</h1>
+			<table>
+				<tr>
+					<td style="width: 172px">Pesquisar usuário: </td>
+					<td><input type="text" name="pesquisarUsuario" id="pesquisarUsuario"/></td>
+					<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
+				</tr>
+			</table>
+			<form method="post" action="livro/emprestar">
 				<table>
 					<tr>
 						<td>
@@ -111,6 +136,7 @@
 				</table>
 			</form>
 		</div>
+		<div id="retornoUsuarios"></div>
 		<a href="index.jsp">Voltar</a><br/>
 	</body>
 </html>

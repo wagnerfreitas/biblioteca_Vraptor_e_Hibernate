@@ -12,6 +12,8 @@ public class Livro {
 	private String nome;
 	private String autor;
 	private boolean emprestado;
+	private boolean livroDeletado;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -35,5 +37,11 @@ public class Livro {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public boolean isLivroDeletado() {
+		return livroDeletado;
+	}
+	public void setLivroDeletado(boolean livroDeletado) {
+		this.livroDeletado = livroDeletado;
 	}
 }

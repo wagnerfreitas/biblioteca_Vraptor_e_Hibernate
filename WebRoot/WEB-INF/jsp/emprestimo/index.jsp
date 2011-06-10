@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,8 +41,14 @@
 					<td>
 						Livro:
 					</td>
-					<td>
+					<td style="width: 220px">
 						${emprestimo.livro.nome}
+					</td>
+					<td>
+						Data de empréstimo:
+					</td>
+					<td>
+						<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyy" />
 					</td>
 					<td><button class="devolver">Devolver</button></td>
 				</tr>

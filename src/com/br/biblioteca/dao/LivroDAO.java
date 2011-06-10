@@ -24,6 +24,11 @@ public class LivroDAO {
 	public void adiciona(Livro livro){
 		try {
 			Transaction tx = session.beginTransaction();
+			//modifiquei aki
+			
+			livro.setLivroDeletado(false);
+			
+			//até aki
 			livro.setEmprestado(false);
 			session.save(livro);
 			tx.commit();	
@@ -52,24 +57,16 @@ public class LivroDAO {
 		}
 	}
 	
-	public void remove(Livro livro){
-		Transaction tx = session.beginTransaction();
-		session.delete(livro);
-		tx.commit();
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<Livro> listaDeLivro(String nomeDoLivro){
 		return session.createCriteria(Livro.class)
 			.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
+			//modifiquei aki
+			.add(Restrictions.eq("livroDeletado", false))
+			//até aki
 		.list();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Livro> listaDeLivro(){
-		return session.createCriteria(Livro.class).list();
-	}
-
 	public Livro pesquisarLivroPorId(Long id) {
 		return (Livro) this.session
 			.createCriteria(Livro.class)
