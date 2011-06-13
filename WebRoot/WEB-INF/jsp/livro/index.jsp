@@ -7,52 +7,13 @@
 <html>
 	<head>
 		<title>Lista de Livros</title>
-		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$(".emprestar").click(function(){
-					$("#DevolverLivro").hide();
-					$("#EmprestarLivro").show();
-					var valor = $(this).parent().parent().children(':nth-child(1)').text();
-					$("#IDLivro").val(valor);
-					return false;
-				});
-				$(".devolver").click(function(){
-					$("#EmprestarLivro").hide();
-					$("#DevolverLivro").show();
-					var valor = $(this).parent().parent().children(':nth-child(1)').text();
-					$("#id").val(valor);
-					return false;
-				});
-				$('.calendario').datepicker();
-				
-				$('#btn-pesquisar').click(function(){
-					$.ajax({
-						url: "usuarios/list",
-						data: "$btn-pesquisar=" + $("#pesquisarUsuario").val(),
-						type: "POST",
-						success: function(retorno){
-							$("#retornoUsuarios").html(retorno);
-							$("#retornoUsuarios").dialog({ width: 600 } ,{ title: 'Usuários' });
-						},
-						failure: function(){
-							$("#retornoUsuarios").alert("Erro");							
-						}
-					});
-				});
-				$('.IdRemove').click(function(e){
-					e.stopPropagation();	
-					if($('.IdRemove').is(':checked')){
-						$("#apagarLivros").show();
-					}else{
-						$('#apagarLivros').hide();
-					}
-				});
-			});
-		</script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/livro.js" charset="utf-8"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<style type="text/css">
 			#EmprestarLivro, #DevolverLivro{
 				display: none;
@@ -63,6 +24,8 @@
 			#ApagarLivros{
 				width:110px;
 			}
+			label { display: block; margin-top: 10px; }
+			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
 	</head>
 	<body>
@@ -115,7 +78,7 @@
 					<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
 				</tr>
 			</table>
-			<form method="post" action="livro/emprestar">
+			<form method="post" id="formEmpresta" action="livro/emprestar">
 				<table>
 					<tr>
 						<td>
@@ -150,7 +113,7 @@
 		
 		<div id="DevolverLivro">
 		<h1>Devolver livro</h1>
-			<form method="post" action="livro/devolve">
+			<form method="post" id="fomDevolve" action="livro/devolve">
 				<table>
 					<tr>
 						<td><input type="hidden" name="id" id="id" /></td>

@@ -10,9 +10,13 @@
 			#devolverLivro{
 				display: none;
 			}
+			label { display: block; margin-top: 10px; }
+			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
+		
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
 		<script type="text/javascript">
@@ -23,6 +27,18 @@
 					$("#IdEmprestimo").val(valor); 
 				});
 				$("#calendario").datepicker();
+				$("#formDevolve").validate({
+					rules:{
+						'dataDeDevolucao':{
+							required: true
+						}
+					},
+					messages:{
+						'dataDeDevolucao':{
+							required: 'Digite a data de devolução'
+						}
+					}
+				});
 			});
 		</script>
 	</head>
@@ -56,7 +72,7 @@
 		</table>
 		<div id="devolverLivro">
 			<h1>Devolver Livro</h1>
-			<form method="post" action="emprestimo/devolve">
+			<form method="post" id="formDevolve" action="emprestimo/devolve">
 				<table>
 					<tr>
 						<td>Data de devolução: </td>
