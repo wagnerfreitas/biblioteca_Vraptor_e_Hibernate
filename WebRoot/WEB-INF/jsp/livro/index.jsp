@@ -18,12 +18,14 @@
 					$("#EmprestarLivro").show();
 					var valor = $(this).parent().parent().children(':nth-child(1)').text();
 					$("#IDLivro").val(valor);
+					return false;
 				});
 				$(".devolver").click(function(){
 					$("#EmprestarLivro").hide();
 					$("#DevolverLivro").show();
 					var valor = $(this).parent().parent().children(':nth-child(1)').text();
 					$("#id").val(valor);
+					return false;
 				});
 				$('.calendario').datepicker();
 				
@@ -41,8 +43,8 @@
 						}
 					});
 				});
-				$("#ApagarLivros").click(function(){
-					$(".formRemove").submit();
+				$(".IdRemove").checked(function(){
+					$("#apagarLivros").hide();
 				});
 			});
 		</script>
@@ -63,16 +65,18 @@
 		<form class="formRemove" method="post" action="livro/remove">
 			<table>
 				<tr>
-					<td> - Nome - </td>
-					<td> - Autor - </td>
+					<td style="width: 200px"> - Nome - </td>
+					<td style="width: 200px"> - Autor - </td>
+					<td style="width: 120px"> - Edição - </td>
 					<td></td>
-					<td>Apagar livros</td>
+					<td> - Apagar livros -</td>
 				</tr>
 				<c:forEach items="${livros}" var="livro">
 					<tr>
 						<td style="display: none">${livro.id}</td>
 						<td style="width: 220px">. ${livro.nome}</td>
 						<td style="width: 120px">${livro.autor}</td>
+						<td>${livro.edicao}</td>
 						<td>
 							<c:if test="${livro.emprestado}">
 								<button class="devolver">Devolver</button>
@@ -81,7 +85,7 @@
 							<c:if test="${!livro.emprestado}">
 								<button class="emprestar">Emprestar</button>
 						<td style="text-align: center;">
-							<input type="checkbox" name="IdRemove" value="${livro.id}" />
+								<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
 						</td>
 							</c:if>
 						</td>
@@ -91,7 +95,8 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><button id="ApagarLivros">Apagar livros</button></td>
+					<td></td>
+					<td><input type="submit" id="apagarLivros" value="Apagar livros"></td>
 				</tr>
 			</table>
 		</form>	

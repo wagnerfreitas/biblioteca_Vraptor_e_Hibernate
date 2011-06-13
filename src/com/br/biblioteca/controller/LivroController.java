@@ -59,6 +59,9 @@ public class LivroController {
 		Emprestimo emprestimo = new Emprestimo();
 
 		Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(IdUsuario);
+		usuario.setEmprestimoAtivo(true);
+		usuarioDAO.atualiza(usuario);
+		
 		emprestimo.setUsuario(usuario);
 		
 		Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
@@ -88,9 +91,14 @@ public class LivroController {
 	public void devolve(Long id, Calendar dataDeDevolucao){
 		String url = "../livros?nome=";
 		Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
+
 		Livro livro = emprestimo.getLivro();
+		Usuario usuario = emprestimo.getUsuario();
 		livro.setEmprestado(false);
+		usuario.setEmprestimoAtivo(false);
 		emprestimo.setDataDeDevolucao(dataDeDevolucao);
+		
+		usuarioDAO.atualiza(usuario);
 		livroDAO.atualiza(livro);
 		emprestimoDAO.atualiza(emprestimo);
 		result.forwardTo(url);

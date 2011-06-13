@@ -15,6 +15,10 @@
 					'livro.autor':{
 						required: true,
 						minlength: 3
+					},
+					'livro.edicao':{
+						required: true,
+						minlength: 1
 					}
 				},
 				messages:{
@@ -25,6 +29,10 @@
 					'livro.autor':{
 						required: 'Digite o nome do autor',
 						minlength: 'O o nome do autor deve conter no mínimo 3 caracteres'
+					},
+					'livro.edicao':{
+						required: 'Digite a edição do livro',
+						minlength: 'A edição do livro deve conter no mínimo 1 caractere'
 					}
 				}
 			});
@@ -55,6 +63,14 @@
 				</td>
 				<td>
 					<input type="text" name="livro.autor" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Edição: 
+				</td>
+				<td>
+					<input type="text" name="livro.edicao" />
 				</td>
 			</tr>
 			<tr>

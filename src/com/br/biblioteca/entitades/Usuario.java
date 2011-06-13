@@ -11,6 +11,7 @@ public class Usuario {
 	private Long id;
 	private String nome;
 	private String email;
+	private boolean emprestimoAtivo;
 	private boolean usuarioAtivo;
 	
 	public String getNome() {
@@ -36,5 +37,11 @@ public class Usuario {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public boolean isEmprestimoAtivo() {
+		return emprestimoAtivo;
+	}
+	public void setEmprestimoAtivo(boolean emprestimoAtivo) {
+		this.emprestimoAtivo = emprestimoAtivo;
 	}
 }

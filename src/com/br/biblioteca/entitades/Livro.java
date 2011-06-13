@@ -11,6 +11,8 @@ public class Livro {
 	private Long id;
 	private String nome;
 	private String autor;
+	private String edicao;
+	
 	private boolean emprestado;
 	private boolean livroDeletado;
 	
@@ -43,5 +45,11 @@ public class Livro {
 	}
 	public void setLivroDeletado(boolean livroDeletado) {
 		this.livroDeletado = livroDeletado;
+	}
+	public String getEdicao() {
+		return edicao;
+	}
+	public void setEdicao(String edicao) {
+		this.edicao = edicao;
 	}
 }
