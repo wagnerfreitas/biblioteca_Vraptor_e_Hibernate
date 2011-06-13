@@ -43,8 +43,13 @@
 						}
 					});
 				});
-				$(".IdRemove").checked(function(){
-					$("#apagarLivros").hide();
+				$('.IdRemove').click(function(e){
+					e.stopPropagation();	
+					if($('.IdRemove').is(':checked')){
+						$("#apagarLivros").show();
+					}else{
+						$('#apagarLivros').hide();
+					}
 				});
 			});
 		</script>
@@ -96,7 +101,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><input type="submit" id="apagarLivros" value="Apagar livros"></td>
+					<td><input type="submit" style="display: none" id="apagarLivros" value="Apagar livros"></td>
 				</tr>
 			</table>
 		</form>	

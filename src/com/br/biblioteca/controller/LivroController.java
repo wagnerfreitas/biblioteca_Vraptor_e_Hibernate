@@ -61,7 +61,6 @@ public class LivroController {
 		Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(IdUsuario);
 		usuario.setEmprestimoAtivo(true);
 		usuarioDAO.atualiza(usuario);
-		
 		emprestimo.setUsuario(usuario);
 		
 		Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
@@ -77,30 +76,32 @@ public class LivroController {
 	
 	@Post
 	public void remove(List<Long> IdRemove){
-		String url = "../livros?nome=";
 		Livro livro = null;
 		for (Long id : IdRemove) {
 			livro = livroDAO.pesquisarLivroPorId(id);
 			livro.setLivroDeletado(true);
 			livroDAO.atualiza(livro);
 		}
-		result.forwardTo(url);
+		result.forwardTo("../index.jsp");
 	}
 	
 	@Post
 	public void devolve(Long id, Calendar dataDeDevolucao){
-		String url = "../livros?nome=";
-		Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
-
-		Livro livro = emprestimo.getLivro();
-		Usuario usuario = emprestimo.getUsuario();
-		livro.setEmprestado(false);
-		usuario.setEmprestimoAtivo(false);
-		emprestimo.setDataDeDevolucao(dataDeDevolucao);
-		
-		usuarioDAO.atualiza(usuario);
-		livroDAO.atualiza(livro);
-		emprestimoDAO.atualiza(emprestimo);
-		result.forwardTo(url);
+		if(id.equals("") || dataDeDevolucao.equals("")){
+			throw new RuntimeException();
+		}else{
+			Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
+	
+			Livro livro = emprestimo.getLivro();
+			Usuario usuario = emprestimo.getUsuario();
+			livro.setEmprestado(false);
+			usuario.setEmprestimoAtivo(false);
+			emprestimo.setDataDeDevolucao(dataDeDevolucao);
+			
+			usuarioDAO.atualiza(usuario);
+			livroDAO.atualiza(livro);
+			emprestimoDAO.atualiza(emprestimo);
+			result.forwardTo("../livros?nome=''");
+		}
 	}   
 }
