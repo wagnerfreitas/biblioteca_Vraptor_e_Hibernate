@@ -24,11 +24,7 @@ public class LivroDAO {
 	public void adiciona(Livro livro){
 		try {
 			Transaction tx = session.beginTransaction();
-			//modifiquei aki
-			
 			livro.setLivroDeletado(false);
-			
-			//até aki
 			livro.setEmprestado(false);
 			session.save(livro);
 			tx.commit();	
@@ -50,20 +46,13 @@ public class LivroDAO {
 		} catch (HibernateException e) {
 			throw new RuntimeException();
 		}
-		finally{
-			if(session != null){
-				session.close();
-			}
-		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Livro> listaDeLivro(String nomeDoLivro){
 		return session.createCriteria(Livro.class)
 			.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
-			//modifiquei aki
 			.add(Restrictions.eq("livroDeletado", false))
-			//até aki
 		.list();
 	}
 	

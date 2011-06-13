@@ -41,6 +41,9 @@
 						}
 					});
 				});
+				$("#ApagarLivros").click(function(){
+					$(".formRemove").submit();
+				});
 			});
 		</script>
 		<style type="text/css">
@@ -50,31 +53,48 @@
 			button{
 				width:100px;
 			}
+			#ApagarLivros{
+				width:110px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Lista de livros</h1>
-		<table>
-			<c:forEach items="${livros}" var="livro">
+		<form class="formRemove" method="post" action="livro/remove">
+			<table>
 				<tr>
-					<td style="display: none">${livro.id}</td>
-					<td>Nome: </td>
-					<td style="width: 220px">${livro.nome}</td>
-					<td>Autor: </td>
-					<td style="width: 120px">${livro.autor}</td>
-					<td>
-						<c:if test="${livro.emprestado}">
-							<button class="devolver">Devolver</button>
-						</c:if>
-
-						<c:if test="${!livro.emprestado}">
-							<button class="emprestar">Emprestar</button>
-							<input type="checkbox" name="remove" value="${livro.id}" />Apagar livro
-						</c:if>
-					</td>
+					<td> - Nome - </td>
+					<td> - Autor - </td>
+					<td></td>
+					<td>Apagar livros</td>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach items="${livros}" var="livro">
+					<tr>
+						<td style="display: none">${livro.id}</td>
+						<td style="width: 220px">. ${livro.nome}</td>
+						<td style="width: 120px">${livro.autor}</td>
+						<td>
+							<c:if test="${livro.emprestado}">
+								<button class="devolver">Devolver</button>
+							</c:if>
+	
+							<c:if test="${!livro.emprestado}">
+								<button class="emprestar">Emprestar</button>
+						<td style="text-align: center;">
+							<input type="checkbox" name="IdRemove" value="${livro.id}" />
+						</td>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><button id="ApagarLivros">Apagar livros</button></td>
+				</tr>
+			</table>
+		</form>	
 		
 		<div id="EmprestarLivro">
 			<h1>Emprestar livro</h1>

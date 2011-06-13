@@ -72,29 +72,27 @@ public class LivroController {
 		result.forwardTo("../index.jsp");
 	}
 	
-	
-	//modifiquei aki
 	@Post
-	public void remove(Long id){
-		Livro livro = livroDAO.pesquisarLivroPorId(id);
-		Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
-		if(livro.getId().equals(emprestimo.getLivro().getId())){
-			throw new RuntimeException();
+	public void remove(List<Long> IdRemove){
+		String url = "../livros?nome=";
+		Livro livro = null;
+		for (Long id : IdRemove) {
+			livro = livroDAO.pesquisarLivroPorId(id);
+			livro.setLivroDeletado(true);
+			livroDAO.atualiza(livro);
 		}
-		livro.setLivroDeletado(true);
-		livroDAO.atualiza(livro);
+		result.forwardTo(url);
 	}
-	//até aki
-	
 	
 	@Post
 	public void devolve(Long id, Calendar dataDeDevolucao){
+		String url = "../livros?nome=";
 		Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
 		Livro livro = emprestimo.getLivro();
 		livro.setEmprestado(false);
 		emprestimo.setDataDeDevolucao(dataDeDevolucao);
 		livroDAO.atualiza(livro);
 		emprestimoDAO.atualiza(emprestimo);
-		result.forwardTo("../index.jsp");
+		result.forwardTo(url);
 	}   
 }
