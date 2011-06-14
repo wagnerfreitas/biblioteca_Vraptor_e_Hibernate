@@ -42,6 +42,7 @@ public class UsuarioController {
 	}
 	
 	@Post
+	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
 		if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
 			throw new NullPointerException();
@@ -51,6 +52,7 @@ public class UsuarioController {
 	}
 	
 	@Post
+	@Path("/usuario/delete")
 	public void delete(List<Long> idDelete){
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);

@@ -43,6 +43,7 @@ public class LivroController {
 	}
 	
 	@Post
+	@Path("/livro/novo")
 	public void novo(Livro livro) {
 		if(livro.getNome().equals("") || livro.getAutor().equals("")){
 			result.include("Erro" , "Nome ou email nulos");
@@ -55,6 +56,7 @@ public class LivroController {
 	} 
 	
 	@Post
+	@Path("livro/emprestar")
 	public void emprestar(Long IdUsuario, Long idLivro, Calendar dataDeEmprestimo){
 		Emprestimo emprestimo = new Emprestimo();
 
@@ -71,10 +73,11 @@ public class LivroController {
 		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 
 		emprestimoDAO.empresta(emprestimo);
-		result.forwardTo("../index.jsp");
+		result.forwardTo("/livros");
 	}
 	
 	@Post
+	@Path("livro/remove")
 	public void remove(List<Long> IdRemove){
 		Livro livro = null;
 		for (Long id : IdRemove) {
@@ -82,10 +85,11 @@ public class LivroController {
 			livro.setLivroDeletado(true);
 			livroDAO.atualiza(livro);
 		}
-		result.forwardTo("../index.jsp");
+		result.forwardTo("/index.jsp");
 	}
 	
 	@Post
+	@Path("livro/devolve")
 	public void devolve(Long id, Calendar dataDeDevolucao){
 		if(id.equals("") || dataDeDevolucao.equals("")){
 			throw new RuntimeException();
@@ -101,7 +105,7 @@ public class LivroController {
 			usuarioDAO.atualiza(usuario);
 			livroDAO.atualiza(livro);
 			emprestimoDAO.atualiza(emprestimo);
-			result.forwardTo("../livros?nome=''");
+			result.forwardTo("/index.jsp");
 		}
 	}   
 }

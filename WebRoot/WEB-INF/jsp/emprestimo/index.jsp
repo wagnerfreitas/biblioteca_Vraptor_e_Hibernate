@@ -64,7 +64,7 @@
 						Data de empréstimo:
 					</td>
 					<td>
-						<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyy" />
+						<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyyy" />
 					</td>
 					<td><button class="devolver">Devolver</button></td>
 				</tr>
