@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -30,6 +31,7 @@ public class LivroController {
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioDAO = usuarioDAO;
 	}
+	
 	@Get
 	@Path("/livros")
 	public void index(String nome){
@@ -74,6 +76,13 @@ public class LivroController {
 
 		emprestimoDAO.empresta(emprestimo);
 		result.forwardTo("/livros");
+	}
+	
+	@Put @Post
+	@Path("/livro/atualiza")
+	public void atualiza(Livro livro){
+		livroDAO.atualiza(livro);
+		result.forwardTo("../index.jsp");
 	}
 	
 	@Post

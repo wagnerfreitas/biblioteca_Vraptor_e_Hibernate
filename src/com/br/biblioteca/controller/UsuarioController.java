@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -49,6 +50,13 @@ public class UsuarioController {
 		}
 		usuarioDAO.adiciona(usuario);
 		result.forwardTo("../index.jsp");
+	}
+	
+	@Put @Post
+	@Path("usuario/atualiza")
+	public void atualiza(Usuario usuario){
+		usuario.setUsuarioAtivo(true);
+		usuarioDAO.atualiza(usuario);
 	}
 	
 	@Post

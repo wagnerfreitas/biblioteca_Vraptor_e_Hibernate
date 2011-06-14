@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx">${pageContext.request.contextPath}</c:set>
 
@@ -15,7 +15,7 @@
 
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<style type="text/css">
-			#EmprestarLivro, #DevolverLivro{
+			#EmprestarLivro, #DevolverLivro, #atualizaLivro{
 				display: none;
 			}
 			button{
@@ -42,7 +42,7 @@
 				<c:forEach items="${livros}" var="livro">
 					<tr>
 						<td style="display: none">${livro.id}</td>
-						<td style="width: 220px">. ${livro.nome}</td>
+						<td style="width: 220px"><a href="#" class="nome">${livro.nome}</a></td>
 						<td style="width: 120px">${livro.autor}</td>
 						<td>${livro.edicao}</td>
 						<td>
@@ -116,9 +116,7 @@
 			<form method="post" id="fomDevolve" action="livro/devolve">
 				<table>
 					<tr>
-						<td><input type="hidden" name="id" id="id" /></td>
-					</tr>
-					<tr>
+						<td><input type="hidden" id="id" name="id" /></td>
 						<td>Data de devolução: </td>
 						<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
 					</tr>
@@ -129,6 +127,44 @@
 				</table>
 			</form>
 		</div>
+		
+		<div id="atualizaLivro">
+			<h1>Atualizar dados</h1>
+			<form method="post" id="formAtualiza" action="livro/atualiza">
+				<table>
+					<tr>
+						<td>
+							Nome: 
+						</td>
+						<td>
+							<input type="hidden" name="livro.id" id="idLivro" />
+							<input type="text" name="livro.nome" id="nome" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Autor:
+						</td>
+						<td>
+							<input type="text" name="livro.autor" id="autor"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Edição: 
+						</td>
+						<td><input type="text" name="livro.edicao" id="edicao"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<input type="submit" value="Enviar" /> 
+						</td>
+					</tr>
+				</table>			
+			</form>
+		</div>
+		
 		<div id="retornoUsuarios"></div>
 		<a href="index.jsp">Voltar</a><br/>
 	</body>

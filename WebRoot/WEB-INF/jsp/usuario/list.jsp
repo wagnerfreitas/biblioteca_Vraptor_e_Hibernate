@@ -8,6 +8,7 @@
 			<td>${usuario.nome}</td>
 			<td>Email: </td>
 			<td>${usuario.email}</td>
+			<td><input type="radio" name="idUsuario" value="${usuario.id}" /></td>
 		</tr>
 	</c:forEach>
 </table>

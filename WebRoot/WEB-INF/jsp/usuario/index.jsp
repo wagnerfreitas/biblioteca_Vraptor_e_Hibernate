@@ -6,15 +6,8 @@
 		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1">
 		<title>Lista de Usuários</title>
 		<style type="text/css">
-			form{
-				width:740px;
-			}
-			li {
-				list-style: none;
-				float: left;
-			}
-			.btn-deletar{
-				float: right;
+			#AtualizarUsuario{
+				display: none;
 			}
 		</style>
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
@@ -27,6 +20,17 @@
 					}else{
 						$('#deletarUsuario').hide();
 					}
+				});
+				$(".nome").click(function(){
+					$("#AtualizarUsuario").show();
+					var id = $(this).parent().parent().children(':nth-child(1)').text();
+					var emprestimo = $(this).parent().parent().children(':nth-child(2)').text();
+					var nome = $(this).parent().parent().children(':nth-child(3)').text();
+					var email = $(this).parent().parent().children(':nth-child(4)').text();
+					$("#IdUsuario").val(id);		
+					$("#emprestimo").val(emprestimo);			
+					$("#usuarioNome").val(nome);
+					$("#usuarioEmail").val(email);
 				});
 			});
 		</script>
@@ -43,7 +47,8 @@
 				<c:forEach items="${usuarios}" var="usuario">
 					<tr>
 						<td style="display: none">${usuario.id}</td>
-						<td>. ${usuario.nome}</td>
+						<td style="display: none">${usuario.emprestimoAtivo}</td>
+						<td><a href="#" class="nome">${usuario.nome}</a></td>
 						<td>${usuario.email}</td>
 						<td style="text-align: center">
 							<c:if test="${!usuario.emprestimoAtivo}">
@@ -60,6 +65,36 @@
 				</tr>			
 			</table>
 		</form>
+		
+		<div id="AtualizarUsuario">
+			<form id="formAtualiza" action="usuario/atualiza" method="post">
+				<h1>Atualizar dados</h1>
+				<table>
+					<tr>
+						<td>
+							Nome: 
+						</td>
+						<td>
+							<input type="hidden" id="emprestimo" name="usuario.emprestimoAtivo" />
+							<input type="hidden" id="IdUsuario" name="usuario.id" />
+							<input type="text" id="usuarioNome" name="usuario.nome" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Email: 
+						</td>
+						<td>
+							<input type="text" id="usuarioEmail" name="usuario.email" />
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Enviar" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 		<a href="index.jsp">Voltar</a>
 	</body>
 </html>
