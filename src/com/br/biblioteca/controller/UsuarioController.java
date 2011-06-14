@@ -57,6 +57,7 @@ public class UsuarioController {
 	public void atualiza(Usuario usuario){
 		usuario.setUsuarioAtivo(true);
 		usuarioDAO.atualiza(usuario);
+		result.forwardTo("../index.jsp");
 	}
 	
 	@Post

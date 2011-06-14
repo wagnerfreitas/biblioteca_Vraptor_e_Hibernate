@@ -5,35 +5,18 @@
 	<head>
 		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1">
 		<title>Lista de Usuários</title>
+		
 		<style type="text/css">
 			#AtualizarUsuario{
 				display: none;
 			}
+			label { display: block; margin-top: 10px; }
+			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
+		
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$('.idDelete').click(function(e){
-					e.stopPropagation();	
-					if($('.idDelete').is(':checked')){
-						$("#deletarUsuario").show();
-					}else{
-						$('#deletarUsuario').hide();
-					}
-				});
-				$(".nome").click(function(){
-					$("#AtualizarUsuario").show();
-					var id = $(this).parent().parent().children(':nth-child(1)').text();
-					var emprestimo = $(this).parent().parent().children(':nth-child(2)').text();
-					var nome = $(this).parent().parent().children(':nth-child(3)').text();
-					var email = $(this).parent().parent().children(':nth-child(4)').text();
-					$("#IdUsuario").val(id);		
-					$("#emprestimo").val(emprestimo);			
-					$("#usuarioNome").val(nome);
-					$("#usuarioEmail").val(email);
-				});
-			});
-		</script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/usuario.js"></script>
 	</head>
 	<body>
 		<h1>Lista de Usuários</h1>
