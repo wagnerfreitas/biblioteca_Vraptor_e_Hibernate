@@ -14,9 +14,6 @@
 			button{
 				width:100px;
 			}
-			#ApagarLivros{
-				width:110px;
-			}
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
@@ -27,17 +24,17 @@
 			<table>
 				<thead>
 					<tr>
-						<td width="100"> - Nome - </td>
-						<td width="120"> - Autor - </td>
+						<td width="150px"> - Nome - </td>
+						<td width="150"> - Autor - </td>
 						<td width="80"> - Edição - </td>
-						<td></td>
-						<td> - Apagar livros -</td>
+						<td width="110"></td>
+						<td> - Apagar -</td>
 					</tr>
 				</thead>
 				<c:forEach items="${livros}" var="livro">
 					<tr idLivro="${livro.id}">
-						<td style="width: 220px"><a href="#" class="nome">${livro.nome}</a></td>
-						<td style="width: 120px">${livro.autor}</td>
+						<td><a href="#" class="nome">${livro.nome}</a></td>
+						<td>${livro.autor}</td>
 						<td>${livro.edicao}</td>
 						<td>
 							<c:if test="${livro.emprestado}">
@@ -76,11 +73,9 @@
 				<input type="hidden" name="idLivro" id="IDLivro" />
 				<table>
 					<tr>
+						<td></td>
 						<td>
-							Digite o ID do usuário:
-						</td>
-						<td>
-							<input type="text" name="IdUsuario" id="IDUsuario" />
+							<input type="hidden" name="IdUsuario" id="IDUsuario" />
 						</td>
 					</tr>
 					<tr>
@@ -100,7 +95,6 @@
 				</table>
 			</form>
 		</div>
-		
 		<div id="DevolverLivro">
 		<h1>Devolver livro</h1>
 			<form method="post" id="fomDevolve" action="livro/devolve">

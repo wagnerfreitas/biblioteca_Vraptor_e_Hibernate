@@ -12,7 +12,7 @@ $(document).ready(function(){
 	$('#pesquisarEmprestimo').click(function(){
 		$('form').hide();
 		$('form#Emprestimo').show();
-	});	
+	});
 	
 	$("#adicionarUsuario").click(function(){
 		$('form').hide();

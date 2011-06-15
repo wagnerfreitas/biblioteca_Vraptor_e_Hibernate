@@ -49,11 +49,10 @@ public class LivroController {
 	public void novo(Livro livro) {
 		if(livro.getNome().equals("") || livro.getAutor().equals("")){
 			result.include("Erro" , "Nome ou email nulos");
-			result.forwardTo("../index.jsp");
 		}else{
 			livroDAO.adiciona(livro);
 			result.include("novo", livro);
-			result.redirectTo("../index.jsp");
+			result.redirectTo("/");
 		}
 	} 
 	

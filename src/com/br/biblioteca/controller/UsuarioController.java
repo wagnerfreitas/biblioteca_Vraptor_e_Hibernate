@@ -1,5 +1,7 @@
 package com.br.biblioteca.controller;
 
+import static br.com.caelum.vraptor.view.Results.json;
+
 import java.util.List;
 
 import br.com.caelum.vraptor.Get;
@@ -8,7 +10,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import static br.com.caelum.vraptor.view.Results.json;
 
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
@@ -46,11 +47,14 @@ public class UsuarioController {
 	@Post
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
+		String message;
 		if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
-			throw new NullPointerException();
+			message = "Nome ou email nulos";
+		}else{
+			usuarioDAO.adiciona(usuario);
+			message = "\""+ usuario.getNome() + "\" adicionado com sucesso";
 		}
-		usuarioDAO.adiciona(usuario);
-		result.redirectTo("../index.jsp");
+		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Put @Post

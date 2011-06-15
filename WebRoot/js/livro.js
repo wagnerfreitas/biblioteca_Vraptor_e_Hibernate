@@ -1,6 +1,4 @@
-﻿var pesquisaRealizada;
-
-$(document).ready(function(){
+﻿$(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
 		$("#DevolverLivro").hide();
@@ -22,10 +20,10 @@ $(document).ready(function(){
 		$("#EmprestarLivro").hide();
 		$("#DevolverLivro").hide();
 		$("#atualizaLivro").show();
-		var id = $(this).parent().parent().children(':nth-child(1)').text();
-		var nome = $(this).parent().parent().children(':nth-child(2)').text();
-		var autor = $(this).parent().parent().children(':nth-child(3)').text();
-		var edicao = $(this).parent().parent().children(':nth-child(4)').text();
+		var id = $(this).parent().parent().attr("idLivro");
+		var nome = $(this).parent().parent().children(':nth-child(1)').text();
+		var autor = $(this).parent().parent().children(':nth-child(2)').text();
+		var edicao = $(this).parent().parent().children(':nth-child(3)').text();
 		$("#idLivro").val(id);
 		$("#nome").val(nome);
 		$("#autor").val(autor);
@@ -87,7 +85,7 @@ $(document).ready(function(){
 		},
 		messages:{
 			'IdUsuario':{
-				required: 'Digite o ID do usuário',
+				required: 'Selecione um usuário',
 			},
 			'dataDeEmprestimo':{
 				required: 'Digite a data de empréstimo',
@@ -138,11 +136,6 @@ $(document).ready(function(){
 		}
 	})
 });
-
 function setIdUsuario(val){
-//		$(".usuario_id").click(function(){
-//			if($(this).is(':checked')){
-				$("#IDUsuario").val(val);
-//			}
-//		});
-	}
+	$("#IDUsuario").val(val);
+}

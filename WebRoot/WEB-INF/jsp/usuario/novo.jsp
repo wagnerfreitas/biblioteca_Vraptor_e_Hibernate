@@ -7,29 +7,48 @@
 	<script type="text/javascript" src="${ctx}/js/jquery.validate.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#usuarioNovo").validate({
-				rules:{
-					'usuario.nome':{
-						required: true,
-						minlength: 3
-					},
-					'usuario.email':{
-						required: true,
-						minlength: 3
-					}
-				},
-				messages:{
-					'usuario.nome':{
-						required: 'Digite seu nome',
-						minlength: 'O nome deve conter no mínimo 3 caracteres'
-					},
-					'usuario.email':{
-						required: 'Digite seu email',
-						minlength: 'O email deve conter no mínimo 3 caracteres'
-					}
+			turnFormValidble();
+			$("#btn").click(function(){
+				if ($("#usuarioNovo").valid()){
+					$.post('usuario/novo', $("#usuarioNovo").serialize())
+						.success(function(msg){
+							if (confirm(msg.message +'\nDeseja inserir outro usuário?')){
+								//limpar form e colocar foco no 1o text
+							} else {
+								//sumir form 
+							}
+						})
+						.error(function(erro){
+							alert(erro.message);
+						});
 				}
+				
 			});
 		});
+		function turnFormValidble(){
+			$("#usuarioNovo").validate({
+					rules:{
+						'usuario.nome':{
+							required: true,
+							minlength: 3
+						},
+						'usuario.email':{
+							required: true,
+							minlength: 3
+						}
+					},
+					messages:{
+						'usuario.nome':{
+							required: 'Digite seu nome',
+							minlength: 'O nome deve conter no mínimo 3 caracteres'
+						},
+						'usuario.email':{
+							required: 'Digite seu email',
+							minlength: 'O email deve conter no mínimo 3 caracteres'
+						}
+					}
+				});
+		}
 	</script>
 	
 	<style type="text/css">
@@ -38,7 +57,7 @@
 	</style>
 	
 </head>
-<form method="post" id="usuarioNovo" action="usuario/novo">
+<form method="post" id="usuarioNovo">
 	<fieldset>
 		<legend>
 			Adicionar usuário
@@ -67,7 +86,7 @@
 			<tr>
 				<td></td>
 				<td>
-					<input type="submit" id="btn"  value="Enviar" />
+					<input type="button" id="btn"  value="Enviar" />
 				</td>
 			</tr>
 		</table>
