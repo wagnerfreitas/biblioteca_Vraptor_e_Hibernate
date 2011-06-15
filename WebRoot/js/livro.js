@@ -1,9 +1,11 @@
-﻿$(document).ready(function(){
+﻿var pesquisaRealizada;
+
+$(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
 		$("#DevolverLivro").hide();
 		$("#EmprestarLivro").show();
-		var valor = $(this).parent().parent().children(':nth-child(1)').text();
+		var valor = $(this).parent().parent().attr("idLivro");
 		$("#IDLivro").val(valor);
 		return false;
 	});
@@ -11,7 +13,7 @@
 		$("#atualizaLivro").hide();
 		$("#EmprestarLivro").hide();
 		$("#DevolverLivro").show();
-		var valor = $(this).parent().parent().children(':nth-child(1)').text();
+		var valor = $(this).parent().parent().attr("idLivro");
 		$("#id").val(valor);
 		return false;
 	});
@@ -41,20 +43,21 @@
 					sHtml += '<tr>'+
 						'<td style=\"width:150px\">'+ usuarios[i].nome +'</td>'+
 						'<td>'+ usuarios[i].email +'</td>'+
-						'<td style=\"text-align: center;\"><input type="radio" name="emprestar" id="idUsuario" value="'+ usuarios[i].id +'" /></td>' + 
+						'<td style=\"text-align: center;\"><input type="radio" onclick="setIdUsuario(this.value)" name="emprestar" class="usuario_id" value="'+ usuarios[i].id +'" /></td>' + 
 						'</tr>';
 				}
-				sHtml += '</table>';
-				
-				$("#retornoUsuarios")
-					.html(sHtml)
-					.dialog({
-						width: 600, 
-						title: 'Usuários'
-					});
-			})
-			.error(function(erro){
-				$("#retornoUsuarios").dialog(erro);
+		sHtml += '</table>';
+			
+		$("#retornoUsuarios")
+			.html(sHtml)
+				.dialog({
+				width: 600, 
+				title: 'Usuários'
+			});
+			
+		})
+		.error(function(erro){
+			$("#retornoUsuarios").dialog(erro);
 		});
 	});
 	
@@ -135,3 +138,11 @@
 		}
 	})
 });
+
+function setIdUsuario(val){
+//		$(".usuario_id").click(function(){
+//			if($(this).is(':checked')){
+				$("#IDUsuario").val(val);
+//			}
+//		});
+	}

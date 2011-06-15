@@ -25,16 +25,17 @@
 		<h1>Lista de livros</h1>
 		<form class="formRemove" method="post" action="livro/remove">
 			<table>
-				<tr>
-					<td style="width: 200px"> - Nome - </td>
-					<td style="width: 200px"> - Autor - </td>
-					<td style="width: 120px"> - Edição - </td>
-					<td></td>
-					<td> - Apagar livros -</td>
-				</tr>
-				<c:forEach items="${livros}" var="livro">
+				<thead>
 					<tr>
-						<td style="display: none">${livro.id}</td>
+						<td width="100"> - Nome - </td>
+						<td width="120"> - Autor - </td>
+						<td width="80"> - Edição - </td>
+						<td></td>
+						<td> - Apagar livros -</td>
+					</tr>
+				</thead>
+				<c:forEach items="${livros}" var="livro">
+					<tr idLivro="${livro.id}">
 						<td style="width: 220px"><a href="#" class="nome">${livro.nome}</a></td>
 						<td style="width: 120px">${livro.autor}</td>
 						<td>${livro.edicao}</td>
@@ -72,12 +73,8 @@
 				</tr>
 			</table>
 			<form method="post" id="formEmpresta" action="livro/emprestar">
+				<input type="hidden" name="idLivro" id="IDLivro" />
 				<table>
-					<tr>
-						<td>
-							<input type="hidden" name="idLivro" id="IDLivro">
-						</td>
-					</tr>
 					<tr>
 						<td>
 							Digite o ID do usuário:
@@ -107,9 +104,9 @@
 		<div id="DevolverLivro">
 		<h1>Devolver livro</h1>
 			<form method="post" id="fomDevolve" action="livro/devolve">
+				<input type="hidden" id="id" name="id" />
 				<table>
 					<tr>
-						<td><input type="hidden" id="id" name="id" /></td>
 						<td>Data de devolução: </td>
 						<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
 					</tr>
