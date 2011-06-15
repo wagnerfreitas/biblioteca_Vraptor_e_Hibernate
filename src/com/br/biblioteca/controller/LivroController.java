@@ -53,7 +53,7 @@ public class LivroController {
 		}else{
 			livroDAO.adiciona(livro);
 			result.include("novo", livro);
-			result.forwardTo("../index.jsp");
+			result.redirectTo("../index.jsp");
 		}
 	} 
 	
@@ -75,14 +75,14 @@ public class LivroController {
 		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 
 		emprestimoDAO.empresta(emprestimo);
-		result.forwardTo("/livros");
+		result.redirectTo("/livros?nome=");
 	}
 	
 	@Put @Post
 	@Path("/livro/atualiza")
 	public void atualiza(Livro livro){
 		livroDAO.atualiza(livro);
-		result.forwardTo("../index.jsp");
+		result.redirectTo("/livros?nome=");
 	}
 	
 	@Post
@@ -94,7 +94,7 @@ public class LivroController {
 			livro.setLivroDeletado(true);
 			livroDAO.atualiza(livro);
 		}
-		result.forwardTo("/index.jsp");
+		result.redirectTo("/livros?nome=");
 	}
 	
 	@Post
@@ -114,7 +114,7 @@ public class LivroController {
 			usuarioDAO.atualiza(usuario);
 			livroDAO.atualiza(livro);
 			emprestimoDAO.atualiza(emprestimo);
-			result.forwardTo("/index.jsp");
+			result.redirectTo("/livros?nome=");
 		}
 	}   
 }

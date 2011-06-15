@@ -58,7 +58,7 @@ public class UsuarioController {
 	public void atualiza(Usuario usuario){
 		usuario.setUsuarioAtivo(true);
 		usuarioDAO.atualiza(usuario);
-		result.forwardTo("../index.jsp");
+		result.redirectTo("/usuarios?nome=");
 	}
 	
 	@Post
@@ -69,6 +69,6 @@ public class UsuarioController {
 			usuario.setUsuarioAtivo(false);
 			usuarioDAO.atualiza(usuario);
 		}
-		result.forwardTo("../index.jsp");
+		result.redirectTo("/usuarios?nome=");
 	}
 }

@@ -49,6 +49,6 @@ public class EmprestimoController {
 		usuarioDAO.atualiza(usuario);
 		livroDAO.atualiza(livro);
 		emprestimoDAO.atualiza(emprestimo);
-		result.forwardTo("../index.jsp");
+		result.redirectTo("/emprestimos?nomeDoLivro=");
 	}
 }
