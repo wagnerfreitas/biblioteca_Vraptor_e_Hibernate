@@ -33,19 +33,37 @@
 	$('.calendario').datepicker();
 		
 	$('#btn-pesquisar').click(function(){
-		$.ajax({
-			url: "usuarios/list",
-			data: "$btn-pesquisar=" + $("#pesquisarUsuario").val(),
-			type: "POST",
-			success: function(retorno){
-				$("#retornoUsuarios").html(retorno);
-				$("#retornoUsuarios").dialog({ width: 600 } ,{ title: 'Usuários' });
-			},
-			failure: function(){
-				$("#retornoUsuarios").alert("Erro");							
-			}
+		$.get("usuarios/list/"+ $("#pesquisarUsuario").val())
+			.success(function(retorno){
+				var usuarios = retorno.list;
+				var sHtml = '<table><thead><tr><td> - Nome - </td><td> - Email - </td><td> - Emprestar - </td></tr></thead>';
+				for(i = 0; i < usuarios.length; i++){
+					sHtml += '<tr>'+
+						'<td style=\"width:150px\">'+ usuarios[i].nome +'</td>'+
+						'<td>'+ usuarios[i].email +'</td>'+
+						'<td style=\"text-align: center;\"><input type="radio" name="emprestar" id="idUsuario" value="'+ usuarios[i].id +'" /></td>' + 
+						'</tr>';
+				}
+				sHtml += '</table>';
+				
+				$("#retornoUsuarios")
+					.html(sHtml)
+					.dialog({
+						width: 600, 
+						title: 'Usuários'
+					});
+			})
+			.error(function(erro){
+				$("#retornoUsuarios").dialog(erro);
 		});
 	});
+	
+	$('#pesquisarUsuario').keydown(function(event){
+		if(event.keyCode === 13){
+			$('#btn-pesquisar').click();
+		}
+	});
+	
 	$('.IdRemove').click(function(e){
 		e.stopPropagation();	
 		if($('.IdRemove').is(':checked')){

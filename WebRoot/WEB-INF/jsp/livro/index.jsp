@@ -1,18 +1,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx">${pageContext.request.contextPath}</c:set>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<title>Lista de Livros</title>
-		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
-		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-		<script type="text/javascript" src="js/livro.js" charset="utf-8"></script>
-
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<style type="text/css">
 			#EmprestarLivro, #DevolverLivro, #atualizaLivro{
@@ -168,4 +161,9 @@
 		<div id="retornoUsuarios"></div>
 		<a href="index.jsp">Voltar</a><br/>
 	</body>
+	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/livro.js" charset="utf-8"></script>	
 </html>

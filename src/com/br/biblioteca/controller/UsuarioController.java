@@ -8,6 +8,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import static br.com.caelum.vraptor.view.Results.json;
 
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
@@ -31,10 +32,10 @@ public class UsuarioController {
 	}
 	
 	@Get
-	@Path("/usuarios/list")
-	public void usuarios(String pesquisarUsuario){
-		List<Usuario> usuarios = usuarioDAO.pesquisa(pesquisarUsuario);
-		result.include("list", usuarios);
+	@Path("/usuarios/list/{nome}")
+	public void list(String nome){
+		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
+		result.use(json()).from(usuarios).serialize();
 	}
 	
 	@Get
@@ -49,7 +50,7 @@ public class UsuarioController {
 			throw new NullPointerException();
 		}
 		usuarioDAO.adiciona(usuario);
-		result.forwardTo("../index.jsp");
+		result.redirectTo("../index.jsp");
 	}
 	
 	@Put @Post
