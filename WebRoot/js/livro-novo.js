@@ -18,6 +18,12 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	$("#livroNovo input").keydown(function(event){
+		if(event.keyCode === 13 ){
+			$("#btn").click();
+		}
+	})
 });
 	
 function turnFormValid(){

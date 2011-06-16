@@ -27,8 +27,8 @@
 						<td width="150px"> - Nome - </td>
 						<td width="150"> - Autor - </td>
 						<td width="80"> - Edição - </td>
-						<td width="110"></td>
-						<td> - Apagar -</td>
+						<td></td>
+						<td width="105" align="center"> - Apagar -</td>
 					</tr>
 				</thead>
 				<c:forEach items="${livros}" var="livro">
@@ -71,13 +71,8 @@
 			</table>
 			<form method="post" id="formEmpresta" action="livro/emprestar">
 				<input type="hidden" name="idLivro" id="IDLivro" />
+				<input type="hidden" name="IdUsuario" id="IDUsuario" />
 				<table>
-					<tr>
-						<td></td>
-						<td>
-							<input type="hidden" name="IdUsuario" id="IDUsuario" />
-						</td>
-					</tr>
 					<tr>
 						<td>
 							Digite a data do empréstimo:
@@ -89,7 +84,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input type="submit" value="Enviar" />
+							<input type="button" id="btn-emprestar" value="Enviar" />
 						</td>
 					</tr>
 				</table>

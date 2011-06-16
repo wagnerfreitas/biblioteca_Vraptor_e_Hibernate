@@ -60,23 +60,28 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/emprestar")
-	public void emprestar(Long IdUsuario, Long idLivro, Calendar dataDeEmprestimo){
+	public void emprestar(Long iDUsuario, Long idLivro, Calendar dataDeEmprestimo){
 		Emprestimo emprestimo = new Emprestimo();
-
-		Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(IdUsuario);
-		usuario.setEmprestimoAtivo(true);
-		usuarioDAO.atualiza(usuario);
-		emprestimo.setUsuario(usuario);
-		
-		Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
-		livro.setEmprestado(true);
-		livroDAO.atualiza(livro);
-		
-		emprestimo.setLivro(livro);
-		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
-
-		emprestimoDAO.empresta(emprestimo);
-		result.redirectTo("/livros?nome=");
+		String message;
+		if(idLivro.equals("") || iDUsuario.equals("") || dataDeEmprestimo.equals("")){
+			message = "Erro";
+		}else{
+			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
+			usuario.setEmprestimoAtivo(true);
+			usuarioDAO.atualiza(usuario);
+			emprestimo.setUsuario(usuario);
+			
+			Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
+			livro.setEmprestado(true);
+			livroDAO.atualiza(livro);
+			
+			emprestimo.setLivro(livro);
+			emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
+			
+			emprestimoDAO.empresta(emprestimo);
+			message = "\"" + livro.getNome() + "\" emprestado com sucesso";
+			result.use(json()).from(message, "message").serialize();
+		}
 	}
 	
 	@Put @Post

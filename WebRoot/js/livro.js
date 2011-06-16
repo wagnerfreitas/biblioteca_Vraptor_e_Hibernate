@@ -1,4 +1,5 @@
-﻿$(document).ready(function(){
+﻿var $formEmpresta = $("#formEmpresta");
+$(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
 		$("#DevolverLivro").hide();
@@ -16,7 +17,7 @@
 		return false;
 	});
 	
-	$(".nome").click(function(){
+	$(".nome").click(function(){	
 		$("#EmprestarLivro").hide();
 		$("#DevolverLivro").hide();
 		$("#atualizaLivro").show();
@@ -59,6 +60,26 @@
 		});
 	});
 	
+	$("#btn-emprestar").click(function(){
+		tornFormEmprestaValid()
+		if($formEmpresta.valid()){
+			$.post("livro/emprestar", $formEmpresta.serialize())
+				.success(function(msg){
+					alert(msg.message)
+					location.reload();
+				})
+				.error(function(erro){
+					alert(erro.message)
+				});
+		}
+	});
+	
+	$formEmpresta.find("input").keydown(function(event){
+		if(event.keyCode === 13){
+			$("#btn-emprestar").click();
+		}
+	});
+	
 	$('#pesquisarUsuario').keydown(function(event){
 		if(event.keyCode === 13){
 			$('#btn-pesquisar').click();
@@ -74,24 +95,6 @@
 		}
 	});
 		
-	$("#formEmpresta").validate({
-		rules:{
-			'IdUsuario':{
-				required: true,
-			},
-			'dataDeEmprestimo':{
-				required: true,
-			},
-		},
-		messages:{
-			'IdUsuario':{
-				required: 'Selecione um usuário',
-			},
-			'dataDeEmprestimo':{
-				required: 'Digite a data de empréstimo',
-			}
-		}
-	});
 	$("#fomDevolve").validate({
 		rules:{
 			'dataDeDevolucao':{
@@ -136,6 +139,27 @@
 		}
 	})
 });
+function tornFormEmprestaValid(){
+	$("#formEmpresta").validate({
+		rules:{
+			'IdUsuario':{
+				required: true,
+			},
+			'dataDeEmprestimo':{
+				required: true,
+			},
+		},
+		messages:{
+			'IdUsuario':{
+				required: 'Selecione um usuário',
+			},
+			'dataDeEmprestimo':{
+				required: 'Digite a data de empréstimo',
+			}
+		}
+	});
+}
+
 function setIdUsuario(val){
 	$("#IDUsuario").val(val);
 }

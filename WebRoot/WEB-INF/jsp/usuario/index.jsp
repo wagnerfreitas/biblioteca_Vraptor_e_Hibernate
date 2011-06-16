@@ -25,7 +25,7 @@
 				<tr>
 					<td style="width: 200px"> - Nome - </td>
 					<td style="width: 200px"> - Email - </td>
-					<td> - Apagar usuários - </td>
+					<td style="width: 122px"> - Apagar usuários - </td>
 				</tr>
 				<c:forEach items="${usuarios}" var="usuario">
 					<tr>
