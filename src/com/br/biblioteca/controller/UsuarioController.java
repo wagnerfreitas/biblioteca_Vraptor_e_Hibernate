@@ -47,7 +47,7 @@ public class UsuarioController {
 	@Post
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
-		String message;
+		String message = null;
 		if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
 			message = "Nome ou email nulos";
 		}else{

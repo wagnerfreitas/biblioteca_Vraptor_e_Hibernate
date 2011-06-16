@@ -1,4 +1,26 @@
+var $livroNovo;
 $(document).ready(function(){
+	$livroNovo = $("#livroNovo");
+	turnFormValid();
+	$("#btn").click(function(){
+		if($livroNovo.valid()){
+			$.post('livro/novo', $livroNovo.serialize())
+				.success(function(msg){
+					if(confirm(msg.message + "\nDeseja adicionar outro livro?")){
+						$livroNovo[0].reset();
+						$livroNovo.find("input:first").focus();
+					}else{
+						$livroNovo.hide();				
+					}		
+			})
+			.error(function(msg){
+				alert(erro.msg);
+			});
+		}
+	});
+});
+	
+function turnFormValid(){
 	$("#livroNovo").validate({
 		rules:{
 			'livro.nome':{
@@ -29,7 +51,4 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$("#livroNovo").submit(function(){
-		
-	});
-});
+}

@@ -10,7 +10,7 @@
 		label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 	</style>
 </head>
-<form action="livro/novo" id="livroNovo" method="post">
+<form id="livroNovo" method="post">
 	<fieldset>
 		<legend>
 			Adicionar livro
@@ -43,7 +43,7 @@
 			<tr>
 				<td></td>
 				<td>
-					<input type="submit" value="Enviar" />
+					<input type="button" id="btn" value="Enviar" />
 				</td>
 			</tr>
 		</table>

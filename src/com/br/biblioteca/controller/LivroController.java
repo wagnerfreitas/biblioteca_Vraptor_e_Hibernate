@@ -9,6 +9,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import static br.com.caelum.vraptor.view.Results.json;
 
 import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.LivroDAO;
@@ -47,13 +48,14 @@ public class LivroController {
 	@Post
 	@Path("/livro/novo")
 	public void novo(Livro livro) {
+		String message;
 		if(livro.getNome().equals("") || livro.getAutor().equals("")){
-			result.include("Erro" , "Nome ou email nulos");
+			message = "Nome do livro ou autor nulos";
 		}else{
 			livroDAO.adiciona(livro);
-			result.include("novo", livro);
-			result.redirectTo("/");
+			message = "\"" + livro.getNome() + "\" adicionado com sucesso";
 		}
+		result.use(json()).from(message, "message").serialize();
 	} 
 	
 	@Post
