@@ -71,7 +71,7 @@
 			</table>
 			<form method="post" id="formEmpresta" action="livro/emprestar">
 				<input type="hidden" name="idLivro" id="IDLivro" />
-				<input type="hidden" name="IdUsuario" id="IDUsuario" />
+				<input type="hidden" name="iDUsuario" id="IDUsuario" />
 				<table>
 					<tr>
 						<td>

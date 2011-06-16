@@ -14,33 +14,6 @@
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
-		
-		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$(".devolver").click(function(){
-					$("#devolverLivro").show();					
-					var valor = $(this).parent().parent().children(':nth-child(1)').text();
-					$("#IdEmprestimo").val(valor); 
-				});
-				$("#calendario").datepicker();
-				$("#formDevolve").validate({
-					rules:{
-						'dataDeDevolucao':{
-							required: true
-						}
-					},
-					messages:{
-						'dataDeDevolucao':{
-							required: 'Digite a data de devolução'
-						}
-					}
-				});
-			});
-		</script>
 	</head>
 	<body>
 	<h1>Lista de Empréstimos</h1>
@@ -72,7 +45,7 @@
 		</table>
 		<div id="devolverLivro">
 			<h1>Devolver Livro</h1>
-			<form method="post" id="formDevolve" action="emprestimo/devolve">
+			<form method="post" id="formDevolve">
 				<table>
 					<tr>
 						<td>Data de devolução: </td>
@@ -80,11 +53,16 @@
 							<input type="hidden" id="IdEmprestimo" name="id" />
 							<input type="text" id="calendario" name="dataDeDevolucao" />
 						</td>
-						<td><input type="submit" value="Enviar" /></td>
+						<td><input type="button" id="btn-devolve" value="Enviar" /></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 		<a href="index.jsp">Voltar</a>
 	</body>
+	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/emprestimo.js"></script>
 </html>

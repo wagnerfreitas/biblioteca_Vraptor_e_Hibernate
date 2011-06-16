@@ -15,6 +15,7 @@ import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
 import com.br.biblioteca.entitades.Usuario;
+import static br.com.caelum.vraptor.view.Results.json;
 
 @Resource
 public class EmprestimoController {
@@ -38,17 +39,23 @@ public class EmprestimoController {
 	}
 	@Post
 	public void devolve(Long id, Calendar dataDeDevolucao){
-		Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
-		Livro livro = emprestimo.getLivro();
-		livro.setEmprestado(false);
-		
-		Usuario usuario = emprestimo.getUsuario();
-		usuario.setEmprestimoAtivo(false);
-		
-		emprestimo.setDataDeDevolucao(dataDeDevolucao);
-		usuarioDAO.atualiza(usuario);
-		livroDAO.atualiza(livro);
-		emprestimoDAO.atualiza(emprestimo);
-		result.redirectTo("/emprestimos?nomeDoLivro=");
+		String message;
+		if(id.equals("") || dataDeDevolucao.equals("")){
+			message = "Erro";
+		}else{
+			Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
+			Livro livro = emprestimo.getLivro();
+			livro.setEmprestado(false);
+			
+			Usuario usuario = emprestimo.getUsuario();
+			usuario.setEmprestimoAtivo(false);
+			
+			emprestimo.setDataDeDevolucao(dataDeDevolucao);
+			usuarioDAO.atualiza(usuario);
+			livroDAO.atualiza(livro);
+			emprestimoDAO.atualiza(emprestimo);
+			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+		}
+		result.use(json()).from(message, "message").serialize();
 	}
 }
