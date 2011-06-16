@@ -1,16 +1,16 @@
-var $usarioNovo;
+var $usuarioNovo;
 $(document).ready(function(){
-	$usarioNovo = $("#usuarioNovo");
+	$usuarioNovo = $("#usuarioNovo");
 	turnFormValid();
 	$("#btn").click(function(){
-		if ($usarioNovo.valid()){
-			$.post('usuario/novo', $usarioNovo.serialize())
+		if ($usuarioNovo.valid()){
+			$.post('usuario/novo', $usuarioNovo.serialize())
 				.success(function(msg){
 					if (confirm(msg.message +'\nDeseja inserir outro usuário?')){
-						$usarioNovo[0].reset();
-						$usarioNovo.find("input:first").focus();
-					} else {
-						$usarioNovo.hide();
+						$usuarioNovo[0].reset();
+						$usuarioNovo.find("input:first").focus();
+					} else { 
+						$usuarioNovo.hide();
 					}
 				})
 				.error(function(erro){
@@ -19,14 +19,14 @@ $(document).ready(function(){
 			}
 	});
 	
-	$("#usuarioNovo input").keydown(function(event){
+	$usuarioNovo.find("input").keydown(function(event){
 		if(event.keyCode === 13 ){
 			$("#btn").click();
 		}
 	})
 });
 function turnFormValid(){
-	$usarioNovo.validate({
+	$usuarioNovo.validate({
 			rules:{
 				'usuario.nome':{
 					required: true,

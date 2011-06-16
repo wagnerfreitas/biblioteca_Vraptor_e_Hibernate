@@ -17,7 +17,7 @@ $(document).ready(function(){
 	$("#adicionarUsuario").click(function(){
 		$('form').hide();
 		$.ajax({
-			url: "usuario/novo",
+			url: "usuario/add",
 			type : "GET",
 			success: function(result){
 				$("#result").html(result);
@@ -35,7 +35,7 @@ $(document).ready(function(){
 	$("#adicionarLivro").click(function(){
 		$('form').hide();
 		$.ajax({
-			url: "livro/novo",
+			url: "livro/add",
 			type: "GET",
 			success: function(result){
 				$("#result").html(result);

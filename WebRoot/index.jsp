@@ -1,13 +1,14 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-%>
+%> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Biblioteca</title>
 		<style>
 			#geral {
@@ -42,7 +43,7 @@
 			<table id="tabela">
 				<tr>
 					<td>
-						Adicionar novo usu·rio:
+						Adicionar novo usu√°rio:
 					</td>
 					<td>
 						<button id="adicionarUsuario">
@@ -99,7 +100,7 @@
 				<table>
 					<tr>
 						<td>
-							Digite o nome do usu·rio:
+							Digite o nome do usu√°rio:
 						</td>
 						<td>
 							<input type="text" name="nome" />
@@ -131,7 +132,7 @@
 				<table>
 					<tr>
 						<td>
-							Pesquisar emprÈstimo por livro: 
+							Pesquisar empr√©stimo por livro: 
 						</td>
 						<td>
 							<input type="text" name="nomeDoLivro" />

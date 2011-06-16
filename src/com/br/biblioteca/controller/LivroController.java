@@ -41,7 +41,7 @@ public class LivroController {
 	}
 	
 	@Get
-	@Path("/livro/novo")
+	@Path("/livro/add")
 	public void novo(){
 	}
 	

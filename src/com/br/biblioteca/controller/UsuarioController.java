@@ -40,7 +40,7 @@ public class UsuarioController {
 	}
 	
 	@Get
-	@Path("/usuario/novo")
+	@Path("/usuario/add")
 	public void novo(){
 	}
 	
