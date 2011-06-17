@@ -95,12 +95,14 @@ public class LivroController {
 	@Path("livro/remove")
 	public void remove(List<Long> IdRemove){
 		Livro livro = null;
+		String message;
 		for (Long id : IdRemove) {
 			livro = livroDAO.pesquisarLivroPorId(id);
 			livro.setLivroDeletado(true);
 			livroDAO.atualiza(livro);
+			message = "Livro(s) deletado(s) com sucesso";
+			result.use(json()).from(message, "message").serialize();
 		}
-		result.redirectTo("/livros?nome=");
 	}
 	
 	@Post

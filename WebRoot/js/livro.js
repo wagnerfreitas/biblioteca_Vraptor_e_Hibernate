@@ -1,6 +1,8 @@
 ﻿var $formEmpresta = $("#formEmpresta");
 var $formDevolve = $("#fomDevolve");
 var $formAtualiza = $("#formAtualiza");
+var $formRemove = $(".formRemove");
+
 $(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
@@ -114,6 +116,19 @@ $(document).ready(function(){
 	$formDevolve.find("input").keydown(function(event){
 		if(event.keyCode === 13){
 			$("#btn-devolver").click();	
+		}
+	});
+	
+	$("#apagarLivros").click(function(){
+		if($formRemove.valid()){
+			$.post("livro/remove", $formRemove.serialize())
+				.success(function(msg){
+					alert(msg.message);
+					location.reload();
+				})
+				.error(function(erro){
+					alert(erro.message);
+				})
 		}
 	});
 	

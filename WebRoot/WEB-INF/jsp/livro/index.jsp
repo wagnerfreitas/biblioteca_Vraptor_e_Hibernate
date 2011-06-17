@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<h1>Lista de livros</h1>
-		<form class="formRemove" method="post" action="livro/remove">
+		<form class="formRemove" method="post">
 			<table>
 				<thead>
 					<tr>
@@ -55,7 +55,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><input type="submit" style="display: none" id="apagarLivros" value="Apagar livros"></td>
+					<td><input type="button" style="display: none" id="apagarLivros" value="Apagar livros"></td>
 				</tr>
 			</table>
 		</form>	
