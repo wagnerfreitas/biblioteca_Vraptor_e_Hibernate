@@ -32,22 +32,23 @@
 					</tr>
 				</thead>
 				<c:forEach items="${livros}" var="livro">
-					<tr idLivro="${livro.id}">
+					<tr idLivro="${livro.id}" livroEmprestado="${livro.emprestado}">
 						<td><a href="#" class="nome">${livro.nome}</a></td>
 						<td>${livro.autor}</td>
 						<td>${livro.edicao}</td>
-						<td>
-							<c:if test="${livro.emprestado}">
+						<c:if test="${livro.emprestado}">
+							<td>
 								<button class="devolver">Devolver</button>
-							</c:if>
-	
-							<c:if test="${!livro.emprestado}">
+							</td>
+						</c:if>
+						<c:if test="${!livro.emprestado}">
+							<td>	
 								<button class="emprestar">Emprestar</button>
-						<td style="text-align: center;">
+							</td>
+							<td style="text-align: center;">
 								<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
-						</td>
-							</c:if>
-						</td>
+							</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 				<tr>
@@ -110,6 +111,7 @@
 		<div id="atualizaLivro">
 			<h1>Atualizar dados</h1>
 			<form method="post" id="formAtualiza" action="livro/atualiza">
+				<input type="hidden" name="livro.emprestado" id="livroEmprestado" />
 				<table>
 					<tr>
 						<td>

@@ -26,6 +26,7 @@ $(document).ready(function(){
 		$("#DevolverLivro").hide();
 		$("#atualizaLivro").show();
 		var id = $(this).parent().parent().attr("idLivro");
+		var livroEmprestado = $(this).parent().parent().attr("livroEmprestado");
 		var nome = $(this).parent().parent().children(':nth-child(1)').text();
 		var autor = $(this).parent().parent().children(':nth-child(2)').text();
 		var edicao = $(this).parent().parent().children(':nth-child(3)').text();
@@ -33,6 +34,7 @@ $(document).ready(function(){
 		$("#nome").val(nome);
 		$("#autor").val(autor);
 		$("#edicao").val(edicao);
+		$("#livroEmprestado").val(livroEmprestado);
 	});
 	
 	$('.calendario').datepicker();
