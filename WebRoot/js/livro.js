@@ -1,4 +1,6 @@
 ﻿var $formEmpresta = $("#formEmpresta");
+var $formDevolve = $("#fomDevolve");
+var $formAtualiza = $("#formAtualiza");
 $(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
@@ -59,6 +61,15 @@ $(document).ready(function(){
 			$("#retornoUsuarios").dialog(erro);
 		});
 	});
+
+	$('.IdRemove').click(function(e){
+		e.stopPropagation();	
+		if($('.IdRemove').is(':checked')){
+			$("#apagarLivros").show();
+		}else{
+			$('#apagarLivros').hide();
+		}
+	});
 	
 	$("#btn-emprestar").click(function(){
 		tornFormEmprestaValid()
@@ -86,29 +97,32 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('.IdRemove').click(function(e){
-		e.stopPropagation();	
-		if($('.IdRemove').is(':checked')){
-			$("#apagarLivros").show();
-		}else{
-			$('#apagarLivros').hide();
+	$("#btn-devolver").click(function(){
+		tornFormDevolveValid();
+		if($formDevolve.valid()){
+			$.post("livro/devolve", $formDevolve.serialize())
+				.success(function(msg){
+					alert(msg.message)
+					location.reload();
+				})
+				.error(function(erro){
+					alert(erro.message);
+				})
 		}
 	});
-		
-	$("#fomDevolve").validate({
-		rules:{
-			'dataDeDevolucao':{
-				required: true
-			}		
-		},
-		messages:{
-			'dataDeDevolucao':{
-				required: 'Digite a data de devolução'
-			}
-		}		
+	
+	$formDevolve.find("input").keydown(function(event){
+		if(event.keyCode === 13){
+			$("#btn-devolver").click();	
+		}
 	});
 	
-	$("#formAtualiza").validate({
+	tornFormAtualizaValid()
+	
+});
+
+function tornFormAtualizaValid(){
+	$formAtualiza.validate({
 		rules:{
 			'livro.nome':{
 				required: true,
@@ -137,10 +151,11 @@ $(document).ready(function(){
 				minlength: 'A edição do livro deve conter no mínimo 1 caractere'
 			}
 		}
-	})
-});
+	});
+}
+
 function tornFormEmprestaValid(){
-	$("#formEmpresta").validate({
+	$formEmpresta.validate({
 		rules:{
 			'IdUsuario':{
 				required: true,
@@ -157,6 +172,21 @@ function tornFormEmprestaValid(){
 				required: 'Digite a data de empréstimo',
 			}
 		}
+	});
+}
+
+function tornFormDevolveValid(){
+	$formDevolve.validate({
+		rules:{
+			'dataDeDevolucao':{
+				required: true
+			}		
+		},
+		messages:{
+			'dataDeDevolucao':{
+				required: 'Digite a data de devolução'
+			}
+		}		
 	});
 }
 

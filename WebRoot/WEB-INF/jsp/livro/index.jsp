@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx">${pageContext.request.contextPath}</c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,7 +26,7 @@
 					<tr>
 						<td width="150px"> - Nome - </td>
 						<td width="150"> - Autor - </td>
-						<td width="80"> - EdiÁ„o - </td>
+						<td width="80"> - Edi√ß√£o - </td>
 						<td></td>
 						<td width="105" align="center"> - Apagar -</td>
 					</tr>
@@ -64,7 +64,7 @@
 			<h1>Emprestar livro</h1>
 			<table>
 				<tr>
-					<td style="width: 172px">Pesquisar usu·rio: </td>
+					<td style="width: 172px">Pesquisar usu√°rio: </td>
 					<td><input type="text" name="pesquisarUsuario" id="pesquisarUsuario"/></td>
 					<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
 				</tr>
@@ -75,7 +75,7 @@
 				<table>
 					<tr>
 						<td>
-							Digite a data do emprÈstimo:
+							Digite a data do empr√©stimo:
 						</td>
 						<td>
 							<input type="text" class="calendario" name="dataDeEmprestimo" />
@@ -96,12 +96,12 @@
 				<input type="hidden" id="id" name="id" />
 				<table>
 					<tr>
-						<td>Data de devoluÁ„o: </td>
+						<td>Data de devolu√ß√£o: </td>
 						<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="Enviar" /></td>
+						<td><input type="button" id="btn-devolver" value="Enviar" /></td>
 					</tr>
 				</table>
 			</form>
@@ -130,7 +130,7 @@
 					</tr>
 					<tr>
 						<td>
-							EdiÁ„o: 
+							Edi√ß√£o: 
 						</td>
 						<td><input type="text" name="livro.edicao" id="edicao"/></td>
 					</tr>

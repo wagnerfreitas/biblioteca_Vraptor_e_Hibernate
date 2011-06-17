@@ -106,8 +106,9 @@ public class LivroController {
 	@Post
 	@Path("livro/devolve")
 	public void devolve(Long id, Calendar dataDeDevolucao){
+		String message;
 		if(id.equals("") || dataDeDevolucao.equals("")){
-			throw new RuntimeException();
+			message = "Erro";
 		}else{
 			Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
 	
@@ -120,7 +121,9 @@ public class LivroController {
 			usuarioDAO.atualiza(usuario);
 			livroDAO.atualiza(livro);
 			emprestimoDAO.atualiza(emprestimo);
-			result.redirectTo("/livros?nome=");
+			
+			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+			result.use(json()).from(message, "message").serialize();
 		}
 	}   
 }
