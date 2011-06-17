@@ -65,6 +65,12 @@ $(document).ready(function(){
 			$("#retornoUsuarios").dialog(erro);
 		});
 	});
+	
+	$('#pesquisarUsuario').keydown(function(event){
+		if(event.keyCode === 13){
+			$('#btn-pesquisar').click();
+		}
+	});
 
 	$('.IdRemove').click(function(e){
 		e.stopPropagation();	
@@ -95,9 +101,23 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('#pesquisarUsuario').keydown(function(event){
+	$("#btn-atualiza").click(function(){
+		tornFormAtualizaValid();
+		if($formAtualiza.valid()){
+			$.post("livro/atualiza", $formAtualiza.serialize())
+				.success(function(msg){
+					alert(msg.message)
+					location.reload();					
+				})
+				.error(function(erro){
+					alert(erro.message);
+				});
+		}
+	});
+	
+	$formAtualiza.find("input").keydown(function(event){
 		if(event.keyCode === 13){
-			$('#btn-pesquisar').click();
+			$("#btn-atualiza").click();
 		}
 	});
 	
@@ -133,9 +153,6 @@ $(document).ready(function(){
 				})
 		}
 	});
-	
-	tornFormAtualizaValid()
-	
 });
 
 function tornFormAtualizaValid(){

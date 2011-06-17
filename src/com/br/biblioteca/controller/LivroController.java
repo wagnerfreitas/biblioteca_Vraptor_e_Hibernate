@@ -87,8 +87,13 @@ public class LivroController {
 	@Put @Post
 	@Path("/livro/atualiza")
 	public void atualiza(Livro livro){
+		String message;
+		if(livro.equals(null)){
+			message = "Erro";
+		}
 		livroDAO.atualiza(livro);
-		result.redirectTo("/livros?nome=");
+		message =  "\"" + livro.getNome() + "\" atualizado com sucesso";
+		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post

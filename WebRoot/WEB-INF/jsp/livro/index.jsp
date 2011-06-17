@@ -139,7 +139,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input type="submit" value="Enviar" /> 
+							<input type="button" id="btn-atualiza" value="Enviar" /> 
 						</td>
 					</tr>
 				</table>			
