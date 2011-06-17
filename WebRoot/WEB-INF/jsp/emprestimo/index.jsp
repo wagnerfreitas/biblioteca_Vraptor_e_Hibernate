@@ -1,11 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>Empréstimos</title>
+		<title>EmprÃ©stimos</title>
 		<style type="text/css">
 			#devolverLivro{
 				display: none;
@@ -16,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 	</head>
 	<body>
-	<h1>Lista de Empréstimos</h1>
+	<h1>Lista de EmprÃ©stimos</h1>
 		<table>
 			<c:forEach items="${emprestimos}" var="emprestimo">
 				<tr>
@@ -34,7 +33,7 @@
 						${emprestimo.livro.nome}
 					</td>
 					<td>
-						Data de empréstimo:
+						Data de emprÃ©stimo:
 					</td>
 					<td>
 						<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyyy" />
@@ -48,7 +47,7 @@
 			<form method="post" id="formDevolve">
 				<table>
 					<tr>
-						<td>Data de devolução: </td>
+						<td>Data de devoluÃ§Ã£o: </td>
 						<td>
 							<input type="hidden" id="IdEmprestimo" name="id" />
 							<input type="text" id="calendario" name="dataDeDevolucao" />
