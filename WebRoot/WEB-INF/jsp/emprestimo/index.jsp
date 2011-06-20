@@ -18,8 +18,7 @@
 	<h1>Lista de Empréstimos</h1>
 		<table>
 			<c:forEach items="${emprestimos}" var="emprestimo">
-				<tr>
-					<td style="display: none">${emprestimo.id}</td>
+				<tr emprestimoId="${emprestimo.id}">
 					<td>
 						Nome: 
 					</td>

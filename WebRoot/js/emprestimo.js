@@ -15,7 +15,7 @@ $(document).ready(function(){
 	});
 	$(".devolver").click(function(){
 		$("#devolverLivro").show();					
-		var valor = $(this).parent().parent().children(':nth-child(1)').text();
+		var valor = $(this).parent().parent().attr("emprestimoId");
 		$("#IdEmprestimo").val(valor); 
 	});
 	$("#calendario").datepicker();
