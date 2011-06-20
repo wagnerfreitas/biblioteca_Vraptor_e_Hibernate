@@ -13,14 +13,10 @@
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
-		
-		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-		<script type="text/javascript" src="js/usuario.js"></script>
 	</head>
 	<body>
 		<h1>Lista de Usuários</h1>
-		<form action="usuario/delete" method="post">
+		<form method="post" id="formDeletar">
 			<table>
 				<tr>
 					<td style="width: 200px"> - Nome - </td>
@@ -28,9 +24,7 @@
 					<td style="width: 122px"> - Apagar usuários - </td>
 				</tr>
 				<c:forEach items="${usuarios}" var="usuario">
-					<tr>
-						<td style="display: none">${usuario.id}</td>
-						<td style="display: none">${usuario.emprestimoAtivo}</td>
+					<tr usuarioId="${usuario.id}" emprestimoAtivo="${usuario.emprestimoAtivo}">
 						<td><a href="#" class="nome">${usuario.nome}</a></td>
 						<td>${usuario.email}</td>
 						<td style="text-align: center">
@@ -44,13 +38,15 @@
 				<tr>
 				<td></td>
 				<td></td>
-				<td><input type="submit" id="deletarUsuario" style="display: none" value="Deletar usuários" /></td>
+				<td><input type="button" id="deletarUsuario" style="display: none" value="Deletar usuários" /></td>
 				</tr>			
 			</table>
 		</form>
 		
 		<div id="AtualizarUsuario">
-			<form id="formAtualiza" action="usuario/atualiza" method="post">
+			<form id="formAtualiza" method="post">
+				<input type="hidden" id="emprestimo" name="usuario.emprestimoAtivo" />
+				<input type="hidden" id="IdUsuario" name="usuario.id" />
 				<h1>Atualizar dados</h1>
 				<table>
 					<tr>
@@ -58,8 +54,6 @@
 							Nome: 
 						</td>
 						<td>
-							<input type="hidden" id="emprestimo" name="usuario.emprestimoAtivo" />
-							<input type="hidden" id="IdUsuario" name="usuario.id" />
 							<input type="text" id="usuarioNome" name="usuario.nome" />
 						</td>
 					</tr>
@@ -73,11 +67,14 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="Enviar" /></td>
+						<td><input type="button" id="atualizarUsuario" value="Enviar" /></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 		<a href="index.jsp">Voltar</a>
 	</body>
+	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/usuario.js"></script>
 </html>

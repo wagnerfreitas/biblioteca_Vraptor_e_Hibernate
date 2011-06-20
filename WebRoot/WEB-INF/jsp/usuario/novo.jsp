@@ -21,9 +21,7 @@
 		<table>
 			<tr>
 				<td>
-					<label for="nome">
-						Nome:
-					</label>
+					Nome:
 				</td>
 				<td>
 					<input type="text" name="usuario.nome" />
@@ -31,9 +29,7 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="email">
-						Email:
-					</label>
+					Email:
 				</td>
 				<td>
 					<input type="text" name="usuario.email" />
@@ -42,7 +38,7 @@
 			<tr>
 				<td></td>
 				<td>
-					<input type="button" id="btn"  value="Enviar" />
+					<input type="button" id="btn" value="Enviar" />
 				</td>
 			</tr>
 		</table>

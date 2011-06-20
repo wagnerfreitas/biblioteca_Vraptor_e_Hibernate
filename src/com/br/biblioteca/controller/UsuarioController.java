@@ -60,19 +60,27 @@ public class UsuarioController {
 	@Put @Post
 	@Path("usuario/atualiza")
 	public void atualiza(Usuario usuario){
-		usuario.setUsuarioAtivo(true);
-		usuarioDAO.atualiza(usuario);
-		result.redirectTo("/usuarios?nome=");
+		String message;
+		if(usuario.equals(null)){
+			message = "Erro ao atualizar usuário";
+		}else{
+			usuario.setUsuarioAtivo(true);
+			usuarioDAO.atualiza(usuario);
+			message = "\""+ usuario.getNome() + "\" atualizado com sucesso";
+		}
+		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post
 	@Path("/usuario/delete")
 	public void delete(List<Long> idDelete){
+		String message;
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
 			usuario.setUsuarioAtivo(false);
 			usuarioDAO.atualiza(usuario);
 		}
-		result.redirectTo("/usuarios?nome=");
+		message = "Usuario(s) deletado(s) com sucesso";
+		result.use(json()).from(message, "message").serialize();
 	}
 }

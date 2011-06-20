@@ -28,10 +28,6 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("#btn-PesquisaLivro").click(function(){
-		$("#Livro").submit();
-	});
-	
 	$("#adicionarLivro").click(function(){
 		$('form').hide();
 		$.ajax({

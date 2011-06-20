@@ -1,4 +1,6 @@
-﻿$(document).ready(function(){
+﻿var $formAtualiza = $("#formAtualiza");
+var $formDeletar = $("#formDeletar");
+$(document).ready(function(){
 	$('.idDelete').click(function(e){
 		e.stopPropagation();	
 		if($('.idDelete').is(':checked')){
@@ -10,17 +12,52 @@
 	
 	$(".nome").click(function(){
 		$("#AtualizarUsuario").show();
-		var id = $(this).parent().parent().children(':nth-child(1)').text();
-		var emprestimo = $(this).parent().parent().children(':nth-child(2)').text();
-		var nome = $(this).parent().parent().children(':nth-child(3)').text();
-		var email = $(this).parent().parent().children(':nth-child(4)').text();
+		var id=$(this).parent().parent().attr("usuarioId");
+		var emprestimo = $(this).parent().parent().attr("emprestimoAtivo");
+		var nome = $(this).parent().parent().children(':nth-child(1)').text();
+		var email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
 		$("#emprestimo").val(emprestimo);			
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);
 	});
 	
-	$("#formAtualiza").validate({
+	$("#deletarUsuario").click(function(){
+		if($formDeletar.valid()){
+			$.post("usuario/delete", $formDeletar.serialize())
+				.success(function(msg){
+					alert(msg.message);
+					location.reload();
+				})
+				.error(function(erro){
+					alert("Erro ao deletar usuário" + erro);
+				});
+		}
+	});
+
+	$("#atualizarUsuario").click(function(){
+		turnFormAtulizaValid();
+		if($formAtualiza.valid()){
+			$.post("usuario/atualiza", $formAtualiza.serialize())
+				.success(function(msg){
+					alert(msg.message)
+					location.reload();
+				})
+				.error(function(erro){
+					alert(erro.message)
+				});
+		}
+	});
+	
+	$formAtualiza.find("input").keydown(function(event){
+		if(event.keyCode === 13){
+			$("#atualizarUsuario").click();
+		}
+	});
+});
+
+function turnFormAtulizaValid(){
+	$formAtualiza.validate({
 		rules:{
 			'usuario.nome':{
 				required: true,
@@ -42,4 +79,4 @@
 			}
 		}
 	});
-});
+}
