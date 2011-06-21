@@ -56,7 +56,7 @@
 				</table>
 			</form>
 		</div>
-		<a href="javascript: history.go(-1)">Voltar</a>
+		<a href="../biblioteca">Voltar</a>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
