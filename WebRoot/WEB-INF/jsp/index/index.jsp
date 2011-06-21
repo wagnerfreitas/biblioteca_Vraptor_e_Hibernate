@@ -22,6 +22,9 @@
 			#Usuario, #Livro, #Emprestimo{
 				display: none;
 			}
+			#login{
+				float:right;
+			}
 		</style>
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
@@ -30,12 +33,13 @@
 	</head>
 	<body>
 		<div id="geral">
+			<div id="login">
+				Bem vindo, ${nome}&nbsp;&nbsp;&nbsp;
+				<a href="logout">Sair</a>
+			</div><br>	
 			<h1>
 				Biblioteca
 			</h1>
-			<div id="login">
-			<a href="logout">Sair</a>
-			</div>
 			O que deseja fazer?
 			<table id="tabela">
 				<tr>

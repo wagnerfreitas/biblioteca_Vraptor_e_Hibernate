@@ -7,7 +7,7 @@
 		<title>Login</title>
 	</head>
 	<body>
-		<form action="login" method="post">
+		<form id="formLogin" action="login" method="post">
 		<h1>Faça Login</h1>
 			<table>
 				<tr>
@@ -28,9 +28,10 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Enviar" /></td>
+					<td><input type="submit" id="login" value="Enviar" /></td>
 				</tr>
 			</table>
 		</form>	
 	</body>
+	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 </html>

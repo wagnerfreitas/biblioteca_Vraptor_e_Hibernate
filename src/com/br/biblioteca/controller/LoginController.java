@@ -1,7 +1,5 @@
 package com.br.biblioteca.controller;
 
-import javax.servlet.http.HttpSession;
-
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -16,20 +14,19 @@ public class LoginController {
 	private Result result;
 	private UsuarioDAO usuarioDAO;
 	private UserSession userSession;
-	private HttpSession httpSession;
-	public static final Boolean AUTENTICADO = true;
-	public static final Boolean NAO_AUTENTICADO = false;
 	
-	public LoginController(Result result, UsuarioDAO usuarioDAO, UserSession userSession, HttpSession httpSession){
+	public LoginController(Result result, UsuarioDAO usuarioDAO, UserSession userSession){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
 		this.userSession = userSession;
-		this.httpSession = httpSession;
 	}
 	
 	@Get
 	@Path("/login")
 	public void login(){
+		if(userSession.getUsario() != null){
+			result.redirectTo(IndexController.class).index();
+		}
 	}
 	
 	@Post
@@ -38,19 +35,17 @@ public class LoginController {
 		try {
 			Usuario user = usuarioDAO.login(usuario.getNome(), usuario.getSenha());
 			userSession.setUsario(user);
-			this.httpSession.setAttribute("autenticado", AUTENTICADO);
 			result.redirectTo(IndexController.class).index();
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.httpSession.setAttribute("autenticado", NAO_AUTENTICADO);
 			result.redirectTo(LoginController.class).erro();
 		}
 	}
+	
 	@Get
 	@Path("/logout")
 	public void logout(){
 		userSession.setUsario(null);
-		this.httpSession.setAttribute("autenticado", NAO_AUTENTICADO);
 		result.redirectTo(this).login();
 	}
 	
