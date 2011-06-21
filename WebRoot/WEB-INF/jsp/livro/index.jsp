@@ -147,7 +147,7 @@
 		</div>
 		
 		<div id="retornoUsuarios"></div>
-		<a href="index.jsp">Voltar</a><br/>
+		<a href="../biblioteca">Voltar</a><br/>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>

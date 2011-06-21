@@ -6,6 +6,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
+import com.br.biblioteca.dao.UserSession;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
 

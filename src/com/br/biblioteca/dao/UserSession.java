@@ -1,4 +1,4 @@
-package com.br.biblioteca.controller;
+package com.br.biblioteca.dao;
 
 import com.br.biblioteca.entitades.Usuario;
 

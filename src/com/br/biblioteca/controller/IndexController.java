@@ -1,5 +1,7 @@
 package com.br.biblioteca.controller;
 
+import com.br.biblioteca.dao.UserSession;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;

@@ -5,6 +5,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Login</title>
+		<style type="text/css">
+			label { display: block; margin-top: 10px; }
+			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
+		</style>
 	</head>
 	<body>
 		<form id="formLogin" action="login" method="post">
@@ -34,4 +38,29 @@
 		</form>	
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript">
+		$("#formLogin").validate({
+			rules:{
+				'usuario.nome':{
+					required: true,
+					minlength: 3
+				},
+				'usuario.senha':{
+					required: true,
+					minlength: 3
+				}
+			},
+			messages:{
+				'usuario.nome':{
+					required: 'Digite seu nome',
+					minlength: 'O nome deve conter no mínimo 3 caracteres'
+				},
+				'usuario.senha':{
+					required: 'Digite sua senha',
+					minlength: 'A senha deve conter no mínimo 3 caracteres'
+				}
+			}
+		});
+	</script>
 </html>
