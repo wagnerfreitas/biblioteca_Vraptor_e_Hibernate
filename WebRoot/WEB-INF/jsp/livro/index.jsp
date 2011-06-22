@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<style type="text/css">
 			#geral {
-				width: 700px;
+				width: 800px;
 			}
 			#EmprestarLivro, #DevolverLivro, #atualizaLivro{
 				display: none;

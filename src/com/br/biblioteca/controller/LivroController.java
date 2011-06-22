@@ -13,6 +13,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 
 import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.LivroDAO;
+import com.br.biblioteca.dao.UserSession;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
@@ -25,12 +26,14 @@ public class LivroController {
 	private LivroDAO livroDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioDAO usuarioDAO;
+	private UserSession userSession;
 	
-	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO){
+	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO, UserSession userSession){
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioDAO = usuarioDAO;
+		this.userSession = userSession;
 	}
 	
 	@Get
@@ -38,6 +41,7 @@ public class LivroController {
 	public void index(String nome){
 		List<Livro> livros = livroDAO.listaDeLivro(nome);
 		result.include("livros", livros);
+		result.include("nome", userSession.getUsario().getNome());
 	}
 	
 	@Get

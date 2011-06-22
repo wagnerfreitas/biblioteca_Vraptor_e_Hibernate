@@ -9,54 +9,67 @@
 			#devolverLivro{
 				display: none;
 			}
+			#geral{
+				width: 800px;
+			}
+			#login{
+				float:right;
+			}
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 	</head>
 	<body>
-	<h1>Lista de Empréstimos</h1>
-		<table>
-			<c:forEach items="${emprestimos}" var="emprestimo">
-				<tr emprestimoId="${emprestimo.id}">
-					<td>
-						Nome: 
-					</td>
-					<td style="width: 220px">
-						${emprestimo.usuario.nome}
-					</td>
-					<td>
-						Livro:
-					</td>
-					<td style="width: 220px">
-						${emprestimo.livro.nome}
-					</td>
-					<td>
-						Data de empréstimo:
-					</td>
-					<td>
-						<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyyy" />
-					</td>
-					<td><button class="devolver">Devolver</button></td>
-				</tr>
-			</c:forEach>
-		</table>
-		<div id="devolverLivro">
-			<h1>Devolver Livro</h1>
-			<form method="post" id="formDevolve">
-				<table>
-					<tr>
-						<td>Data de devolução: </td>
+		<div id="geral">
+			<div id="login">
+				Bem vindo, ${nome}&nbsp;&nbsp;&nbsp;
+				<a href="logout">Sair</a>
+			</div><br>
+			
+			<h1>Lista de Empréstimos</h1>
+			<table>
+				<c:forEach items="${emprestimos}" var="emprestimo">
+					<tr emprestimoId="${emprestimo.id}">
 						<td>
-							<input type="hidden" id="IdEmprestimo" name="id" />
-							<input type="text" id="calendario" name="dataDeDevolucao" />
+							Nome: 
 						</td>
-						<td><input type="button" id="btn-devolve" value="Enviar" /></td>
+						<td style="width: 220px">
+							${emprestimo.usuario.nome}
+						</td>
+						<td>
+							Livro:
+						</td>
+						<td style="width: 220px">
+							${emprestimo.livro.nome}
+						</td>
+						<td>
+							Data de empréstimo:
+						</td>
+						<td>
+							<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyyy" />
+						</td>
+						<td><button class="devolver">Devolver</button></td>
 					</tr>
-				</table>
-			</form>
+				</c:forEach>
+			</table>
+			<div id="devolverLivro">
+				<h1>Devolver Livro</h1>
+				<form method="post" id="formDevolve">
+					<table>
+						<tr>
+							<td>Data de devolução: </td>
+							<td>
+								<input type="hidden" id="IdEmprestimo" name="id" />
+								<input type="text" id="calendario" name="dataDeDevolucao" />
+							</td>
+							<td><input type="button" id="btn-devolve" value="Enviar" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<a href="../biblioteca">Voltar</a>
 		</div>
-		<a href="../biblioteca">Voltar</a>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>

@@ -21,7 +21,6 @@ public class IndexController {
 	@Get
 	@Path("/")
 	public void index() {
-		System.out.println("...");
 		if(userSession.getUsario() == null){
 			result.redirectTo(LoginController.class).login();
 		}else{
