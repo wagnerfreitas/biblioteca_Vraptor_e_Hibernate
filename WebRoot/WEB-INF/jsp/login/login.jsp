@@ -11,7 +11,7 @@
 		</style>
 	</head>
 	<body>
-		<form id="formLogin" action="login" method="post">
+		<form id="formLogin" method="post">
 		<h1>Faça Login</h1>
 			<table>
 				<tr>
@@ -32,35 +32,12 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" id="login" value="Enviar" /></td>
+					<td><input type="button" id="login" value="Enviar" /></td>
 				</tr>
 			</table>
 		</form>	
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-	<script type="text/javascript">
-		$("#formLogin").validate({
-			rules:{
-				'usuario.nome':{
-					required: true,
-					minlength: 3
-				},
-				'usuario.senha':{
-					required: true,
-					minlength: 3
-				}
-			},
-			messages:{
-				'usuario.nome':{
-					required: 'Digite seu nome',
-					minlength: 'O nome deve conter no mínimo 3 caracteres'
-				},
-				'usuario.senha':{
-					required: 'Digite sua senha',
-					minlength: 'A senha deve conter no mínimo 3 caracteres'
-				}
-			}
-		});
-	</script>
+	<script type="text/javascript" src="js/login.js"></script>
 </html>

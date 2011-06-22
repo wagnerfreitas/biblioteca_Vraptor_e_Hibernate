@@ -9,6 +9,7 @@ import br.com.caelum.vraptor.Result;
 import com.br.biblioteca.dao.UserSession;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
+import static br.com.caelum.vraptor.view.Results.json;
 
 @Resource
 public class LoginController {
@@ -33,12 +34,14 @@ public class LoginController {
 	@Post
 	@Path("/login")
 	public void login(Usuario usuario){
-		try {
-			Usuario user = usuarioDAO.login(usuario.getNome(), usuario.getSenha());
+		String message;
+		Usuario user = usuarioDAO.login(usuario.getNome(), usuario.getSenha());
+		if(user != null){
 			userSession.setUsario(user);
+			message = "Bem Vindo";
+			result.use(json()).from(message, "message").serialize();
 			result.redirectTo(IndexController.class).index();
-		} catch (Exception e) {
-			e.printStackTrace();
+		}else{
 			result.redirectTo(LoginController.class).erro();
 		}
 	}
@@ -53,5 +56,7 @@ public class LoginController {
 	@Get
 	@Path("/login/erro")
 	public void erro(){
+		String message = "Erro ao efetuar login";
+		result.use(json()).from(message, "message").serialize();
 	}
 }

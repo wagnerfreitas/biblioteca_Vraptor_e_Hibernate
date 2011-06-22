@@ -74,7 +74,7 @@ public class UsuarioDAO {
 		if (usuario != null) {
 			return usuario;
 		} else {
-			throw new RuntimeException("Usuário não encontrado");
+			return null;
 		}
 	}
 }
