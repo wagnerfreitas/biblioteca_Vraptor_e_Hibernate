@@ -38,7 +38,7 @@ public class LoginController {
 		Usuario user = usuarioDAO.login(usuario.getNome(), usuario.getSenha());
 		if(user != null){
 			userSession.setUsario(user);
-			message = "Bem Vindo";
+			message = "Bem Vindo " + userSession.getUsario().getNome();
 			result.use(json()).from(message, "message").serialize();
 			result.redirectTo(IndexController.class).index();
 		}else{

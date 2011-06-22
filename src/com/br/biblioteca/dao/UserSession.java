@@ -7,13 +7,10 @@ import br.com.caelum.vraptor.ioc.SessionScoped;
 
 import com.br.biblioteca.entitades.Usuario;
 
+@SuppressWarnings("serial")
 @Component
 @SessionScoped
 public class UserSession implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	private Usuario usario;
 
