@@ -19,7 +19,7 @@
 						Nome:
 					</td>
 					<td>
-						<input type="text" name="usuario.nome" />
+						<input type="text" name="administrador.nome" />
 					</td>
 				</tr>
 				<tr>
@@ -27,7 +27,7 @@
 						Senha:
 					</td>
 					<td>
-						<input type="password" name="usuario.senha" />
+						<input type="password" name="administrador.senha" />
 					</td>
 				</tr>
 				<tr>

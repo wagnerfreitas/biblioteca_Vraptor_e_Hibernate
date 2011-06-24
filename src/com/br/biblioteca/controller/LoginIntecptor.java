@@ -19,9 +19,9 @@ public class LoginIntecptor implements Interceptor {
 	private Result result;
 	private AdminSession adminSession;
 	
-	public LoginIntecptor(Result result, AdminSession userSession){
+	public LoginIntecptor(Result result, AdminSession adminSession){
 		this.result = result;
-		this.adminSession = userSession;
+		this.adminSession = adminSession;
 	}
 
 	

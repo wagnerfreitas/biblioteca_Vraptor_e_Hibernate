@@ -10,36 +10,35 @@ import br.com.caelum.vraptor.Result;
 import com.br.biblioteca.dao.AdminSession;
 import com.br.biblioteca.dao.AdministradorDAO;
 import com.br.biblioteca.entitades.Administrador;
-import com.br.biblioteca.entitades.Usuario;
 
 @Resource
 public class LoginController {
 	private Result result;
 	private AdministradorDAO administradorDAO;
-	private AdminSession userSession;
+	private AdminSession adminSession;
 	
-	public LoginController(Result result, AdministradorDAO administradorDAO, AdminSession userSession){
+	public LoginController(Result result, AdministradorDAO administradorDAO, AdminSession adminSession){
 		this.result = result;
 		this.administradorDAO = administradorDAO;
-		this.userSession = userSession;
+		this.adminSession = adminSession;
 	}
 	
 	@Get
 	@Path("/login")
 	public void login(){
-		if(userSession.getAdministrador() != null){
+		if(adminSession.getAdministrador() != null){
 			result.redirectTo(IndexController.class).index();
 		}
 	}
 	
 	@Post
 	@Path("/login")
-	public void login(Usuario usuario){
+	public void login(Administrador administrador){
 		String message;
-		Administrador admin = administradorDAO.login(usuario.getNome(), usuario.getSenha());
+		Administrador admin = administradorDAO.login(administrador.getNome(), administrador.getSenha());
 		if(admin != null){
-			userSession.setAdministrador(admin);
-			message = "Bem Vindo " + userSession.getAdministrador().getNome();
+			adminSession.setAdministrador(admin);
+			message = "Bem Vindo " + adminSession.getAdministrador().getNome();
 			result.use(json()).from(message, "message").serialize();
 			result.redirectTo(IndexController.class).index();
 		}else{
@@ -50,7 +49,7 @@ public class LoginController {
 	@Get
 	@Path("/logout")
 	public void logout(){
-		userSession.setAdministrador(null);
+		adminSession.setAdministrador(null);
 		result.redirectTo(this).login();
 	}
 	
