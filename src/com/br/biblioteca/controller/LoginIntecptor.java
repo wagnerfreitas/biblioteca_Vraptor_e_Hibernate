@@ -2,7 +2,7 @@ package com.br.biblioteca.controller;
 
 import java.util.Arrays;
 
-import com.br.biblioteca.dao.UserSession;
+import com.br.biblioteca.dao.AdminSession;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -17,11 +17,11 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 public class LoginIntecptor implements Interceptor {
 	
 	private Result result;
-	private UserSession userSession;
+	private AdminSession adminSession;
 	
-	public LoginIntecptor(Result result, UserSession userSession){
+	public LoginIntecptor(Result result, AdminSession userSession){
 		this.result = result;
-		this.userSession = userSession;
+		this.adminSession = userSession;
 	}
 
 	
@@ -31,7 +31,7 @@ public class LoginIntecptor implements Interceptor {
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
-		if(userSession.getUsario() != null || method.getResource().getType().equals(LoginController.class)){
+		if(adminSession.getAdministrador() != null || method.getResource().getType().equals(LoginController.class)){
 			stack.next(method, resourceInstance);
 		} else{
 			result.redirectTo(LoginController.class).login();

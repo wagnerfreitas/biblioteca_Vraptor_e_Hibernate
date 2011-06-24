@@ -128,7 +128,7 @@
 					</tr>
 				</table>
 			</form>
-			<form id="Emprestimo" action="emprestimos">
+			<form id="Emprestimo" method="get" action="emprestimos">
 				<h1>Pesquisar</h1>
 				<table>
 					<tr>

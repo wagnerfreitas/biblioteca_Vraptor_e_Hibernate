@@ -6,6 +6,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.caelum.vraptor.ioc.Component;
 
+import com.br.biblioteca.entitades.Administrador;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
 import com.br.biblioteca.entitades.Usuario;
@@ -18,6 +19,7 @@ public class BibliotecaUtil {
 		cfg.addAnnotatedClass(Usuario.class);	
 		cfg.addAnnotatedClass(Emprestimo.class);
 		cfg.addAnnotatedClass(Livro.class);
+		cfg.addAnnotatedClass(Administrador.class);
 		factory = cfg.buildSessionFactory(); 
 	}
 	public Session getSession(){

@@ -65,16 +65,4 @@ public class UsuarioDAO {
 				.add(Restrictions.eq("id", id))
 			.uniqueResult();
 	}
-	
-	public Usuario login(String nome, String senha){
-		Usuario usuario = (Usuario) this.session.createCriteria(Usuario.class)
-				.add(Restrictions.eq("nome", nome))
-				.add(Restrictions.eq("senha", senha))
-				.uniqueResult();
-		if (usuario != null) {
-			return usuario;
-		} else {
-			return null;
-		}
-	}
 }

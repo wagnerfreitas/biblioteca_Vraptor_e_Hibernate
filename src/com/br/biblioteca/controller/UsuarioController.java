@@ -11,7 +11,7 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
-import com.br.biblioteca.dao.UserSession;
+import com.br.biblioteca.dao.AdminSession;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
 
@@ -20,9 +20,9 @@ public class UsuarioController {
 	
 	private Result result;
 	private UsuarioDAO usuarioDAO;
-	private UserSession userSession;
+	private AdminSession userSession;
 	
-	public UsuarioController(Result result, UsuarioDAO usuarioDAO, UserSession userSession){
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession userSession){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
 		this.userSession = userSession;
@@ -33,7 +33,7 @@ public class UsuarioController {
 	public void index(String nome){
 		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 		result.include("usuarios", usuarios);
-		result.include("nome", userSession.getUsario().getNome());
+		result.include("nome", userSession.getAdministrador().getNome());
 	}
 	
 	@Get

@@ -1,6 +1,6 @@
 package com.br.biblioteca.controller;
 
-import com.br.biblioteca.dao.UserSession;
+import com.br.biblioteca.dao.AdminSession;
 
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -11,20 +11,20 @@ import br.com.caelum.vraptor.Result;
 public class IndexController {
 
 	private Result result;
-	private UserSession userSession;
+	private AdminSession adminSession;
 	
-	public IndexController(Result result, UserSession userSession){
+	public IndexController(Result result, AdminSession adminSession){
 		this.result = result;
-		this.userSession = userSession;
+		this.adminSession = adminSession;
 	}
 
 	@Get
 	@Path("/")
 	public void index() {
-		if(userSession.getUsario() == null){
+		if(adminSession.getAdministrador() == null){
 			result.redirectTo(LoginController.class).login();
 		}else{
-			result.include("nome", userSession.getUsario().getNome());
+			result.include("nome", adminSession.getAdministrador().getNome());
 		}
 	}
 }

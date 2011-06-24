@@ -11,7 +11,7 @@ import br.com.caelum.vraptor.Result;
 
 import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.LivroDAO;
-import com.br.biblioteca.dao.UserSession;
+import com.br.biblioteca.dao.AdminSession;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
@@ -25,21 +25,21 @@ public class EmprestimoController {
 	private EmprestimoDAO emprestimoDAO;
 	private LivroDAO livroDAO;
 	private UsuarioDAO usuarioDAO;
-	private UserSession userSession;
+	private AdminSession adminSession;
 	
-	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioDAO usuarioDAO, UserSession userSession){
+	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioDAO usuarioDAO, AdminSession userSession){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.livroDAO = livroDAO;
 		this.usuarioDAO = usuarioDAO;
-		this.userSession = userSession;
+		this.adminSession = userSession;
 	}
 	@Get
 	@Path("/emprestimos")
 	public void index(String nomeDoLivro){
 		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro);
 		result.include("emprestimos", emprestimos);
-		result.include("nome", userSession.getUsario().getNome());
+		result.include("nome", adminSession.getAdministrador().getNome());
 	}
 	@Post
 	public void devolve(Long id, Calendar dataDeDevolucao){
