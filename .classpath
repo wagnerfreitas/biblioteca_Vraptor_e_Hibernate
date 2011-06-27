@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/vraptor-3.3.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/c3p0-0.9.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ehcache-1.5.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
@@ -32,8 +31,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aopalliance.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjrt.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.aop-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.asm-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.aspects-3.0.5.RELEASE.jar"/>
@@ -43,8 +40,12 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.expression-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.web-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/servlet-2.3.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jasperreports-4.0.2.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itext-2.0.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/groovy-all-1.5.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itext-2.1.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jasperreports-3.7.0.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

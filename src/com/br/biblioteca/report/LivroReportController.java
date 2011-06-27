@@ -6,11 +6,13 @@ import java.util.Map;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.interceptor.download.Download;
 
 import com.br.biblioteca.dao.LivroDAO;
 import com.br.biblioteca.entitades.Livro;
 	
+@Resource
 public class LivroReportController {
 	
 	private final JasperMaker jasperMaker;
@@ -22,11 +24,11 @@ public class LivroReportController {
 	}
 	
 	@Post
-	@Path("relatorio/livros/{nome}")
-	public Download relatoriosDeLivro(String nome) {
-		List<Livro> livros = livroDAO.listaDeLivro(nome);
+	@Path("relatorio/livros")
+	public Download relatoriosDeLivro(String filtro_relatorio) {
+		List<Livro> livros = livroDAO.listaDeLivro(filtro_relatorio);
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("nome", nome);
-		return jasperMaker.makePdf("", livros, "Livro.pdf", true, parametros);
+		parametros.put("nome", filtro_relatorio);
+		return jasperMaker.makePdf("Livro.jasper", livros, "Livro.pdf", true, parametros);
 	} 
 }

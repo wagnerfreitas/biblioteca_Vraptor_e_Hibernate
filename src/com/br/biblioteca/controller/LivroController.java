@@ -42,7 +42,7 @@ public class LivroController {
 	public void index(String nome){
 		List<Livro> livros = livroDAO.listaDeLivro(nome);
 		result.include("livros", livros);
-		result.include("nome", adminSession.getAdministrador().getNome());
+		result.include("usuario", adminSession.getAdministrador().getNome());
 	}
 	
 	@Get

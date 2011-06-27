@@ -2,6 +2,7 @@
 var $formDevolve = $("#fomDevolve");
 var $formAtualiza = $("#formAtualiza");
 var $formRemove = $(".formRemove");
+var $formRelatorio = $("#formRelatorio");
 
 $(document).ready(function(){
 	$(".emprestar").click(function(){
@@ -140,6 +141,12 @@ $(document).ready(function(){
 			$("#btn-devolver").click();	
 		}
 	});
+	
+//	$("#gerarRelatorio").click(function(){
+//		if($formRelatorio.valid()){
+//			$.post("relatorio/livros/" + $("#filtro_relatorio").val() ,$formRelatorio.serialize());
+//		}
+//	});
 	
 	$("#apagarLivros").click(function(){
 		if($formRemove.valid()){

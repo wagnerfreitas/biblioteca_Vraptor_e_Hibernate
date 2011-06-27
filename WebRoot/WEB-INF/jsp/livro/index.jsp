@@ -20,6 +20,17 @@
 			#login{
 				float:right;
 			}
+			#div{
+				width:600px;
+			}
+			#gerarRelatorio{
+				float:right;
+				width:110px;
+				background: none;
+				border: none;
+				text-decoration: underline;
+				color: blue;
+			}
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
@@ -27,7 +38,7 @@
 	<body>
 		<div id="geral">
 			<div id="login">
-				Bem vindo, ${nome}&nbsp;&nbsp;&nbsp;
+				Bem vindo, ${usuario}&nbsp;&nbsp;&nbsp;
 				<a href="logout">Sair</a>
 			</div><br>
 				
@@ -159,7 +170,13 @@
 			</div>
 			
 			<div id="retornoUsuarios"></div>
-			<a href="../biblioteca">Voltar</a><br/>
+			<div id="div">
+				<a href="../biblioteca">Voltar</a><br/>
+				<form id="formRelatorio" action="relatorio/livros" method="post">
+					<input type="text" name="filtro_relatorio" value="${nome}" />
+					<button id="gerarRelatorio">Gerar relatório</button>
+				</form>
+			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>

@@ -35,10 +35,10 @@ public class JasperMaker {
 
 		contextDir = servletContext.getRealPath("/");
 		String temp = servletContext.getInitParameter("vraptor.jasperMaker");
-		temp = temp == null ? "WEB-INF/jasper/" : temp.trim();
-		if (!temp.endsWith("/"))
-			temp = temp.concat("/");
-		jasperDir = temp.startsWith("/") ? temp : contextDir.concat(temp);
+		temp = temp == null ? "WEB-INF\\jasper\\" : temp.trim();
+//		if (!temp.endsWith("/"))
+//			temp = temp.concat("/");
+		jasperDir = contextDir + temp;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class JasperMaker {
 	 */
 	public Download makePdf(String jasperFile, Collection<?> dataSource,
 			String fileName, boolean doDownload, Map<String, Object> parametros) {
-		jasperFile = jasperDir + jasperFile;
+		jasperFile = "C:\\\\livro.jasper";
 
 		// parametros.put("data", new Date());
 		// parametros.put("jasperPath", jasperDir);

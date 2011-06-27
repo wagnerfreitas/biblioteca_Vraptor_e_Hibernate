@@ -2,6 +2,7 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -50,10 +51,13 @@ public class LivroDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Livro> listaDeLivro(String nomeDoLivro){
-		return session.createCriteria(Livro.class)
-			.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
-			.add(Restrictions.eq("livroDeletado", false))
-		.list();
+		Criteria criteria =  session.createCriteria(Livro.class);
+		if (nomeDoLivro != null || nomeDoLivro == "") {
+			criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+		}
+			
+		criteria.add(Restrictions.eq("livroDeletado", false));
+		return criteria.list();
 	}
 	
 	public Livro pesquisarLivroPorId(Long id) {

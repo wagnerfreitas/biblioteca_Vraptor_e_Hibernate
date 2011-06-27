@@ -1,14 +1,11 @@
 package com.br.biblioteca.entitades;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@SuppressWarnings("serial")
 @Entity
-public class Usuario implements Serializable{
+public class Usuario{
 	@Id
 	@GeneratedValue
 	private Long id;
