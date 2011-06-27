@@ -27,12 +27,12 @@ public class EmprestimoController {
 	private UsuarioDAO usuarioDAO;
 	private AdminSession adminSession;
 	
-	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioDAO usuarioDAO, AdminSession userSession){
+	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioDAO usuarioDAO, AdminSession adminSession){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.livroDAO = livroDAO;
 		this.usuarioDAO = usuarioDAO;
-		this.adminSession = userSession;
+		this.adminSession = adminSession;
 	}
 	@Get
 	@Path("/emprestimos")

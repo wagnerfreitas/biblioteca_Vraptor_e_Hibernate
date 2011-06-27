@@ -20,12 +20,12 @@ public class UsuarioController {
 	
 	private Result result;
 	private UsuarioDAO usuarioDAO;
-	private AdminSession userSession;
+	private AdminSession adminSession;
 	
-	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession userSession){
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
-		this.userSession = userSession;
+		this.adminSession = adminSession;
 	}
 	
 	@Get
@@ -33,7 +33,7 @@ public class UsuarioController {
 	public void index(String nome){
 		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 		result.include("usuarios", usuarios);
-		result.include("nome", userSession.getAdministrador().getNome());
+		result.include("nome", adminSession.getAdministrador().getNome());
 	}
 	
 	@Get

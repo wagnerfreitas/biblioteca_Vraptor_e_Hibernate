@@ -27,14 +27,14 @@ public class LivroController {
 	private LivroDAO livroDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioDAO usuarioDAO;
-	private AdminSession userSession;
+	private AdminSession adminSession;
 	
-	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO, AdminSession userSession){
+	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO, AdminSession adminSession){
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioDAO = usuarioDAO;
-		this.userSession = userSession;
+		this.adminSession = adminSession;
 	}
 	
 	@Get
@@ -42,7 +42,7 @@ public class LivroController {
 	public void index(String nome){
 		List<Livro> livros = livroDAO.listaDeLivro(nome);
 		result.include("livros", livros);
-		result.include("nome", userSession.getAdministrador().getNome());
+		result.include("nome", adminSession.getAdministrador().getNome());
 	}
 	
 	@Get
