@@ -173,7 +173,7 @@
 			<div id="div">
 				<a href="../biblioteca">Voltar</a><br/>
 				<form id="formRelatorio" action="relatorio/livros" method="post">
-					<input type="text" name="filtro_relatorio" value="${nome}" />
+					<input type="hidden" name="filtro_relatorio" value="${nome}" />
 					<button id="gerarRelatorio">Gerar relatório</button>
 				</form>
 			</div>

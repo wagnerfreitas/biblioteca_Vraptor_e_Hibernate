@@ -54,9 +54,8 @@ public class LivroDAO {
 		Criteria criteria =  session.createCriteria(Livro.class);
 		if (nomeDoLivro != null || nomeDoLivro == "") {
 			criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+			criteria.add(Restrictions.eq("livroDeletado", false));
 		}
-			
-		criteria.add(Restrictions.eq("livroDeletado", false));
 		return criteria.list();
 	}
 	

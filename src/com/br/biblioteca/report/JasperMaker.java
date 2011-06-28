@@ -32,12 +32,11 @@ public class JasperMaker {
 	private final String contextDir;
 
 	public JasperMaker(ServletContext servletContext) {
-
 		contextDir = servletContext.getRealPath("/");
 		String temp = servletContext.getInitParameter("vraptor.jasperMaker");
-		temp = temp == null ? "WEB-INF\\jasper\\" : temp.trim();
-//		if (!temp.endsWith("/"))
-//			temp = temp.concat("/");
+		temp = temp == null ? "WEB-INF/jasper/" : temp.trim();
+		if (!temp.endsWith("/"))
+			temp = temp.concat("/");
 		jasperDir = contextDir + temp;
 	}
 
@@ -62,9 +61,9 @@ public class JasperMaker {
 	 * @return um {@link Download} a ser enviado como retorno.
 	 */
 	public Download makePdf(String jasperFile, Collection<?> dataSource,
-			String fileName, boolean doDownload,
-			HashMap<String, Object> parametros) {
-		return makePdf(jasperFile, dataSource, fileName, doDownload, parametros);
+			String fileName, boolean doDownload, HashMap<String, Object> parametros) {
+		return makePdf(jasperFile, dataSource, fileName, doDownload,
+				parametros);
 	}
 
 	/**
@@ -89,19 +88,12 @@ public class JasperMaker {
 	 *            web.
 	 * @return um {@link Download} a ser enviado como retorno.
 	 */
-	public Download makePdf(String jasperFile, Collection<?> dataSource,
-			String fileName, boolean doDownload, Map<String, Object> parametros) {
-		jasperFile = "C:\\\\livro.jasper";
-
-		// parametros.put("data", new Date());
-		// parametros.put("jasperPath", jasperDir);
-		// parametros.put("contextPath", contextDir);
+	public Download makePdf(String jasperFile, Collection<?> dataSource,String fileName, boolean doDownload, Map<String, Object> parametros) {
+		jasperFile = jasperDir + jasperFile;
+		
 		try {
-
-			JasperReport relatorio = JasperCompileManager
-					.compileReport(jasperFile);
-			JasperPrint print = JasperFillManager.fillReport(relatorio,
-					parametros, new JRBeanCollectionDataSource(dataSource));
+			JasperReport relatorio = JasperCompileManager.compileReport(jasperFile);  
+			JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(dataSource));
 
 			JRExporter exporter = new JRPdfExporter();
 
@@ -121,5 +113,6 @@ public class JasperMaker {
 			LOGGER.error("PDF Exporter error", e);
 			throw new RuntimeException(e);
 		}
+
 	}
 }

@@ -1,5 +1,6 @@
 package com.br.biblioteca.report;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,9 @@ public class LivroReportController {
 	public Download relatoriosDeLivro(String filtro_relatorio) {
 		List<Livro> livros = livroDAO.listaDeLivro(filtro_relatorio);
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("nome", filtro_relatorio);
-		return jasperMaker.makePdf("Livro.jasper", livros, "Livro.pdf", true, parametros);
+		Date data = new Date();
+		parametros.put("TITLE", "Lista de livros");
+		parametros.put("DATE", data);
+		return jasperMaker.makePdf("Livro.jrxml", livros, "Livros.pdf", true, parametros);
 	} 
 }
