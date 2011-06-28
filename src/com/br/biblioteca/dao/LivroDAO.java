@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -55,6 +56,7 @@ public class LivroDAO {
 		if (nomeDoLivro != null || nomeDoLivro == "") {
 			criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
 			criteria.add(Restrictions.eq("livroDeletado", false));
+			criteria.addOrder(Order.asc("nome"));
 		}
 		return criteria.list();
 	}

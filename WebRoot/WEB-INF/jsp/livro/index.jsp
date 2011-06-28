@@ -82,7 +82,15 @@
 						<td><input type="button" style="display: none" id="apagarLivros" value="Apagar livros"></td>
 					</tr>
 				</table>
-			</form>	
+			</form>
+			
+			<div id="div">
+				<a href="../biblioteca">Voltar</a><br/>
+				<form id="formRelatorio" action="relatorio/livros" method="post">
+					<input type="hidden" name="filtro_relatorio" value="${nome}" />
+					<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+				</form>
+			</div>	
 			
 			<div id="EmprestarLivro">
 				<h1>Emprestar livro</h1>
@@ -170,13 +178,6 @@
 			</div>
 			
 			<div id="retornoUsuarios"></div>
-			<div id="div">
-				<a href="../biblioteca">Voltar</a><br/>
-				<form id="formRelatorio" action="relatorio/livros" method="post">
-					<input type="hidden" name="filtro_relatorio" value="${nome}" />
-					<button id="gerarRelatorio">Gerar relatório</button>
-				</form>
-			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>

@@ -16,6 +16,17 @@
 			#login{
 				float:right;
 			}
+			#div{
+				width:525px;
+			}
+			#gerarRelatorio{
+				float:right;
+				width:110px;
+				background: none;
+				border: none;
+				text-decoration: underline;
+				color: blue;
+			}
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
@@ -23,7 +34,7 @@
 	<body>
 		<div id="geral">
 			<div id="login">
-				Bem vindo, ${nome}&nbsp;&nbsp;&nbsp;
+				Bem vindo, ${usuario}&nbsp;&nbsp;&nbsp;
 				<a href="logout">Sair</a>
 			</div><br>
 			
@@ -55,6 +66,14 @@
 				</table>
 			</form>
 			
+			<div id="div">
+				<a href="../biblioteca">Voltar</a><br/>
+				<form id="formRelatorio" action="relatorio/usuarios" method="post">
+					<input type="hidden" name="filtro_relatorio" value="${nome}" />
+					<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+				</form>
+			</div>
+			
 			<div id="AtualizarUsuario">
 				<form id="formAtualiza" method="post">
 					<input type="hidden" id="emprestimo" name="usuario.emprestimoAtivo" />
@@ -84,7 +103,6 @@
 					</table>
 				</form>
 			</div>
-			<a href="../biblioteca">Voltar</a>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>

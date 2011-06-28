@@ -33,7 +33,8 @@ public class UsuarioController {
 	public void index(String nome){
 		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 		result.include("usuarios", usuarios);
-		result.include("nome", adminSession.getAdministrador().getNome());
+		result.include("nome", nome);
+		result.include("usuario", adminSession.getAdministrador().getNome());
 	}
 	
 	@Get

@@ -2,6 +2,7 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -50,13 +51,13 @@ public class UsuarioDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisa(String nome){
-		List<Usuario> usuarios = this.session
-			.createCriteria(Usuario.class)
-				.add(Restrictions.like("nome", "%" + nome + "%"))
-				.add(Restrictions.eq("usuarioAtivo", true))
-				.addOrder(Order.asc("nome"))
-			.list();
-		return usuarios; 
+		Criteria criteria = session.createCriteria(Usuario.class);
+		if(nome != null ||  nome == ""){
+			criteria.add(Restrictions.like("nome", "%" + nome + "%"));
+			criteria.add(Restrictions.eq("usuarioAtivo", true));
+			criteria.addOrder(Order.asc("nome"));
+		}
+		return criteria.list();
 	}
 	
 	public Usuario pesquisarUsuarioPorId(Long id){

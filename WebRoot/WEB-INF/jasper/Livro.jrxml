@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.6105100000000103"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="3.4522712143931304"/>
+	<property name="ireport.x" value="695"/>
+	<property name="ireport.y" value="341"/>
 	<parameter name="TITLE" class="java.lang.String"/>
 	<parameter name="DATE" class="java.util.Date"/>
 	<field name="nome" class="java.lang.String"/>
@@ -12,7 +12,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="45" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="131" height="23"/>
 				<textElement>
@@ -21,7 +21,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TITLE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="25" width="100" height="20"/>
+				<reportElement x="0" y="23" width="100" height="20"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
