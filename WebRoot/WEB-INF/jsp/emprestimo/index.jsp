@@ -15,6 +15,18 @@
 			#login{
 				float:right;
 			}
+			#div{
+				width:800px;
+			}
+			#gerarRelatorio{
+				float:right;
+				width:110px;
+				background: none;
+				border: none;
+				text-decoration: underline;
+				color: blue;
+			}
+			
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
@@ -23,7 +35,7 @@
 	<body>
 		<div id="geral">
 			<div id="login">
-				Bem vindo, ${nome}&nbsp;&nbsp;&nbsp;
+				Bem vindo, ${usuario}&nbsp;&nbsp;&nbsp;
 				<a href="logout">Sair</a>
 			</div><br>
 			
@@ -43,16 +55,25 @@
 						<td style="width: 220px">
 							${emprestimo.livro.nome}
 						</td>
-						<td>
+						<td width="140">
 							Data de empréstimo:
 						</td>
 						<td>
-							<fmt:formatDate value="${emprestimo.dataDeEmprestimo.time}" pattern="dd/MM/yyyy" />
+							<fmt:formatDate value="${emprestimo.dataDeEmprestimo}" pattern="dd/MM/yyyy" />
 						</td>
 						<td><button class="devolver">Devolver</button></td>
 					</tr>
 				</c:forEach>
 			</table>
+			
+			<div id="div">
+				<a href="../biblioteca">Voltar</a><br/>
+				<form id="formRelatorio" action="relatorio/emprestimos" method="post">
+					<input type="hidden" name="filtro_relatorio" value="${nome}" />
+					<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+				</form>
+			</div>
+			
 			<div id="devolverLivro">
 				<h1>Devolver Livro</h1>
 				<form method="post" id="formDevolve">
@@ -68,7 +89,6 @@
 					</table>
 				</form>
 			</div>
-			<a href="../biblioteca">Voltar</a>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>

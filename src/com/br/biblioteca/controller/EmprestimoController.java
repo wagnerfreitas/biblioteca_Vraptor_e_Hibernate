@@ -1,6 +1,8 @@
 package com.br.biblioteca.controller;
 
-import java.util.Calendar;
+import static br.com.caelum.vraptor.view.Results.json;
+
+import java.util.Date;
 import java.util.List;
 
 import br.com.caelum.vraptor.Get;
@@ -9,14 +11,13 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
+import com.br.biblioteca.dao.AdminSession;
 import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.LivroDAO;
-import com.br.biblioteca.dao.AdminSession;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
 import com.br.biblioteca.entitades.Usuario;
-import static br.com.caelum.vraptor.view.Results.json;
 
 @Resource
 public class EmprestimoController {
@@ -39,10 +40,11 @@ public class EmprestimoController {
 	public void index(String nomeDoLivro){
 		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro);
 		result.include("emprestimos", emprestimos);
-		result.include("nome", adminSession.getAdministrador().getNome());
+		result.include("nome", nomeDoLivro);
+		result.include("usuario", adminSession.getAdministrador().getNome());
 	}
 	@Post
-	public void devolve(Long id, Calendar dataDeDevolucao){
+	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
 		if(id.equals("") || dataDeDevolucao.equals("")){
 			message = "Erro";

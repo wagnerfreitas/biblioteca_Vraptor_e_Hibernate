@@ -1,6 +1,6 @@
 package com.br.biblioteca.entitades;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,9 +20,9 @@ public class Emprestimo {
 	@OneToOne
 	private Livro livro;
 	@Temporal(TemporalType.DATE)
-	private Calendar dataDeEmprestimo;
+	private Date dataDeEmprestimo;
 	@Temporal(TemporalType.DATE)
-	private Calendar dataDeDevolucao;
+	private Date dataDeDevolucao;
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -36,16 +36,16 @@ public class Emprestimo {
 	public void setLivro(Livro livro) {
 		this.livro = livro;
 	}
-	public Calendar getDataDeEmprestimo() {
+	public Date getDataDeEmprestimo() {
 		return dataDeEmprestimo;
 	}
-	public void setDataDeEmprestimo(Calendar dataDeEmprestimo) {
+	public void setDataDeEmprestimo(Date dataDeEmprestimo) {
 		this.dataDeEmprestimo = dataDeEmprestimo;
 	}
-	public Calendar getDataDeDevolucao() {
+	public Date getDataDeDevolucao() {
 		return dataDeDevolucao;
 	}
-	public void setDataDeDevolucao(Calendar dataDeDevolucao) {
+	public void setDataDeDevolucao(Date dataDeDevolucao) {
 		this.dataDeDevolucao = dataDeDevolucao;
 	}
 	public Long getId() {

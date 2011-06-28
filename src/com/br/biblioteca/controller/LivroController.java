@@ -2,7 +2,7 @@ package com.br.biblioteca.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.caelum.vraptor.Get;
@@ -66,7 +66,7 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/emprestar")
-	public void emprestar(Long iDUsuario, Long idLivro, Calendar dataDeEmprestimo){
+	public void emprestar(Long iDUsuario, Long idLivro, Date dataDeEmprestimo){
 		Emprestimo emprestimo = new Emprestimo();
 		String message;
 		if(idLivro.equals("") || iDUsuario.equals("") || dataDeEmprestimo.equals("")){
@@ -118,7 +118,7 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/devolve")
-	public void devolve(Long id, Calendar dataDeDevolucao){
+	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
 		if(id.equals("") || dataDeDevolucao.equals("")){
 			message = "Erro";
