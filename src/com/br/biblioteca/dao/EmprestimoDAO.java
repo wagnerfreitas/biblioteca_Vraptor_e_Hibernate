@@ -2,6 +2,7 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,6 +17,7 @@ import com.br.biblioteca.entitades.Emprestimo;
 @RequestScoped
 public class EmprestimoDAO {
 	private Session session;
+	private Criteria criteria = session.createCriteria(Emprestimo.class);
 	
 	public EmprestimoDAO(BibliotecaUtil bibliotecaUtil){
 		this.session = bibliotecaUtil.getSession();
@@ -33,10 +35,14 @@ public class EmprestimoDAO {
 	}
 	
 	public Emprestimo procuraPorId(Long id){
-		return (Emprestimo) this.session
-			.createCriteria(Emprestimo.class)
-				.add(Restrictions.eq("id", id))
-			.uniqueResult();
+		criteria.add(Restrictions.eq("id", id));
+		return (Emprestimo) criteria.uniqueResult();
+	}
+	
+	public Emprestimo procuraPorIdLivro(Long id) {
+		criteria.add(Restrictions.isNull("dataDeDevolucao"));
+		criteria.add(Restrictions.eq("livro.id", id));
+		return (Emprestimo) criteria.uniqueResult();
 	}
 	
 	public void atualiza(Emprestimo emprestimo){
@@ -67,21 +73,17 @@ public class EmprestimoDAO {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Emprestimo> procuraPorIdUsuario(Long id){
-		List<Emprestimo> emprestimos = this.session
-			.createCriteria(Emprestimo.class)
-				.add(Restrictions.isNull("dataDeDevolucao"))
-				.add(Restrictions.eq("usuario.id", id))
-			.list();
-		return emprestimos;
-	}
-
-	public Emprestimo procuraPorIdLivro(Long id) {
-		return (Emprestimo) this.session
-			.createCriteria(Emprestimo.class)
-				.add(Restrictions.isNull("dataDeDevolucao"))
-				.add(Restrictions.eq("livro.id", id))
-			.uniqueResult();
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Emprestimo> procuraPorIdUsuario(Long id){
+//		criteria.add(Restrictions.isNull("dataDeDevolucao"));
+//		criteria.add(Restrictions.eq("usuario.id", id));
+//		return criteria.list();
+//		
+////		List<Emprestimo> emprestimos = this.session
+////			.createCriteria(Emprestimo.class)
+////				.add(Restrictions.isNull("dataDeDevolucao"))
+////				.add(Restrictions.eq("usuario.id", id))
+////			.list();
+////		return emprestimos;
+//	}
 }
