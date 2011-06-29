@@ -10,8 +10,10 @@ import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
+@Resource
 public class AdministradorController {
 	
 	private Result result;
