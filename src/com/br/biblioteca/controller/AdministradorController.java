@@ -35,7 +35,7 @@ public class AdministradorController {
 	}
 	
 	@Get
-	@Path("/usuario/add")
+	@Path("/amdmin/add")
 	public void add(){
 	}
 	

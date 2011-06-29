@@ -63,7 +63,7 @@ public class UsuarioController {
 	}
 	
 	@Put @Post
-	@Path("usuario/atualiza")
+	@Path("/usuario/atualiza")
 	public void atualiza(Usuario usuario){
 		String message;
 		if(usuario.equals(null)){
