@@ -51,4 +51,17 @@ public class AdministradorController {
 			result.use(json()).from(message, "message").serialize();
 		}
 	}
+	
+	@Post
+	@Path("/admin/deletar")
+	public void deletar(Administrador administrador){
+		String message;
+		if(administrador.getId() == null){
+			message = "Erro ao tentar apagar";
+		}else{
+			administradorDAO.delete(administrador);
+			message = administrador.getNome() + " apagado com sucesso";
+		}
+		result.use(json()).from(message, "message").serialize();
+	}
 }

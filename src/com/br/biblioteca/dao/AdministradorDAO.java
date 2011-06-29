@@ -40,6 +40,20 @@ public class AdministradorDAO {
 		return session.createCriteria(Administrador.class).list();		
 	}
 	
+	public void delete(Administrador administrador){
+		try {
+			Transaction tx = session.beginTransaction();
+			session.delete(administrador);
+			tx.commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException();
+		} finally{
+			if(session != null){
+				session.close();
+			}
+		}
+	}
+	
 	public Administrador login(String nome, String senha){
 		Administrador administrador = (Administrador) this.session.createCriteria(Administrador.class)
 				.add(Restrictions.eq("nome", nome))
