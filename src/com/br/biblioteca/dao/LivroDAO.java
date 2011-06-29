@@ -18,7 +18,6 @@ import com.br.biblioteca.entitades.Livro;
 @RequestScoped
 public class LivroDAO {
 	private Session session;
-	private Criteria criteria =  session.createCriteria(Livro.class);
 	
 	public LivroDAO(BibliotecaUtil bibliotecaUtil){
 		this.session = bibliotecaUtil.getSession();
@@ -53,6 +52,7 @@ public class LivroDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Livro> listaDeLivro(String nomeDoLivro){
+		Criteria criteria =  session.createCriteria(Livro.class);
 		if (nomeDoLivro != null || nomeDoLivro == "") {
 			criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
 			criteria.add(Restrictions.eq("livroDeletado", false));
@@ -62,7 +62,9 @@ public class LivroDAO {
 	}
 	
 	public Livro pesquisarLivroPorId(Long id) {
-		criteria.add(Restrictions.eq("id", id));
-		return (Livro) criteria.uniqueResult();
+		return (Livro) this.session
+			.createCriteria(Livro.class)
+				.add(Restrictions.eq("id", id))
+			.uniqueResult();
 	}
 }

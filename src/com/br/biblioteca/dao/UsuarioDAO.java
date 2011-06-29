@@ -18,7 +18,6 @@ import com.br.biblioteca.entitades.Usuario;
 @RequestScoped
 public class UsuarioDAO {
 	private Session session;
-	private Criteria criteria = session.createCriteria(Usuario.class);
 	
 	public UsuarioDAO(BibliotecaUtil bibliotecaUtil){
 		this.session = bibliotecaUtil.getSession();
@@ -52,6 +51,7 @@ public class UsuarioDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisa(String nome){
+		Criteria criteria = session.createCriteria(Usuario.class);
 		if(nome != null ||  nome == ""){
 			criteria.add(Restrictions.like("nome", "%" + nome + "%"));
 			criteria.add(Restrictions.eq("usuarioAtivo", true));
@@ -61,7 +61,9 @@ public class UsuarioDAO {
 	}
 	
 	public Usuario pesquisarUsuarioPorId(Long id){
-		criteria.add(Restrictions.eq("id", id));
-		return (Usuario) criteria.uniqueResult();
+		return (Usuario) this.session
+			.createCriteria(Usuario.class)
+				.add(Restrictions.eq("id", id))
+			.uniqueResult();
 	}
 }
