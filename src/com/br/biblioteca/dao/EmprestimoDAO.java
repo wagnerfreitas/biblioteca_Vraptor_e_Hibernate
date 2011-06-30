@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -26,6 +27,7 @@ public class EmprestimoDAO {
 		List<Emprestimo> emprestimos = this.session
 				.createCriteria(Emprestimo.class)
 					.add(Restrictions.isNull("dataDeDevolucao"))
+					.addOrder(Order.asc("dataDeEmprestimo"))
 				.createCriteria("livro")
 					.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
 				.list();
