@@ -24,7 +24,6 @@ public class LoginIntecptor implements Interceptor {
 		this.adminSession = adminSession;
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	public boolean accepts(ResourceMethod method) {
 		return !Arrays.asList(LoginController.class).contains(method.getMethod().getDeclaredAnnotations());
@@ -37,5 +36,4 @@ public class LoginIntecptor implements Interceptor {
 			result.redirectTo(LoginController.class).login();
 		}
 	}
-
 }

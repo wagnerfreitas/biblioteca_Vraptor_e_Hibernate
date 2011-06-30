@@ -75,11 +75,7 @@
 						</tr>
 					</c:forEach>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><input type="button" style="display: none" id="apagarLivros" value="Apagar livros"></td>
+						<td colspan="5" align="right"><input type="button" style="display: none" id="apagarLivros" value="Apagar livros"></td>
 					</tr>
 				</table>
 			</form>
