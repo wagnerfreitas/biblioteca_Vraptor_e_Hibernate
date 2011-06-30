@@ -60,7 +60,7 @@ public class AdministradorController {
 			message = "Erro ao tentar apagar";
 		}else{
 			administradorDAO.delete(administrador);
-			message = administrador.getNome() + " apagado com sucesso";
+			message = "\"" + administrador.getNome() + "\" apagado com sucesso";
 		}
 		result.use(json()).from(message, "message").serialize();
 	}

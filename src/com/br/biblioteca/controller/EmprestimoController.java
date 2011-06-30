@@ -43,7 +43,9 @@ public class EmprestimoController {
 		result.include("nome", nomeDoLivro);
 		result.include("usuario", adminSession.getAdministrador().getNome());
 	}
+	
 	@Post
+	@Path("emprestimo/devolve")
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
 		if(id.equals("") || dataDeDevolucao.equals("")){

@@ -83,16 +83,7 @@ $(document).ready(function(){
 	
 	$("#btn-emprestar").click(function(){
 		tornFormEmprestaValid()
-		if($formEmpresta.valid()){
-			$.post("livro/emprestar", $formEmpresta.serialize())
-				.success(function(msg){
-					alert(msg.message)
-					location.reload();
-				})
-				.error(function(erro){
-					alert(erro.message)
-				});
-		}
+		postarDados("livro/emprestar", $formEmpresta);
 	});
 	
 	$formEmpresta.find("input").keydown(function(event){
@@ -103,16 +94,7 @@ $(document).ready(function(){
 	
 	$("#btn-atualiza").click(function(){
 		tornFormAtualizaValid();
-		if($formAtualiza.valid()){
-			$.post("livro/atualiza", $formAtualiza.serialize())
-				.success(function(msg){
-					alert(msg.message)
-					location.reload();					
-				})
-				.error(function(erro){
-					alert(erro.message);
-				});
-		}
+		postarDados("livro/atualiza", $formAtualiza);
 	});
 	
 	$formAtualiza.find("input").keydown(function(event){
@@ -122,17 +104,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btn-devolver").click(function(){
-		tornFormDevolveValid();
-		if($formDevolve.valid()){
-			$.post("livro/devolve", $formDevolve.serialize())
-				.success(function(msg){
-					alert(msg.message)
-					location.reload();
-				})
-				.error(function(erro){
-					alert(erro.message);
-				})
-		}
+		postarDados("livro/devolve", $formDevolve);
 	});
 	
 	$formDevolve.find("input").keydown(function(event){
@@ -142,18 +114,22 @@ $(document).ready(function(){
 	});
 
 	$("#apagarLivros").click(function(){
-		if($formRemove.valid()){
-			$.post("livro/remove", $formRemove.serialize())
-				.success(function(msg){
-					alert(msg.message);
-					location.reload();
-				})
-				.error(function(erro){
-					alert(erro.message);
-				})
-		}
+		postarDados("livro/remove", $formRemove);
 	});
 });
+
+function postarDados(rota, formulario){
+	if(formulario.valid()){
+		$.post(rota, formulario.serialize())
+			.success(function(msg){
+				alert(msg.message);
+				location.reload();
+			})
+			.error(function(erro){
+				alert(erro.message);
+			});
+	}
+}
 
 function tornFormAtualizaValid(){
 	$formAtualiza.validate({
