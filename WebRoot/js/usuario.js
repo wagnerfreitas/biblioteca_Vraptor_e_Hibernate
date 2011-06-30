@@ -23,30 +23,12 @@ $(document).ready(function(){
 	});
 	
 	$("#deletarUsuario").click(function(){
-		if($formDeletar.valid()){
-			$.post("usuario/delete", $formDeletar.serialize())
-				.success(function(msg){
-					alert(msg.message);
-					location.reload();
-				})
-				.error(function(erro){
-					alert("Erro ao deletar usuário" + erro);
-				});
-		}
+		postarDados("usuario/delete", $formDeletar)
 	});
 
 	$("#atualizarUsuario").click(function(){
 		turnFormAtulizaValid();
-		if($formAtualiza.valid()){
-			$.post("usuario/atualiza", $formAtualiza.serialize())
-				.success(function(msg){
-					alert(msg.message)
-					location.reload();
-				})
-				.error(function(erro){
-					alert(erro.message)
-				});
-		}
+		postarDados("usuario/atualiza", $formAtualiza);
 	});
 	
 	$formAtualiza.find("input").keydown(function(event){
@@ -55,6 +37,19 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function postarDados(rota, formulario){
+	if(formulario.valid()){
+		$.post(rota, formulario.serialize())
+			.success(function(msg){
+				alert(msg.message);
+				location.reload();
+			})
+			.error(function(erro){
+				alert(erro.message);
+			});
+	}
+}
 
 function turnFormAtulizaValid(){
 	$formAtualiza.validate({
