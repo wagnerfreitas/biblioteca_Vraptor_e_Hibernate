@@ -2,6 +2,7 @@ package com.br.biblioteca.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,14 +56,9 @@ public class AdministradorDAO {
 	}
 	
 	public Administrador login(String nome, String senha){
-		Administrador administrador = (Administrador) this.session.createCriteria(Administrador.class)
-				.add(Restrictions.eq("nome", nome))
-				.add(Restrictions.eq("senha", senha))
-				.uniqueResult();
-		if (administrador != null) {
-			return administrador;
-		} else {
-			return null;
-		}
+		Criteria criteria = session.createCriteria(Administrador.class);
+			criteria.add(Restrictions.eq("nome", nome));
+			criteria.add(Restrictions.eq("senha", senha));
+		return (Administrador) criteria.uniqueResult();
 	}
 }

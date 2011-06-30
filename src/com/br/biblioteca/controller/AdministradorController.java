@@ -31,7 +31,7 @@ public class AdministradorController {
 	public void administradores() {
 		List<Administrador> administradores = administradorDAO.lista();
 		result.include("administradores", administradores);
-		result.include("nome", adminSession.getAdministrador().getNome());
+		result.include("usuario", adminSession.getAdministrador().getNome());
 	}
 	
 	@Get
