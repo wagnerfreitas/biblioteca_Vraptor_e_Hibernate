@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Emprestimo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="8.95430243255245"/>
-	<property name="ireport.x" value="2725"/>
-	<property name="ireport.y" value="860"/>
+	<property name="ireport.zoom" value="3.797498335832455"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="217"/>
 	<parameter name="TITLE" class="java.lang.String"/>
 	<parameter name="DATE" class="java.util.Date"/>
 	<field name="usuario.nome" class="java.lang.String"/>
@@ -13,8 +13,8 @@
 		<groupHeader>
 			<band height="16">
 				<textField>
-					<reportElement x="0" y="0" width="220" height="16"/>
-					<textElement>
+					<reportElement x="0" y="0" width="234" height="16"/>
+					<textElement verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{usuario.nome}]]></textFieldExpression>
@@ -53,47 +53,46 @@
 				<reportElement x="0" y="13" width="351" height="14" backcolor="#CCCCCC"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="13" width="220" height="14"/>
+				<reportElement x="0" y="13" width="234" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Nome/Livro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="13" width="130" height="14"/>
+				<reportElement x="235" y="13" width="115" height="14"/>
 				<textElement textAlignment="Center">
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Data de empréstimo]]></text>
 			</staticText>
 			<line>
-				<reportElement x="220" y="13" width="1" height="14"/>
+				<reportElement x="234" y="13" width="1" height="14"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="16" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="220" y="0" width="130" height="15"/>
+				<reportElement x="235" y="0" width="115" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{dataDeEmprestimo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="57" y="0" width="163" height="15"/>
+				<reportElement x="57" y="0" width="177" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{livro.nome}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="17" y="0" width="40" height="15"/>
-				<textElement textAlignment="Center">
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[-]]></text>
-			</staticText>
+			<line>
+				<reportElement x="31" y="0" width="1" height="9"/>
+			</line>
+			<line>
+				<reportElement x="31" y="8" width="23" height="1"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>

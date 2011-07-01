@@ -43,10 +43,10 @@ $(document).ready(function(){
 		$.get("usuarios/list/"+ $("#pesquisarUsuario").val())
 			.success(function(retorno){
 				var usuarios = retorno.list;
-				var sHtml = '<table><thead><tr><td> - Nome - </td><td> - Email - </td><td> - Emprestar - </td></tr></thead>';
+				var sHtml = '<table><thead><tr><td style=\"width:150px\"> - Nome - </td><td style=\"width:150px\"> - Email - </td><td> - Emprestar - </td></tr></thead>';
 				for(i = 0; i < usuarios.length; i++){
 					sHtml += '<tr>'+
-						'<td style=\"width:150px\">'+ usuarios[i].nome +'</td>'+
+						'<td>'+ usuarios[i].nome +'</td>'+
 						'<td>'+ usuarios[i].email +'</td>'+
 						'<td style=\"text-align: center;\"><input type="radio" onclick="setIdUsuario(this.value)" name="emprestar" class="usuario_id" value="'+ usuarios[i].id +'" /></td>' + 
 						'</tr>';
