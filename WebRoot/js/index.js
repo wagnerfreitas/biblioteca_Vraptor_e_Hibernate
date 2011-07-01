@@ -1,44 +1,44 @@
+var $formUsuario = $('form#Usuario');
+var $formLivro = $('form#Livro');
+var $formEmprestimo = $('form#Emprestimo'); 
+
 $(document).ready(function(){
 	$("#pesquisarUsuario").click(function(){
-		$('form').hide();
-		$('form#Usuario').show();
+		exibirForm($formUsuario);
 	});
 	
 	$("#pesquisarLivro").click(function(){
-		$('form').hide();
-		$('form#Livro').show();
+		exibirForm($formLivro);
 	});
 	
 	$('#pesquisarEmprestimo').click(function(){
-		$('form').hide();
-		$('form#Emprestimo').show();
+		exibirForm($formEmprestimo);
 	});
 	
 	$("#adicionarUsuario").click(function(){
-		$('form').hide();
-		$.ajax({
-			url: "usuario/add",
-			type : "GET",
-			success: function(result){
-				$("#result").html(result);
-			},
-			failure: function(){
-				$("#result").alert("Erro");
-			}
-		});
+		postarDados("usuario/add");
 	});
 	
 	$("#adicionarLivro").click(function(){
-		$('form').hide();
-		$.ajax({
-			url: "livro/add",
-			type: "GET",
-			success: function(result){
-				$("#result").html(result);
-			},
-			failure: function(){
-				$("#result").alert("Erro");
-			}
-		});
+		 postarDados("livro/add");
 	});
 });
+
+function exibirForm(formulario){
+	$('form').hide();
+	formulario.show();
+};
+
+function postarDados(url){
+	$('form').hide();
+	$.ajax({
+		url: url,
+		type: "GET",
+		success: function(result){
+			$("#result").html(result);
+		},
+		failure: function(){
+			alert("Erro");
+		}
+	});
+};

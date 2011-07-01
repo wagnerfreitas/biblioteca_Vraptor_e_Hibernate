@@ -20,6 +20,14 @@ $(document).ready(function(){
 		$("#id").val(valor);
 		return false;
 	});
+	$('.IdRemove').click(function(e){
+		e.stopPropagation();	
+		if($('.IdRemove').is(':checked')){
+			$("#apagarLivros").show();
+		}else{
+			$('#apagarLivros').hide();
+		}
+	});
 	
 	$(".nome").click(function(){	
 		$("#EmprestarLivro").hide();
@@ -72,15 +80,6 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.IdRemove').click(function(e){
-		e.stopPropagation();	
-		if($('.IdRemove').is(':checked')){
-			$("#apagarLivros").show();
-		}else{
-			$('#apagarLivros').hide();
-		}
-	});
-	
 	$("#btn-emprestar").click(function(){
 		tornFormEmprestaValid()
 		postarDados("livro/emprestar", $formEmpresta);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.4641000000000128"/>
+	<property name="ireport.zoom" value="1.9487171000000187"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="TITLE" class="java.lang.String"/>
@@ -38,52 +38,52 @@
 				<reportElement x="0" y="17" width="426" height="14" backcolor="#CCCCCC"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="17" width="150" height="14"/>
+				<reportElement x="0" y="17" width="160" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="17" width="150" height="14"/>
+				<reportElement x="160" y="17" width="175" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Autor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="17" width="125" height="14"/>
+				<reportElement x="335" y="17" width="91" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Edição]]></text>
 			</staticText>
 			<line>
-				<reportElement x="149" y="17" width="1" height="14"/>
+				<reportElement x="160" y="17" width="1" height="14"/>
 			</line>
 			<line>
-				<reportElement x="299" y="17" width="1" height="14"/>
+				<reportElement x="335" y="17" width="1" height="14"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement x="149" y="0" width="151" height="15"/>
+				<reportElement x="161" y="0" width="174" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{autor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="299" y="0" width="127" height="15"/>
+				<reportElement x="335" y="0" width="91" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{edicao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="150" height="15"/>
+				<reportElement x="0" y="0" width="161" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -92,12 +92,12 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
