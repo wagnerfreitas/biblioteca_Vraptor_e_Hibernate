@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="css/style.css" />
 		<title>Lista de Usuários</title>
 		
 		<style type="text/css">
@@ -102,6 +103,7 @@
 				</form>
 			</div>
 		</div>
+		<div id="message-toolbar"></div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>

@@ -85,10 +85,14 @@ public class UsuarioController {
 		String message;
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
-			usuario.setUsuarioAtivo(false);
-			usuarioDAO.atualiza(usuario);
+			if(!usuario.isEmprestimoAtivo()){
+				usuario.setUsuarioAtivo(false);
+				usuarioDAO.atualiza(usuario);
+				message = "Usuario(s) deletado(s) com sucesso";
+			}else{
+				message = "Usuário com empréstimo ativo";
+			}
+			result.use(json()).from(message, "message").serialize();
 		}
-		message = "Usuario(s) deletado(s) com sucesso";
-		result.use(json()).from(message, "message").serialize();
 	}
 }

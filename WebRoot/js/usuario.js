@@ -43,10 +43,12 @@ function postarDados(rota, formulario){
 		$.post(rota, formulario.serialize())
 			.success(function(msg){
 				alert(msg.message);
+//				$("#message-toolbar").html(msg.message);
+//				$("#message-toolbar").animate({opacity: 1}, 1000).animate({opacity: 0}, 1000);
 				location.reload();
 			})
-			.error(function(erro){
-				alert(erro.message);
+			.error(function(){
+				alert(message);
 			});
 	}
 }

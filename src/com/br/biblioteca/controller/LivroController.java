@@ -112,9 +112,13 @@ public class LivroController {
 		String message;
 		for (Long id : IdRemove) {
 			livro = livroDAO.pesquisarLivroPorId(id);
-			livro.setLivroDeletado(true);
-			livroDAO.atualiza(livro);
-			message = "Livro(s) deletado(s) com sucesso";
+			if(!livro.isEmprestado()){
+				livro.setLivroDeletado(true);
+				livroDAO.atualiza(livro);
+				message = "Livro(s) deletado(s) com sucesso";
+			}else{
+				message = "Livro está emprestado";
+			}
 			result.use(json()).from(message, "message").serialize();
 		}
 	}
