@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 import com.br.biblioteca.dao.AdminSession;
+import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Usuario;
 
@@ -20,12 +21,14 @@ public class UsuarioController {
 	
 	private Result result;
 	private UsuarioDAO usuarioDAO;
+	private EmprestimoDAO emprestimoDAO;
 	private AdminSession adminSession;
 	
-	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession){
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession, EmprestimoDAO emprestimoDAO){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
 		this.adminSession = adminSession;
+		this.emprestimoDAO = emprestimoDAO;
 	}
 	
 	@Get
@@ -85,12 +88,11 @@ public class UsuarioController {
 		String message;
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
-			if(!usuario.isEmprestimoAtivo()){
-				usuario.setUsuarioAtivo(false);
+			if(emprestimoDAO.procuraPorIdUsuario(id).size() >= 1){
+				message = "Usuário com empréstimo ativo";
+			}else{
 				usuarioDAO.atualiza(usuario);
 				message = "Usuario(s) deletado(s) com sucesso";
-			}else{
-				message = "Usuário com empréstimo ativo";
 			}
 			result.use(json()).from(message, "message").serialize();
 		}

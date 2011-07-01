@@ -56,7 +56,9 @@ public class EmprestimoController {
 			livro.setEmprestado(false);
 			
 			Usuario usuario = emprestimo.getUsuario();
-			usuario.setEmprestimoAtivo(false);
+			if(usuario.isEmprestimoAtivo()){
+				usuario.setEmprestimoAtivo(false);
+			}
 			
 			emprestimo.setDataDeDevolucao(dataDeDevolucao);
 			usuarioDAO.atualiza(usuario);
