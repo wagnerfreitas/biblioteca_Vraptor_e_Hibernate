@@ -27,9 +27,6 @@
 			}
 		</style>
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
-		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
 	</head>
 	<body>
 		<div id="geral">
@@ -97,53 +94,62 @@
 			</table>
 			<div id="result"></div>
 			<form id="Usuario" method="get" action="usuarios">
-				<h1>Pesquisar</h1>
-				<table>
-					<tr>
-						<td>
-							Digite o nome do usuário:
-						</td>
-						<td>
-							<input type="text" name="nome" />
-						</td>
-						<td>
-							<input type="submit" value="Enviar" />
-						</td>
-					</tr>
-				</table>
+				<fieldset>
+					<legend>Pesquisar</legend>
+					<table>
+						<tr>
+							<td>
+								Digite o nome do usuário:
+							</td>
+							<td>
+								<input type="text" name="nome" />
+							</td>
+							<td>
+								<input type="submit" value="Enviar" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
 			</form>
 			<form id="Livro" method="get" action="livros">
-				<h1>Pesquisar</h1>
-				<table>
-					<tr>
-						<td>
-							Digite o nome do livro:
-						</td>
-						<td>
-							<input type="text" id="pesquisaLivroNome" name="nome" />
-						</td>
-						<td>
-							<input type="submit" value="Enviar" />
-						</td>
-					</tr>
-				</table>
+				<fieldset>
+					<legend>Pesquisar</legend>
+					<table>
+						<tr>
+							<td>
+								Digite o nome do livro:
+							</td>
+							<td>
+								<input type="text" id="pesquisaLivroNome" name="nome" />
+							</td>
+							<td>
+								<input type="submit" value="Enviar" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
 			</form>
 			<form id="Emprestimo" method="get" action="emprestimos">
-				<h1>Pesquisar</h1>
-				<table>
-					<tr>
-						<td>
-							Pesquisar empréstimo por livro: 
-						</td>
-						<td>
-							<input type="text" name="nomeDoLivro" />
-						</td>
-						<td>
-							<input type="submit" value="Enviar" />
-						</td>
-					</tr>
-				</table>
+				<fieldset>
+					<legend>Pesquisar</legend>
+					<table>
+						<tr>
+							<td>
+								Pesquisar empréstimo por livro: 
+							</td>
+							<td>
+								<input type="text" name="nomeDoLivro" />
+							</td>
+							<td>
+								<input type="submit" value="Enviar" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
 			</form>
 		</div>
 	</body>
+	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
 </html>

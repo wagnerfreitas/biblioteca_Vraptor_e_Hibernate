@@ -86,8 +86,8 @@ public class LivroController {
 			
 			emprestimoDAO.empresta(emprestimo);
 			message = "\"" + livro.getNome() + "\" emprestado com sucesso";
-			result.use(json()).from(message, "message").serialize();
 		}
+		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Put @Post
@@ -136,7 +136,7 @@ public class LivroController {
 			emprestimoDAO.atualiza(emprestimo);
 			
 			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
-			result.use(json()).from(message, "message").serialize();
 		}
+		result.use(json()).from(message, "message").serialize();
 	}   
 }

@@ -48,8 +48,8 @@ public class AdministradorController {
 		}else{
 			administradorDAO.adiciona(administrador);
 			message = "\"" + administrador.getNome() + "\" adicionado com sucesso";
-			result.use(json()).from(message, "message").serialize();
 		}
+		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post

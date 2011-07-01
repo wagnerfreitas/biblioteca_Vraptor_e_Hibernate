@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<form id="formLogin" method="post">
-		<h1>Faça Login</h1>
+			<h1>Faça Login</h1>
 			<table>
 				<tr>
 					<td>

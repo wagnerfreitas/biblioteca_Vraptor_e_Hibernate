@@ -36,9 +36,11 @@ public class AdministradorDAO {
 			}
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Administrador> lista(){
-		return session.createCriteria(Administrador.class).list();		
+		Criteria criteria = session.createCriteria(Administrador.class);
+		return criteria.list();
 	}
 	
 	public void delete(Administrador administrador){

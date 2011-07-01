@@ -59,7 +59,7 @@
 						</tr>
 					</c:forEach>
 					<tr>
-					<td colspan="3" align="right"><input type="button" id="deletarUsuario" style="display: none" value="Deletar usuários" /></td>
+						<td colspan="3" align="right"><input type="button" id="deletarUsuario" style="display: none" value="Deletar usuários" /></td>
 					</tr>			
 				</table>
 			</form>
