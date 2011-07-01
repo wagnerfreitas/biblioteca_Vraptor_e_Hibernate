@@ -53,7 +53,10 @@ public class UsuarioController {
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
 		String message = null;
-		if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
+		if(usuarioDAO.pesquisa(usuario.getNome()).size() >= 1){
+			message = "\"" + usuario.getNome() + "\" já está cadastrado";
+		}
+		else if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
 			message = "Nome ou email nulos";
 		}else{
 			usuarioDAO.adiciona(usuario);
@@ -71,7 +74,7 @@ public class UsuarioController {
 		}else{
 			usuario.setUsuarioAtivo(true);
 			usuarioDAO.atualiza(usuario);
-			message = "\""+ usuario.getNome() + "\" atualizado com sucesso";
+			message = "\"" + usuario.getNome() + "\" atualizado com sucesso";
 		}
 		result.use(json()).from(message, "message").serialize();
 	}

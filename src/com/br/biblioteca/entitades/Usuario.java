@@ -11,7 +11,6 @@ public class Usuario{
 	private Long id;
 	private String nome;
 	private String email;
-	private String senha;
 	private boolean emprestimoAtivo;
 	private boolean usuarioAtivo;
 	
@@ -44,11 +43,5 @@ public class Usuario{
 	}
 	public void setEmprestimoAtivo(boolean emprestimoAtivo) {
 		this.emprestimoAtivo = emprestimoAtivo;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 }

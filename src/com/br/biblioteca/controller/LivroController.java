@@ -55,7 +55,10 @@ public class LivroController {
 	@Path("/livro/novo")
 	public void novo(Livro livro) {
 		String message;
-		if(livro.getNome().equals("") || livro.getAutor().equals("")){
+		if(livroDAO.listaDeLivro(livro.getNome()).size() >= 1){
+			message = "\"" + livro.getNome() + "\" já cadastrado";
+		}
+		else if(livro.getNome().equals("") || livro.getAutor().equals("")){
 			message = "Nome do livro ou autor nulos";
 		}else{
 			livroDAO.adiciona(livro);
