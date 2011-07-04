@@ -14,10 +14,8 @@ import br.com.caelum.vraptor.Result;
 import com.br.biblioteca.dao.AdminSession;
 import com.br.biblioteca.dao.EmprestimoDAO;
 import com.br.biblioteca.dao.LivroDAO;
-import com.br.biblioteca.dao.UsuarioDAO;
 import com.br.biblioteca.entitades.Emprestimo;
 import com.br.biblioteca.entitades.Livro;
-import com.br.biblioteca.entitades.Usuario;
 
 @Resource
 public class EmprestimoController {
@@ -25,14 +23,12 @@ public class EmprestimoController {
 	private Result result;
 	private EmprestimoDAO emprestimoDAO;
 	private LivroDAO livroDAO;
-	private UsuarioDAO usuarioDAO;
 	private AdminSession adminSession;
 	
-	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioDAO usuarioDAO, AdminSession adminSession){
+	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, AdminSession adminSession){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.livroDAO = livroDAO;
-		this.usuarioDAO = usuarioDAO;
 		this.adminSession = adminSession;
 	}
 	@Get
@@ -52,18 +48,13 @@ public class EmprestimoController {
 			message = "Erro";
 		}else{
 			Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
+			emprestimo.setDataDeDevolucao(dataDeDevolucao);
+			
 			Livro livro = emprestimo.getLivro();
 			livro.setEmprestado(false);
 			
-			Usuario usuario = emprestimo.getUsuario();
-			if(usuario.isEmprestimoAtivo()){
-				usuario.setEmprestimoAtivo(false);
-			}
-			
-			emprestimo.setDataDeDevolucao(dataDeDevolucao);
-			usuarioDAO.atualiza(usuario);
-			livroDAO.atualiza(livro);
 			emprestimoDAO.atualiza(emprestimo);
+			livroDAO.atualiza(livro);
 			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
 		}
 		result.use(json()).from(message, "message").serialize();

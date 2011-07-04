@@ -27,7 +27,6 @@ public class UsuarioDAO {
 		try {
 			Transaction tx = session.beginTransaction();
 			usuario.setUsuarioAtivo(true);
-			usuario.setEmprestimoAtivo(false);
 			session.save(usuario);
 			tx.commit();
 		} catch (HibernateException e) {

@@ -76,8 +76,6 @@ public class LivroController {
 			message = "Erro";
 		}else{
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
-			usuario.setEmprestimoAtivo(true);
-			usuarioDAO.atualiza(usuario);
 			emprestimo.setUsuario(usuario);
 			
 			Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
@@ -127,21 +125,18 @@ public class LivroController {
 	@Path("livro/devolve")
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
-		if(id.equals("") || dataDeDevolucao.equals("")){
+		if(id.equals("") || dataDeDevolucao.equals("")) {
 			message = "Erro";
-		}else{
+		} else {
 			Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
-	
-			Livro livro = emprestimo.getLivro();
-			Usuario usuario = emprestimo.getUsuario();
-			livro.setEmprestado(false);
-			usuario.setEmprestimoAtivo(false);
 			emprestimo.setDataDeDevolucao(dataDeDevolucao);
 			
-			usuarioDAO.atualiza(usuario);
-			livroDAO.atualiza(livro);
+			Livro livro = emprestimo.getLivro();
+			livro.setEmprestado(false);
+
 			emprestimoDAO.atualiza(emprestimo);
-			
+			livroDAO.atualiza(livro);
+
 			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
 		}
 		result.use(json()).from(message, "message").serialize();

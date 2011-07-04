@@ -15,7 +15,7 @@ public class Emprestimo {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@ManyToOne	
+	@ManyToOne
 	private Usuario usuario;
 	@OneToOne
 	private Livro livro;

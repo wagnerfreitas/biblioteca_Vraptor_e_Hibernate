@@ -48,15 +48,12 @@
 						<td style="width: 122px"> - Apagar usuários - </td>
 					</tr>
 					<c:forEach items="${usuarios}" var="usuario">
-						<tr usuarioId="${usuario.id}" emprestimoAtivo="${usuario.emprestimoAtivo}">
+						<tr usuarioId="${usuario.id}">
 							<td><a href="#" class="nome">${usuario.nome}</a></td>
 							<td>${usuario.email}</td>
 							<td style="text-align: center">
-								<c:if test="${!usuario.emprestimoAtivo}">
-									<input type="checkbox" name="idDelete" class="idDelete" value="${usuario.id}" />
-								</c:if>
+								<input type="checkbox" name="idDelete" class="idDelete" value="${usuario.id}" />
 							</td>
-							
 						</tr>
 					</c:forEach>
 					<tr>
@@ -75,7 +72,6 @@
 			
 			<div id="AtualizarUsuario">
 				<form id="formAtualiza" method="post">
-					<input type="hidden" id="emprestimo" name="usuario.emprestimoAtivo" />
 					<input type="hidden" id="IdUsuario" name="usuario.id" />
 					<h1>Atualizar dados</h1>
 					<table>

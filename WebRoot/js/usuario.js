@@ -13,11 +13,9 @@ $(document).ready(function(){
 	$(".nome").click(function(){
 		$("#AtualizarUsuario").show();
 		var id=$(this).parent().parent().attr("usuarioId");
-		var emprestimo = $(this).parent().parent().attr("emprestimoAtivo");
 		var nome = $(this).parent().parent().children(':nth-child(1)').text();
 		var email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
-		$("#emprestimo").val(emprestimo);			
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);
 	});

@@ -91,6 +91,7 @@ public class UsuarioController {
 			if(emprestimoDAO.procuraPorIdUsuario(id).size() >= 1){
 				message = "Usuário com empréstimo ativo";
 			}else{
+				usuario.setUsuarioAtivo(false);
 				usuarioDAO.atualiza(usuario);
 				message = "Usuario(s) deletado(s) com sucesso";
 			}
