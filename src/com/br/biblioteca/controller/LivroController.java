@@ -40,7 +40,7 @@ public class LivroController {
 	@Get
 	@Path("/livros")
 	public void index(String nome){
-		List<Livro> livros = livroDAO.listaDeLivro(nome);
+		List<Livro> livros = livroDAO.pesquisa(nome);
 		result.include("livros", livros);
 		result.include("nome", nome);
 		result.include("usuario", adminSession.getAdministrador().getNome());
@@ -55,7 +55,7 @@ public class LivroController {
 	@Path("/livro/novo")
 	public void novo(Livro livro) {
 		String message;
-		if(livroDAO.listaDeLivro(livro.getNome()).size() >= 1){
+		if(livroDAO.pesquisa(livro.getNome()).size() >= 1){
 			message = "\"" + livro.getNome() + "\" já cadastrado";
 		}
 		else if(livro.getNome().equals("") || livro.getAutor().equals("")){
@@ -76,12 +76,12 @@ public class LivroController {
 			message = "Erro";
 		}else{
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
-			emprestimo.setUsuario(usuario);
 			
 			Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
 			livro.setEmprestado(true);
 			livroDAO.atualiza(livro);
 			
+			emprestimo.setUsuario(usuario);
 			emprestimo.setLivro(livro);
 			emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 			
@@ -110,12 +110,12 @@ public class LivroController {
 		String message;
 		for (Long id : IdRemove) {
 			livro = livroDAO.pesquisarLivroPorId(id);
-			if(!livro.isEmprestado()){
+			if(livro.isEmprestado()){
+				message = "Livro está emprestado";
+			}else{
 				livro.setLivroDeletado(true);
 				livroDAO.atualiza(livro);
 				message = "Livro(s) deletado(s) com sucesso";
-			}else{
-				message = "Livro está emprestado";
 			}
 			result.use(json()).from(message, "message").serialize();
 		}

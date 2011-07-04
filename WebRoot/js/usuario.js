@@ -46,7 +46,7 @@ function postarDados(rota, formulario){
 //				$("#message-toolbar").animate({opacity: 1}, 1000).animate({opacity: 0}, 1000);
 			})
 			.error(function(){
-				alert(message);
+				alert("Erro ao deletar usuário");
 			});
 	}
 }

@@ -89,7 +89,7 @@ public class UsuarioController {
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
 			if(emprestimoDAO.procuraPorIdUsuario(id).size() >= 1){
-				message = "Usuário com empréstimo ativo";
+				message = "\"" + usuario.getNome() + "\" com empréstimo ativo";
 			}else{
 				usuario.setUsuarioAtivo(false);
 				usuarioDAO.atualiza(usuario);

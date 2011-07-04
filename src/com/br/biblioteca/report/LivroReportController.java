@@ -27,7 +27,7 @@ public class LivroReportController {
 	@Post
 	@Path("relatorio/livros")
 	public Download relatoriosDeLivro(String filtro_relatorio) {
-		List<Livro> livros = livroDAO.listaDeLivro(filtro_relatorio);
+		List<Livro> livros = livroDAO.pesquisa(filtro_relatorio);
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		Date data = new Date();
 		parametros.put("TITLE", "Lista de livros");

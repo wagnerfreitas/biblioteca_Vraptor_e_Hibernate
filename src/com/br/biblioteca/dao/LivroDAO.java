@@ -51,7 +51,7 @@ public class LivroDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Livro> listaDeLivro(String nomeDoLivro){
+	public List<Livro> pesquisa(String nomeDoLivro){
 		Criteria criteria =  session.createCriteria(Livro.class);
 		if (nomeDoLivro != null || nomeDoLivro == "") {
 			criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));

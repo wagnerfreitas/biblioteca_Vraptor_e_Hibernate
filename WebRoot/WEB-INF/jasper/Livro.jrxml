@@ -35,7 +35,7 @@
 	<columnHeader>
 		<band height="31" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="17" width="426" height="14" backcolor="#CCCCCC"/>
+				<reportElement x="0" y="17" width="405" height="14" backcolor="#CCCCCC"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="0" y="17" width="160" height="14"/>
@@ -52,7 +52,7 @@
 				<text><![CDATA[Autor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="17" width="91" height="14"/>
+				<reportElement x="335" y="17" width="70" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
@@ -76,7 +76,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{autor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="335" y="0" width="91" height="15"/>
+				<reportElement x="335" y="0" width="70" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
