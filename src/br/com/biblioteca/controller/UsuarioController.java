@@ -64,6 +64,7 @@ public class UsuarioController {
 			usuarioDAO.adiciona(usuario);
 			message = "\""+ usuario.getNome() + "\" adicionado com sucesso";
 		}
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}
 	
