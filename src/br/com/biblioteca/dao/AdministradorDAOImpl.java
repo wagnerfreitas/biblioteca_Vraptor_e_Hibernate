@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.biblioteca.entitades.Administrador;
 
-public interface AdministradorDAO {
+public interface AdministradorDAOImpl {
 	
 	public void adiciona(Administrador administrador);	
 	
