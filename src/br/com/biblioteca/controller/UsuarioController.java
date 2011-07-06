@@ -43,6 +43,9 @@ public class UsuarioController {
 	@Path("/usuarios/list/{nome}")
 	public void list(String nome){
 		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
+//		Linha usada no teste
+		result.include("usuarios", usuarios);
+//		.
 		result.use(json()).from(usuarios).serialize();
 	}
 	
@@ -55,16 +58,19 @@ public class UsuarioController {
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
 		String message = null;
-		if(usuarioDAO.pesquisa(usuario.getNome()).size() >= 1){
-			message = "\"" + usuario.getNome() + "\" já está cadastrado";
-		}
-		else if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
+		
+		if(usuario.getNome() == null || usuario.getEmail() == null || usuario.getNome().equals("") ||  usuario.getEmail().equals("") ){
 			message = "Nome ou email nulos";
+		}
+		else if(usuarioDAO.pesquisa(usuario.getNome()).size() >= 1){
+			message = "\"" + usuario.getNome() + "\" já está cadastrado";
 		}else{
 			usuarioDAO.adiciona(usuario);
 			message = "\""+ usuario.getNome() + "\" adicionado com sucesso";
 		}
+//		Linha usada no teste
 		result.include("message", message);
+//		.
 		result.use(json()).from(message, "message").serialize();
 	}
 	
@@ -72,13 +78,16 @@ public class UsuarioController {
 	@Path("/usuario/atualiza")
 	public void atualiza(Usuario usuario){
 		String message;
-		if(usuario.equals(null)){
+		if(usuario.getId() == null || usuario.getNome() == null  || usuario.getEmail() == null  || usuario.getNome() == "" || usuario.getEmail() == ""){
 			message = "Erro ao atualizar usuário";
 		}else{
 			usuario.setUsuarioAtivo(true);
 			usuarioDAO.atualiza(usuario);
 			message = "\"" + usuario.getNome() + "\" atualizado com sucesso";
 		}
+//		Linha usada no teste
+		result.include("message", message);
+//		.
 		result.use(json()).from(message, "message").serialize();
 	}
 	
@@ -88,13 +97,16 @@ public class UsuarioController {
 		String message;
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
-			if(emprestimoDAO.procuraPorIdUsuario(id).size() >= 1){
+			if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0){
 				message = "\"" + usuario.getNome() + "\" com empréstimo ativo";
 			}else{
 				usuario.setUsuarioAtivo(false);
 				usuarioDAO.atualiza(usuario);
 				message = "Usuario(s) deletado(s) com sucesso";
 			}
+//			Linha usada no teste
+			result.include("message", message);
+//			.
 			result.use(json()).from(message, "message").serialize();
 		}
 	}
