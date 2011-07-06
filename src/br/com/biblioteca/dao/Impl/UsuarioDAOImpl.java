@@ -25,13 +25,21 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	}
 	
 	public void adiciona(Usuario usuario) {
+		if(usuario.getNome() == null || usuario.getNome() == "") {
+			throw new RuntimeException("Nome nulo");
+		}
+		else if(usuario.getEmail() == null || usuario.getEmail().equals("")) {
+			throw new RuntimeException("Email nulo");			
+		}else if(pesquisa(usuario.getNome()).size() >= 1){
+			throw new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado");			
+		}
 		try {
 			Transaction tx = session.beginTransaction();
 			usuario.setUsuarioAtivo(true);
 			session.save(usuario);
 			tx.commit();
 		} catch (HibernateException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Erro ao tentar adicionar usuário");
 		}
 		finally{
 			if(session != null){

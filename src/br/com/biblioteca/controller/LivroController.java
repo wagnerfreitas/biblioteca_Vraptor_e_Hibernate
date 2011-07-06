@@ -39,10 +39,14 @@ public class LivroController {
 	@Get
 	@Path("/livros")
 	public void index(String nome){
-		List<Livro> livros = livroDAO.pesquisa(nome);
-		result.include("livros", livros);
-		result.include("nome", nome);
-		result.include("usuario", adminSession.getAdministrador().getNome());
+		try {
+			List<Livro> livros = livroDAO.pesquisa(nome);
+			result.include("livros", livros);
+			result.include("nome", nome);
+			result.include("usuario", adminSession.getAdministrador().getNome());
+		} catch (Exception e) {
+			result.include("error", e.getMessage());	
+		}
 	}
 	
 	@Get
@@ -54,14 +58,11 @@ public class LivroController {
 	@Path("/livro/novo")
 	public void novo(Livro livro) {
 		String message;
-		if(livroDAO.pesquisa(livro.getNome()).size() >= 1){
-			message = "\"" + livro.getNome() + "\" já cadastrado";
-		}
-		else if(livro.getNome().equals("") || livro.getAutor().equals("")){
-			message = "Nome do livro ou autor nulos";
-		}else{
+		try {
 			livroDAO.adiciona(livro);
 			message = "\"" + livro.getNome() + "\" adicionado com sucesso";
+		} catch (Exception e) {
+			message = e.getMessage();
 		}
 		result.use(json()).from(message, "message").serialize();
 	} 

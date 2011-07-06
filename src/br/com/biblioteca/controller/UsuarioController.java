@@ -57,16 +57,12 @@ public class UsuarioController {
 	@Post
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
-		String message = null;
-		
-		if(usuario.getNome() == null || usuario.getEmail() == null || usuario.getNome().equals("") ||  usuario.getEmail().equals("") ){
-			message = "Nome ou email nulos";
-		}
-		else if(usuarioDAO.pesquisa(usuario.getNome()).size() >= 1){
-			message = "\"" + usuario.getNome() + "\" já está cadastrado";
-		}else{
+		String message;
+		try {
 			usuarioDAO.adiciona(usuario);
 			message = "\""+ usuario.getNome() + "\" adicionado com sucesso";
+		} catch (Exception e) {
+			message = e.getMessage();
 		}
 //		Linha usada no teste
 		result.include("message", message);

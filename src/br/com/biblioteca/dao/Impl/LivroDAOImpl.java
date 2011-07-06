@@ -25,6 +25,17 @@ public class LivroDAOImpl implements LivroDAO {
 	}
 	
 	public void adiciona(Livro livro){
+		if(pesquisa(livro.getNome()).size() >= 1){
+			throw new RuntimeException("\"" + livro.getNome() + "\" já cadastrado");
+		}
+		else if(livro.getNome() == null || livro.getNome() == ""){
+			throw new RuntimeException("Nome do livro nulos");
+		}
+		else if(livro.getAutor() == null || livro.getAutor() == ""){
+			throw new RuntimeException("Nome do autor nulos");
+		}else if(livro.getEdicao() == null || livro.getEdicao() == ""){
+			throw new RuntimeException("Edição nula");
+		}
 		try {
 			Transaction tx = session.beginTransaction();
 			livro.setLivroDeletado(false);
@@ -32,7 +43,7 @@ public class LivroDAOImpl implements LivroDAO {
 			session.save(livro);
 			tx.commit();	
 		} catch (HibernateException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Erro ao tentar adicionar livro");
 		}
 		finally{
 			if(session != null){
@@ -54,12 +65,16 @@ public class LivroDAOImpl implements LivroDAO {
 	@SuppressWarnings("unchecked")
 	public List<Livro> pesquisa(String nomeDoLivro){
 		Criteria criteria =  session.createCriteria(Livro.class);
-		if (nomeDoLivro != null || nomeDoLivro == "") {
-			criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
-			criteria.add(Restrictions.eq("livroDeletado", false));
-			criteria.addOrder(Order.asc("nome"));
+		try {
+			if (nomeDoLivro != null || nomeDoLivro == "") {
+				criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+				criteria.add(Restrictions.eq("livroDeletado", false));
+				criteria.addOrder(Order.asc("nome"));
+			}
+			return criteria.list();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar livro");
 		}
-		return criteria.list();
 	}
 	
 	public Livro pesquisarLivroPorId(Long id) {

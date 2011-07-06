@@ -1,8 +1,7 @@
 package br.com.biblioteca;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -24,17 +23,19 @@ import br.com.biblioteca.entitades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 
-public class UsuarioControllerTest {
+public class UsuarioControllerTest{
 
 	private static final long CODIGO_USUARIO = 1L;
 	private Result result;
 	private UsuarioController usuarioController;
+	
 	@Mock 
 	private AdminSession adminSession;
 	@Mock 
 	private UsuarioDAO usuarioDAO;
 	@Mock 
 	private EmprestimoDAO emprestimoDAO;
+	
 	private Usuario usuario;
 	private Livro livro;
 	private Emprestimo emprestimo;
@@ -50,11 +51,14 @@ public class UsuarioControllerTest {
 	
 	@Test
 	public void testListaUsuarios() {
+//		dado
 		queEuTenhoUmAdministrador();
 		
+//		quando
 		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 
+//		entao
 		usuarioController.index("nome");
 		assertTrue(result.included().containsKey("usuarios"));
 	}
@@ -81,7 +85,6 @@ public class UsuarioControllerTest {
 		usuarioController.novo(usuario);
 		assertEquals("Nome ou email nulos", result.included().get("message"));
 	}
-	
 	
 	@Test
 	public void testEmailNuloAoAdicionarUsuario() {
@@ -237,22 +240,21 @@ public class UsuarioControllerTest {
 		usuarioController.delete(usuarios);
 		assertEquals("Usuario(s) deletado(s) com sucesso", result.included().get("message"));
 	}
-
-	private void queEuTenhoUmaListaDeCodigosDeUsuario() {
+	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
 		usuarios.add(1L);
 	}
 
-	private void queEuTenhoUmaListaDeEmprestimos() {
+	public void queEuTenhoUmaListaDeEmprestimos() {
 		emprestimos = new ArrayList<Emprestimo>();
 		emprestimos.add(emprestimo);
 	}
 	
-	private void queEuTenhoUmaListaDeEmprestimoVazia() {
+	public void queEuTenhoUmaListaDeEmprestimoVazia() {
 		emprestimos = new ArrayList<Emprestimo>();
 	}
 
-	private void queEuTenhoUmEmprestimo() {
+	public void queEuTenhoUmEmprestimo() {
 		emprestimo = criaEmprestimo();
 		emprestimo.setUsuario(usuario);
 		emprestimo.setLivro(livro);
@@ -282,7 +284,7 @@ public class UsuarioControllerTest {
 	
 	public void queEuTenhoUmUsuario(){
 		usuario = new Usuario();
-		usuario.setId(1L);
+		usuario.setId(CODIGO_USUARIO);
 		usuario.setNome("Wagner");
 		usuario.setEmail("wagner@gmail.com");
 		usuario.setUsuarioAtivo(true);
