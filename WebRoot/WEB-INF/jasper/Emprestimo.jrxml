@@ -81,7 +81,7 @@
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{dataDeEmprestimo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="57" y="0" width="177" height="15"/>
+				<reportElement x="30" y="0" width="204" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>

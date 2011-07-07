@@ -30,7 +30,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		}
 		else if(usuario.getEmail() == null || usuario.getEmail().equals("")) {
 			throw new RuntimeException("Email nulo");			
-		}else if(pesquisa(usuario.getNome()).size() >= 1){
+		}else if(pesquisa(usuario.getNome()).size() > 0){
 			throw new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado");			
 		}
 		try {

@@ -25,8 +25,8 @@ public class EmprestimoReportController {
 	
 	@Post
 	@Path("relatorio/emprestimos")
-	public Download relatoriosDeLivro(String filtro_relatorio) {
-		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(filtro_relatorio);
+	public Download relatoriosDeLivro(String filtro_relatorio, String ordenarPor) {
+		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(filtro_relatorio, ordenarPor);
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		Date data = new Date();
 		parametros.put("DATE", data);

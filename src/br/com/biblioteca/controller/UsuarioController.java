@@ -65,12 +65,12 @@ public class UsuarioController {
 		String message;
 		try {
 			usuarioDAO.adiciona(usuario);
-			message = "\""+ usuario.getNome() + "\" adicionado com sucesso";
+			message = "\""+ usuario.getNome() + "\" adicionado com sucesso!";
 		} catch (Exception e) {
 			message = e.getMessage();
 		}
 //		Linha usada no teste
-//		result.include("message", message);
+		result.include("message", message);
 //		.
 		result.use(json()).from(message, "message").serialize();
 	}

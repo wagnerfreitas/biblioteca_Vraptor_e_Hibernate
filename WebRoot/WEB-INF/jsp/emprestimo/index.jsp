@@ -70,6 +70,7 @@
 				<a href="../biblioteca">Voltar</a><br/>
 				<form id="formRelatorio" action="relatorio/emprestimos" method="post">
 					<input type="hidden" name="filtro_relatorio" value="${nome}" />
+					<input type="hidden" name="ordenarPor" value="${ordenar}" />
 					<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
 				</form>
 			</div>

@@ -35,6 +35,7 @@ public class EmprestimoController {
 		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
 		result.include("emprestimos", emprestimos);
 		result.include("nome", nomeDoLivro);
+		result.include("ordenar", ordenarPor);
 		result.include("usuario", adminSession.getAdministrador().getNome());
 	}
 	

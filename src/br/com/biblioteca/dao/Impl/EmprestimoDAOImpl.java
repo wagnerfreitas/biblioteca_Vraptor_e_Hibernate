@@ -28,15 +28,15 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro, String ordenarPor) {
 		Criteria criteria = session.createCriteria(Emprestimo.class);
 			criteria.add(Restrictions.isNull("dataDeDevolucao"));
-
 			if(ordenarPor.equals("nomeDoUsuario")){
 				criteria.createCriteria("usuario")
 				.addOrder(Order.asc("nome"));
 			}else if(ordenarPor.equals("dataDeEmprestimo")){
 				criteria.addOrder(Order.asc("dataDeEmprestimo"));
-			}
-			criteria.createCriteria("livro")
+			}else{
+				criteria.createCriteria("livro")
 				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+			}
 		return criteria.list();
 	}
 	

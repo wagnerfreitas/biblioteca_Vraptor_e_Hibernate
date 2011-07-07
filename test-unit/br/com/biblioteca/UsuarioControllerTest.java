@@ -2,12 +2,13 @@ package br.com.biblioteca;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -43,7 +44,8 @@ public class UsuarioControllerTest{
 	private ArrayList<Long> usuarios;
 	private Administrador administrador;
 	
-	public UsuarioControllerTest() {
+	@Before
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
 		this.usuarioController = new UsuarioController(result, usuarioDAO, adminSession, emprestimoDAO);
@@ -65,11 +67,14 @@ public class UsuarioControllerTest{
 	
 	@Test
 	public void testListaUsuariosJson() {
+//		dado
 		queEuTenhoUmAdministrador();
 		
+//		quando
 		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 		
+//		então
 		usuarioController.index("nome");
 		assertTrue(result.included().containsKey("usuarios"));
 	}
@@ -79,11 +84,13 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setNome(null);
-		usuario.setEmail("email");
+		
+//		quando
+		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
 		usuarioController.novo(usuario);
-		assertEquals("Nome ou email nulos", result.included().get("message"));
+		assertEquals("Nome nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -95,7 +102,7 @@ public class UsuarioControllerTest{
 		
 //		entao
 		usuarioController.novo(usuario);
-		assertEquals("Nome ou email nulos", result.included().get("message"));
+		assertEquals("Email nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -107,7 +114,7 @@ public class UsuarioControllerTest{
 		
 //		entao
 		usuarioController.novo(usuario);
-		assertEquals("Nome ou email nulos", result.included().get("message"));
+		assertEquals("Nome nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -119,7 +126,7 @@ public class UsuarioControllerTest{
 		
 //		entao
 		usuarioController.novo(usuario);
-		assertEquals("Nome ou email nulos", result.included().get("message"));
+		assertEquals("Email nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -134,7 +141,7 @@ public class UsuarioControllerTest{
 		usuarioController.novo(usuario);
 		
 //		entao
-		assertEquals("\"Wagner\" já está cadastrado",result.included().get("message"));
+		assertEquals("\"" + usuario.getNome() + "\" já está cadastrado",result.included().get("message"));
 	}
 	
 	@Test
@@ -148,7 +155,7 @@ public class UsuarioControllerTest{
 		usuarioController.novo(usuario);
 		
 //		entao
-		assertEquals("\"Wagner\" adicionado com sucesso", result.included().get("message"));
+		assertEquals("\""+ usuario.getNome() + "\" adicionado com sucesso", result.included().get("message"));
 	}
 	
 	@Test
@@ -200,6 +207,9 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setEmail("");
+		
+//		quando
+		
 		
 //		entao
 		usuarioController.atualiza(usuario);
@@ -285,8 +295,8 @@ public class UsuarioControllerTest{
 	public void queEuTenhoUmUsuario(){
 		usuario = new Usuario();
 		usuario.setId(CODIGO_USUARIO);
-		usuario.setNome("Wagner");
-		usuario.setEmail("wagner@gmail.com");
+		usuario.setNome("usuario");
+		usuario.setEmail("usuario@gmail.com");
 		usuario.setUsuarioAtivo(true);
 	}
 }
