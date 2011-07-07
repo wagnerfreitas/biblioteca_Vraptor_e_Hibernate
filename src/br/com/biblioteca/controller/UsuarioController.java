@@ -33,10 +33,15 @@ public class UsuarioController {
 	@Get
 	@Path("/usuarios")
 	public void index(String nome){
-		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
-		result.include("usuarios", usuarios);
-		result.include("nome", nome);
-		result.include("usuario", adminSession.getAdministrador().getNome());
+		try {
+			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
+			result.include("usuarios", usuarios);
+			result.include("nome", nome);
+			result.include("usuario", adminSession.getAdministrador().getNome());
+		} catch (Exception e) {
+			String message = e.getMessage();
+			result.include("error", message);
+		}
 	}
 	
 	@Get
@@ -65,7 +70,7 @@ public class UsuarioController {
 			message = e.getMessage();
 		}
 //		Linha usada no teste
-		result.include("message", message);
+//		result.include("message", message);
 //		.
 		result.use(json()).from(message, "message").serialize();
 	}

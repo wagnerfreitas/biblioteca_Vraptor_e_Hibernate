@@ -129,10 +129,25 @@
 					</table>
 				</fieldset>
 			</form>
-			<form id="Emprestimo" method="get" action="emprestimos">
+			<form id="Emprestimo" method="post" action="emprestimos">
 				<fieldset>
 					<legend>Pesquisar</legend>
 					<table>
+						<tr>
+							<td>
+								Ordenar por: 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Nome do usuário	
+								<input type="radio" name="ordenarPor" checked="checked" value="nomeDoUsuario" />
+							</td>
+							<td>
+								Data de empréstimo
+								<input type="radio" name="ordenarPor" value="dataDeEmprestimo" />
+							</td>
+						</tr>
 						<tr>
 							<td>
 								Pesquisar empréstimo por livro: 

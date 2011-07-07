@@ -6,7 +6,7 @@ import br.com.biblioteca.entitades.Emprestimo;
 
 public interface EmprestimoDAO {
 	
-	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro);
+	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro, String ordenarPor);
 	
 	public Emprestimo procuraPorId(Long id);
 

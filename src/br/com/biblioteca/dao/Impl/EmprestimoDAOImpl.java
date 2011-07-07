@@ -2,6 +2,7 @@ package br.com.biblioteca.dao.Impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,15 +25,19 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro) {
-		List<Emprestimo> emprestimos = this.session
-				.createCriteria(Emprestimo.class)
-					.add(Restrictions.isNull("dataDeDevolucao"))
-					.addOrder(Order.asc("dataDeEmprestimo"))
-				.createCriteria("livro")
-					.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
-				.list();
-		return emprestimos;
+	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro, String ordenarPor) {
+		Criteria criteria = session.createCriteria(Emprestimo.class);
+			criteria.add(Restrictions.isNull("dataDeDevolucao"));
+
+			if(ordenarPor.equals("nomeDoUsuario")){
+				criteria.createCriteria("usuario")
+				.addOrder(Order.asc("nome"));
+			}else if(ordenarPor.equals("dataDeEmprestimo")){
+				criteria.addOrder(Order.asc("dataDeEmprestimo"));
+			}
+			criteria.createCriteria("livro")
+				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+		return criteria.list();
 	}
 	
 	public Emprestimo procuraPorId(Long id){

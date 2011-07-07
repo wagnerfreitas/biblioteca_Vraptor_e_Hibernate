@@ -10,7 +10,6 @@ import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.entitades.Emprestimo;
 import br.com.biblioteca.entitades.Livro;
-import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -30,10 +29,10 @@ public class EmprestimoController {
 		this.livroDAO = livroDAO;
 		this.adminSession = adminSession;
 	}
-	@Get
+	@Post
 	@Path("/emprestimos")
-	public void index(String nomeDoLivro){
-		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro);
+	public void index(String ordenarPor, String nomeDoLivro){
+		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
 		result.include("emprestimos", emprestimos);
 		result.include("nome", nomeDoLivro);
 		result.include("usuario", adminSession.getAdministrador().getNome());
