@@ -97,8 +97,10 @@ public class UsuarioControllerTest{
 	public void testEmailNuloAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
-		usuario.setNome("Nome");
 		usuario.setEmail(null);
+		
+//		quando
+		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
 		usuarioController.novo(usuario);
@@ -110,7 +112,9 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setNome("");
-		usuario.setEmail("Email");
+
+//		quando
+		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
 		usuarioController.novo(usuario);
@@ -121,8 +125,10 @@ public class UsuarioControllerTest{
 	public void testEmailVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
-		usuario.setNome("Nome");
 		usuario.setEmail("");
+		
+//		quando
+		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
 		usuarioController.novo(usuario);
@@ -133,11 +139,9 @@ public class UsuarioControllerTest{
 	public void testAdicionaUsuarioQueJaExiste() {
 //		dado 
 		queEuTenhoUmUsuario();
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(usuario);
 		
 //		quando
-		when(usuarioDAO.pesquisa(usuario.getNome())).thenReturn(usuarios);
+		doThrow(new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(usuario);
 		
 //		entao
@@ -155,7 +159,7 @@ public class UsuarioControllerTest{
 		usuarioController.novo(usuario);
 		
 //		entao
-		assertEquals("\""+ usuario.getNome() + "\" adicionado com sucesso", result.included().get("message"));
+		assertEquals("\""+ usuario.getNome() + "\" adicionado com sucesso!", result.included().get("message"));
 	}
 	
 	@Test
