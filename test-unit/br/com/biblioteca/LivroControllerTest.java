@@ -56,7 +56,6 @@ public class LivroControllerTest {
 		assertTrue(result.included().containsKey("livros"));
 	} 
 	
-	
 	public void queEuTenhoUmAdministrador() {
 		administrador = new Administrador();
 		administrador.setNome("wagner");
