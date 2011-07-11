@@ -73,9 +73,12 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	}
 	
 	public Usuario pesquisarUsuarioPorId(Long id){
-		return (Usuario) this.session
-			.createCriteria(Usuario.class)
-				.add(Restrictions.eq("id", id))
-			.uniqueResult();
+		try {
+			Criteria criteria = session.createCriteria(Usuario.class);
+			criteria.add(Restrictions.eq("id", id));
+			return (Usuario) criteria.uniqueResult();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro na pesquisa");
+		}
 	}
 }

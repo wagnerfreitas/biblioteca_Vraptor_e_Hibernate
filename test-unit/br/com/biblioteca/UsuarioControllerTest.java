@@ -88,9 +88,9 @@ public class UsuarioControllerTest{
 		
 //		quando
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
+		usuarioController.novo(usuario);
 		
 //		entao
-		usuarioController.novo(usuario);
 		assertEquals("Nome nulo", result.included().get("message"));
 	}
 	

@@ -23,6 +23,20 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 	public EmprestimoDAOImpl(BibliotecaUtil bibliotecaUtil){
 		this.session = bibliotecaUtil.getSession();
 	}
+	
+	public void empresta(Emprestimo emprestimo){
+		try {
+			Transaction tx = session.beginTransaction();
+			session.save(emprestimo);
+			tx.commit();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao emprestar livro");
+		}finally{
+			if(session != null){
+				session.close();
+			}
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro, String ordenarPor) {
@@ -35,7 +49,7 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 				criteria.addOrder(Order.asc("dataDeEmprestimo"));
 			}else{
 				criteria.createCriteria("livro")
-				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+					.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
 			}
 		return criteria.list();
 	}
@@ -51,20 +65,6 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 		try {
 			Transaction tx = session.beginTransaction();
 			session.update(emprestimo);
-			tx.commit();
-		} catch (HibernateException e) {
-			throw new RuntimeException();
-		}finally{
-			if(session != null){
-				session.close();
-			}
-		}
-	}
-	
-	public void empresta(Emprestimo emprestimo){
-		try {
-			Transaction tx = session.beginTransaction();
-			session.save(emprestimo);
 			tx.commit();
 		} catch (HibernateException e) {
 			throw new RuntimeException();

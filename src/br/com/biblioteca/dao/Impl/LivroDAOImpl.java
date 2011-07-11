@@ -25,16 +25,16 @@ public class LivroDAOImpl implements LivroDAO {
 	}
 	
 	public void adiciona(Livro livro){
-		if(pesquisa(livro.getNome()).size() >= 1){
-			throw new RuntimeException("\"" + livro.getNome() + "\" já cadastrado");
-		}
-		else if(livro.getNome() == null || livro.getNome() == ""){
-			throw new RuntimeException("Nome do livro nulos");
+		if(livro.getNome() == null || livro.getNome() == ""){
+			throw new RuntimeException("Nome do livro nulo");
 		}
 		else if(livro.getAutor() == null || livro.getAutor() == ""){
-			throw new RuntimeException("Nome do autor nulos");
+			throw new RuntimeException("Nome do autor nulo");
 		}else if(livro.getEdicao() == null || livro.getEdicao() == ""){
 			throw new RuntimeException("Edição nula");
+		}
+		else if(pesquisa(livro.getNome()).size() > 0){
+			throw new RuntimeException("\"" + livro.getNome() + "\" já cadastrado");
 		}
 		try {
 			Transaction tx = session.beginTransaction();
@@ -58,7 +58,7 @@ public class LivroDAOImpl implements LivroDAO {
 			session.update(livro);
 			tx.commit();
 		} catch (HibernateException e) {
-			throw new RuntimeException();
+			throw new RuntimeException("Erro/Livro");
 		}
 	}
 	
@@ -78,9 +78,12 @@ public class LivroDAOImpl implements LivroDAO {
 	}
 	
 	public Livro pesquisarLivroPorId(Long id) {
-		return (Livro) this.session
-			.createCriteria(Livro.class)
-				.add(Restrictions.eq("id", id))
-			.uniqueResult();
+		try {
+			Criteria criteria = session.createCriteria(Livro.class);
+			criteria.add(Restrictions.eq("id", id));
+			return (Livro) criteria.uniqueResult();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar");
+		}
 	}
 }

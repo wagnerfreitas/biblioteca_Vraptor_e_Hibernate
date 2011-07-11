@@ -64,30 +64,41 @@ public class LivroController {
 		} catch (Exception e) {
 			message = e.getMessage();
 		}
+//		Linha usada no teste
+		result.include("message", message);
+//		.
 		result.use(json()).from(message, "message").serialize();
 	} 
 	
 	@Post
 	@Path("livro/emprestar")
 	public void emprestar(Long iDUsuario, Long idLivro, Date dataDeEmprestimo){
-		Emprestimo emprestimo = new Emprestimo();
 		String message;
-		if(idLivro.equals("") || iDUsuario.equals("") || dataDeEmprestimo.equals("")){
-			message = "Erro";
-		}else{
-			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
-			
-			Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
-			livro.setEmprestado(true);
-			livroDAO.atualiza(livro);
-			
-			emprestimo.setUsuario(usuario);
-			emprestimo.setLivro(livro);
-			emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
-			
-			emprestimoDAO.empresta(emprestimo);
-			message = "\"" + livro.getNome() + "\" emprestado com sucesso";
+
+		if(idLivro == null || iDUsuario == null) {
+			message = "Erro ao tentar realizar empréstimo";
+		} else if(dataDeEmprestimo == null || dataDeEmprestimo.equals("")) {
+			message = "Data nula";
+		} else {
+			try {
+				Emprestimo emprestimo = new Emprestimo();
+				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
+				
+				Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
+				livro.setEmprestado(true);
+				livroDAO.atualiza(livro);
+				
+				emprestimo.setUsuario(usuario);
+				emprestimo.setLivro(livro);
+				emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
+				
+				emprestimoDAO.empresta(emprestimo);
+				message = "\"" + livro.getNome() + "\" emprestado com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
 		}
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}
 	
@@ -95,11 +106,21 @@ public class LivroController {
 	@Path("/livro/atualiza")
 	public void atualiza(Livro livro){
 		String message;
-		if(livro.equals(null)){
-			message = "Erro";
-		}
-		livroDAO.atualiza(livro);
-		message =  "\"" + livro.getNome() + "\" atualizado com sucesso";
+		
+		if(livro.getNome() == null || livro.getNome() == "") {
+			message = "Nome do livro nulo";
+		} else if(livro.getAutor() == null || livro.getAutor() == "") {
+			message = "Autor nulo";
+		} else if(livro.getEdicao() == null || livro.getEdicao() == "") {
+			message = "Edição nula";
+		} else {
+			try {
+				livroDAO.atualiza(livro);
+				message =  "\"" + livro.getNome() + "\" atualizado com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
+		}		
 		result.use(json()).from(message, "message").serialize();
 	}
 	

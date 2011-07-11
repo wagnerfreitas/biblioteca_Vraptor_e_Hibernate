@@ -41,7 +41,8 @@ public class LoginControllerTest {
 //		quando
 		when(adminSession.getAdministrador()).thenReturn(administrador);
 		loginController.login();
-		
+
+//		então		
 		
 	}
 	
