@@ -2,7 +2,7 @@ package br.com.biblioteca.dao;
 
 import java.util.List;
 
-import br.com.biblioteca.entitades.Livro;
+import br.com.biblioteca.entidades.Livro;
 
 public interface LivroDAO {
 	

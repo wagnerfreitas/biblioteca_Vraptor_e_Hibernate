@@ -9,9 +9,9 @@ import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entitades.Emprestimo;
-import br.com.biblioteca.entitades.Livro;
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -121,45 +121,56 @@ public class LivroController {
 				message = e.getMessage();
 			}
 		}		
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post
 	@Path("livro/remove")
 	public void remove(List<Long> IdRemove){
-		Livro livro = null;
-		String message;
-		for (Long id : IdRemove) {
-			livro = livroDAO.pesquisarLivroPorId(id);
-			if(livro.isEmprestado()){
-				message = "\"" + livro.getNome() + "\" está emprestado";
-			}else{
-				livro.setLivroDeletado(true);
-				livroDAO.atualiza(livro);
-				message = "Livro(s) deletado(s) com sucesso";
+		Livro livro;
+		String message = null;
+		try {
+			for (Long id : IdRemove) {
+				livro = livroDAO.pesquisarLivroPorId(id);
+				if(livro.isEmprestado()){
+					message = "\"" + livro.getNome() + "\" está emprestado";
+				}else{
+					livro.setLivroDeletado(true);
+					livroDAO.atualiza(livro);
+					message = "Livro(s) deletado(s) com sucesso";
+				}
 			}
-			result.use(json()).from(message, "message").serialize();
+		} catch (Exception e) {
+			message = e.getMessage();
 		}
+		result.include("message", message);
+		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post
 	@Path("livro/devolve")
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
-		if(id.equals("") || dataDeDevolucao.equals("")) {
-			message = "Erro ao devolver livro";
+		
+		if(id == null){
+			message = "Id no livro nulo";
+		} else if (dataDeDevolucao == null) {
+			message = "Date de devolução nula";
 		} else {
-			Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
-			emprestimo.setDataDeDevolucao(dataDeDevolucao);
-			
-			Livro livro = emprestimo.getLivro();
-			livro.setEmprestado(false);
-
-			emprestimoDAO.atualiza(emprestimo);
-			livroDAO.atualiza(livro);
-
-			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+			try {
+				Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
+				emprestimo.setDataDeDevolucao(dataDeDevolucao);
+				Livro livro = emprestimo.getLivro();
+				livro.setEmprestado(false);
+				emprestimoDAO.atualiza(emprestimo);
+				livroDAO.atualiza(livro);
+				message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
 		}
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}   
 }

@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 

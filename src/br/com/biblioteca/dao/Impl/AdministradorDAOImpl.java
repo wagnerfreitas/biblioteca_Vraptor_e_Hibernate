@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.biblioteca.dao.AdministradorDAO;
 import br.com.biblioteca.dao.BibliotecaUtil;
-import br.com.biblioteca.entitades.Administrador;
+import br.com.biblioteca.entidades.Administrador;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 

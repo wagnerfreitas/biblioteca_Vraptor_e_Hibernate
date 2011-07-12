@@ -18,10 +18,10 @@ import br.com.biblioteca.controller.UsuarioController;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entitades.Administrador;
-import br.com.biblioteca.entitades.Emprestimo;
-import br.com.biblioteca.entitades.Livro;
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 
@@ -76,7 +76,7 @@ public class UsuarioControllerTest{
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 		
 //		então
-		usuarioController.index("nome");
+		usuarioController.list("nome");
 		assertTrue(result.included().containsKey("usuarios"));
 	}
 	

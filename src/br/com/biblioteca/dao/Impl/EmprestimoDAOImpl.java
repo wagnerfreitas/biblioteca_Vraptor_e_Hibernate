@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
 import br.com.biblioteca.dao.EmprestimoDAO;
-import br.com.biblioteca.entitades.Emprestimo;
+import br.com.biblioteca.entidades.Emprestimo;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 
@@ -67,7 +67,7 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 			session.update(emprestimo);
 			tx.commit();
 		} catch (HibernateException e) {
-			throw new RuntimeException();
+			throw new RuntimeException("Erro ao devolver livro");
 		}finally{
 			if(session != null){
 				session.close();
@@ -86,10 +86,13 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 	}
 
 	public Emprestimo procuraPorIdLivro(Long id) {
-		return (Emprestimo) this.session
-			.createCriteria(Emprestimo.class)
-				.add(Restrictions.isNull("dataDeDevolucao"))
-				.add(Restrictions.eq("livro.id", id))
-			.uniqueResult();
+		try {
+			Criteria criteria = session.createCriteria(Emprestimo.class);
+				criteria.add(Restrictions.isNull("dataDeDevolucao"));
+				criteria.add(Restrictions.eq("livro.id", id));
+			return (Emprestimo) criteria.uniqueResult();		
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar livro emprestado");
+		}
 	}
 }

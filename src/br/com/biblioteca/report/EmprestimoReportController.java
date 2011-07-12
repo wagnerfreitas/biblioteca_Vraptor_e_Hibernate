@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.biblioteca.dao.EmprestimoDAO;
-import br.com.biblioteca.entitades.Emprestimo;
+import br.com.biblioteca.entidades.Emprestimo;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

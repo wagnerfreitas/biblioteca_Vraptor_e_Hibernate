@@ -3,7 +3,7 @@ package br.com.biblioteca.dao.Impl;
 import java.io.Serializable;
 
 import br.com.biblioteca.dao.AdminSession;
-import br.com.biblioteca.entitades.Administrador;
+import br.com.biblioteca.entidades.Administrador;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 

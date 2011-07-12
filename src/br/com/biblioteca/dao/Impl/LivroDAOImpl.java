@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
 import br.com.biblioteca.dao.LivroDAO;
-import br.com.biblioteca.entitades.Livro;
+import br.com.biblioteca.entidades.Livro;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 
@@ -64,8 +64,8 @@ public class LivroDAOImpl implements LivroDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Livro> pesquisa(String nomeDoLivro){
-		Criteria criteria =  session.createCriteria(Livro.class);
 		try {
+			Criteria criteria =  session.createCriteria(Livro.class);
 			if (nomeDoLivro != null || nomeDoLivro == "") {
 				criteria.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
 				criteria.add(Restrictions.eq("livroDeletado", false));

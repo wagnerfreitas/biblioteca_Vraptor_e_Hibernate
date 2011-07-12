@@ -1,6 +1,6 @@
 package br.com.biblioteca.dao;
 
-import br.com.biblioteca.entitades.Administrador;
+import br.com.biblioteca.entidades.Administrador;
 
 public interface AdminSession {
 	

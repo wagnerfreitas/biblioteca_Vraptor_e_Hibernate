@@ -2,7 +2,7 @@ package br.com.biblioteca.dao;
 
 import java.util.List;
 
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Usuario;
 
 public interface UsuarioDAO {
 	

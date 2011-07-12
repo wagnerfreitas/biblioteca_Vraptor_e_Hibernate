@@ -7,7 +7,7 @@ import java.util.List;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -47,11 +47,13 @@ public class UsuarioController {
 	@Get
 	@Path("/usuarios/list/{nome}")
 	public void list(String nome){
-		List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
-//		Linha usada no teste
-		result.include("usuarios", usuarios);
-//		.
-		result.use(json()).from(usuarios).serialize();
+		try {
+			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
+			result.include("usuarios", usuarios);
+			result.use(json()).from(usuarios).serialize();
+		} catch (Exception e) {
+			result.include("error", e.getMessage());
+		}
 	}
 	
 	@Get

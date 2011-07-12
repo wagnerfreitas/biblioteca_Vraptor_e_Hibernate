@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 import br.com.biblioteca.controller.LoginController;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.AdministradorDAO;
-import br.com.biblioteca.entitades.Administrador;
+import br.com.biblioteca.entidades.Administrador;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 

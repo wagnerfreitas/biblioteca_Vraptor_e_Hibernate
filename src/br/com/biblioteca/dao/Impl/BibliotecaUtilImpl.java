@@ -5,10 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
-import br.com.biblioteca.entitades.Administrador;
-import br.com.biblioteca.entitades.Emprestimo;
-import br.com.biblioteca.entitades.Livro;
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component

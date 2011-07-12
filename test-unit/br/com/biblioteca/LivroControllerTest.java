@@ -1,7 +1,8 @@
 package br.com.biblioteca;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -16,16 +17,16 @@ import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entitades.Administrador;
-import br.com.biblioteca.entitades.Emprestimo;
-import br.com.biblioteca.entitades.Livro;
-import br.com.biblioteca.entitades.Usuario;
+import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
-import static org.mockito.Mockito.doThrow;
 
 public class LivroControllerTest {
-	
+
+	private static final long CODIGO_LIVRO = 1L;
 	private Result result;
 	private LivroController livroController;
 	private Administrador administrador;
@@ -33,6 +34,8 @@ public class LivroControllerTest {
 	private Usuario usuario;
 	private Emprestimo emprestimo;
 	private Date dataDeEmprestimo;
+	private Date dataDeDevolucao;
+	private ArrayList<Long> livros;
 	
 	@Mock
 	private LivroDAO livroDAO;
@@ -51,6 +54,20 @@ public class LivroControllerTest {
 	}
 	
 	@Test
+	public void testErroAoListarLivros() {
+//		dado
+		queEuTenhoUmAdministrador();
+		
+//		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
+		doThrow(new RuntimeException("Erro ao pesquisar livro")).when(livroDAO).pesquisa("Livro");
+		livroController.index("Livro");
+		
+//		então
+		assertEquals("Erro ao pesquisar livro", result.included().get("error"));
+	}
+	
+	@Test
 	public void testListaLivros() {
 //		dado
 		queEuTenhoUmAdministrador();
@@ -62,7 +79,8 @@ public class LivroControllerTest {
 //		entao
 		livroController.index("livro");
 		assertTrue(result.included().containsKey("livros"));
-	} 
+	}
+	
 	
 	@Test
 	public void testNomeDoLivroNuloAoAdicionarLivro() {
@@ -146,6 +164,18 @@ public class LivroControllerTest {
 		
 //		então
 		assertEquals("Edição nula", result.included().get("message"));
+	}
+	
+	@Test
+	public void testAdicionarLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		
+//		quando
+		livroController.novo(livro);
+		
+//		então
+		assertEquals("\"" + livro.getNome() + "\" adicionado com sucesso", result.included().get("message"));
 	}
 	
 	@Test
@@ -238,17 +268,283 @@ public class LivroControllerTest {
 		assertEquals("\"" + livro.getNome() + "\" emprestado com sucesso", result.included().get("message"));
 	}
 	
+	@Test
+	public void testNomeDoLivroNuloAoAtualizarLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setNome(null);
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Nome do livro nulo", result.included().get("message"));
+	}
 	
+	@Test
+	public void testNomeVazioAoAdicionarUsuario() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setNome("");
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Nome do livro nulo", result.included().get("message"));
+	}
 	
+	@Test
+	public void testAutorNuloAoAtualizaLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setAutor(null);
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Autor nulo", result.included().get("message"));
+	}
+	
+	@Test
+	public void testAutorVazioAoAtulizarLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setAutor("");
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Autor nulo", result.included().get("message"));
+	}
+	
+	@Test
+	public void testEdicaoNulaAoAtualizarLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setEdicao(null);
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Edição nula", result.included().get("message"));
+	}
+	
+	@Test
+	public void testEdicaoVaziaAoAtualizarLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setEdicao("");
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Edição nula", result.included().get("message"));
+	}
+	
+	@Test
+	public void testErroAoAtualizarLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		
+//		quando
+		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("Erro/Livro", result.included().get("message"));
+	}
+	
+	@Test
+	public void testAtulizaLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setNome("Livro Atualizado");
+		
+//		quando
+		livroController.atualiza(livro);
+		
+//		então
+		assertEquals("\"" + livro.getNome() + "\" atualizado com sucesso", result.included().get("message"));
+	}
+	
+	@Test
+	public void testRemoverLivroQueEstarEmprestado() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmEmprestimo();
+		queEuTenhoUmaListaDeCodigosDeLivros();
+		
+//		quando
+		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
+		livroController.remove(livros);
+		
+//		então
+		assertEquals("\"" + livro.getNome() + "\" está emprestado", result.included().get("message"));
+	}
+	
+	@Test
+	public void testRemoverLivroQueNaoEstarEmprestado() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmaListaDeCodigosDeLivros();
+		
+//		quando
+		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
+		livroController.remove(livros);
+		
+//		então
+		assertEquals("Livro(s) deletado(s) com sucesso", result.included().get("message"));		
+	}
+	
+	@Test
+	public void testErroAoPesquisarLivroAoTentarRemover() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmaListaDeCodigosDeLivros();
+		
+//		quando
+		doThrow(new RuntimeException("Erro ao pesquisar")).when(livroDAO).pesquisarLivroPorId(CODIGO_LIVRO);
+		livroController.remove(livros);
+		
+//		então
+		assertEquals("Erro ao pesquisar", result.included().get("message"));
+	}
+	
+	@Test
+	public void testErroAoTentarAtualizarLivroAoTentarRemover() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmaListaDeCodigosDeLivros();
+		
+//		quando
+		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
+		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
+		livroController.remove(livros);
+		
+//		então
+		assertEquals("Erro/Livro", result.included().get("message"));
+	}
+	
+	@Test
+	public void testDevolverLivroComIdNulo() {
+//		dado
+		queEuTenhoUmLivro();
+		livro.setId(null);
+		queEuTenhoUmaDataDeDevolucao();
+		
+//		quando
+		livroController.devolve(livro.getId(), dataDeDevolucao);
+		
+//		então
+		assertEquals("Id no livro nulo", result.included().get("message"));
+	}
+	
+	@Test
+	public void testDevolverLivroComDataDeDevolucaoNula() {
+//		dado
+		queEuTenhoUmLivro();
+		
+//		quando
+		livroController.devolve(livro.getId(), dataDeDevolucao);
+		
+//		então
+		assertEquals("Date de devolução nula", result.included().get("message"));
+	}	
+	
+	@Test
+	public void testErroPesquisarLivroAoTentarDevolver() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmEmprestimo();
+		queEuTenhoUmaDataDeDevolucao();
+		
+//		quando
+		doThrow(new RuntimeException("Erro ao pesquisar livro emprestado")).when(emprestimoDAO).procuraPorIdLivro(livro.getId());
+		livroController.devolve(livro.getId(), dataDeDevolucao);
+		
+//		então
+		assertEquals("Erro ao pesquisar livro emprestado", result.included().get("message"));
+	}
+	
+	@Test
+	public void testErroAtualizarEmprestimoAoTentarDevolverLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmUsuario();
+		queEuTenhoUmaDataDeEmprestimo();
+		queEuTenhoUmaDataDeDevolucao();
+		queEuTenhoUmEmprestimo();
+		emprestimo.setDataDeDevolucao(dataDeDevolucao);
+		
+//		quando
+		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
+		doThrow(new RuntimeException("Erro ao devolver livro")).when(emprestimoDAO).atualiza(emprestimo);
+		livroController.devolve(livro.getId(), dataDeDevolucao);
+		
+//		então
+		assertEquals("Erro ao devolver livro", result.included().get("message"));
+	}
+	
+	@Test
+	public void testDevolverLivro() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmUsuario();
+		queEuTenhoUmaDataDeEmprestimo();
+		queEuTenhoUmaDataDeDevolucao();
+		queEuTenhoUmEmprestimo();
+		emprestimo.setDataDeDevolucao(dataDeDevolucao);
+
+//		quando
+		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
+		livroController.devolve(livro.getId(), dataDeDevolucao);
+		
+//		então
+		assertEquals("\"" + livro.getNome() + "\" devolvido com sucesso", result.included().get("message"));
+	}
+	
+	@Test
+	public void testErroAtualizarLivroAoTentarDevolver() {
+//		dado
+		queEuTenhoUmLivro();
+		queEuTenhoUmUsuario();
+		queEuTenhoUmaDataDeDevolucao();
+		queEuTenhoUmEmprestimo();
+		
+//		quando
+		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
+		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
+		livroController.devolve(livro.getId(), dataDeDevolucao);
+		
+//		então
+		assertEquals("Erro/Livro", result.included().get("message"));
+	}
+	
+	public void queEuTenhoUmaListaDeCodigosDeLivros() {
+		livros = new ArrayList<Long>();
+		livros.add(CODIGO_LIVRO);
+	}
+		
 	public void queEuTenhoUmEmprestimo() {
 		emprestimo = new Emprestimo();
+		emprestimo.setId(1L);
 		emprestimo.setUsuario(usuario);
+		livro.setEmprestado(true);
 		emprestimo.setLivro(livro);
 		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 	}
 	
 	public void queEuTenhoUmaDataDeEmprestimo() {
 		dataDeEmprestimo = new Date();
+	}
+	
+	public void queEuTenhoUmaDataDeDevolucao() {
+		dataDeDevolucao = new Date();
 	}
 	
 	public void queEuTenhoUmUsuario() {

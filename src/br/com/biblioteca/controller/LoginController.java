@@ -3,7 +3,7 @@ package br.com.biblioteca.controller;
 import static br.com.caelum.vraptor.view.Results.json;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.AdministradorDAO;
-import br.com.biblioteca.entitades.Administrador;
+import br.com.biblioteca.entidades.Administrador;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;

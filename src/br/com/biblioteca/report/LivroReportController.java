@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.biblioteca.dao.LivroDAO;
-import br.com.biblioteca.entitades.Livro;
+import br.com.biblioteca.entidades.Livro;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

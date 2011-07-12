@@ -6,7 +6,6 @@ $(document).ready(function(){
 			$.post("emprestimo/devolve" , $formDevolve.serialize())
 				.success(function(msg){
 					alert(msg.message);
-					location.reload();
 				})
 				.error(function(erro){
 					alert(erro.mensagem);

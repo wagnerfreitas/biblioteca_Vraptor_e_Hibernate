@@ -1,4 +1,4 @@
-package br.com.biblioteca.entitades;
+package br.com.biblioteca.entidades;
 
 import java.util.Date;
 
