@@ -41,9 +41,41 @@ public class LoginControllerTest {
 //		quando
 		when(adminSession.getAdministrador()).thenReturn(administrador);
 		loginController.login();
-
-//		então		
+	}
+	
+	@Test
+	public void deveriaLogarUsuario() {
+//		dado
+		queEuTenhoUmAdministrador();
 		
+//		quando
+		when(administradorDAO.login(administrador.getNome(), administrador.getSenha())).thenReturn(administrador);
+		when(adminSession.getAdministrador()).thenReturn(administrador);
+		loginController.login(administrador);
+//		então
+	}
+	
+	@Test
+	public void deveriaNaoLogarUsuario() {
+//		dado
+		queEuTenhoUmAdministrador();
+		
+//		quando
+		when(administradorDAO.login(administrador.getNome(), administrador.getSenha())).thenReturn(null);
+		loginController.login(administrador);
+//		então
+	}
+	
+	@Test
+	public void deveriaDeslogarUsuario() {
+//		dado
+		queEuTenhoUmAdministrador();
+
+//		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
+		
+		adminSession.setAdministrador(null);
+		loginController.logout();
 	}
 	
 	public void queEuTenhoUmAdministrador() {
