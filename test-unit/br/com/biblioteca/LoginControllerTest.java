@@ -1,7 +1,6 @@
 package br.com.biblioteca;
 
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -74,8 +73,12 @@ public class LoginControllerTest {
 //		quando
 		when(adminSession.getAdministrador()).thenReturn(administrador);
 		
-		adminSession.setAdministrador(null);
 		loginController.logout();
+	}
+	
+	@Test
+	public void erroAoTentarLogar() {
+		loginController.erro();
 	}
 	
 	public void queEuTenhoUmAdministrador() {

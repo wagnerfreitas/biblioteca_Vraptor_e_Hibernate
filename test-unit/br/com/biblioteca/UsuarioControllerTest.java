@@ -53,21 +53,35 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testListaUsuarios() {
+	public void listaUsuarios() {
 //		dado
 		queEuTenhoUmAdministrador();
 		
 //		quando
 		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
-
-//		entao
 		usuarioController.index("nome");
+
+//		então
 		assertTrue(result.included().containsKey("usuarios"));
 	}
 	
 	@Test
-	public void testListaUsuariosJson() {
+	public void erroAoListarUsuario() {
+//		dado
+		queEuTenhoUmAdministrador();
+		
+//		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
+		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
+		usuarioController.index("nome");
+		
+//		então
+		assertEquals("Erro ao pesquisar usuário", result.included().get("error"));
+	}
+	
+	@Test
+	public void listaUsuariosJson() {
 //		dado
 		queEuTenhoUmAdministrador();
 		
@@ -80,8 +94,22 @@ public class UsuarioControllerTest{
 		assertTrue(result.included().containsKey("usuarios"));
 	}
 	
+	@Test 
+	public void erroAoListarUsuariosJson() {
+//		dado
+		queEuTenhoUmAdministrador();
+		
+//		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
+		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
+		usuarioController.list("nome");
+		
+//		então
+		assertEquals("Erro ao pesquisar usuário", result.included().get("error"));
+	}
+	
 	@Test
-	public void testNomeNuloAoAdicionarUsuario() {
+	public void nomeNuloAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setNome(null);
@@ -123,7 +151,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testEmailVazioAoAdicionarUsuario() {
+	public void emailVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setEmail("");
@@ -137,7 +165,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testAdicionaUsuarioQueJaExiste() {
+	public void adicionaUsuarioQueJaExiste() {
 //		dado 
 		queEuTenhoUmUsuario();
 		
@@ -150,7 +178,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testAdicionaUsuarioQueNaoExiste() {
+	public void adicionaUsuarioQueNaoExiste() {
 //		dado 
 		queEuTenhoUmUsuario();
 		List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -171,7 +199,7 @@ public class UsuarioControllerTest{
 		
 //		entao
 		usuarioController.atualiza(usuario);
-		assertEquals("Erro ao atualizar usuário", result.included().get("message"));
+		assertEquals("Id do usuário nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -182,7 +210,7 @@ public class UsuarioControllerTest{
 
 //		entao
 		usuarioController.atualiza(usuario);
-		assertEquals("Erro ao atualizar usuário", result.included().get("message"));
+		assertEquals("Nome do usuário nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -193,7 +221,7 @@ public class UsuarioControllerTest{
 		
 //		entao
 		usuarioController.atualiza(usuario);
-		assertEquals("Erro ao atualizar usuário", result.included().get("message"));
+		assertEquals("Email do usuário nulo", result.included().get("message"));
 	}
 	
 	@Test
@@ -204,21 +232,46 @@ public class UsuarioControllerTest{
 		
 //		entao
 		usuarioController.atualiza(usuario);
-		assertEquals("Erro ao atualizar usuário", result.included().get("message"));
+		assertEquals("Nome do usuário nulo", result.included().get("message"));
 	}
 	
 	@Test
-	public void testEmailVazioAoAtualizarUsuario() {
+	public void emailVazioAoAtualizarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setEmail("");
-		
+
 //		quando
-		
+		usuarioController.atualiza(usuario);
 		
 //		entao
+		assertEquals("Email do usuário nulo", result.included().get("message"));
+	}
+	
+	@Test
+	public void atualizarUsuario() {
+//		dado
+		queEuTenhoUmUsuario();
+		usuario.setNome("Nome Atualizado");
+		
+//		quando
 		usuarioController.atualiza(usuario);
-		assertEquals("Erro ao atualizar usuário", result.included().get("message"));
+		
+//		então
+		assertEquals("\"" + usuario.getNome() + "\" atualizado com sucesso", result.included().get("message"));
+	}
+	
+	@Test
+	public void erroAoAtualizarUsuario() {
+//		dado
+		queEuTenhoUmUsuario();
+		
+//		quando
+		doThrow(new RuntimeException("Erro/Usuario")).when(usuarioDAO).atualiza(usuario);
+		usuarioController.atualiza(usuario);
+		
+//		então
+		assertEquals("Erro/Usuario", result.included().get("message"));
 	}
 	
 	@Test

@@ -40,25 +40,31 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro, String ordenarPor) {
-		Criteria criteria = session.createCriteria(Emprestimo.class);
+		try {
+			Criteria criteria = session.createCriteria(Emprestimo.class);
 			criteria.add(Restrictions.isNull("dataDeDevolucao"));
 			if(ordenarPor.equals("nomeDoUsuario")){
 				criteria.createCriteria("usuario")
 				.addOrder(Order.asc("nome"));
 			}else if(ordenarPor.equals("dataDeEmprestimo")){
 				criteria.addOrder(Order.asc("dataDeEmprestimo"));
-			}else{
-				criteria.createCriteria("livro")
-					.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
 			}
-		return criteria.list();
+			criteria.createCriteria("livro")
+				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"));
+			return criteria.list();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar empréstimo");
+		}
 	}
 	
 	public Emprestimo procuraPorId(Long id){
-		return (Emprestimo) this.session
-			.createCriteria(Emprestimo.class)
-				.add(Restrictions.eq("id", id))
-			.uniqueResult();
+		try {
+			Criteria criteria = session.createCriteria(Emprestimo.class);
+			criteria.add(Restrictions.eq("id", id));
+			return (Emprestimo) criteria.uniqueResult();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar empréstimo");
+		}
 	}
 	
 	public void atualiza(Emprestimo emprestimo){

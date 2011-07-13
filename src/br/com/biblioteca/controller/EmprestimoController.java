@@ -31,31 +31,41 @@ public class EmprestimoController {
 	}
 	@Post
 	@Path("/emprestimos")
-	public void index(String ordenarPor, String nomeDoLivro){
-		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
-		result.include("emprestimos", emprestimos);
-		result.include("nome", nomeDoLivro);
-		result.include("ordenar", ordenarPor);
-		result.include("usuario", adminSession.getAdministrador().getNome());
+	public void index(String nomeDoLivro, String ordenarPor){
+		try {
+			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
+			result.include("emprestimos", emprestimos);
+			result.include("nome", nomeDoLivro);
+			result.include("ordenar", ordenarPor);
+			result.include("usuario", adminSession.getAdministrador().getNome());
+		} catch (Exception e) {
+			result.include("error", e.getMessage());
+		}
 	}
 	
 	@Post
 	@Path("emprestimo/devolve")
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
-		if(id.equals("") || dataDeDevolucao.equals("")){
-			message = "Erro do devolver livro";
-		}else{
-			Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
-			emprestimo.setDataDeDevolucao(dataDeDevolucao);
-			
-			Livro livro = emprestimo.getLivro();
-			livro.setEmprestado(false);
-			
-			emprestimoDAO.atualiza(emprestimo);
-			livroDAO.atualiza(livro);
-			message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+		if(id == null) {
+			message = "Id do empréstimo nulo";
+		} else if (dataDeDevolucao == null) {
+			message = "Data de devolução nula";
+		} else {
+			try {
+				Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
+				emprestimo.setDataDeDevolucao(dataDeDevolucao);
+				Livro livro = emprestimo.getLivro();
+				livro.setEmprestado(false);
+				
+				emprestimoDAO.atualiza(emprestimo);
+				livroDAO.atualiza(livro);
+				message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
 		}
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}
 }

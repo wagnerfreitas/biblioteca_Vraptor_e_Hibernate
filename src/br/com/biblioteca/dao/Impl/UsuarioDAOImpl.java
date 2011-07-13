@@ -53,7 +53,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			session.update(usuario);
 			tx.commit();
 		} catch (HibernateException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Erro/Usuário");
 		}
 	}
 	
@@ -66,10 +66,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				criteria.add(Restrictions.eq("usuarioAtivo", true));
 				criteria.addOrder(Order.asc("nome"));
 			}
+			return criteria.list();
 		} catch (Exception e) {
 			throw new RuntimeException("Erro ao pesquisar usuário");
 		}
-		return criteria.list();
 	}
 	
 	public Usuario pesquisarUsuarioPorId(Long id){

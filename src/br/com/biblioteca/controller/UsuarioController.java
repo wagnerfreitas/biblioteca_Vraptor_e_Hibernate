@@ -81,12 +81,21 @@ public class UsuarioController {
 	@Path("/usuario/atualiza")
 	public void atualiza(Usuario usuario){
 		String message;
-		if(usuario.getId() == null || usuario.getNome() == null  || usuario.getEmail() == null  || usuario.getNome() == "" || usuario.getEmail() == ""){
-			message = "Erro ao atualizar usuário";
+		
+		if(usuario.getId() == null){
+			message = "Id do usuário nulo";
+		} else if(usuario.getNome() == null  ||  usuario.getNome() == "") {
+			message = "Nome do usuário nulo";
+		} else if(usuario.getEmail() == null || usuario.getEmail() == ""){
+			message = "Email do usuário nulo";
 		}else{
-			usuario.setUsuarioAtivo(true);
-			usuarioDAO.atualiza(usuario);
-			message = "\"" + usuario.getNome() + "\" atualizado com sucesso";
+			try {
+				usuario.setUsuarioAtivo(true);
+				usuarioDAO.atualiza(usuario);
+				message = "\"" + usuario.getNome() + "\" atualizado com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
 		}
 //		Linha usada no teste
 		result.include("message", message);
