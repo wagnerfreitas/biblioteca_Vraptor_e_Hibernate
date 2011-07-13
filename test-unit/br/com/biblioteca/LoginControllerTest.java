@@ -33,7 +33,7 @@ public class LoginControllerTest {
 	}
 	
 	@Test
-	public void testUsuarioLogado() {
+	public void usuarioLogado() {
 //		dado
 		queEuTenhoUmAdministrador();
 

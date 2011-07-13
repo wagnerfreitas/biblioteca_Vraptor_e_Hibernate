@@ -31,7 +31,7 @@ public class IndexControllerTest {
 	}
 	
 	@Test
-	public void testUsuarioLogado(){
+	public void usuarioLogado(){
 //		dado
 		queEuTenhoUmAdministrador();
 		
@@ -44,7 +44,7 @@ public class IndexControllerTest {
 	}
 	
 	@Test
-	public void testUsuarioDeslogado() {
+	public void usuarioDeslogado() {
 //		quando
 		when(adminSession.getAdministrador()).thenReturn(null);
 		indexController.index();

@@ -123,7 +123,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testEmailNuloAoAdicionarUsuario() {
+	public void emailNuloAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setEmail(null);
@@ -137,7 +137,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testNomeVazioAoAdicionarUsuario() {
+	public void nomeVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setNome("");
@@ -192,7 +192,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testIdNuloAoAtualizarUsuario() {
+	public void idNuloAoAtualizarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setId(null);
@@ -203,7 +203,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testNomeNuloAoAtualizarUsuario() {
+	public void nomeNuloAoAtualizarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setNome(null);
@@ -214,7 +214,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testEmailNuloAoAtualizarUsuario() {
+	public void emailNuloAoAtualizarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setEmail(null);
@@ -225,7 +225,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testNomeVazioAoAtualizarUsuario() {
+	public void nomeVazioAoAtualizarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
 		usuario.setNome("");
@@ -275,7 +275,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test
-	public void testDeleteUsuarioQuandoEsteTemEmprestimo() {
+	public void deleteUsuarioQuandoEsteTemEmprestimo() {
 //		 dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
@@ -294,7 +294,7 @@ public class UsuarioControllerTest{
 	}
 	
 	@Test 
-	public void testDeleteUsuarioQuandoEsteNaoTemEmprestimo() {
+	public void deleteUsuarioQuandoEsteNaoTemEmprestimo() {
 //		dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaListaDeEmprestimoVazia();

@@ -54,7 +54,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testErroAoListarLivros() {
+	public void erroAoListarLivros() {
 //		dado
 		queEuTenhoUmAdministrador();
 		
@@ -68,7 +68,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testListaLivros() {
+	public void listaLivros() {
 //		dado
 		queEuTenhoUmAdministrador();
 
@@ -83,7 +83,7 @@ public class LivroControllerTest {
 	
 	
 	@Test
-	public void testNomeDoLivroNuloAoAdicionarLivro() {
+	public void nomeDoLivroNuloAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setNome(null);
@@ -97,7 +97,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testNomeDoLivroVazioAoAdicionarLivro() {
+	public void nomeDoLivroVazioAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setNome("");
@@ -111,7 +111,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testAutorNuloAoAdicionarLivro() {
+	public void autorNuloAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setAutor(null);
@@ -125,7 +125,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testAutorVazioAoAdicionarLivro() {
+	public void autorVazioAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setAutor("");
@@ -139,7 +139,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testEdicaoNulaAoAdicionarLivro() {
+	public void edicaoNulaAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setEdicao(null);
@@ -153,7 +153,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testEdicaoVaziaAoAdicionarLivro() {
+	public void edicaoVaziaAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setEdicao("");
@@ -167,7 +167,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testAdicionarLivro() {
+	public void adicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		
@@ -179,7 +179,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testIdDoUsuarioNuloAoEmprestarLivro() {
+	public void idDoUsuarioNuloAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
@@ -194,7 +194,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testIdDoLivroNuloAoEmprestarLivro() {
+	public void idDoLivroNuloAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setId(null);
@@ -209,7 +209,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testDateDeEmprestimoNuloAoAdicionarLivro() {
+	public void dataDeEmprestimoNuloAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
@@ -222,7 +222,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testPesquisarUsuarioAoEmprestarLivro() {
+	public void pesquisarUsuarioAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
@@ -237,7 +237,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testPesquisarLivroAoEmprestarLivro() {
+	public void pesquisarLivroAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
@@ -252,7 +252,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testEmprestarLivro() {
+	public void emprestarLivro() {
 //		dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
@@ -269,7 +269,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testNomeDoLivroNuloAoAtualizarLivro() {
+	public void nomeDoLivroNuloAoAtualizarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setNome(null);
@@ -282,7 +282,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testNomeVazioAoAdicionarUsuario() {
+	public void nomeVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setNome("");
@@ -295,7 +295,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testAutorNuloAoAtualizaLivro() {
+	public void autorNuloAoAtualizaLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setAutor(null);
@@ -308,7 +308,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testAutorVazioAoAtulizarLivro() {
+	public void autorVazioAoAtulizarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setAutor("");
@@ -321,7 +321,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testEdicaoNulaAoAtualizarLivro() {
+	public void edicaoNulaAoAtualizarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setEdicao(null);
@@ -334,7 +334,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testEdicaoVaziaAoAtualizarLivro() {
+	public void edicaoVaziaAoAtualizarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setEdicao("");
@@ -347,7 +347,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testErroAoAtualizarLivro() {
+	public void erroAoAtualizarLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		
@@ -360,7 +360,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testAtulizaLivro() {
+	public void atulizaLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setNome("Livro Atualizado");
@@ -373,7 +373,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testRemoverLivroQueEstarEmprestado() {
+	public void removerLivroQueEstarEmprestado() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmEmprestimo();
@@ -388,7 +388,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testRemoverLivroQueNaoEstarEmprestado() {
+	public void removerLivroQueNaoEstarEmprestado() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmaListaDeCodigosDeLivros();
@@ -402,7 +402,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testErroAoPesquisarLivroAoTentarRemover() {
+	public void erroAoPesquisarLivroAoTentarRemover() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmaListaDeCodigosDeLivros();
@@ -416,7 +416,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testErroAoTentarAtualizarLivroAoTentarRemover() {
+	public void erroAoTentarAtualizarLivroAoTentarRemover() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmaListaDeCodigosDeLivros();
@@ -431,7 +431,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testDevolverLivroComIdNulo() {
+	public void devolverLivroComIdNulo() {
 //		dado
 		queEuTenhoUmLivro();
 		livro.setId(null);
@@ -445,7 +445,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testDevolverLivroComDataDeDevolucaoNula() {
+	public void devolverLivroComDataDeDevolucaoNula() {
 //		dado
 		queEuTenhoUmLivro();
 		
@@ -457,7 +457,7 @@ public class LivroControllerTest {
 	}	
 	
 	@Test
-	public void testErroPesquisarLivroAoTentarDevolver() {
+	public void erroPesquisarLivroAoTentarDevolver() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmEmprestimo();
@@ -472,7 +472,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testErroAtualizarEmprestimoAoTentarDevolverLivro() {
+	public void erroAtualizarEmprestimoAoTentarDevolverLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
@@ -491,7 +491,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testDevolverLivro() {
+	public void devolverLivro() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
@@ -509,7 +509,7 @@ public class LivroControllerTest {
 	}
 	
 	@Test
-	public void testErroAtualizarLivroAoTentarDevolver() {
+	public void erroAtualizarLivroAoTentarDevolver() {
 //		dado
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();

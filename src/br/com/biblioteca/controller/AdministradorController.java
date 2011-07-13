@@ -28,10 +28,14 @@ public class AdministradorController {
 	
 	@Get
 	@Path("/administradores")
-	public void administradores() {
-		List<Administrador> administradores = administradorDAO.lista();
-		result.include("administradores", administradores);
-		result.include("usuario", adminSession.getAdministrador().getNome());
+	public void lista() {
+		try {
+			List<Administrador> administradores = administradorDAO.lista();
+			result.include("administradores", administradores);
+			result.include("usuario", adminSession.getAdministrador().getNome());
+		} catch (Exception e) {
+			result.include("error", e.getMessage());
+		}
 	}
 	
 	@Get
@@ -43,12 +47,19 @@ public class AdministradorController {
 	@Path("/adimin/novo")
 	public void novo(Administrador administrador){
 		String message;
-		if(administrador.getNome().equals("") || administrador.getSenha().equals("")){
-			message = "Nome ou email nulos";
+		if(administrador.getNome() == null || administrador.getNome() == "") {
+			message = "Nome nulo";
+		} else if(administrador.getSenha() == null || administrador.getSenha() == "") {
+			message = "Senha nula";
 		}else{
-			administradorDAO.adiciona(administrador);
-			message = "\"" + administrador.getNome() + "\" adicionado com sucesso";
+			try {
+				administradorDAO.adiciona(administrador);
+				message = "\"" + administrador.getNome() + "\" adicionado com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
 		}
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}
 	
@@ -59,9 +70,14 @@ public class AdministradorController {
 		if(administrador.getId() == null){
 			message = "Erro ao tentar apagar";
 		}else{
-			administradorDAO.delete(administrador);
-			message = "\"" + administrador.getNome() + "\" apagado com sucesso";
+			try {
+				administradorDAO.delete(administrador);
+				message = "\"" + administrador.getNome() + "\" apagado com sucesso";
+			} catch (Exception e) {
+				message = e.getMessage();
+			}
 		}
+		result.include("message", message);
 		result.use(json()).from(message, "message").serialize();
 	}
 }

@@ -30,7 +30,7 @@ public class AdministradorDAOImpl implements AdministradorDAO{
 			session.save(administrador);
 			tx.commit();
 		} catch (HibernateException e) {
-			throw new RuntimeException();
+			throw new RuntimeException("Erro ao adicionar administrador");
 		} finally {
 			if (session != null) {
 				session.close();
@@ -40,8 +40,12 @@ public class AdministradorDAOImpl implements AdministradorDAO{
 
 	@SuppressWarnings("unchecked")
 	public List<Administrador> lista() {
-		Criteria criteria = session.createCriteria(Administrador.class);
-		return criteria.list();
+		try {
+			Criteria criteria = session.createCriteria(Administrador.class);
+			return criteria.list();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao listar administradores");
+		}
 	}
 
 	public void delete(Administrador administrador) {
@@ -50,7 +54,7 @@ public class AdministradorDAOImpl implements AdministradorDAO{
 			session.delete(administrador);
 			tx.commit();
 		} catch (HibernateException e) {
-			throw new RuntimeException();
+			throw new RuntimeException("Erro ao tentar deletar o administrador");
 		} finally {
 			if (session != null) {
 				session.close();
