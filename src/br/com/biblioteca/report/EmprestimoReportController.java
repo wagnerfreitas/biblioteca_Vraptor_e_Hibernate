@@ -26,11 +26,16 @@ public class EmprestimoReportController {
 	@Post
 	@Path("relatorio/emprestimos")
 	public Download relatoriosDeLivro(String filtro_relatorio, String ordenarPor) {
-		List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(filtro_relatorio, ordenarPor);
-		Map<String, Object> parametros = new HashMap<String, Object>();
-		Date data = new Date();
-		parametros.put("DATE", data);
-		parametros.put("TITLE", "Lista de livros emprestados");
-		return jasperMaker.makePdf("Emprestimo.jrxml", emprestimos, "Lista_de_Emprestimos.pdf", true, parametros);
+		try {
+			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(filtro_relatorio, ordenarPor);
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			Date data = new Date();
+			parametros.put("DATE", data);
+			parametros.put("TITLE", "Lista de livros emprestados");
+			return jasperMaker.makePdf("Emprestimo.jrxml", emprestimos, "Lista_de_Emprestimos.pdf", true, parametros);
+		}
+		catch (Exception e) {
+			throw new RuntimeException("Erro ao tentar fazer relatório de empréstimos");
+		}
 	} 
 }

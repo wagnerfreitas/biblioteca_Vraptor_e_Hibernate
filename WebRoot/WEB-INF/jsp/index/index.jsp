@@ -129,7 +129,7 @@
 					</table>
 				</fieldset>
 			</form>
-			<form id="Emprestimo" method="post" action="emprestimos">
+			<form id="Emprestimo" method="get" action="emprestimos">
 				<fieldset>
 					<legend>Pesquisar</legend>
 					<table>

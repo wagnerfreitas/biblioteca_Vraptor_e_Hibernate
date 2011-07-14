@@ -89,12 +89,16 @@
 			</div>	
 			
 			<div id="EmprestarLivro">
-				<h1>Emprestar livro</h1>
 				<table>
 					<tr>
-						<td style="width: 172px">Pesquisar usuário: </td>
+						<td style="width: 188px">Pesquisar usuário: </td>
 						<td><input type="text" name="pesquisarUsuario" id="pesquisarUsuario"/></td>
 						<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
+					</tr>
+					<tr id="trResultadoNomePesquisa" style="display: none">
+						<td colspan="2">
+							Nome: <span id="nomeResultadoPesquisa"></span>
+						</td>
 					</tr>
 				</table>
 				<form method="post" id="formEmpresta" action="livro/emprestar">
@@ -107,12 +111,6 @@
 							</td>
 							<td>
 								<input type="text" class="calendario" name="dataDeEmprestimo" />
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>
-								<input type="button" id="btn-emprestar" value="Enviar" />
 							</td>
 						</tr>
 					</table>

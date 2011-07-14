@@ -7,7 +7,17 @@ $(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
 		$("#DevolverLivro").hide();
-		$("#EmprestarLivro").show();
+		$("#EmprestarLivro").dialog({
+			modal:true, 
+			title: "Emprestar livro", 
+			width: 450,
+			buttons: {
+				Enviar: function(){
+					tornFormEmprestaValid()
+					postarDados("livro/emprestar", $formEmpresta);
+				}
+			}
+		});
 		var valor = $(this).parent().parent().attr("idLivro");
 		$("#IDLivro").val(valor);
 		return false;
@@ -54,18 +64,38 @@ $(document).ready(function(){
 				var sHtml = '<table><thead><tr><td style=\"width:150px\"> - Nome - </td><td style=\"width:150px\"> - Email - </td><td> - Emprestar - </td></tr></thead>';
 				for(i = 0; i < usuarios.length; i++){
 					sHtml += '<tr>'+
-						'<td>'+ usuarios[i].nome +'</td>'+
+						'<td class=\"usuarioNome\">'+ usuarios[i].nome +'</td>'+
 						'<td>'+ usuarios[i].email +'</td>'+
-						'<td style=\"text-align: center;\"><input type="radio" onclick="setIdUsuario(this.value)" name="emprestar" class="usuario_id" value="'+ usuarios[i].id +'" /></td>' + 
+						'<td style=\"text-align: center;\"><input type="radio" onclick="//setIdUsuario(this.value)" name="emprestar" class="usuario_id" value="'+ usuarios[i].id +'" /></td>' + 
 						'</tr>';
 				}
-		sHtml += '</table>';
-			
+		sHtml += '</table>'
+			+'<span id="selecioneUsuario" style=\"display: none; color: red\">Selecione um usuário</span>';
+		
 		$("#retornoUsuarios")
 			.html(sHtml)
 				.dialog({
-				width: 600, 
-				title: 'Usuários'
+					modal: true,
+					width: 600, 
+					title: 'Usuários',
+					buttons: {
+						Emprestar: function (){
+							var $id = $(".usuario_id");
+							if(!$id.is(":checked")){
+								$("#selecioneUsuario")
+									.show()
+									.effect("highlight",{}, 3000);
+							}else{
+								setIdUsuario($id.val());
+								$("#trResultadoNomePesquisa").show();
+								var radio = $(".usuario_id:checked"),
+									labelNome = radio.parent().parent().children(':nth-child(1)').text();
+								$("#nomeResultadoPesquisa").html(labelNome)
+									.effect("highlight", {}, 3000);
+								$("#retornoUsuarios").dialog("close");
+							}
+						}
+					}
 			});
 			
 		})
@@ -78,11 +108,6 @@ $(document).ready(function(){
 		if(event.keyCode === 13){
 			$('#btn-pesquisar').click();
 		}
-	});
-
-	$("#btn-emprestar").click(function(){
-		tornFormEmprestaValid()
-		postarDados("livro/emprestar", $formEmpresta);
 	});
 	
 	$formEmpresta.find("input").keydown(function(event){
