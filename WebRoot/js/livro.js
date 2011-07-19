@@ -13,7 +13,7 @@ $(document).ready(function(){
 			width: 450,
 			buttons: {
 				Enviar: function(){
-					tornFormEmprestaValid()
+					tornFormEmprestaValid();
 					postarDados("livro/emprestar", $formEmpresta);
 				}
 			}
@@ -25,7 +25,17 @@ $(document).ready(function(){
 	$(".devolver").click(function(){
 		$("#atualizaLivro").hide();
 		$("#EmprestarLivro").hide();
-		$("#DevolverLivro").show();
+		$("#DevolverLivro").dialod({
+			modal: true,
+			title: "Devolver livro",
+			width: 450,
+			buttons: {
+				Enviar: function() {
+					tornFormDevolveValid();
+					postarDados("livro/devolve", $formDevolve);
+				}
+			}
+		});
 		var valor = $(this).parent().parent().attr("idLivro");
 		$("#id").val(valor);
 		return false;
@@ -127,9 +137,9 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#btn-devolver").click(function(){
-		postarDados("livro/devolve", $formDevolve);
-	});
+//	$("#btn-devolver").click(function(){
+//		postarDados("livro/devolve", $formDevolve);
+//	});
 	
 	$formDevolve.find("input").keydown(function(event){
 		if(event.keyCode === 13){

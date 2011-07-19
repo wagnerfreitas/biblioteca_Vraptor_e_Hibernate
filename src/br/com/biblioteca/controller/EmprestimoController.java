@@ -31,13 +31,13 @@ public class EmprestimoController {
 		this.adminSession = adminSession;
 	}
 	@Get
-	@Path("/emprestimos")
+	@Path("/emprestimos") 
 	public void index(String nomeDoLivro, String ordenarPor){
 		try {
 			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
 			result.include("emprestimos", emprestimos);
-			result.include("nome", nomeDoLivro);
-			result.include("ordenar", ordenarPor);
+			result.include("nomeDoLivro", nomeDoLivro);
+			result.include("ordenarPor", ordenarPor);
 			result.include("usuario", adminSession.getAdministrador().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());

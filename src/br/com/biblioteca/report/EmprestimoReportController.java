@@ -25,12 +25,11 @@ public class EmprestimoReportController {
 	
 	@Post
 	@Path("relatorio/emprestimos")
-	public Download relatoriosDeLivro(String filtro_relatorio, String ordenarPor) {
+	public Download relatoriosDeLivro(String nomeDoLivro, String ordenarPor) {
 		try {
-			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(filtro_relatorio, ordenarPor);
+			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
 			Map<String, Object> parametros = new HashMap<String, Object>();
-			Date data = new Date();
-			parametros.put("DATE", data);
+			parametros.put("DATE", new Date());
 			parametros.put("TITLE", "Lista de livros emprestados");
 			return jasperMaker.makePdf("Emprestimo.jrxml", emprestimos, "Lista_de_Emprestimos.pdf", true, parametros);
 		}

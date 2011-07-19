@@ -1,28 +1,18 @@
 var $formDevolve = $("#formDevolve");
-var $formRelatorio = $("#formRelatorio");
 $(document).ready(function(){
 	tornFormDevolverValid();
 	$("#btn-devolve").click(function(){
-		postarDados($formDevolve, "emprestimo/devolve");
-		location.reload();
-	});
-	
-	$("#gerarRelatorio").click(function(){
-		postarDados($formRelatorio, "relatorio/emprestimos")
-	});
-	
-	function postarDados(formulario, rota) {
-		if(formulario.valid()) {
-			$.post(rota,formulario.serialize())
-				.success(function(msg) {
+		if($formDevolve.valid()){
+			$.post("emprestimo/devolve" , $formDevolve.serialize())
+				.success(function(msg){
 					alert(msg.message);
+					location.reload();
 				})
 				.error(function(erro){
-					alert(erro.message);
-				}); 
+					alert(erro.mensagem);
+				});						
 		}
-	};
-	
+	});
 	$(".devolver").click(function(){
 		$("#devolverLivro").show();					
 		var valor = $(this).parent().parent().attr("emprestimoId");

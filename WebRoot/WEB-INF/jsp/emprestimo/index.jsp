@@ -68,10 +68,10 @@
 			
 			<div id="div">
 				<a href="../biblioteca">Voltar</a><br/>
-				<form id="formRelatorio" method="post">
-					<input type="hidden" name="filtro_relatorio" value="${nome}" />
-					<input type="hidden" name="ordenarPor" value="${ordenar}" />
-					<button id="gerarRelatorio">Gerar relatório</button>
+				<form id="formRelatorio" action="relatorio/emprestimos" method="post">
+					<input type="hidden" name="nomeDoLivro" value="${nomeDoLivro}" />
+					<input type="hidden" name="ordenarPor" value="${ordenarPor}" />
+					<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
 				</form>
 			</div>
 			

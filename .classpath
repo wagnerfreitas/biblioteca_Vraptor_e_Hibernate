@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jasperreports-3.7.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mockito-all-1.8.5.jar" sourcepath="C:/Users/wagnersousa/.m2/repository/org/mockito/mockito-all/1.8.5/mockito-all-1.8.5-sources.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/envers-1.2.2.ga-hibernate-3.3.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
