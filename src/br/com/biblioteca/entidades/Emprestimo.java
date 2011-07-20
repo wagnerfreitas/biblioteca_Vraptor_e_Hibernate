@@ -1,6 +1,5 @@
 package br.com.biblioteca.entidades;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,10 +12,9 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.envers.Audited;
 
-@SuppressWarnings("serial")
 @Audited
 @Entity
-public class Emprestimo implements Serializable{
+public class Emprestimo{
 	@Id
 	@GeneratedValue
 	private Long id;

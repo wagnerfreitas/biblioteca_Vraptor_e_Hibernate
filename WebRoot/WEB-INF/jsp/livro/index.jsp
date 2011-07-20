@@ -117,7 +117,6 @@
 				</form>
 			</div>
 			<div id="DevolverLivro">
-			<h1>Devolver livro</h1>
 				<form method="post" id="fomDevolve" action="livro/devolve">
 					<input type="hidden" id="id" name="id" />
 					<table>
@@ -125,14 +124,9 @@
 							<td>Data de devolução: </td>
 							<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
 						</tr>
-						<tr>
-							<td></td>
-							<td><input type="button" id="btn-devolver" value="Enviar" /></td>
-						</tr>
 					</table>
 				</form>
 			</div>
-			
 			<div id="atualizaLivro">
 				<h1>Atualizar dados</h1>
 				<form method="post" id="formAtualiza" action="livro/atualiza">

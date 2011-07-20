@@ -25,7 +25,7 @@ $(document).ready(function(){
 	$(".devolver").click(function(){
 		$("#atualizaLivro").hide();
 		$("#EmprestarLivro").hide();
-		$("#DevolverLivro").dialod({
+		$("#DevolverLivro").dialog({
 			modal: true,
 			title: "Devolver livro",
 			width: 450,
@@ -107,7 +107,6 @@ $(document).ready(function(){
 						}
 					}
 			});
-			
 		})
 		.error(function(erro){
 			$("#retornoUsuarios").dialog(erro);
@@ -136,10 +135,6 @@ $(document).ready(function(){
 			$("#btn-atualiza").click();
 		}
 	});
-	
-//	$("#btn-devolver").click(function(){
-//		postarDados("livro/devolve", $formDevolve);
-//	});
 	
 	$formDevolve.find("input").keydown(function(event){
 		if(event.keyCode === 13){

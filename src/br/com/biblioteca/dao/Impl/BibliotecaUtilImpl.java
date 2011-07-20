@@ -15,7 +15,7 @@ import br.com.caelum.vraptor.ioc.Component;
 public class BibliotecaUtilImpl implements BibliotecaUtil {
 	private static SessionFactory factory;
 	static{
-		AnnotationConfiguration cfg = new AnnotationConfiguration();
+		AnnotationConfiguration cfg = new AnnotationConfiguration().configure();
 		cfg.addAnnotatedClass(Usuario.class);	
 		cfg.addAnnotatedClass(Emprestimo.class);
 		cfg.addAnnotatedClass(Livro.class);

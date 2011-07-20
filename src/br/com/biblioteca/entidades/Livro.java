@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Audited
 @Entity
@@ -15,8 +16,9 @@ public class Livro {
 	private String nome;
 	private String autor;
 	private String edicao;
-	
+	@NotAudited
 	private boolean emprestado;
+	@NotAudited
 	private boolean livroDeletado;
 	
 	public String getNome() {
