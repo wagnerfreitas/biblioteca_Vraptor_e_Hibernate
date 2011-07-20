@@ -14,15 +14,16 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class BibliotecaUtilImpl implements BibliotecaUtil {
 	private static SessionFactory factory;
-	static{
-		AnnotationConfiguration cfg = new AnnotationConfiguration().configure();
-		cfg.addAnnotatedClass(Usuario.class);	
+	static {
+		AnnotationConfiguration cfg = new AnnotationConfiguration().configure("hibernate.cfg.xml");
+		cfg.addAnnotatedClass(Usuario.class);
 		cfg.addAnnotatedClass(Emprestimo.class);
 		cfg.addAnnotatedClass(Livro.class);
 		cfg.addAnnotatedClass(Administrador.class);
-		factory = cfg.buildSessionFactory(); 
+		factory = cfg.buildSessionFactory();
 	}
-	public Session getSession(){
+	
+	public Session getSession() {
 		return factory.openSession();
 	}
 }

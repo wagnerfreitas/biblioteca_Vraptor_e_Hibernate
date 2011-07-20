@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import org.hibernate.envers.Audited;
 
 @SuppressWarnings("serial")
-@Audited
+//@Audited
 @Entity
 public class Administrador implements Serializable{
 	@Id

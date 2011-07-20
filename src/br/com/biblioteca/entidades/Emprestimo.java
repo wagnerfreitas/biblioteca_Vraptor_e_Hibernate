@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.envers.Audited;
 
-@Audited
+//@Audited
 @Entity
 public class Emprestimo{
 	@Id
