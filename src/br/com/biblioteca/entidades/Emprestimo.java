@@ -10,9 +10,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.envers.Audited;
-
-//@Audited
 @Entity
 public class Emprestimo{
 	@Id

@@ -4,19 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
-
-//@Audited
 @Entity
 public class Usuario{
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String nome;
-//	@NotAudited
 	private String email;
-//	@NotAudited
 	private boolean usuarioAtivo;
 	
 	public String getNome() {

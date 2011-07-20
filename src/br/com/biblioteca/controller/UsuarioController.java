@@ -2,11 +2,14 @@ package br.com.biblioteca.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -22,12 +25,15 @@ public class UsuarioController {
 	private UsuarioDAO usuarioDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private AdminSession adminSession;
+	private AuditoriaDAO auditoriaDAO;
+	private Auditoria auditoria;
 	
-	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession, EmprestimoDAO emprestimoDAO){
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession, EmprestimoDAO emprestimoDAO, AuditoriaDAO auditoriaDAO){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
 		this.adminSession = adminSession;
 		this.emprestimoDAO = emprestimoDAO;
+		this.auditoriaDAO = auditoriaDAO;
 	}
 	
 	@Get
@@ -64,8 +70,17 @@ public class UsuarioController {
 	@Post
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
+		auditoria = new Auditoria();
 		String message;
 		try {
+			auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+			auditoria.setAcao("ADICIONOU");
+			auditoria.setEntidadeUsuario(usuario.getNome());
+			auditoria.setEntidadeLivro("");
+			auditoria.setDate(new Date());
+			
+			auditoriaDAO.salva(auditoria);
+			
 			usuarioDAO.adiciona(usuario);
 			message = "\""+ usuario.getNome() + "\" adicionado com sucesso!";
 		} catch (Exception e) {
@@ -80,8 +95,9 @@ public class UsuarioController {
 	@Put @Post
 	@Path("/usuario/atualiza")
 	public void atualiza(Usuario usuario){
-		String message;
+		auditoria = new Auditoria();
 		
+		String message;
 		if(usuario.getId() == null){
 			message = "Id do usuário nulo";
 		} else if(usuario.getNome() == null  ||  usuario.getNome() == "") {
@@ -91,6 +107,15 @@ public class UsuarioController {
 		}else{
 			try {
 				usuario.setUsuarioAtivo(true);
+				
+				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setAcao("ATUALIZOU");
+				auditoria.setEntidadeUsuario(usuario.getNome());
+				auditoria.setEntidadeLivro("");
+				auditoria.setDate(new Date());
+				
+				auditoriaDAO.salva(auditoria);
+				
 				usuarioDAO.atualiza(usuario);
 				message = "\"" + usuario.getNome() + "\" atualizado com sucesso";
 			} catch (Exception e) {
@@ -113,6 +138,15 @@ public class UsuarioController {
 				message = "\"" + usuario.getNome() + "\" com empréstimo ativo";
 			}else{
 				usuario.setUsuarioAtivo(false);
+				
+				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setAcao("DELETOU");
+				auditoria.setEntidadeUsuario(usuario.getNome());
+				auditoria.setEntidadeLivro("");
+				auditoria.setDate(new Date());
+				
+				auditoriaDAO.salva(auditoria);
+				
 				usuarioDAO.atualiza(usuario);
 				message = "Usuario(s) deletado(s) com sucesso";
 			}

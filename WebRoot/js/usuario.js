@@ -42,11 +42,9 @@ function postarDados(rota, formulario){
 			.success(function(msg){
 				alert(msg.message);
 				location.reload();
-//				$("#message-toolbar").html(msg.message);
-//				$("#message-toolbar").animate({opacity: 1}, 1000).animate({opacity: 0}, 1000);
 			})
-			.error(function(){
-				alert("Erro ao deletar usuário");
+			.error(function(erro){
+				alert(erro.message);
 			});
 	}
 }
