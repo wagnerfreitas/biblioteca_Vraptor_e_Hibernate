@@ -1,14 +1,22 @@
-var $formUsuario = $('form#Usuario');
-var $formLivro = $('form#Livro');
-var $formEmprestimo = $('form#Emprestimo'); 
+var templates = {},
+	$formUsuario,
+	$formLivro,
+	$formEmprestimo, 
+	$result,
+	$usuarioNovo;
 
 $(document).ready(function(){
+	$formUsuario = $('form#Usuario');
+	$formLivro = $('form#Livro');
+	$formEmprestimo = $('form#Emprestimo'); 
+	$result = $("#result");
+	
 	$("#pesquisarUsuario").click(function(){
-		exibirForm($formUsuario);
+		exibirFormDialog($formUsuario, "Pesquisar usuário", 450)
 	});
 	
 	$("#pesquisarLivro").click(function(){
-		exibirForm($formLivro);
+		exibirFormDialog($formLivro, "Pesquisar livro", 450)
 	});
 	
 	$('#pesquisarEmprestimo').click(function(){
@@ -16,29 +24,82 @@ $(document).ready(function(){
 	});
 	
 	$("#adicionarUsuario").click(function(){
-		postarDados("usuario/add");
+		buscarPagina({
+			getUrl: "usuario/add",
+			callback: displayFormNovoUsuario
+		});
 	});
 	
 	$("#adicionarLivro").click(function(){
-		 postarDados("livro/add");
+		 buscarPagina("livro/add", "Adicionar livro");
 	});
 });
 
-function exibirForm(formulario){
-	$('form').hide();
-	formulario.show();
+function exibirFormDialog(formulario, titulo, width){
+	formulario.dialog({
+		modal: true,
+		title: titulo,
+		width: width,
+	});
+}
+
+function buscarPagina(options){
+	var hasTemplate = templates[options.getUrl] != undefined;
+	if (hasTemplate){
+		options.callback(templates[options.getUrl]);
+	} else {
+		$.ajax({
+			url: options.getUrl,
+			type: "GET",
+			success: function(result){
+				templates[options.getUrl] = result;
+				options.callback(result)
+			},
+			error: function(erro){
+				$result.dialog(erro);
+			}
+		});
+	}
 };
 
-function postarDados(url){
-	$('form').hide();
-	$.ajax({
-		url: url,
-		type: "GET",
-		success: function(result){
-			$("#result").html(result);
-		},
-		failure: function(){
-			alert("Erro");
+displayAddForm = function(data){
+	var buttons = {
+		Enviar: function(){
+			if ($form.valid()){
+				$.post(data.postUrl, $form.serialize())
+					.success(function(msg){
+						if (confirm(msg.message +'\nDeseja inserir outro '+ data.label +'?')){
+							$form[0].reset();
+							$form.find("input:first").focus();
+						} else { 
+							$form.hide();
+						}
+					})
+					.error(function(erro){
+						alert(erro.message);
+					});
+			}
 		}
-	});
+	};
+	$result
+		.html(data.result)
+		.dialog({
+			modal: true,
+			title: data.title,
+			width: 400,
+			buttons: buttons
+		});
+	$form = $('#'+ data.formId);
+	data.formRulesFunction($form);
 };
+
+displayFormNovoUsuario = function(result){
+	displayAddForm({
+		postUrl: 'usuario/novo',
+		formId: 'usuarioNovo',
+		formRulesFunction: makeFormUsuarioNovoValid,
+		title: 'Adicionar usuário',
+		label: 'usuário',
+		result: result
+	})
+}

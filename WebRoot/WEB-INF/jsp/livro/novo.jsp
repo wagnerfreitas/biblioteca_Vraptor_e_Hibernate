@@ -11,41 +11,36 @@
 	</style>
 </head>
 <form id="livroNovo" method="post">
-	<fieldset>
-		<legend>
-			Adicionar livro
-		</legend>
-		<table>
-			<tr>
-				<td>
-					Nome:
-				</td>
-				<td>
-					<input type="text" name="livro.nome" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Autor:
-				</td>
-				<td>
-					<input type="text" name="livro.autor" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Edição: 
-				</td>
-				<td>
-					<input type="text" name="livro.edicao" />
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					<input type="button" id="btn" value="Enviar" />
-				</td>
-			</tr>
-		</table>
-	</fieldset>
+	<table>
+		<tr>
+			<td>
+				Nome:
+			</td>
+			<td>
+				<input type="text" name="livro.nome" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Autor:
+			</td>
+			<td>
+				<input type="text" name="livro.autor" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Edição: 
+			</td>
+			<td>
+				<input type="text" name="livro.edicao" />
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="button" id="btn-livroNovo" value="Enviar" />
+			</td>
+		</tr>
+	</table>
 </form>

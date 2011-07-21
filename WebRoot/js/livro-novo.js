@@ -2,7 +2,7 @@ var $livroNovo;
 $(document).ready(function(){
 	$livroNovo = $("#livroNovo");
 	turnFormValid();
-	$("#btn").click(function(){
+	$("#btn-livroNovo").click(function(){
 		if($livroNovo.valid()){
 			$.post('livro/novo', $livroNovo.serialize())
 				.success(function(msg){
@@ -21,7 +21,7 @@ $(document).ready(function(){
 	
 	$("#livroNovo input").keydown(function(event){
 		if(event.keyCode === 13 ){
-			$("#btn").click();
+			$("#btn-livroNovo").click();
 		}
 	})
 });

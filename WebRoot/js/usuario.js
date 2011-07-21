@@ -1,5 +1,6 @@
 ﻿var $formAtualiza = $("#formAtualiza");
 var $formDeletar = $("#formDeletar");
+
 $(document).ready(function(){
 	$('.idDelete').click(function(e){
 		e.stopPropagation();	
@@ -25,7 +26,7 @@ $(document).ready(function(){
 	});
 
 	$("#atualizarUsuario").click(function(){
-		turnFormAtulizaValid();
+		formValid($formAtualiza, 'usuario.nome', 'usuario.email');
 		postarDados("usuario/atualiza", $formAtualiza);
 	});
 	
@@ -49,27 +50,52 @@ function postarDados(rota, formulario){
 	}
 }
 
-function turnFormAtulizaValid(){
-	$formAtualiza.validate({
-		rules:{
-			'usuario.nome':{
+function formValid(formulario, nameInputNome, nameInputEmail) {
+	formulario.validate({
+		rules: {
+			nameInputNome: {
 				required: true,
 				minlength: 3
 			},
-			'usuario.email':{
+			nameInputEmail: {
 				required: true,
 				minlength: 3
 			}
 		},
-		messages:{
-			'usuario.nome':{
+		messages: {
+			nameInputNome: {
 				required: 'Digite seu nome',
 				minlength: 'O nome deve conter no mínimo 3 caracteres'
 			},
-			'usuario.email':{
+			nameInputEmail: {
 				required: 'Digite seu email',
 				minlength: 'O email deve conter no mínimo 3 caracteres'
 			}
 		}
+	});
+}
+
+function makeFormUsuarioNovoValid($form){
+	$form.validate({
+			rules:{
+				'usuario.nome':{
+					required: true,
+					minlength: 3
+				},
+				'usuario.email':{
+					required: true,
+					email: true
+				}
+			},
+			messages:{
+				'usuario.nome':{
+					required: 'Digite seu nome',
+					minlength: 'O nome deve conter no mínimo 3 caracteres'
+				},
+				'usuario.email':{
+					required: 'Digite seu email',
+					email: 'Digite um email válido'
+				},
+			}
 	});
 }

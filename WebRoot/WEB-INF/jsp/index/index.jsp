@@ -94,40 +94,34 @@
 			</table>
 			<div id="result"></div>
 			<form id="Usuario" method="get" action="usuarios">
-				<fieldset>
-					<legend>Pesquisar</legend>
-					<table>
-						<tr>
-							<td>
-								Digite o nome do usuário:
-							</td>
-							<td>
-								<input type="text" name="nome" />
-							</td>
-							<td>
-								<input type="submit" value="Enviar" />
-							</td>
-						</tr>
-					</table>
-				</fieldset>
+				<table>
+					<tr>
+						<td>
+							Digite o nome do usuário:
+						</td>
+						<td>
+							<input type="text" name="nome" />
+						</td>
+						<td>
+							<input type="submit" value="Enviar" />
+						</td>
+					</tr>
+				</table>
 			</form>
 			<form id="Livro" method="get" action="livros">
-				<fieldset>
-					<legend>Pesquisar</legend>
-					<table>
-						<tr>
-							<td>
-								Digite o nome do livro:
-							</td>
-							<td>
-								<input type="text" id="pesquisaLivroNome" name="nome" />
-							</td>
-							<td>
-								<input type="submit" value="Enviar" />
-							</td>
-						</tr>
-					</table>
-				</fieldset>
+				<table>
+					<tr>
+						<td>
+							Digite o nome do livro:
+						</td>
+						<td>
+							<input type="text" id="pesquisaLivroNome" name="nome" />
+						</td>
+						<td>
+							<input type="submit" value="Enviar" />
+						</td>
+					</tr>
+				</table>
 			</form>
 			<form id="Emprestimo" method="get" action="emprestimos">
 				<fieldset>
@@ -166,5 +160,7 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/usuario.js"></script>
 </html>

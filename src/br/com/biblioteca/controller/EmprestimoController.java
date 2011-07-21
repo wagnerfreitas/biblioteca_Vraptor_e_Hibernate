@@ -27,6 +27,7 @@ public class EmprestimoController {
 	private LivroDAO livroDAO;
 	private AdminSession adminSession;
 	private AuditoriaDAO auditoriaDAO;
+	private Auditoria auditoria;
 	
 	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, AdminSession adminSession, AuditoriaDAO auditoriaDAO){
 		this.result = result;
@@ -52,7 +53,6 @@ public class EmprestimoController {
 	@Post
 	@Path("emprestimo/devolve")
 	public void devolve(Long id, Date dataDeDevolucao){
-		Auditoria auditoria = new Auditoria();
 		String message;
 		if(id == null) {
 			message = "Id do empréstimo nulo";
@@ -60,6 +60,7 @@ public class EmprestimoController {
 			message = "Data de devolução nula";
 		} else {
 			try {
+				auditoria = new Auditoria();
 				Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
 				Livro livro = emprestimo.getLivro();
 				Usuario usuario = emprestimo.getUsuario();
@@ -69,7 +70,7 @@ public class EmprestimoController {
 				
 				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
 				auditoria.setEntidadeUsuario(usuario.getNome());
-				auditoria.setAcao("Devolveu");
+				auditoria.setAcao("DEVOLVEU");
 				auditoria.setEntidadeLivro(livro.getNome());
 				auditoria.setDate(dataDeDevolucao);
 				
