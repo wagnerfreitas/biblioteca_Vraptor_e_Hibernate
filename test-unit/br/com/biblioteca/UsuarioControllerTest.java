@@ -16,9 +16,11 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.UsuarioController;
 import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
@@ -37,6 +39,8 @@ public class UsuarioControllerTest{
 	private UsuarioDAO usuarioDAO;
 	@Mock 
 	private EmprestimoDAO emprestimoDAO;
+	@Mock
+	private AuditoriaDAO auditoriaDAO;
 	
 	private Usuario usuario;
 	private Livro livro;
@@ -44,12 +48,13 @@ public class UsuarioControllerTest{
 	private ArrayList<Emprestimo> emprestimos;
 	private ArrayList<Long> usuarios;
 	private Administrador administrador;
+	private Auditoria auditoria;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.usuarioController = new UsuarioController(result, usuarioDAO, adminSession, emprestimoDAO);
+		this.usuarioController = new UsuarioController(result, usuarioDAO, adminSession, emprestimoDAO, auditoriaDAO);
 	}
 	
 	@Test
@@ -111,10 +116,13 @@ public class UsuarioControllerTest{
 	@Test
 	public void nomeNuloAoAdicionarUsuario() {
 //		dado
+		queEuTenhoUmAdministrador();
+		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
 		usuario.setNome(null);
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(usuario);
 		
@@ -126,9 +134,12 @@ public class UsuarioControllerTest{
 	public void emailNuloAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		usuario.setEmail(null);
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -140,9 +151,12 @@ public class UsuarioControllerTest{
 	public void nomeVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmUsuario();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		usuario.setNome("");
 
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -153,10 +167,13 @@ public class UsuarioControllerTest{
 	@Test
 	public void emailVazioAoAdicionarUsuario() {
 //		dado
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmUsuario();
 		usuario.setEmail("");
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -167,9 +184,12 @@ public class UsuarioControllerTest{
 	@Test
 	public void adicionaUsuarioQueJaExiste() {
 //		dado 
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmUsuario();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		doThrow(new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(usuario);
 		
@@ -180,10 +200,13 @@ public class UsuarioControllerTest{
 	@Test
 	public void adicionaUsuarioQueNaoExiste() {
 //		dado 
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmUsuario();
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(usuarioDAO.pesquisa(usuario.getNome())).thenReturn(usuarios);
 		usuarioController.novo(usuario);
 		
@@ -251,10 +274,13 @@ public class UsuarioControllerTest{
 	@Test
 	public void atualizarUsuario() {
 //		dado
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmUsuario();
 		usuario.setNome("Nome Atualizado");
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		usuarioController.atualiza(usuario);
 		
 //		então
@@ -264,9 +290,12 @@ public class UsuarioControllerTest{
 	@Test
 	public void erroAoAtualizarUsuario() {
 //		dado
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmUsuario();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		doThrow(new RuntimeException("Erro/Usuario")).when(usuarioDAO).atualiza(usuario);
 		usuarioController.atualiza(usuario);
 		
@@ -289,7 +318,7 @@ public class UsuarioControllerTest{
 		
 //		 entao
 		usuarioController.delete(usuarios);
-		assertEquals("\"" + usuario.getNome() + "\" com empréstimo ativo", result.included().get("message"));
+		assertEquals("\"" + usuario.getNome() + "\" com empréstimo ativo"+"\n", result.included().get("message"));
 		
 	}
 	
@@ -299,18 +328,30 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaListaDeEmprestimoVazia();
 		queEuTenhoUmaListaDeCodigosDeUsuario();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
 		
 //		entao
 		usuarioController.delete(usuarios);
-		assertEquals("Usuario(s) deletado(s) com sucesso", result.included().get("message"));
+		assertEquals("Usuario(s) deletado(s) com sucesso" + "\n", result.included().get("message"));
 	}
 	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
 		usuarios.add(1L);
+	}
+	
+	public void queEuTenhoUmaAuditoria() {
+		auditoria = new Auditoria();
+		auditoria.setAdministrador("Admin");
+		auditoria.setAcao("acao");
+		auditoria.setDate(new Date());
+		auditoria.setEntidadeLivro("livro");
+		auditoria.setEntidadeUsuario("usuarios");
 	}
 
 	public void queEuTenhoUmaListaDeEmprestimos() {

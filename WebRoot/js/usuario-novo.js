@@ -34,7 +34,7 @@ function turnFormValid(){
 				},
 				'usuario.email':{
 					required: true,
-					minlength: 3
+					email: true
 				}
 			},
 			messages:{
@@ -44,8 +44,8 @@ function turnFormValid(){
 				},
 				'usuario.email':{
 					required: 'Digite seu email',
-					minlength: 'O email deve conter no mínimo 3 caracteres'
-				}
+					email: 'Digite um email válido'
+				},
 			}
 	});
 }

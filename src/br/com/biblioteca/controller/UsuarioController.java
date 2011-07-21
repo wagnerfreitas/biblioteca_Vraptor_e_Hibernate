@@ -2,6 +2,7 @@ package br.com.biblioteca.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class UsuarioController {
 	@Post
 	@Path("/usuario/novo")
 	public void novo(Usuario usuario){
-		auditoria = new Auditoria();
 		String message;
 		try {
+			auditoria = new Auditoria();
 			auditoria.setAdministrador(adminSession.getAdministrador().getNome());
 			auditoria.setAcao("ADICIONOU");
 			auditoria.setEntidadeUsuario(usuario.getNome());
@@ -86,16 +87,13 @@ public class UsuarioController {
 		} catch (Exception e) {
 			message = e.getMessage();
 		}
-//		Linha usada no teste
 		result.include("message", message);
-//		.
 		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Put @Post
 	@Path("/usuario/atualiza")
 	public void atualiza(Usuario usuario){
-		auditoria = new Auditoria();
 		
 		String message;
 		if(usuario.getId() == null){
@@ -106,8 +104,10 @@ public class UsuarioController {
 			message = "Email do usuário nulo";
 		}else{
 			try {
+				auditoria = new Auditoria();
 				usuario.setUsuarioAtivo(true);
 				
+				auditoria = new Auditoria();
 				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
 				auditoria.setAcao("ATUALIZOU");
 				auditoria.setEntidadeUsuario(usuario.getNome());
@@ -122,38 +122,38 @@ public class UsuarioController {
 				message = e.getMessage();
 			}
 		}
-//		Linha usada no teste
 		result.include("message", message);
-//		.
 		result.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post
 	@Path("/usuario/delete")
 	public void delete(List<Long> idDelete){
-		String message;
+		List<String> messages = new ArrayList<String>();
+		String message = null;
+		
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
 			if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0){
-				message = "\"" + usuario.getNome() + "\" com empréstimo ativo";
+				message = "\"" + usuario.getNome() + "\" com empréstimo ativo\n";
 			}else{
 				usuario.setUsuarioAtivo(false);
 				
+				auditoria = new Auditoria();
 				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
 				auditoria.setAcao("DELETOU");
 				auditoria.setEntidadeUsuario(usuario.getNome());
 				auditoria.setEntidadeLivro("");
 				auditoria.setDate(new Date());
 				
+				usuarioDAO.atualiza(usuario);
 				auditoriaDAO.salva(auditoria);
 				
-				usuarioDAO.atualiza(usuario);
-				message = "Usuario(s) deletado(s) com sucesso";
+				message = "Usuario(s) deletado(s) com sucesso\n";
 			}
-//			Linha usada no teste
-			result.include("message", message);
-//			.
-			result.use(json()).from(message, "message").serialize();
+			messages.add(message);
 		}
+		result.include("message", message);
+		result.use(json()).from(messages, "message").serialize();
 	}
 }

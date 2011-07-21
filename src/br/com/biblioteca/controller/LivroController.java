@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
@@ -27,13 +29,16 @@ public class LivroController {
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioDAO usuarioDAO;
 	private AdminSession adminSession;
+	private AuditoriaDAO auditoriaDAO;
+	private Auditoria auditoria;
 	
-	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO, AdminSession adminSession){
+	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO, AdminSession adminSession, AuditoriaDAO auditoriaDAO){
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioDAO = usuarioDAO;
 		this.adminSession = adminSession;
+		this.auditoriaDAO = auditoriaDAO;
 	}
 	
 	@Get
@@ -59,14 +64,20 @@ public class LivroController {
 	public void novo(Livro livro) {
 		String message;
 		try {
+			auditoria = new Auditoria();
+			auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+			auditoria.setAcao("ADICIONOU");
+			auditoria.setEntidadeLivro(livro.getNome());
+			auditoria.setEntidadeUsuario("");
+			auditoria.setDate(new Date());
+			auditoriaDAO.salva(auditoria);
+			
 			livroDAO.adiciona(livro);
 			message = "\"" + livro.getNome() + "\" adicionado com sucesso";
 		} catch (Exception e) {
 			message = e.getMessage();
 		}
-//		Linha usada no teste
 		result.include("message", message);
-//		.
 		result.use(json()).from(message, "message").serialize();
 	} 
 	
@@ -74,25 +85,33 @@ public class LivroController {
 	@Path("livro/emprestar")
 	public void emprestar(Long iDUsuario, Long idLivro, Date dataDeEmprestimo){
 		String message;
-
+		
 		if(idLivro == null || iDUsuario == null) {
 			message = "Erro ao tentar realizar empréstimo";
 		} else if(dataDeEmprestimo == null || dataDeEmprestimo.equals("")) {
 			message = "Data nula";
 		} else {
 			try {
+				auditoria = new Auditoria();
 				Emprestimo emprestimo = new Emprestimo();
 				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
 				
 				Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
 				livro.setEmprestado(true);
-				livroDAO.atualiza(livro);
 				
+				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setEntidadeLivro(livro.getNome());
+				auditoria.setEntidadeUsuario(usuario.getNome());
+				auditoria.setAcao("EMPRESTOU");
+				auditoria.setDate(dataDeEmprestimo);
+
 				emprestimo.setUsuario(usuario);
 				emprestimo.setLivro(livro);
 				emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 				
+				livroDAO.atualiza(livro);
 				emprestimoDAO.empresta(emprestimo);
+				auditoriaDAO.salva(auditoria);
 				message = "\"" + livro.getNome() + "\" emprestado com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();
@@ -115,7 +134,15 @@ public class LivroController {
 			message = "Edição nula";
 		} else {
 			try {
+				auditoria = new Auditoria();	
+				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setEntidadeLivro(livro.getNome());
+				auditoria.setEntidadeUsuario("");
+				auditoria.setAcao("ATUALIZOU");
+				auditoria.setDate(new Date());
+				
 				livroDAO.atualiza(livro);
+				auditoriaDAO.salva(auditoria);
 				message =  "\"" + livro.getNome() + "\" atualizado com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();
@@ -137,6 +164,15 @@ public class LivroController {
 					message = "\"" + livro.getNome() + "\" está emprestado";
 				}else{
 					livro.setLivroDeletado(true);
+					
+					auditoria = new Auditoria();	
+					auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+					auditoria.setEntidadeLivro(livro.getNome());
+					auditoria.setEntidadeUsuario("");
+					auditoria.setAcao("DELETOU");
+					auditoria.setDate(new Date());
+					
+					auditoriaDAO.salva(auditoria);
 					livroDAO.atualiza(livro);
 					message = "Livro(s) deletado(s) com sucesso";
 				}
@@ -160,9 +196,20 @@ public class LivroController {
 		} else {
 			try {
 				Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
-				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				Livro livro = emprestimo.getLivro();
+				Usuario usuario = emprestimo.getUsuario();
+				
+				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				livro.setEmprestado(false);
+				
+				auditoria = new Auditoria();
+				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setAcao("DEVOLVEU");
+				auditoria.setEntidadeUsuario(usuario.getNome());
+				auditoria.setEntidadeLivro(livro.getNome());
+				auditoria.setDate(dataDeDevolucao);
+				
+				auditoriaDAO.salva(auditoria);
 				emprestimoDAO.atualiza(emprestimo);
 				livroDAO.atualiza(livro);
 				message = "\"" + livro.getNome() + "\" devolvido com sucesso";

@@ -15,9 +15,11 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.EmprestimoController;
 import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
@@ -26,6 +28,15 @@ import br.com.caelum.vraptor.util.test.MockResult;
 
 public class EmprestimoControllerTest {
 	
+	@Mock
+	private EmprestimoDAO emprestimoDAO;
+	@Mock
+	private LivroDAO livroDAO;
+	@Mock 
+	private AdminSession adminSession;
+	@Mock
+	private AuditoriaDAO auditoriaDAO;
+
 	private Result result;
 	private EmprestimoController emprestimoController;
 	private ArrayList<Emprestimo> emprestimos;
@@ -35,19 +46,13 @@ public class EmprestimoControllerTest {
 	private Usuario usuario;
 	private Emprestimo emprestimo;
 	private Administrador administrador;
-	
-	@Mock
-	private EmprestimoDAO emprestimoDAO;
-	@Mock
-	private LivroDAO livroDAO;
-	@Mock 
-	private AdminSession adminSession;
+	private Auditoria auditoria;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, adminSession);
+		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, adminSession, auditoriaDAO);
 	}
 	
 	@Test
@@ -122,9 +127,12 @@ public class EmprestimoControllerTest {
 	public void erroAoAtualizarEmprestimoAoTentarDevolverLivro() {
 //		dado
 		queEuTenhoUmEmprestimo();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro ao devolver livro")).when(emprestimoDAO).atualiza(emprestimo);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
@@ -137,9 +145,12 @@ public class EmprestimoControllerTest {
 	public void erroAoAtualizarLivroAoTentarDevolver() {
 //		dado
 		queEuTenhoUmEmprestimo();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
@@ -152,9 +163,12 @@ public class EmprestimoControllerTest {
 	public void devolverLivro() {
 //		dado
 		queEuTenhoUmEmprestimo();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmAdministrador();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
+		when(adminSession.getAdministrador()).thenReturn(administrador);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
@@ -166,6 +180,15 @@ public class EmprestimoControllerTest {
 		administrador = new Administrador();
 		administrador.setNome("Admin");
 		administrador.setSenha("123");
+	}
+	
+	public void queEuTenhoUmaAuditoria() {
+		auditoria = new Auditoria();
+		auditoria.setAdministrador("Admin");
+		auditoria.setAcao("acão");
+		auditoria.setEntidadeUsuario("usuario");
+		auditoria.setEntidadeLivro("livro");
+		auditoria.setDate(new Date());
 	}
 	
 	public void queEuTenhoUmLivro() {

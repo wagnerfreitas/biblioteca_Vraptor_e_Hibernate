@@ -21,15 +21,15 @@ import br.com.caelum.vraptor.util.test.MockResult;
 
 public class AdminitradroControllerTest {
 	
-	private Result result;
-	private AdministradorController administradorController;
-	private Administrador administrador;
-	private ArrayList<Administrador> administradores;
-	
 	@Mock
 	private AdministradorDAO administradorDAO;
 	@Mock
 	private AdminSession adminSession;
+
+	private Result result;
+	private AdministradorController administradorController;
+	private Administrador administrador;
+	private ArrayList<Administrador> administradores;
 	
 	@Before
 	public void setUp() {
