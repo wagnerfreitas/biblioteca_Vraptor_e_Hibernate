@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1">
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<title>Lista de Usuários</title>
 		
 		<style type="text/css">
@@ -73,27 +73,12 @@
 			<div id="AtualizarUsuario">
 				<form id="formAtualiza" method="post">
 					<input type="hidden" id="IdUsuario" name="usuario.id" />
-					<h1>Atualizar dados</h1>
 					<table>
 						<tr>
-							<td>
-								Nome: 
-							</td>
-							<td>
-								<input type="text" id="usuarioNome" name="usuario.nome" />
-							</td>
+							<td>Nome:</td><td><input type="text" id="usuarioNome" name="usuario.nome" /></td>
 						</tr>
 						<tr>
-							<td>
-								Email: 
-							</td>
-							<td>
-								<input type="text" id="usuarioEmail" name="usuario.email" />
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input type="button" id="atualizarUsuario" value="Enviar" /></td>
+							<td>Email: </td><td><input type="text" id="usuarioEmail" name="usuario.email" /></td>
 						</tr>
 					</table>
 				</form>
@@ -102,6 +87,7 @@
 		<div id="message-toolbar"></div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/usuario.js"></script>
 </html>

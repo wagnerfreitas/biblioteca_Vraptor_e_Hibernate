@@ -12,27 +12,33 @@ $(document).ready(function(){
 	});
 	
 	$(".nome").click(function(){
-		$("#AtualizarUsuario").show();
+		turnFormValid($formAtualiza);
 		var id=$(this).parent().parent().attr("usuarioId");
 		var nome = $(this).parent().parent().children(':nth-child(1)').text();
 		var email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);
+
+		$("#AtualizarUsuario").dialog({
+			modal: true,
+			title: "Atualizar dados",
+			width: 450,
+			buttons: {
+				Atualizar: function(){
+					postarDados("usuario/atualiza", $formAtualiza);				
+				}
+			}
+		});
 	});
 	
 	$("#deletarUsuario").click(function(){
 		postarDados("usuario/delete", $formDeletar)
 	});
 
-	$("#atualizarUsuario").click(function(){
-		formValid($formAtualiza, 'usuario.nome', 'usuario.email');
-		postarDados("usuario/atualiza", $formAtualiza);
-	});
-	
 	$formAtualiza.find("input").keydown(function(event){
 		if(event.keyCode === 13){
-			$("#atualizarUsuario").click();
+			$("#AtualizarUsuario").parent().find("button").click();
 		}
 	});
 });
@@ -50,7 +56,7 @@ function postarDados(rota, formulario){
 	}
 }
 
-function makeFormUsuarioNovoValid($form){
+function turnFormValid($form){
 	$form.validate({
 			rules:{
 				'usuario.nome':{

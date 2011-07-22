@@ -106,7 +106,7 @@ displayFormNovoUsuario = function(result){
 	displayAddForm({
 		postUrl: 'usuario/novo',
 		formId: 'usuarioNovo',
-		formRulesFunction: makeFormUsuarioNovoValid,
+		formRulesFunction: turnFormValid,
 		title: 'Adicionar usuário',
 		label: 'usuário',
 		result: result,

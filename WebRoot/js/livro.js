@@ -50,9 +50,7 @@ $(document).ready(function(){
 	});
 	
 	$(".nome").click(function(){	
-		$("#EmprestarLivro").hide();
-		$("#DevolverLivro").hide();
-		$("#atualizaLivro").show();
+		turnFormAtualizaValid();		
 		var id = $(this).parent().parent().attr("idLivro");
 		var livroEmprestado = $(this).parent().parent().attr("livroEmprestado");
 		var nome = $(this).parent().parent().children(':nth-child(1)').text();
@@ -63,6 +61,17 @@ $(document).ready(function(){
 		$("#autor").val(autor);
 		$("#edicao").val(edicao);
 		$("#livroEmprestado").val(livroEmprestado);
+
+		$("#atualizaLivro").dialog({
+			modal: true,
+			width: 450,
+			title: "Atualizar dados",
+			buttons: {
+				Atualizar: function() {
+					postarDados("livro/atualiza", $formAtualiza);	
+				}
+			}
+		});
 	});
 	
 	$('.calendario').datepicker();
@@ -125,14 +134,9 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#btn-atualiza").click(function(){
-		tornFormAtualizaValid();
-		postarDados("livro/atualiza", $formAtualiza);
-	});
-	
 	$formAtualiza.find("input").keydown(function(event){
 		if(event.keyCode === 13){
-			$("#btn-atualiza").click();
+			$("#atualizaLivro").parent().find("button").click();
 		}
 	});
 	
@@ -160,7 +164,7 @@ function postarDados(rota, formulario){
 	}
 }
 
-function tornFormAtualizaValid(){
+function turnFormAtualizaValid(){
 	$formAtualiza.validate({
 		rules:{
 			'livro.nome':{

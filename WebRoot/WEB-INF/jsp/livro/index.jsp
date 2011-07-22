@@ -128,38 +128,18 @@
 				</form>
 			</div>
 			<div id="atualizaLivro">
-				<h1>Atualizar dados</h1>
-				<form method="post" id="formAtualiza" action="livro/atualiza">
+				<form id="formAtualiza">
 					<input type="hidden" name="livro.emprestado" id="livroEmprestado" />
+					<input type="hidden" name="livro.id" id="idLivro" />
 					<table>
 						<tr>
-							<td>
-								Nome: 
-							</td>
-							<td>
-								<input type="hidden" name="livro.id" id="idLivro" />
-								<input type="text" name="livro.nome" id="nome" />
-							</td>
+							<td>Nome: </td><td><input type="text" name="livro.nome" id="nome" /></td>
 						</tr>
 						<tr>
-							<td>
-								Autor:
-							</td>
-							<td>
-								<input type="text" name="livro.autor" id="autor"/>
-							</td>
+							<td>Autor: </td><td><input type="text" name="livro.autor" id="autor"/></td>
 						</tr>
 						<tr>
-							<td>
-								Edição: 
-							</td>
-							<td><input type="text" name="livro.edicao" id="edicao"/></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>
-								<input type="button" id="btn-atualiza" value="Enviar" /> 
-							</td>
+							<td>Edição: </td><td><input type="text" name="livro.edicao" id="edicao"/></td>
 						</tr>
 					</table>			
 				</form>
