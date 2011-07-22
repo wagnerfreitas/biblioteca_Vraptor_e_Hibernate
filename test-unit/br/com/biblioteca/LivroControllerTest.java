@@ -617,7 +617,7 @@ public class LivroControllerTest {
 	
 	public void queEuTenhoUmaAuditoria() {
 		auditoria = new Auditoria();
-		auditoria.setAdministrador("Admin");
+		auditoria.setUsuarioLogado("Admin");
 		auditoria.setAcao("Ação");
 		auditoria.setEntidadeLivro("Livro");
 		auditoria.setEntidadeUsuario("Usuário");

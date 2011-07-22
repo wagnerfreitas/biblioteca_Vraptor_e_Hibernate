@@ -65,7 +65,7 @@ public class LivroController {
 		String message;
 		try {
 			auditoria = new Auditoria();
-			auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+			auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 			auditoria.setAcao("ADICIONOU");
 			auditoria.setEntidadeLivro(livro.getNome());
 			auditoria.setEntidadeUsuario("");
@@ -99,7 +99,7 @@ public class LivroController {
 				Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
 				livro.setEmprestado(true);
 				
-				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 				auditoria.setEntidadeLivro(livro.getNome());
 				auditoria.setEntidadeUsuario(usuario.getNome());
 				auditoria.setAcao("EMPRESTOU");
@@ -135,7 +135,7 @@ public class LivroController {
 		} else {
 			try {
 				auditoria = new Auditoria();	
-				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 				auditoria.setEntidadeLivro(livro.getNome());
 				auditoria.setEntidadeUsuario("");
 				auditoria.setAcao("ATUALIZOU");
@@ -166,7 +166,7 @@ public class LivroController {
 					livro.setLivroDeletado(true);
 					
 					auditoria = new Auditoria();	
-					auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+					auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 					auditoria.setEntidadeLivro(livro.getNome());
 					auditoria.setEntidadeUsuario("");
 					auditoria.setAcao("DELETOU");
@@ -203,7 +203,7 @@ public class LivroController {
 				livro.setEmprestado(false);
 				
 				auditoria = new Auditoria();
-				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 				auditoria.setAcao("DEVOLVEU");
 				auditoria.setEntidadeUsuario(usuario.getNome());
 				auditoria.setEntidadeLivro(livro.getNome());

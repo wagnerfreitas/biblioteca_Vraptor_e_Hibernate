@@ -1,7 +1,12 @@
 package br.com.biblioteca.dao.Impl;
 
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.BibliotecaUtilAud;
@@ -27,5 +32,12 @@ public class AuditoriaDAOImpl implements AuditoriaDAO{
 		} catch (Exception e) {
 			throw new RuntimeException("Erro");
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Auditoria> list(Date dataInicio, Date dataFim) {
+		Criteria criteria = session.createCriteria(Auditoria.class);
+			criteria.add(Restrictions.between("data", dataInicio, dataFim));
+		return criteria.list();
 	}
 }

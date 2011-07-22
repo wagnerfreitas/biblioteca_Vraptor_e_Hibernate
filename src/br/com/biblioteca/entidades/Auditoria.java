@@ -11,17 +11,17 @@ public class Auditoria {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String administrador;
+	private String usuarioLogado;
 	private String acao;
 	private String entidadeUsuario;
 	private String entidadeLivro;
-	private Date date;
+	private Date data;
 	
-	public String getAdministrador() {
-		return administrador;
+	public String getUsuarioLogado() {
+		return usuarioLogado;
 	}
-	public void setAdministrador(String administrador) {
-		this.administrador = administrador;
+	public void setUsuarioLogado(String usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 	public String getAcao() {
 		return acao;
@@ -36,10 +36,10 @@ public class Auditoria {
 		this.entidadeUsuario = entidade;
 	}
 	public Date getDate() {
-		return date;
+		return data;
 	}
 	public void setDate(Date date) {
-		this.date = date;
+		this.data = date;
 	}
 	public Long getId() {
 		return id;

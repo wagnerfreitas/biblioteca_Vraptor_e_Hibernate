@@ -184,7 +184,7 @@ public class EmprestimoControllerTest {
 	
 	public void queEuTenhoUmaAuditoria() {
 		auditoria = new Auditoria();
-		auditoria.setAdministrador("Admin");
+		auditoria.setUsuarioLogado("Admin");
 		auditoria.setAcao("acão");
 		auditoria.setEntidadeUsuario("usuario");
 		auditoria.setEntidadeLivro("livro");

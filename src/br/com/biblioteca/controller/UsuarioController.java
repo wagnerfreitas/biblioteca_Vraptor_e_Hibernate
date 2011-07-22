@@ -74,7 +74,7 @@ public class UsuarioController {
 		String message;
 		try {
 			auditoria = new Auditoria();
-			auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+			auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 			auditoria.setAcao("ADICIONOU");
 			auditoria.setEntidadeUsuario(usuario.getNome());
 			auditoria.setEntidadeLivro("");
@@ -108,7 +108,7 @@ public class UsuarioController {
 				usuario.setUsuarioAtivo(true);
 				
 				auditoria = new Auditoria();
-				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 				auditoria.setAcao("ATUALIZOU");
 				auditoria.setEntidadeUsuario(usuario.getNome());
 				auditoria.setEntidadeLivro("");
@@ -140,7 +140,7 @@ public class UsuarioController {
 				usuario.setUsuarioAtivo(false);
 				
 				auditoria = new Auditoria();
-				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 				auditoria.setAcao("DELETOU");
 				auditoria.setEntidadeUsuario(usuario.getNome());
 				auditoria.setEntidadeLivro("");

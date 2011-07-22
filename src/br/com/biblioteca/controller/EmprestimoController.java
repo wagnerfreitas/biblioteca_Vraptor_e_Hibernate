@@ -68,7 +68,7 @@ public class EmprestimoController {
 				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				livro.setEmprestado(false);
 				
-				auditoria.setAdministrador(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
 				auditoria.setEntidadeUsuario(usuario.getNome());
 				auditoria.setAcao("DEVOLVEU");
 				auditoria.setEntidadeLivro(livro.getNome());
