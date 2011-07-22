@@ -76,16 +76,14 @@
 			</div>
 			
 			<div id="devolverLivro">
-				<h1>Devolver Livro</h1>
 				<form method="post" id="formDevolve">
+					<input type="hidden" id="IdEmprestimo" name="id" />
 					<table>
 						<tr>
 							<td>Data de devolução: </td>
 							<td>
-								<input type="hidden" id="IdEmprestimo" name="id" />
 								<input type="text" id="calendario" name="dataDeDevolucao" />
 							</td>
-							<td><input type="button" id="btn-devolve" value="Enviar" /></td>
 						</tr>
 					</table>
 				</form>

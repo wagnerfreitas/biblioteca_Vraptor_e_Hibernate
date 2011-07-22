@@ -1,23 +1,31 @@
 var $formDevolve = $("#formDevolve");
 $(document).ready(function(){
-	tornFormDevolverValid();
-	$("#btn-devolve").click(function(){
-		if($formDevolve.valid()){
-			$.post("emprestimo/devolve" , $formDevolve.serialize())
-				.success(function(msg){
-					alert(msg.message);
-					location.reload();
-				})
-				.error(function(erro){
-					alert(erro.mensagem);
-				});						
-		}
-	});
 	$(".devolver").click(function(){
-		$("#devolverLivro").show();					
+		turnFormDevolverValid();
 		var valor = $(this).parent().parent().attr("emprestimoId");
 		$("#IdEmprestimo").val(valor); 
+
+		$("#devolverLivro").dialog({
+			modal: true,
+			title: "Devolver livro",
+			width: 450,
+			buttons: {
+				Devolver: function() {
+					if($formDevolve.valid()){
+						$.post("emprestimo/devolve" , $formDevolve.serialize())
+							.success(function(msg){
+								alert(msg.message);
+								location.reload();
+							})
+							.error(function(erro){
+								alert(erro.mensagem);
+							});						
+					}
+				}
+			}
+		});					
 	});
+	
 	$("#calendario").datepicker();
 	
 	$formDevolve.find("input").keydown(function(event){
@@ -27,7 +35,7 @@ $(document).ready(function(){
 	});
 });
 
-function tornFormDevolverValid(){
+function turnFormDevolverValid(){
 	$formDevolve.validate({
 		rules:{
 			'dataDeDevolucao':{
