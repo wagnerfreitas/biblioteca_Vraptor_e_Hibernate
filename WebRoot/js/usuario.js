@@ -50,31 +50,6 @@ function postarDados(rota, formulario){
 	}
 }
 
-function formValid(formulario, nameInputNome, nameInputEmail) {
-	formulario.validate({
-		rules: {
-			nameInputNome: {
-				required: true,
-				minlength: 3
-			},
-			nameInputEmail: {
-				required: true,
-				minlength: 3
-			}
-		},
-		messages: {
-			nameInputNome: {
-				required: 'Digite seu nome',
-				minlength: 'O nome deve conter no mínimo 3 caracteres'
-			},
-			nameInputEmail: {
-				required: 'Digite seu email',
-				minlength: 'O email deve conter no mínimo 3 caracteres'
-			}
-		}
-	});
-}
-
 function makeFormUsuarioNovoValid($form){
 	$form.validate({
 			rules:{

@@ -20,7 +20,7 @@ $(document).ready(function(){
 	});
 	
 	$('#pesquisarEmprestimo').click(function(){
-		exibirForm($formEmprestimo);
+		exibirFormDialog($formEmprestimo, "Pesquisar empréstimo", 550);
 	});
 	
 	$("#adicionarUsuario").click(function(){
@@ -31,7 +31,10 @@ $(document).ready(function(){
 	});
 	
 	$("#adicionarLivro").click(function(){
-		 buscarPagina("livro/add", "Adicionar livro");
+		buscarPagina({
+			getUrl: "livro/add",
+			callback: displayFormNovoLivro
+		});
 	});
 });
 
@@ -40,6 +43,11 @@ function exibirFormDialog(formulario, titulo, width){
 		modal: true,
 		title: titulo,
 		width: width,
+		buttons: {
+			Pesquisar: function(){
+				formulario.submit();
+			}
+		}
 	});
 }
 
@@ -72,7 +80,7 @@ displayAddForm = function(data){
 							$form[0].reset();
 							$form.find("input:first").focus();
 						} else { 
-							$form.hide();
+							$result.dialog("close");
 						}
 					})
 					.error(function(erro){
@@ -91,6 +99,7 @@ displayAddForm = function(data){
 		});
 	$form = $('#'+ data.formId);
 	data.formRulesFunction($form);
+	onEnterSubmit($form, $result.parent().find("button:contains('"+ data.submiterName +"')"));
 };
 
 displayFormNovoUsuario = function(result){
@@ -100,6 +109,27 @@ displayFormNovoUsuario = function(result){
 		formRulesFunction: makeFormUsuarioNovoValid,
 		title: 'Adicionar usuário',
 		label: 'usuário',
-		result: result
+		result: result,
+		submiterName: "Enviar"
 	})
+}
+
+displayFormNovoLivro = function(result){
+	displayAddForm({
+		postUrl: 'livro/novo',
+		formId: 'livroNovo',
+		formRulesFunction: turnFormValid,
+		title: 'Adicionar livro',
+		label: 'livro',
+		result: result,
+		submiterName: "Enviar"
+	});
+};
+
+onEnterSubmit = function($form, $submiter) {
+	$form.find("input").keydown (function(event){
+		if(event.keyCode === 13) {
+			$submiter.click();
+		}
+	});
 }

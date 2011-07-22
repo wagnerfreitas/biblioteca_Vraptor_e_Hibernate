@@ -102,9 +102,6 @@
 						<td>
 							<input type="text" name="nome" />
 						</td>
-						<td>
-							<input type="submit" value="Enviar" />
-						</td>
 					</tr>
 				</table>
 			</form>
@@ -117,44 +114,35 @@
 						<td>
 							<input type="text" id="pesquisaLivroNome" name="nome" />
 						</td>
-						<td>
-							<input type="submit" value="Enviar" />
-						</td>
 					</tr>
 				</table>
 			</form>
 			<form id="Emprestimo" method="get" action="emprestimos">
-				<fieldset>
-					<legend>Pesquisar</legend>
-					<table>
-						<tr>
-							<td>
-								Ordenar por: 
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Nome do usuário	
-								<input type="radio" name="ordenarPor" checked="checked" value="nomeDoUsuario" />
-							</td>
-							<td>
-								Data de empréstimo
-								<input type="radio" name="ordenarPor" value="dataDeEmprestimo" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Pesquisar empréstimo por livro: 
-							</td>
-							<td>
-								<input type="text" name="nomeDoLivro" />
-							</td>
-							<td>
-								<input type="submit" value="Enviar" />
-							</td>
-						</tr>
-					</table>
-				</fieldset>
+				<table>
+					<tr>
+						<td>
+							Ordenar por: 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Nome do usuário	
+							<input type="radio" name="ordenarPor" checked="checked" value="nomeDoUsuario" />
+						</td>
+						<td>
+							Data de empréstimo
+							<input type="radio" name="ordenarPor" value="dataDeEmprestimo" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Pesquisar empréstimo por livro: 
+						</td>
+						<td>
+							<input type="text" name="nomeDoLivro" />
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</body>
@@ -162,5 +150,6 @@
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/livro.js"></script>
 	<script type="text/javascript" src="js/usuario.js"></script>
 </html>

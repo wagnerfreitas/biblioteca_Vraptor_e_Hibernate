@@ -6,10 +6,5 @@
 	<table>
 		<tr><td>Nome:</td><td><input type="text" name="usuario.nome" /></td></tr>
 		<tr><td>Email:</td><td><input type="text" name="usuario.email" /></td></tr>
-		<!--  tr>
-			<td colspan="1">
-				<input type="button" id="btn-usuarioNovo" value="Enviar" />
-			</td>
-		</tr-->
 	</table>
 </form>
