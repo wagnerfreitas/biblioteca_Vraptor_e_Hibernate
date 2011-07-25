@@ -13,18 +13,27 @@
 			button {
 				width: 100px;
 			}
+			#relatorioDeAuditoria {
+				border: none;
+				background: none;
+				text-decoration: underline;
+				color: blue;
+				width: 150px;
+			}
 			.celulaDivisoria {
 				width: 70px;
 			}
 			#tabela{
 				border-bottom:1px dotted red;
 			}
-			#Usuario, #Livro, #Emprestimo{
+			#Usuario, #Livro, #Emprestimo, #formAuditoria{
 				display: none;
 			}
 			#login{
 				float:right;
 			}
+			label { display: block; margin-top: 10px; }
+			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
 		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 	</head>
@@ -91,7 +100,7 @@
 					<td class="celulaDivisoria">
 					</td>
 					<td>
-						<a href="" id="relatorioDeAuditoria">Relatório de auditoria</a>
+						<button id="relatorioDeAuditoria">Relatório de auditoria</button>
 					</td>
 				</tr>
 			</table>
@@ -147,20 +156,11 @@
 					</tr>
 				</table>
 			</form>
-			<form method="post" action="relatorio/auditoria">
+			<form method="post" id="formAuditoria" action="relatorio/auditoria">
 				<table>
 					<tr>
-						<td>
-							Digite as datas:
-						</td>
-					</tr>
-					<tr>
-						<td>De:	</td><td><input type="text" name="dataIninio" /></td>			
-						<td>Até: </td><td><input type="text" name="dataFim" /></td>	
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="submit" value="Enviar" /></td>
+						<td>De:	</td><td><input type="text" id="dataIninio" name="dataIninio" /></td>			
+						<td>Até: </td><td><input type="text" id="dataFim" name="dataFim" /></td>	
 					</tr>
 				</table>
 			</form>
@@ -169,6 +169,7 @@
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/livro.js"></script>
 	<script type="text/javascript" src="js/usuario.js"></script>

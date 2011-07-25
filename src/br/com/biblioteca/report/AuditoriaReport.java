@@ -27,13 +27,13 @@ public class AuditoriaReport {
 	@Path("relatorio/auditoria")
 	public Download relatoriosAuditoria(Date dataIninio, Date dataFim) {
 		try {
-			List<Auditoria> list = auditoriaDAO.list(dataIninio, dataFim);
+			List<Auditoria> listaDeAuditoria = auditoriaDAO.list(dataIninio, dataFim);
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("TITLE", "Listagem de auditoria");
 			parametros.put("DATA_INICIO", dataIninio);
 			parametros.put("DATA_FIM", dataFim);
 			
-			return jasperMaker.makePdf("Auditoria.jrxml", list, "Auditoria.pdf", true, parametros);
+			return jasperMaker.makePdf("Auditoria.jrxml", listaDeAuditoria, "Auditoria.pdf", true, parametros);
 		} catch (Exception e) {
 			throw new RuntimeException("Erro");
 		}

@@ -3,16 +3,25 @@ var templates = {},
 	$formLivro,
 	$formEmprestimo, 
 	$result,
-	$usuarioNovo;
+	$usuarioNovo,
+	$relatorioDeAuditoria,
+	$formAuditoria;
 
 $(document).ready(function(){
 	$formUsuario = $('form#Usuario');
 	$formLivro = $('form#Livro');
 	$formEmprestimo = $('form#Emprestimo'); 
 	$result = $("#result");
+	$relatorioDeAuditoria = $("#relatorioDeAuditoria");
+	$formAuditoria = $("form#formAuditoria");
 	
 	$("#pesquisarUsuario").click(function(){
-		exibirFormDialog($formUsuario, "Pesquisar usuário", 450)
+		exibirFormDialog($formUsuario, "Pesquisar usuário", 470)
+	});
+	
+	$relatorioDeAuditoria.click(function(){
+		turnFormAuditoriaValid();
+		exibirFormDialog($formAuditoria, "Digite as datas", 450);
 	});
 	
 	$("#pesquisarLivro").click(function(){
@@ -36,6 +45,15 @@ $(document).ready(function(){
 			callback: displayFormNovoLivro
 		});
 	});
+});
+
+$("#dataIninio").datepicker();
+$("#dataFim").datepicker();
+
+$("#formAuditoria").find("input").keydown(function(event){
+	if(event.keyCode === 13){
+		$formAuditoria.parent().find("button").click();
+	}
 });
 
 function exibirFormDialog(formulario, titulo, width){
@@ -130,6 +148,27 @@ onEnterSubmit = function($form, $submiter) {
 	$form.find("input").keydown (function(event){
 		if(event.keyCode === 13) {
 			$submiter.click();
+		}
+	});
+}
+
+function turnFormAuditoriaValid() {
+	$formAuditoria.validate({
+		rules:{
+			'dataIninio':{
+				required: true
+			}, 
+			'dataFim':{
+				required: true
+			}
+		},
+		messages:{
+			'dataIninio':{
+				required: 'Digite a data'
+			},
+			'dataFim':{
+				required: 'Digite a data'
+			}
 		}
 	});
 }

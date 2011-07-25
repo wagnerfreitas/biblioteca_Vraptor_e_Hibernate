@@ -16,7 +16,6 @@ public class Auditoria {
 	private String usuarioLogado;
 	private String acao;
 	private String entidade;
-	@Temporal(TemporalType.DATE)
 	private Date data;
 	
 	public String getUsuarioLogado() {
