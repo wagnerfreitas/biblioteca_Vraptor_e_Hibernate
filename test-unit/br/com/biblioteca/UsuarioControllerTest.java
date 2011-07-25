@@ -349,9 +349,8 @@ public class UsuarioControllerTest{
 		auditoria = new Auditoria();
 		auditoria.setUsuarioLogado("Admin");
 		auditoria.setAcao("acao");
-		auditoria.setDate(new Date());
-		auditoria.setEntidadeLivro("livro");
-		auditoria.setEntidadeUsuario("usuarios");
+		auditoria.setData(new Date());
+		auditoria.setEntidade("Entidade");
 	}
 
 	public void queEuTenhoUmaListaDeEmprestimos() {

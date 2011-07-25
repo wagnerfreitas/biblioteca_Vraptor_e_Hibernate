@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Auditoria {
@@ -13,8 +15,8 @@ public class Auditoria {
 	private Long id;
 	private String usuarioLogado;
 	private String acao;
-	private String entidadeUsuario;
-	private String entidadeLivro;
+	private String entidade;
+	@Temporal(TemporalType.DATE)
 	private Date data;
 	
 	public String getUsuarioLogado() {
@@ -29,17 +31,11 @@ public class Auditoria {
 	public void setAcao(String acao) {
 		this.acao = acao;
 	}
-	public String getEntidadeUsuario() {
-		return entidadeUsuario;
-	}
-	public void setEntidadeUsuario(String entidade) {
-		this.entidadeUsuario = entidade;
-	}
-	public Date getDate() {
+	public Date getData() {
 		return data;
 	}
-	public void setDate(Date date) {
-		this.data = date;
+	public void setData(Date data) {
+		this.data = data;
 	}
 	public Long getId() {
 		return id;
@@ -47,10 +43,10 @@ public class Auditoria {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getEntidadeLivro() {
-		return entidadeLivro;
+	public String getEntidade() {
+		return entidade;
 	}
-	public void setEntidadeLivro(String entidadeLivro) {
-		this.entidadeLivro = entidadeLivro;
+	public void setEntidade(String entidade) {
+		this.entidade = entidade;
 	}
 }

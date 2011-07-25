@@ -619,9 +619,8 @@ public class LivroControllerTest {
 		auditoria = new Auditoria();
 		auditoria.setUsuarioLogado("Admin");
 		auditoria.setAcao("Ação");
-		auditoria.setEntidadeLivro("Livro");
-		auditoria.setEntidadeUsuario("Usuário");
-		auditoria.setDate(new Date());
+		auditoria.setEntidade("Entidade");
+		auditoria.setData(new Date());
 	}
 		
 	public void queEuTenhoUmEmprestimo() {

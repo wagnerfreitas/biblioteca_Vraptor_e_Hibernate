@@ -22,9 +22,7 @@ public class IndexController {
 	public void index() {
 		if(adminSession.getAdministrador() == null){
 			result.redirectTo(LoginController.class).login();
-//			Linha usada no teste			
 			result.include("null", null);
-//			.
 			}else{
 			result.include("nome", adminSession.getAdministrador().getNome());
 		}

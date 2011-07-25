@@ -66,10 +66,9 @@ public class LivroController {
 		try {
 			auditoria = new Auditoria();
 			auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+			auditoria.setEntidade(livro.getNome());
 			auditoria.setAcao("ADICIONOU");
-			auditoria.setEntidadeLivro(livro.getNome());
-			auditoria.setEntidadeUsuario("");
-			auditoria.setDate(new Date());
+			auditoria.setData(new Date());
 			auditoriaDAO.salva(auditoria);
 			
 			livroDAO.adiciona(livro);
@@ -100,10 +99,9 @@ public class LivroController {
 				livro.setEmprestado(true);
 				
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
-				auditoria.setEntidadeLivro(livro.getNome());
-				auditoria.setEntidadeUsuario(usuario.getNome());
+				auditoria.setEntidade(livro.getNome() + ", " + usuario.getNome());
 				auditoria.setAcao("EMPRESTOU");
-				auditoria.setDate(dataDeEmprestimo);
+				auditoria.setData(dataDeEmprestimo);
 
 				emprestimo.setUsuario(usuario);
 				emprestimo.setLivro(livro);
@@ -136,10 +134,9 @@ public class LivroController {
 			try {
 				auditoria = new Auditoria();	
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
-				auditoria.setEntidadeLivro(livro.getNome());
-				auditoria.setEntidadeUsuario("");
+				auditoria.setEntidade(livro.getNome());
 				auditoria.setAcao("ATUALIZOU");
-				auditoria.setDate(new Date());
+				auditoria.setData(new Date());
 				
 				livroDAO.atualiza(livro);
 				auditoriaDAO.salva(auditoria);
@@ -167,10 +164,9 @@ public class LivroController {
 					
 					auditoria = new Auditoria();	
 					auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
-					auditoria.setEntidadeLivro(livro.getNome());
-					auditoria.setEntidadeUsuario("");
+					auditoria.setEntidade(livro.getNome());
 					auditoria.setAcao("DELETOU");
-					auditoria.setDate(new Date());
+					auditoria.setData(new Date());
 					
 					auditoriaDAO.salva(auditoria);
 					livroDAO.atualiza(livro);
@@ -204,10 +200,9 @@ public class LivroController {
 				
 				auditoria = new Auditoria();
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+				auditoria.setEntidade(usuario.getNome() + livro.getNome());
 				auditoria.setAcao("DEVOLVEU");
-				auditoria.setEntidadeUsuario(usuario.getNome());
-				auditoria.setEntidadeLivro(livro.getNome());
-				auditoria.setDate(dataDeDevolucao);
+				auditoria.setData(dataDeDevolucao);
 				
 				auditoriaDAO.salva(auditoria);
 				emprestimoDAO.atualiza(emprestimo);

@@ -75,10 +75,9 @@ public class UsuarioController {
 		try {
 			auditoria = new Auditoria();
 			auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+			auditoria.setEntidade(usuario.getNome());
 			auditoria.setAcao("ADICIONOU");
-			auditoria.setEntidadeUsuario(usuario.getNome());
-			auditoria.setEntidadeLivro("");
-			auditoria.setDate(new Date());
+			auditoria.setData(new Date());
 			
 			auditoriaDAO.salva(auditoria);
 			
@@ -109,10 +108,9 @@ public class UsuarioController {
 				
 				auditoria = new Auditoria();
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+				auditoria.setEntidade(usuario.getNome());
 				auditoria.setAcao("ATUALIZOU");
-				auditoria.setEntidadeUsuario(usuario.getNome());
-				auditoria.setEntidadeLivro("");
-				auditoria.setDate(new Date());
+				auditoria.setData(new Date());
 				
 				auditoriaDAO.salva(auditoria);
 				
@@ -141,10 +139,9 @@ public class UsuarioController {
 				
 				auditoria = new Auditoria();
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+				auditoria.setEntidade(usuario.getNome());
 				auditoria.setAcao("DELETOU");
-				auditoria.setEntidadeUsuario(usuario.getNome());
-				auditoria.setEntidadeLivro("");
-				auditoria.setDate(new Date());
+				auditoria.setData(new Date());
 				
 				usuarioDAO.atualiza(usuario);
 				auditoriaDAO.salva(auditoria);

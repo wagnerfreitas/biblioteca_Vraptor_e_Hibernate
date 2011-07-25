@@ -90,6 +90,9 @@
 					</td>
 					<td class="celulaDivisoria">
 					</td>
+					<td>
+						<a href="" id="relatorioDeAuditoria">Relatório de auditoria</a>
+					</td>
 				</tr>
 			</table>
 			<div id="result"></div>
@@ -141,6 +144,23 @@
 						<td>
 							<input type="text" name="nomeDoLivro" />
 						</td>
+					</tr>
+				</table>
+			</form>
+			<form method="post" action="relatorio/auditoria">
+				<table>
+					<tr>
+						<td>
+							Digite as datas:
+						</td>
+					</tr>
+					<tr>
+						<td>De:	</td><td><input type="text" name="dataIninio" /></td>			
+						<td>Até: </td><td><input type="text" name="dataFim" /></td>	
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Enviar" /></td>
 					</tr>
 				</table>
 			</form>
