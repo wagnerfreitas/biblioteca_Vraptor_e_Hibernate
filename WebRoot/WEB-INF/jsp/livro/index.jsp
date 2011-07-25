@@ -47,8 +47,8 @@
 				<table>
 					<thead>
 						<tr>
-							<td width="150px"> - Nome - </td>
-							<td width="150"> - Autor - </td>
+							<td> - Nome - </td>
+							<td width="150" align="center"> - Autor - </td>
 							<td width="80"> - Edição - </td>
 							<td></td>
 							<td width="105" align="center"> - Apagar -</td>
@@ -57,7 +57,7 @@
 					<c:forEach items="${livros}" var="livro">
 						<tr idLivro="${livro.id}" livroEmprestado="${livro.emprestado}">
 							<td><a href="#" class="nome">${livro.nome}</a></td>
-							<td>${livro.autor}</td>
+							<td align="center">${livro.autor}</td>
 							<td>${livro.edicao}</td>
 							<c:if test="${livro.emprestado}">
 								<td>

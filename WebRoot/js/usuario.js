@@ -1,5 +1,5 @@
-﻿var $formAtualiza = $("#formAtualiza");
-var $formDeletar = $("#formDeletar");
+﻿var $formAtualiza = $("#formAtualiza"),
+	$formDeletar = $("#formDeletar");
 
 $(document).ready(function(){
 	$('.idDelete').click(function(e){
@@ -13,9 +13,9 @@ $(document).ready(function(){
 	
 	$(".nome").click(function(){
 		turnFormValid($formAtualiza);
-		var id=$(this).parent().parent().attr("usuarioId");
-		var nome = $(this).parent().parent().children(':nth-child(1)').text();
-		var email = $(this).parent().parent().children(':nth-child(2)').text();
+		var id=$(this).parent().parent().attr("usuarioId"),
+		nome = $(this).parent().parent().children(':nth-child(1)').text(),
+		email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);

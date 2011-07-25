@@ -1,7 +1,7 @@
-﻿var $formEmpresta = $("#formEmpresta");
-var $formDevolve = $("#fomDevolve");
-var $formAtualiza = $("#formAtualiza");
-var $formRemove = $(".formRemove");
+﻿var $formEmpresta = $("#formEmpresta"),
+	$formDevolve = $("#fomDevolve"),
+ 	$formAtualiza = $("#formAtualiza"),
+ 	$formRemove = $(".formRemove");
 
 $(document).ready(function(){
 	$(".emprestar").click(function(){
@@ -51,11 +51,11 @@ $(document).ready(function(){
 	
 	$(".nome").click(function(){	
 		turnFormAtualizaValid();		
-		var id = $(this).parent().parent().attr("idLivro");
-		var livroEmprestado = $(this).parent().parent().attr("livroEmprestado");
-		var nome = $(this).parent().parent().children(':nth-child(1)').text();
-		var autor = $(this).parent().parent().children(':nth-child(2)').text();
-		var edicao = $(this).parent().parent().children(':nth-child(3)').text();
+		var id = $(this).parent().parent().attr("idLivro"),
+			livroEmprestado = $(this).parent().parent().attr("livroEmprestado"),
+			nome = $(this).parent().parent().children(':nth-child(1)').text(),
+		 	autor = $(this).parent().parent().children(':nth-child(2)').text(),
+			edicao = $(this).parent().parent().children(':nth-child(3)').text();
 		$("#idLivro").val(id);
 		$("#nome").val(nome);
 		$("#autor").val(autor);
@@ -79,8 +79,9 @@ $(document).ready(function(){
 	$('#btn-pesquisar').click(function(){
 		$.get("usuarios/list/"+ $("#pesquisarUsuario").val())
 			.success(function(retorno){
-				var usuarios = retorno.list;
-				var sHtml = '<table><thead><tr><td style=\"width:150px\"> - Nome - </td><td style=\"width:150px\"> - Email - </td><td> - Emprestar - </td></tr></thead>';
+				var i, 
+					usuarios = retorno.list,
+					sHtml = '<table><thead><tr><td style=\"width:150px\"> - Nome - </td><td style=\"width:150px\"> - Email - </td><td> - Emprestar - </td></tr></thead>';
 				for(i = 0; i < usuarios.length; i++){
 					sHtml += '<tr>'+
 						'<td class=\"usuarioNome\">'+ usuarios[i].nome +'</td>'+

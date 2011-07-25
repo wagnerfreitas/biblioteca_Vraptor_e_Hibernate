@@ -19,6 +19,7 @@
 				text-decoration: underline;
 				color: blue;
 				width: 150px;
+				margin-left: -12px;
 			}
 			.celulaDivisoria {
 				width: 70px;

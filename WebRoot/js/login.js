@@ -1,6 +1,6 @@
 var $formLogin = $("#formLogin");
 $(document).ready(function(){
-	tornFormLoginValid();
+	turnFormLoginValid();
 	$("#login").click(function(){
 		if($formLogin.valid()){
 			$.post("login", $formLogin.serialize())
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		}
 	});
 });
-function tornFormLoginValid(){
+function turnFormLoginValid(){
 	$formLogin.validate({
 		rules:{
 			'usuario.nome':{

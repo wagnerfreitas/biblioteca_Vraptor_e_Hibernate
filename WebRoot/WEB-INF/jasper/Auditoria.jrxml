@@ -62,7 +62,7 @@
 	<columnHeader>
 		<band height="31" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="17" width="369" height="14" backcolor="#CCCCCC"/>
+				<reportElement x="0" y="17" width="555" height="14" backcolor="#CCCCCC"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="0" y="17" width="197" height="14"/>
@@ -83,14 +83,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{acao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="131" y="0" width="155" height="16"/>
+				<reportElement stretchType="RelativeToBandHeight" x="131" y="1" width="341" height="16"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{entidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="0" width="83" height="16"/>
+				<reportElement x="472" y="0" width="83" height="16"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
