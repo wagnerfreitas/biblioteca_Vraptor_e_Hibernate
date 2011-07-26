@@ -587,7 +587,7 @@ public class LivroControllerTest {
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("\"" + livro.getNome() + "\" devolvido com sucesso", result.included().get("message"));
+		assertEquals("\"" + livro.getNome() + "\" devolvido(a) com sucesso", result.included().get("message"));
 	}
 	
 	@Test

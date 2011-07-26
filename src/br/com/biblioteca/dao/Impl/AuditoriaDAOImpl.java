@@ -41,7 +41,7 @@ public class AuditoriaDAOImpl implements AuditoriaDAO{
 				throw new RuntimeException("Data nula");
 			}
 			Criteria criteria = session.createCriteria(Auditoria.class);
-			criteria.add(Restrictions.between("data", dataInicio, dataFim));
+				criteria.add(Restrictions.between("data", dataInicio, dataFim));
 			return criteria.list();
 		} catch (Exception e) {
 			throw new RuntimeException("Erro ao pesquisar");

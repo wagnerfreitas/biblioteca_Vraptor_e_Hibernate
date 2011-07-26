@@ -99,7 +99,7 @@ public class LivroController {
 				livro.setEmprestado(true);
 				
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
-				auditoria.setEntidade(livro.getNome() + ", " + usuario.getNome());
+				auditoria.setEntidade(livro.getNome() + " - " + usuario.getNome());
 				auditoria.setAcao("EMPRESTOU");
 				auditoria.setData(dataDeEmprestimo);
 
@@ -200,14 +200,14 @@ public class LivroController {
 				
 				auditoria = new Auditoria();
 				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
-				auditoria.setEntidade(usuario.getNome() + livro.getNome());
+				auditoria.setEntidade(usuario.getNome() + " - " + livro.getNome());
 				auditoria.setAcao("DEVOLVEU");
 				auditoria.setData(dataDeDevolucao);
 				
 				auditoriaDAO.salva(auditoria);
 				emprestimoDAO.atualiza(emprestimo);
 				livroDAO.atualiza(livro);
-				message = "\"" + livro.getNome() + "\" devolvido com sucesso";
+				message = "\"" + livro.getNome() + "\" devolvido(a) com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();
 			}

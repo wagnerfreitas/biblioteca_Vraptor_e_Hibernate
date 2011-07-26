@@ -63,9 +63,13 @@ public class AdministradorDAOImpl implements AdministradorDAO{
 	}
 
 	public Administrador login(String nome, String senha) {
-		Criteria criteria = session.createCriteria(Administrador.class);
-		criteria.add(Restrictions.eq("nome", nome));
-		criteria.add(Restrictions.eq("senha", senha));
-		return (Administrador) criteria.uniqueResult();
+		try {
+			Criteria criteria = session.createCriteria(Administrador.class);
+				criteria.add(Restrictions.eq("nome", nome));
+				criteria.add(Restrictions.eq("senha", senha));
+			return (Administrador) criteria.uniqueResult();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro");
+		}
 	}
 }

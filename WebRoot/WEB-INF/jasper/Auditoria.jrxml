@@ -31,7 +31,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="43" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="173" height="23"/>
 				<textElement>
@@ -40,18 +40,24 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TITLE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="23" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="0" y="23" width="75" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATA_INICIO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="100" y="23" width="31" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<reportElement x="75" y="23" width="25" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[até]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="131" y="23" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="100" y="23" width="73" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATA_FIM}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -71,27 +77,34 @@
 				</textElement>
 				<text><![CDATA[Administrador/Ação]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="484" y="16" width="71" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="17" splitType="Stretch">
 			<textField>
-				<reportElement x="4" y="0" width="127" height="16"/>
+				<reportElement x="4" y="0" width="96" height="16"/>
 				<textElement>
 					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{acao}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement stretchType="RelativeToBandHeight" x="131" y="1" width="341" height="16"/>
+			<textField isBlankWhenNull="false">
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="1" width="384" height="16" isRemoveLineWhenBlank="true"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{entidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="472" y="0" width="83" height="16"/>
-				<textElement>
+				<reportElement x="484" y="0" width="71" height="16"/>
+				<textElement textAlignment="Center">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{data}]]></textFieldExpression>

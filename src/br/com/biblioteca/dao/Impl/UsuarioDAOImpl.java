@@ -27,10 +27,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	public void adiciona(Usuario usuario) {
 		if(usuario.getNome() == null || usuario.getNome() == "") {
 			throw new RuntimeException("Nome nulo");
-		}
-		else if(usuario.getEmail() == null || usuario.getEmail().equals("")) {
+		} else if (usuario.getEmail() == null || usuario.getEmail() == "") {
 			throw new RuntimeException("Email nulo");			
-		}else if(pesquisa(usuario.getNome()).size() > 0){
+		} else if (pesquisa(usuario.getNome()).size() > 0){
 			throw new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado");			
 		}
 		try {
@@ -75,7 +74,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	public Usuario pesquisarUsuarioPorId(Long id){
 		try {
 			Criteria criteria = session.createCriteria(Usuario.class);
-			criteria.add(Restrictions.eq("id", id));
+				criteria.add(Restrictions.eq("id", id));
 			return (Usuario) criteria.uniqueResult();
 		} catch (Exception e) {
 			throw new RuntimeException("Erro na pesquisa");

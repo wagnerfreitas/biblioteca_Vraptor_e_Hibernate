@@ -13,7 +13,7 @@ $(document).ready(function(){
 	
 	$(".nome").click(function(){
 		turnFormValid($formAtualiza);
-		var id=$(this).parent().parent().attr("usuarioId"),
+		var id = $(this).parent().parent().attr("usuarioId"),
 		nome = $(this).parent().parent().children(':nth-child(1)').text(),
 		email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
