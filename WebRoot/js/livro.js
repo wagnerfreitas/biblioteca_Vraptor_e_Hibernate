@@ -234,7 +234,7 @@ function tornFormDevolveValid(){
 	});
 }
 
-function turnFormValid($form){
+function turnFormLivroValid($form){
 	$form.validate({
 		rules:{
 			'livro.nome':{

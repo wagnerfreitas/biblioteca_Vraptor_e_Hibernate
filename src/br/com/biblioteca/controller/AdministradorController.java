@@ -39,8 +39,8 @@ public class AdministradorController {
 	}
 	
 	@Get
-	@Path("/amdmin/add")
-	public void add(){
+	@Path("/admin/add")
+	public void novo(){
 	}
 	
 	@Post

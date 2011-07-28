@@ -56,7 +56,7 @@ function postarDados(rota, formulario){
 	}
 }
 
-function turnFormValid($form){
+function turnFormUsuarioValid($form){
 	$form.validate({
 			rules:{
 				'usuario.nome':{

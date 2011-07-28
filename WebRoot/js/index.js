@@ -45,6 +45,12 @@ $(document).ready(function(){
 			callback: displayFormNovoLivro
 		});
 	});
+	$("#adcionarAdministrador").click(function(){
+		buscarPagina({
+			getUrl: "admin/add",
+			callback: displayFormNovoAdministrador
+		});
+	});
 });
 
 $("#dataIninio").datepicker();
@@ -61,6 +67,7 @@ function exibirFormDialog(formulario, titulo, width){
 		modal: true,
 		title: titulo,
 		width: width,
+		resizable: false,
 		buttons: {
 			Pesquisar: function(){
 				formulario.submit();
@@ -111,6 +118,7 @@ displayAddForm = function(data){
 		.html(data.result)
 		.dialog({
 			modal: true,
+			resizable: false,
 			title: data.title,
 			width: 400,
 			buttons: buttons
@@ -124,7 +132,7 @@ displayFormNovoUsuario = function(result){
 	displayAddForm({
 		postUrl: 'usuario/novo',
 		formId: 'usuarioNovo',
-		formRulesFunction: turnFormValid,
+		formRulesFunction: turnFormUsuarioValid,
 		title: 'Adicionar usuário',
 		label: 'usuário',
 		result: result,
@@ -136,11 +144,23 @@ displayFormNovoLivro = function(result){
 	displayAddForm({
 		postUrl: 'livro/novo',
 		formId: 'livroNovo',
-		formRulesFunction: turnFormValid,
+		formRulesFunction: turnFormLivroValid,
 		title: 'Adicionar livro',
 		label: 'livro',
 		result: result,
 		submiterName: "Enviar"
+	});
+};
+
+displayFormNovoAdministrador = function(result) {
+	displayAddForm({
+		postUrl: 'adimin/novo',
+		formId: 'administradorNovo',
+		formRulesFunction: turnFormAdministradorValid,
+		title: 'Adicionar administrador',
+		label: 'administrador',
+		result: result,
+		submiterName: 'Enviar'
 	});
 };
 
