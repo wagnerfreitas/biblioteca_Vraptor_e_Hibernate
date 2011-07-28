@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Biblioteca</title>
-		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.8.14.custom.css" />
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 		<style>
 			#relatorioDeAuditoria {
@@ -21,6 +21,16 @@
 			#Usuario, #Livro, #Emprestimo, #formAuditoria{
 				display: none;
 			}
+			#Emprestimo fieldset {
+				border: solid 1px #ccc;
+				width: 80%;
+				margin-top: 10px;
+			}
+			#Emprestimo fieldset label {
+				display: inline;
+				margin-left: 10px;
+			}
+						
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
@@ -86,21 +96,12 @@
 				</form>
 				
 				<form id="Emprestimo" method="get" action="emprestimos">
-					<table>
-						<tr>
-							<td>Ordenar por: </td>
-						</tr>
-						
-						<tr>
-							<td>Nome do usuário	<input type="radio" name="ordenarPor" checked="checked" value="nomeDoUsuario" /></td>
-							<td>Data de empréstimo <input type="radio" name="ordenarPor" value="dataDeEmprestimo" /></td>
-						</tr>
-						
-						<tr>
-							<td>Pesquisar empréstimo por livro: </td>
-							<td><input type="text" name="nomeDoLivro" /></td>
-						</tr>
-					</table>
+					Pesquisar empréstimo por livro:<input type="text" name="nomeDoLivro" />
+					<fieldset>
+						<legend> Ordenar por:</legend>
+							<label for="ordenarPorNomeLivro">Nome do usuário </label><input type="radio" id="ordenarPorNomeLivro" name="ordenarPor" checked="checked" value="nomeDoUsuario" />
+							<label for="ordenarPorDataEmprestimo">Data de empréstimo </label><input type="radio" id="ordenarPorDataEmprestimo" name="ordenarPor" value="dataDeEmprestimo" />
+					</fieldset>
 				</form>
 				
 				<form method="post" id="formAuditoria" action="relatorio/auditoria">
@@ -117,7 +118,7 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>

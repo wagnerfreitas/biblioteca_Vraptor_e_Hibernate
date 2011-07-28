@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1">
-		<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
+		<link rel="stylesheet" href="css/custom-theme/jquery-ui-1.8.14.custom.css" />
 		<title>Lista de Usuários</title>
 		
 		<style type="text/css">
@@ -87,7 +87,7 @@
 		<div id="message-toolbar"></div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/usuario.js"></script>
 </html>

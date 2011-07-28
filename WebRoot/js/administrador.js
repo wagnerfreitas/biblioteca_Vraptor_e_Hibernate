@@ -1,5 +1,3 @@
-$(document).ready(function(){
-});
 function turnFormAdministradorValid($form) {
 	$form.validate({
 		rules:{
