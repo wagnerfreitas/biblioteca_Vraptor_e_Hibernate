@@ -34,14 +34,18 @@ public class LoginController {
 	@Path("/login")
 	public void login(Administrador administrador){
 		String message;
-		Administrador admin = administradorDAO.login(administrador.getNome(), administrador.getSenha());
-		if(admin != null){
-			adminSession.setAdministrador(admin);
-			message = "Bem Vindo " + adminSession.getAdministrador().getNome();
-			result.use(json()).from(message, "message").serialize();
-			result.redirectTo(IndexController.class).index();
-		}else{
-			result.redirectTo(LoginController.class).erro();
+		try {
+			Administrador admin = administradorDAO.login(administrador.getNome(), administrador.getSenha());
+			if(admin != null){
+				adminSession.setAdministrador(admin);
+				message = "Bem Vindo " + adminSession.getAdministrador().getNome();
+				result.use(json()).from(message, "message").serialize();
+				result.redirectTo(IndexController.class).index();
+			} else {
+				result.redirectTo(LoginController.class).erro();
+			}
+		} catch (Exception e) {
+			result.use(json()).from(e.getMessage(), "message").serialize();
 		}
 	}
 	

@@ -81,9 +81,7 @@
 					<table>
 						<tr>
 							<td>Data de devolução: </td>
-							<td>
-								<input type="text" id="calendario" name="dataDeDevolucao" />
-							</td>
+							<td><input type="text" id="calendario" name="dataDeDevolucao" /></td>
 						</tr>
 					</table>
 				</form>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -68,8 +69,10 @@ public class AdministradorDAOImpl implements AdministradorDAO{
 				criteria.add(Restrictions.eq("nome", nome));
 				criteria.add(Restrictions.eq("senha", senha));
 			return (Administrador) criteria.uniqueResult();
+		} catch(NonUniqueResultException e) {
+			throw new RuntimeException("Usuário duplicado no sistema");
 		} catch (Exception e) {
-			throw new RuntimeException("Erro");
+			throw new RuntimeException("Não foi possível acessar o sistema");
 		}
 	}
 }
