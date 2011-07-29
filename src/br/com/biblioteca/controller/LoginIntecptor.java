@@ -3,6 +3,8 @@ package br.com.biblioteca.controller;
 import java.util.Arrays;
 
 import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.entidades.Permissao;
+import br.com.biblioteca.entidades.TipoDePerfil;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -31,8 +33,31 @@ public class LoginIntecptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 		if(adminSession.getUsuario() != null || method.getResource().getType().equals(LoginController.class)){
 			stack.next(method, resourceInstance);
-		} else{
+		} else {
 			result.redirectTo(LoginController.class).login();
+		} if(isAcessoMetodo(method)) {
+			stack.next(method, resourceInstance);
+		} else{
+			result.redirectTo(LoginController.class).negado();
 		}
+	}
+	
+	private boolean isAcessoMetodo(ResourceMethod method) {
+		Permissao permissaoList = method.getMethod().getAnnotation(Permissao.class);
+		return isExistePermissao(permissaoList);
+	}
+	
+	private boolean isExistePermissao(Permissao permissao) {
+//		adminSession.getUsuario();
+		if(permissao != null) {
+			for(TipoDePerfil tipoDePerfil : permissao.value()) {
+				if(tipoDePerfil.equals(adminSession.getUsuario().getTipoDePerfil())) {
+					return true;
+				}
+			}
+		} else {
+			return true;
+		}
+		return false;
 	}
 }

@@ -19,12 +19,8 @@
 					<td><input type="text" name="nome" /></td>
 				</tr>
 				<tr>
-					<td>
-						Senha:
-					</td>
-					<td>
-						<input type="password" name="senha" />
-					</td>
+					<td>Senha:</td>
+					<td><input type="password" name="senha" /></td>
 				</tr>
 				<tr>
 					<td></td>

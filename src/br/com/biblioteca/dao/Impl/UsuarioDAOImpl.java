@@ -30,7 +30,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			throw new RuntimeException("Nome nulo");
 		} else if (usuario.getEmail() == null || usuario.getEmail() == "") {
 			throw new RuntimeException("Email nulo");			
-		} else if (pesquisa(usuario.getNome()).size() > 0){
+		} else if (pesquisaNaAdicaoDeUsuario(usuario.getNome()).size() > 0){
 			throw new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado");			
 		}
 		try {
@@ -65,6 +65,20 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				criteria.add(Restrictions.like("nome", "%" + nome + "%"));
 				criteria.add(Restrictions.eq("usuarioAtivo", true));
 				criteria.addOrder(Order.asc("nome"));
+			}
+			return criteria.list();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar usuário");
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> pesquisaNaAdicaoDeUsuario(String nome){
+		Criteria criteria = session.createCriteria(Usuario.class);
+		try {
+			if(nome != null ||  nome == ""){
+				criteria.add(Restrictions.eq("nome", nome));
+				criteria.add(Restrictions.eq("usuarioAtivo", true));
 			}
 			return criteria.list();
 		} catch (Exception e) {

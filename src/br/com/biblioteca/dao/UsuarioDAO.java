@@ -12,8 +12,9 @@ public interface UsuarioDAO {
 	
 	public List<Usuario> pesquisa(String nome);
 	
+	public List<Usuario> pesquisaNaAdicaoDeUsuario(String nome);
+	
 	public Usuario pesquisarUsuarioPorId(Long id);
 	
 	public Usuario login(String nome, String senha);
-	
 }

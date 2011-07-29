@@ -219,7 +219,7 @@ public class UsuarioControllerTest{
 		usuario.setId(null);
 		
 //		entao
-		usuarioController.atualiza(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		assertEquals("Id do usuário nulo", result.included().get("message"));
 	}
 	
@@ -230,7 +230,7 @@ public class UsuarioControllerTest{
 		usuario.setNome(null);
 
 //		entao
-		usuarioController.atualiza(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		assertEquals("Nome do usuário nulo", result.included().get("message"));
 	}
 	
@@ -241,7 +241,7 @@ public class UsuarioControllerTest{
 		usuario.setEmail(null);
 		
 //		entao
-		usuarioController.atualiza(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		assertEquals("Email do usuário nulo", result.included().get("message"));
 	}
 	
@@ -252,7 +252,7 @@ public class UsuarioControllerTest{
 		usuario.setNome("");
 		
 //		entao
-		usuarioController.atualiza(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		assertEquals("Nome do usuário nulo", result.included().get("message"));
 	}
 	
@@ -263,7 +263,7 @@ public class UsuarioControllerTest{
 		usuario.setEmail("");
 
 //		quando
-		usuarioController.atualiza(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		
 //		entao
 		assertEquals("Email do usuário nulo", result.included().get("message"));
@@ -274,12 +274,12 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
-		queEuTenhoUmUsuario();
 		usuario.setNome("Nome Atualizado");
 		
 //		quando
 		when(adminSession.getUsuario()).thenReturn(usuario);
-		usuarioController.atualiza(usuario);
+		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		
 //		então
 		assertEquals("\"" + usuario.getNome() + "\" atualizado com sucesso", result.included().get("message"));
@@ -290,12 +290,12 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
-		queEuTenhoUmUsuario();
 		
 //		quando
 		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro/Usuario")).when(usuarioDAO).atualiza(usuario);
-		usuarioController.atualiza(usuario);
+		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		
 //		então
 		assertEquals("Erro/Usuario", result.included().get("message"));

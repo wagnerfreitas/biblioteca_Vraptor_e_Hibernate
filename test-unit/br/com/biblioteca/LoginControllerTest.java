@@ -52,7 +52,7 @@ public class LoginControllerTest {
 //		quando
 		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(usuario);
 		when(adminSession.getUsuario()).thenReturn(usuario);
-		loginController.login(usuario);
+		loginController.login(usuario.getNome(), usuario.getSenha());
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class LoginControllerTest {
 		
 //		quando
 		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(null);
-		loginController.login(usuario);
+		loginController.login(usuario.getNome(), usuario.getSenha());
 	}
 	
 	@Test
@@ -72,7 +72,7 @@ public class LoginControllerTest {
 		
 //		quando
 		doThrow(new RuntimeException("Não foi possível acessar o sistema")).when(usuarioDAO).login(usuario.getNome(), usuario.getSenha());
-		loginController.login(usuario);
+		loginController.login(usuario.getNome(), usuario.getSenha());
 		assertEquals("Não foi possível acessar o sistema", result.included().get("message"));
 	}
 	
