@@ -32,15 +32,14 @@ public class LoginIntecptor implements Interceptor {
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 		if(adminSession.getUsuario() != null || method.getResource().getType().equals(LoginController.class)){
-			stack.next(method, resourceInstance);
-		} else {
+			if(isAcessoMetodo(method)) {
+				stack.next(method, resourceInstance);
+			} else {
+				result.redirectTo(LoginController.class).negado();
+			}			
+		} else{
 			result.redirectTo(LoginController.class).login();
-		} 
-//		if(isAcessoMetodo(method)) {
-//			stack.next(method, resourceInstance);
-//		} else{
-//			result.redirectTo(LoginController.class).negado();
-//		}
+		}
 	}
 	
 	
@@ -50,7 +49,6 @@ public class LoginIntecptor implements Interceptor {
 	}
 	
 	private boolean isExistePermissao(Permissao permissao) {
-//		adminSession.getUsuario();
 		if(permissao != null) {
 			for(TipoDePerfil tipoDePerfil : permissao.value()) {
 				if(tipoDePerfil.equals(adminSession.getUsuario().getTipoDePerfil())) {

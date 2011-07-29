@@ -58,6 +58,7 @@ public class LivroController {
 	
 	@Get
 	@Path("/livro/add")
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void novo(){
 	}
 	
