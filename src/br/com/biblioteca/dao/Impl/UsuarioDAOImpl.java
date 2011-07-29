@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -78,6 +79,19 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			return (Usuario) criteria.uniqueResult();
 		} catch (Exception e) {
 			throw new RuntimeException("Erro na pesquisa");
+		}
+	}
+	
+	public Usuario login(String nome, String senha) {
+		try {
+			Criteria criteria = session.createCriteria(Usuario.class);
+				criteria.add(Restrictions.eq("nome", nome));
+				criteria.add(Restrictions.eq("senha", senha));
+			return (Usuario) criteria.uniqueResult();
+		} catch(NonUniqueResultException e) {
+			throw new RuntimeException("Usuário duplicado no sistema");
+		} catch (Exception e) {
+			throw new RuntimeException("Não foi possível acessar o sistema");
 		}
 	}
 }

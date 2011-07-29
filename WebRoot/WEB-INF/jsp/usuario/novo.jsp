@@ -4,7 +4,13 @@
 	</style>
 <form method="post" id="usuarioNovo">
 	<table>
-		<tr><td>Nome:</td><td><input type="text" name="usuario.nome" /></td></tr>
-		<tr><td>Email:</td><td><input type="text" name="usuario.email" /></td></tr>
+		<tr>
+			<td>Nome:</td><td><input type="text" name="usuario.nome" /></td>
+			<td>Senha:</td><td><input type="password" name="usuario.senha" id="password"/></td>
+		</tr>
+		<tr>
+			<td>Email:</td><td><input type="text" name="usuario.email" /></td>
+			<td>Confirmar senha:</td><td><input type="password" name="comfirm_password" id="comfirm_password" /></td>
+		</tr>
 	</table>
 </form>

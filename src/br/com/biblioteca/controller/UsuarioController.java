@@ -44,7 +44,7 @@ public class UsuarioController {
 			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 			result.include("usuarios", usuarios);
 			result.include("nome", nome);
-			result.include("usuario", adminSession.getAdministrador().getNome());
+			result.include("usuario", adminSession.getUsuario().getNome());
 		} catch (Exception e) {
 			String message = e.getMessage();
 			result.include("error", message);
@@ -74,7 +74,7 @@ public class UsuarioController {
 		String message;
 		try {
 			auditoria = new Auditoria();
-			auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+			auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
 			auditoria.setEntidade(usuario.getNome());
 			auditoria.setAcao("ADICIONOU");
 			auditoria.setData(new Date());
@@ -107,7 +107,7 @@ public class UsuarioController {
 				usuario.setUsuarioAtivo(true);
 				
 				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome());
 				auditoria.setAcao("ATUALIZOU");
 				auditoria.setData(new Date());
@@ -138,7 +138,7 @@ public class UsuarioController {
 				usuario.setUsuarioAtivo(false);
 				
 				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome());
 				auditoria.setAcao("DELETOU");
 				auditoria.setData(new Date());

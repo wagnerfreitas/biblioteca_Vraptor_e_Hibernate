@@ -42,7 +42,7 @@
 				<div id="reader-right" class="rFloat"></div>
 				<div id="reader-logout" class="rFloat"><a href="logout" class="rFloat">sair</a></div>
 				<div id="login" class="rFloat">Bem vindo, <strong>${nome}</strong></div>
-				<div id="reader-center">Biblioteca</div>
+				<div id="reader-center"><strong>Biblioteca</strong></div>
 				<div id="sombra" class="cFloat"></div>
 			</div>
 			<div id="content">
@@ -68,8 +68,10 @@
 						<td><button id="pesquisarEmprestimo">Pesquisar</button></td>
 						<td class="celulaDivisoria">
 						</td>
+						<!-- 
 						<td>Adicionar administrador: </td>
 						<td><button id="adcionarAdministrador">Adicionar</button></td>
+						 -->
 					</tr>	
 											
 					<tr>

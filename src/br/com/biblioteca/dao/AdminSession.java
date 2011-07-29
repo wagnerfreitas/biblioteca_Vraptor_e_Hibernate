@@ -1,10 +1,10 @@
 package br.com.biblioteca.dao;
 
-import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Usuario;
 
 public interface AdminSession {
 	
-	public Administrador getAdministrador();
+	public Usuario getUsuario();
 
-	public void setAdministrador(Administrador administrador);
+	public void setUsuario(Usuario usuario);
 }

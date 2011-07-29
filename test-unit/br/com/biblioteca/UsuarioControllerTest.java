@@ -2,8 +2,8 @@ package br.com.biblioteca;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,6 @@ import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entidades.Administrador;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
@@ -47,7 +46,6 @@ public class UsuarioControllerTest{
 	private Emprestimo emprestimo;
 	private ArrayList<Emprestimo> emprestimos;
 	private ArrayList<Long> usuarios;
-	private Administrador administrador;
 	private Auditoria auditoria;
 	
 	@Before
@@ -60,10 +58,10 @@ public class UsuarioControllerTest{
 	@Test
 	public void listaUsuarios() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 		usuarioController.index("nome");
 
@@ -74,10 +72,10 @@ public class UsuarioControllerTest{
 	@Test
 	public void erroAoListarUsuario() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
 		usuarioController.index("nome");
 		
@@ -88,10 +86,10 @@ public class UsuarioControllerTest{
 	@Test
 	public void listaUsuariosJson() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 		
 //		então
@@ -102,10 +100,10 @@ public class UsuarioControllerTest{
 	@Test 
 	public void erroAoListarUsuariosJson() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
 		usuarioController.list("nome");
 		
@@ -116,13 +114,13 @@ public class UsuarioControllerTest{
 	@Test
 	public void nomeNuloAoAdicionarUsuario() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
 		usuario.setNome(null);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(usuario);
 		
@@ -135,11 +133,11 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		usuario.setEmail(null);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -152,11 +150,11 @@ public class UsuarioControllerTest{
 //		dado
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		usuario.setNome("");
 
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -168,12 +166,12 @@ public class UsuarioControllerTest{
 	public void emailVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		usuario.setEmail("");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -185,11 +183,11 @@ public class UsuarioControllerTest{
 	public void adicionaUsuarioQueJaExiste() {
 //		dado 
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(usuario);
 		
@@ -201,12 +199,12 @@ public class UsuarioControllerTest{
 	public void adicionaUsuarioQueNaoExiste() {
 //		dado 
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa(usuario.getNome())).thenReturn(usuarios);
 		usuarioController.novo(usuario);
 		
@@ -275,12 +273,12 @@ public class UsuarioControllerTest{
 	public void atualizarUsuario() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		usuario.setNome("Nome Atualizado");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		usuarioController.atualiza(usuario);
 		
 //		então
@@ -291,11 +289,11 @@ public class UsuarioControllerTest{
 	public void erroAoAtualizarUsuario() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro/Usuario")).when(usuarioDAO).atualiza(usuario);
 		usuarioController.atualiza(usuario);
 		
@@ -329,10 +327,10 @@ public class UsuarioControllerTest{
 		queEuTenhoUmaListaDeEmprestimoVazia();
 		queEuTenhoUmaListaDeCodigosDeUsuario();
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
 		
@@ -376,12 +374,6 @@ public class UsuarioControllerTest{
 		return emprestimo;
 	}
 	
-	public void queEuTenhoUmAdministrador() {
-		administrador = new Administrador();
-		administrador.setNome("wagner");
-		administrador.setSenha("123");
-	}
-	
 	public void queEuTenhoUmLivro() {
 		livro = new Livro();
 		livro.setId(1L);
@@ -394,6 +386,7 @@ public class UsuarioControllerTest{
 		usuario = new Usuario();
 		usuario.setId(CODIGO_USUARIO);
 		usuario.setNome("usuario");
+		usuario.setSenha("123456");
 		usuario.setEmail("usuario@gmail.com");
 		usuario.setUsuarioAtivo(true);
 	}

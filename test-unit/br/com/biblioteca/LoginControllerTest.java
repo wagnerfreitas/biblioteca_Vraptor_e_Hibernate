@@ -9,8 +9,8 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.LoginController;
 import br.com.biblioteca.dao.AdminSession;
-import br.com.biblioteca.dao.AdministradorDAO;
-import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 
@@ -18,10 +18,10 @@ public class LoginControllerTest {
 	
 	private Result result;
 	private LoginController loginController;
-	private Administrador administrador;
+	private Usuario usuario;
 	
 	@Mock
-	private AdministradorDAO administradorDAO;
+	private UsuarioDAO usuarioDAO;
 	@Mock
 	private AdminSession adminSession;
 	
@@ -29,49 +29,49 @@ public class LoginControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.loginController = new LoginController(result, administradorDAO, adminSession);
+		this.loginController = new LoginController(result, usuarioDAO, adminSession);
 	}
 	
 	@Test
 	public void usuarioLogado() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		loginController.login();
 	}
 	
 	@Test
 	public void deveriaLogarUsuario() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(administradorDAO.login(administrador.getNome(), administrador.getSenha())).thenReturn(administrador);
-		when(adminSession.getAdministrador()).thenReturn(administrador);
-		loginController.login(administrador);
+		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(usuario);
+		when(adminSession.getUsuario()).thenReturn(usuario);
+		loginController.login(usuario);
 //		então
 	}
 	
 	@Test
 	public void deveriaNaoLogarUsuario() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(administradorDAO.login(administrador.getNome(), administrador.getSenha())).thenReturn(null);
-		loginController.login(administrador);
+		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(null);
+		loginController.login(usuario);
 //		então
 	}
 	
 	@Test
 	public void deveriaDeslogarUsuario() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		
 		loginController.logout();
 	}
@@ -81,10 +81,11 @@ public class LoginControllerTest {
 		loginController.erro();
 	}
 	
-	public void queEuTenhoUmAdministrador() {
-		administrador = new Administrador();
-		administrador.setId(1L);
-		administrador.setNome("Admin");
-		administrador.setSenha("senha");
+	public void queEuTenhoUmUsuario() {
+		usuario = new Usuario();
+		usuario.setId(1L);
+		usuario.setNome("Usuario");
+		usuario.setEmail("email@email.com");
+		usuario.setUsuarioAtivo(true);
 	}
 }

@@ -29,7 +29,7 @@ public class LoginIntecptor implements Interceptor {
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
-		if(adminSession.getAdministrador() != null || method.getResource().getType().equals(LoginController.class)){
+		if(adminSession.getUsuario() != null || method.getResource().getType().equals(LoginController.class)){
 			stack.next(method, resourceInstance);
 		} else{
 			result.redirectTo(LoginController.class).login();

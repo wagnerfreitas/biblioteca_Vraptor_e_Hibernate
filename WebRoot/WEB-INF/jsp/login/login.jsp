@@ -15,19 +15,15 @@
 			<h1>Faça Login</h1>
 			<table>
 				<tr>
-					<td>
-						Nome:
-					</td>
-					<td>
-						<input type="text" name="administrador.nome" />
-					</td>
+					<td>Nome:</td>
+					<td><input type="text" name="usuario.nome" /></td>
 				</tr>
 				<tr>
 					<td>
 						Senha:
 					</td>
 					<td>
-						<input type="password" name="administrador.senha" />
+						<input type="password" name="usuario.senha" />
 					</td>
 				</tr>
 				<tr>

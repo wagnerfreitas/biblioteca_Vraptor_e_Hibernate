@@ -2,8 +2,8 @@ package br.com.biblioteca.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
 import br.com.biblioteca.dao.AdminSession;
-import br.com.biblioteca.dao.AdministradorDAO;
-import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -13,36 +13,36 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class LoginController {
 	private Result result;
-	private AdministradorDAO administradorDAO;
+	private UsuarioDAO usuarioDAO;
 	private AdminSession adminSession;
 	
-	public LoginController(Result result, AdministradorDAO administradorDAO, AdminSession adminSession){
+	public LoginController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession){
 		this.result = result;
-		this.administradorDAO = administradorDAO;
+		this.usuarioDAO = usuarioDAO;
 		this.adminSession = adminSession;
 	}
 	
 	@Get
 	@Path("/login")
 	public void login(){
-		if(adminSession.getAdministrador() != null){
+		if(adminSession.getUsuario() != null){
 			result.redirectTo(IndexController.class).index();
 		}
 	}
 	
 	@Post
 	@Path("/login")
-	public void login(Administrador administrador){
+	public void login(Usuario usuario){
 		String message;
 		try {
-			Administrador admin = administradorDAO.login(administrador.getNome(), administrador.getSenha());
-			if(admin != null){
-				adminSession.setAdministrador(admin);
-				message = "Bem Vindo " + adminSession.getAdministrador().getNome();
+			Usuario usuarioLogado = usuarioDAO.login(usuario.getNome(), usuario.getSenha());
+			if(usuarioLogado != null){
+				adminSession.setUsuario(usuarioLogado);
+				message = "Bem Vindo " + adminSession.getUsuario().getNome();
 				result.use(json()).from(message, "message").serialize();
 				result.redirectTo(IndexController.class).index();
 			} else {
-				result.redirectTo(LoginController.class).erro();
+				result.redirectTo(this).erro();
 			}
 		} catch (Exception e) {
 			result.use(json()).from(e.getMessage(), "message").serialize();
@@ -52,7 +52,7 @@ public class LoginController {
 	@Get
 	@Path("/logout")
 	public void logout(){
-		adminSession.setAdministrador(null);
+		adminSession.setUsuario(null);
 		result.redirectTo(this).login();
 	}
 	

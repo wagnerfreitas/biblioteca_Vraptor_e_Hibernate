@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
-import br.com.biblioteca.entidades.Administrador;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
@@ -19,7 +18,6 @@ public class BibliotecaUtilImpl implements BibliotecaUtil {
 		cfg.addAnnotatedClass(Usuario.class);
 		cfg.addAnnotatedClass(Emprestimo.class);
 		cfg.addAnnotatedClass(Livro.class);
-		cfg.addAnnotatedClass(Administrador.class);
 		factory = cfg.buildSessionFactory();
 	}
 	

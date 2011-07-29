@@ -45,12 +45,7 @@ $(document).ready(function(){
 			callback: displayFormNovoLivro
 		});
 	});
-	$("#adcionarAdministrador").click(function(){
-		buscarPagina({
-			getUrl: "admin/add",
-			callback: displayFormNovoAdministrador
-		});
-	});
+
 });
 
 $("#dataIninio").datepicker();
@@ -120,7 +115,7 @@ displayAddForm = function(data){
 			modal: true,
 			resizable: false,
 			title: data.title,
-			width: 400,
+			width: data.width,
 			buttons: buttons
 		});
 	$form = $('#'+ data.formId);
@@ -135,6 +130,7 @@ displayFormNovoUsuario = function(result){
 		formRulesFunction: turnFormUsuarioValid,
 		title: 'Adicionar usuário',
 		label: 'usuário',
+		width: 500,
 		result: result,
 		submiterName: "Enviar"
 	})
@@ -147,20 +143,9 @@ displayFormNovoLivro = function(result){
 		formRulesFunction: turnFormLivroValid,
 		title: 'Adicionar livro',
 		label: 'livro',
+		width: 400,
 		result: result,
 		submiterName: "Enviar"
-	});
-};
-
-displayFormNovoAdministrador = function(result) {
-	displayAddForm({
-		postUrl: 'adimin/novo',
-		formId: 'administradorNovo',
-		formRulesFunction: turnFormAdministradorValid,
-		title: 'Adicionar administrador',
-		label: 'administrador',
-		result: result,
-		submiterName: 'Enviar'
 	});
 };
 

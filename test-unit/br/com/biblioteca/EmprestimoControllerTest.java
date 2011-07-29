@@ -1,9 +1,9 @@
 package br.com.biblioteca;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doThrow;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,6 @@ import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
-import br.com.biblioteca.entidades.Administrador;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
@@ -45,7 +44,6 @@ public class EmprestimoControllerTest {
 	private Livro livro;
 	private Usuario usuario;
 	private Emprestimo emprestimo;
-	private Administrador administrador;
 	private Auditoria auditoria;
 	
 	@Before
@@ -59,10 +57,10 @@ public class EmprestimoControllerTest {
 	public void listaEmprestimos() {
 //		dado
 		queEuTenhoUmaListaDeEmprestimos();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.pesquisarEmprestimo(livro.getNome(), "")).thenReturn(emprestimos);
 		emprestimoController.index("", livro.getNome());
 		
@@ -128,11 +126,11 @@ public class EmprestimoControllerTest {
 //		dado
 		queEuTenhoUmEmprestimo();
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro ao devolver livro")).when(emprestimoDAO).atualiza(emprestimo);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
@@ -146,11 +144,11 @@ public class EmprestimoControllerTest {
 //		dado
 		queEuTenhoUmEmprestimo();
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
@@ -164,22 +162,16 @@ public class EmprestimoControllerTest {
 //		dado
 		queEuTenhoUmEmprestimo();
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
 //		então
 		assertEquals("\"" + livro.getNome() + "\" devolvido com sucesso", result.included().get("message"));
-	}
-	
-	public void queEuTenhoUmAdministrador() {
-		administrador = new Administrador();
-		administrador.setNome("Admin");
-		administrador.setSenha("123");
 	}
 	
 	public void queEuTenhoUmaAuditoria() {
@@ -205,6 +197,7 @@ public class EmprestimoControllerTest {
 		usuario.setId(1L);
 		usuario.setNome("Usuario");
 		usuario.setEmail("usuario@email.com");
+		usuario.setSenha("123456");
 		usuario.setUsuarioAtivo(true);
 	}
 	

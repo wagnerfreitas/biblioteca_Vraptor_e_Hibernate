@@ -20,11 +20,11 @@ public class IndexController {
 	@Get
 	@Path("/")
 	public void index() {
-		if(adminSession.getAdministrador() == null){
+		if(adminSession.getUsuario() == null){
 			result.redirectTo(LoginController.class).login();
 			result.include("null", null);
 			}else{
-			result.include("nome", adminSession.getAdministrador().getNome());
+			result.include("nome", adminSession.getUsuario().getNome());
 		}
 	}
 }

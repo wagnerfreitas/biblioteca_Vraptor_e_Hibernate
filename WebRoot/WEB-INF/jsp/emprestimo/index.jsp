@@ -10,7 +10,7 @@
 				display: none;
 			}
 			#geral{
-				width: 800px;
+				width: 900px;
 			}
 			#login{
 				float:right;
@@ -34,31 +34,33 @@
 	</head>
 	<body>
 		<div id="geral">
-			<div id="login">
-				Bem vindo, ${usuario}&nbsp;&nbsp;&nbsp;
+			<div id="login"> 
+				cBem vindo, ${usuario}&nbsp;&nbsp;&nbsp; 
 				<a href="logout">Sair</a>
 			</div><br>
 			
 			<h1>Lista de Empréstimos</h1>
 			<table>
+				<tr>
+					<td>
+						<strong> - Nome - </strong> 
+					</td>
+					<td>
+						<strong> - Livro - </strong>
+					</td>
+					<td>
+					 	<strong> - Data de empréstimo - </strong> 
+					</td>
+				</tr>
 				<c:forEach items="${emprestimos}" var="emprestimo">
 					<tr emprestimoId="${emprestimo.id}">
-						<td>
-							Nome: 
-						</td>
 						<td style="width: 220px">
-							${emprestimo.usuario.nome}
+							-${emprestimo.usuario.nome}
 						</td>
 						<td>
-							Livro:
-						</td>
-						<td style="width: 220px">
 							${emprestimo.livro.nome}
 						</td>
-						<td width="140">
-							Data de empréstimo:
-						</td>
-						<td>
+						<td align="center">
 							<fmt:formatDate value="${emprestimo.dataDeEmprestimo}" pattern="dd/MM/yyyy" />
 						</td>
 						<td><button class="devolver">Devolver</button></td>

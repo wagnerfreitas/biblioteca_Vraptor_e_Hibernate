@@ -1,7 +1,8 @@
 package br.com.biblioteca;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;	
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -9,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.IndexController;
 import br.com.biblioteca.dao.AdminSession;
-import br.com.biblioteca.entidades.Administrador;
+import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 
@@ -18,7 +19,7 @@ public class IndexControllerTest {
 	
 	private Result result;
 	private IndexController indexController;
-	private Administrador administrador;
+	private Usuario usuario;
 	
 	@Mock
 	private AdminSession adminSession;
@@ -33,30 +34,31 @@ public class IndexControllerTest {
 	@Test
 	public void usuarioLogado(){
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		indexController.index();
 		
 //		então
-		assertEquals(administrador.getNome(), result.included().get("nome"));
+		assertEquals(adminSession.getUsuario().getNome(), result.included().get("nome"));
 	}
 	
 	@Test
 	public void usuarioDeslogado() {
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(null);
+		when(adminSession.getUsuario()).thenReturn(null);
 		indexController.index();
 		
 //		então
 		assertEquals(null, result.included().get("null"));
 	}
 	
-	public void queEuTenhoUmAdministrador() {
-		administrador = new Administrador();
-		administrador.setId(1L);
-		administrador.setNome("Admin");
-		administrador.setSenha("senha");
+	public void queEuTenhoUmUsuario() {
+		usuario = new Usuario();
+		usuario.setId(1L);
+		usuario.setNome("Usuario");
+		usuario.setEmail("usuario@usuario.com");
+		usuario.setUsuarioAtivo(true);
 	}
 }

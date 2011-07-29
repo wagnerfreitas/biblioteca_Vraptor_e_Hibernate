@@ -66,6 +66,15 @@ function turnFormUsuarioValid($form){
 				'usuario.email':{
 					required: true,
 					email: true
+				},
+				'usuario.senha': {
+					required: true,
+					minlength: 6
+				},
+				'comfirm_password': {
+					required: true, 
+					equalTo: "#password",
+					minlength: 6
 				}
 			},
 			messages:{
@@ -77,6 +86,15 @@ function turnFormUsuarioValid($form){
 					required: 'Digite seu email',
 					email: 'Digite um email válido'
 				},
+				'usuario.senha': {
+					required: 'Digite a senha',
+					minlength: 'A senha deve conter no mínimo 6 caracteres'
+				},
+				'comfirm_password': {
+					required: 'Digite a senha',
+					minlength: 'A senha deve conter no mínimo 6 caracteres',
+					equalTo: 'Senhas não conferem'	
+				}
 			}
 	});
 }

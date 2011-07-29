@@ -44,7 +44,7 @@ public class EmprestimoController {
 			result.include("emprestimos", emprestimos);
 			result.include("nomeDoLivro", nomeDoLivro);
 			result.include("ordenarPor", ordenarPor);
-			result.include("usuario", adminSession.getAdministrador().getNome());
+			result.include("usuario", adminSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}
@@ -68,7 +68,7 @@ public class EmprestimoController {
 				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				livro.setEmprestado(false);
 				
-				auditoria.setUsuarioLogado(adminSession.getAdministrador().getNome());
+				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome() + " - " + livro.getNome());
 				auditoria.setAcao("DEVOLVEU");
 				auditoria.setData(dataDeDevolucao);

@@ -18,7 +18,6 @@ import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entidades.Administrador;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
@@ -42,7 +41,6 @@ public class LivroControllerTest {
 	private static final long CODIGO_LIVRO = 1L;
 	private Result result;
 	private LivroController livroController;
-	private Administrador administrador;
 	private Livro livro;
 	private Usuario usuario;
 	private Emprestimo emprestimo;
@@ -60,10 +58,10 @@ public class LivroControllerTest {
 	@Test
 	public void erroAoListarLivros() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar livro")).when(livroDAO).pesquisa("Livro");
 		livroController.index("Livro");
 		
@@ -74,10 +72,10 @@ public class LivroControllerTest {
 	@Test
 	public void listaLivros() {
 //		dado
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisa("livro")).thenReturn(new ArrayList<Livro>());
 		
 //		entao
@@ -90,12 +88,12 @@ public class LivroControllerTest {
 	public void nomeDoLivroNuloAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setNome(null);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome do livro nulo")).when(livroDAO).adiciona(livro);
 		livroController.novo(livro);
 		
@@ -107,12 +105,12 @@ public class LivroControllerTest {
 	public void nomeDoLivroVazioAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setNome("");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome do livro nulo")).when(livroDAO).adiciona(livro);
 		livroController.novo(livro);
 		
@@ -124,12 +122,12 @@ public class LivroControllerTest {
 	public void autorNuloAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setAutor(null);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome do autor nulo")).when(livroDAO).adiciona(livro);
 		livroController.novo(livro);
 		
@@ -141,12 +139,12 @@ public class LivroControllerTest {
 	public void autorVazioAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setAutor("");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome do autor nulo")).when(livroDAO).adiciona(livro);
 		livroController.novo(livro);
 		
@@ -158,12 +156,12 @@ public class LivroControllerTest {
 	public void edicaoNulaAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setEdicao(null);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Edição nula")).when(livroDAO).adiciona(livro);
 		livroController.novo(livro);
 		
@@ -175,12 +173,12 @@ public class LivroControllerTest {
 	public void edicaoVaziaAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setEdicao("");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Edição nula")).when(livroDAO).adiciona(livro);
 		livroController.novo(livro);
 		
@@ -192,11 +190,11 @@ public class LivroControllerTest {
 	public void adicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.novo(livro);
 		
 //		então
@@ -207,14 +205,14 @@ public class LivroControllerTest {
 	public void idDoUsuarioNuloAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
 		usuario.setId(null);
 		queEuTenhoUmaDataDeEmprestimo();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
@@ -225,14 +223,14 @@ public class LivroControllerTest {
 	public void idDoLivroNuloAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setId(null);
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeEmprestimo();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
@@ -243,12 +241,12 @@ public class LivroControllerTest {
 	public void dataDeEmprestimoNuloAoAdicionarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
@@ -259,13 +257,13 @@ public class LivroControllerTest {
 	public void pesquisarUsuarioAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmaDataDeEmprestimo();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro na pesquisa")).when(usuarioDAO).pesquisarUsuarioPorId(usuario.getId());
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
@@ -277,13 +275,13 @@ public class LivroControllerTest {
 	public void pesquisarLivroAoEmprestarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmaDataDeEmprestimo();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar")).when(livroDAO).pesquisarLivroPorId(livro.getId());
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
@@ -295,14 +293,14 @@ public class LivroControllerTest {
 	public void emprestarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmaDataDeEmprestimo();
 		queEuTenhoUmEmprestimo();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(livro.getId())).thenReturn(livro);
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
@@ -315,12 +313,12 @@ public class LivroControllerTest {
 	public void nomeDoLivroNuloAoAtualizarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setNome(null);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.atualiza(livro);
 		
 //		então
@@ -331,12 +329,12 @@ public class LivroControllerTest {
 	public void nomeVazioAoAdicionarUsuario() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setNome("");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.atualiza(livro);
 		
 //		então
@@ -399,11 +397,11 @@ public class LivroControllerTest {
 	public void erroAoAtualizarLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
 		livroController.atualiza(livro);
 		
@@ -415,12 +413,12 @@ public class LivroControllerTest {
 	public void atulizaLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setNome("Livro Atualizado");
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.atualiza(livro);
 		
 //		então
@@ -431,13 +429,13 @@ public class LivroControllerTest {
 	public void removerLivroQueEstarEmprestado() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmEmprestimo();
 		queEuTenhoUmaListaDeCodigosDeLivros();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
 		livroController.remove(livros);
 		
@@ -449,12 +447,12 @@ public class LivroControllerTest {
 	public void removerLivroQueNaoEstarEmprestado() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmaListaDeCodigosDeLivros();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
 		livroController.remove(livros);
 		
@@ -466,12 +464,12 @@ public class LivroControllerTest {
 	public void erroAoPesquisarLivroAoTentarRemover() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmaListaDeCodigosDeLivros();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar")).when(livroDAO).pesquisarLivroPorId(CODIGO_LIVRO);
 		livroController.remove(livros);
 		
@@ -483,12 +481,12 @@ public class LivroControllerTest {
 	public void erroAoTentarAtualizarLivroAoTentarRemover() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmaListaDeCodigosDeLivros();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
 		livroController.remove(livros);
@@ -501,13 +499,13 @@ public class LivroControllerTest {
 	public void devolverLivroComIdNulo() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		livro.setId(null);
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
@@ -518,11 +516,11 @@ public class LivroControllerTest {
 	public void devolverLivroComDataDeDevolucaoNula() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
@@ -533,13 +531,13 @@ public class LivroControllerTest {
 	public void erroPesquisarLivroAoTentarDevolver() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmEmprestimo();
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar livro emprestado")).when(emprestimoDAO).procuraPorIdLivro(livro.getId());
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
@@ -551,7 +549,7 @@ public class LivroControllerTest {
 	public void erroAtualizarEmprestimoAoTentarDevolverLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeEmprestimo();
@@ -560,7 +558,7 @@ public class LivroControllerTest {
 		emprestimo.setDataDeDevolucao(dataDeDevolucao);
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro ao devolver livro")).when(emprestimoDAO).atualiza(emprestimo);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
@@ -573,7 +571,7 @@ public class LivroControllerTest {
 	public void devolverLivro() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeEmprestimo();
@@ -582,7 +580,7 @@ public class LivroControllerTest {
 		emprestimo.setDataDeDevolucao(dataDeDevolucao);
 
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
@@ -594,14 +592,14 @@ public class LivroControllerTest {
 	public void erroAtualizarLivroAoTentarDevolver() {
 //		dado
 		queEuTenhoUmaAuditoria();
-		queEuTenhoUmAdministrador();
+		queEuTenhoUmUsuario();
 		queEuTenhoUmLivro();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaDataDeDevolucao();
 		queEuTenhoUmEmprestimo();
 		
 //		quando
-		when(adminSession.getAdministrador()).thenReturn(administrador);
+		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
@@ -658,9 +656,4 @@ public class LivroControllerTest {
 		livro.setLivroDeletado(false);
 	}
 	
-	public void queEuTenhoUmAdministrador() {
-		administrador = new Administrador();
-		administrador.setNome("Admin");
-		administrador.setSenha("123");
-	}
 }
