@@ -9,7 +9,7 @@
 	<field name="usuarioLogado" class="java.lang.String"/>
 	<field name="acao" class="java.lang.String"/>
 	<field name="entidade" class="java.lang.String"/>
-	<field name="data" class="java.lang.String"/>
+	<field name="data" class="java.util.Date"/>
 	<group name="grpUsuarioLogado">
 		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
 		<groupHeader>
@@ -107,7 +107,7 @@
 				<textElement textAlignment="Center">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{data}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

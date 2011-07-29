@@ -35,12 +35,14 @@ public class LoginIntecptor implements Interceptor {
 			stack.next(method, resourceInstance);
 		} else {
 			result.redirectTo(LoginController.class).login();
-		} if(isAcessoMetodo(method)) {
-			stack.next(method, resourceInstance);
-		} else{
-			result.redirectTo(LoginController.class).negado();
-		}
+		} 
+//		if(isAcessoMetodo(method)) {
+//			stack.next(method, resourceInstance);
+//		} else{
+//			result.redirectTo(LoginController.class).negado();
+//		}
 	}
+	
 	
 	private boolean isAcessoMetodo(ResourceMethod method) {
 		Permissao permissaoList = method.getMethod().getAnnotation(Permissao.class);
