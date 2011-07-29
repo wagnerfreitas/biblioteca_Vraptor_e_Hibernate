@@ -32,10 +32,10 @@ public class LoginController {
 	
 	@Post
 	@Path("/login")
-	public void login(Usuario usuario){
+	public void login(String nome, String senha){
 		String message;
 		try {
-			Usuario usuarioLogado = usuarioDAO.login(usuario.getNome(), usuario.getSenha());
+			Usuario usuarioLogado = usuarioDAO.login(nome, senha);
 			if(usuarioLogado != null){
 				adminSession.setUsuario(usuarioLogado);
 				message = "Bem Vindo " + adminSession.getUsuario().getNome();
@@ -45,6 +45,7 @@ public class LoginController {
 				result.redirectTo(this).erro();
 			}
 		} catch (Exception e) {
+			result.include("message", e.getMessage());
 			result.use(json()).from(e.getMessage(), "message").serialize();
 		}
 	}

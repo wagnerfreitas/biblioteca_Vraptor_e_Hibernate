@@ -12,5 +12,10 @@
 			<td>Email:</td><td><input type="text" name="usuario.email" /></td>
 			<td>Confirmar senha:</td><td><input type="password" name="comfirm_password" id="comfirm_password" /></td>
 		</tr>
+		<tr>
+		</tr>
 	</table>
+	Membro: <input type="radio" value="MEMBRO" name="usuario.tipoDePerfil" />
+	Moderador: <input type="radio" value="MODERADOR" name="usuario.tipoDePerfil" />
+	Administrador: <input type="radio" value="ADMINISTRADOR" name="usuario.tipoDePerfil" />
 </form>

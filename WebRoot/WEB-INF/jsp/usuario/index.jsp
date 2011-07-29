@@ -72,13 +72,13 @@
 			
 			<div id="AtualizarUsuario">
 				<form id="formAtualiza" method="post">
-					<input type="hidden" id="IdUsuario" name="usuario.id" />
+					<input type="hidden" id="IdUsuario" name="id" />
 					<table>
 						<tr>
-							<td>Nome:</td><td><input type="text" id="usuarioNome" name="usuario.nome" /></td>
+							<td>Nome:</td><td><input type="text" id="usuarioNome" name="nome" /></td>
 						</tr>
 						<tr>
-							<td>Email: </td><td><input type="text" id="usuarioEmail" name="usuario.email" /></td>
+							<td>Email: </td><td><input type="text" id="usuarioEmail" name="email" /></td>
 						</tr>
 					</table>
 				</form>

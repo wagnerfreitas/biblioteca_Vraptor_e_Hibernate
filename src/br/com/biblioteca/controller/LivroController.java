@@ -13,6 +13,8 @@ import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Permissao;
+import br.com.biblioteca.entidades.TipoDePerfil;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -61,6 +63,7 @@ public class LivroController {
 	
 	@Post
 	@Path("/livro/novo")
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void novo(Livro livro) {
 		String message;
 		try {
@@ -121,6 +124,7 @@ public class LivroController {
 	
 	@Put @Post
 	@Path("/livro/atualiza")
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void atualiza(Livro livro){
 		String message;
 		
@@ -151,6 +155,7 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/remove")
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void remove(List<Long> IdRemove){
 		Livro livro;
 		String message = null;

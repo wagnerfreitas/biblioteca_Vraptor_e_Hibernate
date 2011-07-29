@@ -35,7 +35,7 @@
 	<body>
 		<div id="geral">
 			<div id="login"> 
-				cBem vindo, ${usuario}&nbsp;&nbsp;&nbsp; 
+				Bem vindo, ${usuario}&nbsp;&nbsp;&nbsp; 
 				<a href="logout">Sair</a>
 			</div><br>
 			

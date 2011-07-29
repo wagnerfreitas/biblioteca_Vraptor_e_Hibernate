@@ -11,6 +11,8 @@ import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Auditoria;
+import br.com.biblioteca.entidades.Permissao;
+import br.com.biblioteca.entidades.TipoDePerfil;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -70,6 +72,7 @@ public class UsuarioController {
 	
 	@Post
 	@Path("/usuario/novo")
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void novo(Usuario usuario){
 		String message;
 		try {
@@ -92,20 +95,22 @@ public class UsuarioController {
 	
 	@Put @Post
 	@Path("/usuario/atualiza")
-	public void atualiza(Usuario usuario){
-		
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	public void atualiza(Long id, String nome, String email){
 		String message;
-		if(usuario.getId() == null){
+		if(id == null){
 			message = "Id do usuário nulo";
-		} else if(usuario.getNome() == null  ||  usuario.getNome() == "") {
+		} else if(nome == null  ||  nome == "") {
 			message = "Nome do usuário nulo";
-		} else if(usuario.getEmail() == null || usuario.getEmail() == ""){
+		} else if(email == null || email == ""){
 			message = "Email do usuário nulo";
 		}else{
 			try {
-				auditoria = new Auditoria();
-				usuario.setUsuarioAtivo(true);
+				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
+				usuario.setNome(nome);
+				usuario.setEmail(email);
 				
+				auditoria = new Auditoria();
 				auditoria = new Auditoria();
 				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome());
@@ -126,6 +131,7 @@ public class UsuarioController {
 	
 	@Post
 	@Path("/usuario/delete")
+	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void delete(List<Long> idDelete){
 		List<String> messages = new ArrayList<String>();
 		String message = null;

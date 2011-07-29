@@ -16,14 +16,14 @@
 			<table>
 				<tr>
 					<td>Nome:</td>
-					<td><input type="text" name="usuario.nome" /></td>
+					<td><input type="text" name="nome" /></td>
 				</tr>
 				<tr>
 					<td>
 						Senha:
 					</td>
 					<td>
-						<input type="password" name="usuario.senha" />
+						<input type="password" name="senha" />
 					</td>
 				</tr>
 				<tr>

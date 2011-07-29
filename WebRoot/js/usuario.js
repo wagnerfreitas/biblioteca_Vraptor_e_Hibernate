@@ -12,10 +12,10 @@ $(document).ready(function(){
 	});
 	
 	$(".nome").click(function(){
-		turnFormValid($formAtualiza);
+		turnFormAtualizaValid()
 		var id = $(this).parent().parent().attr("usuarioId"),
-		nome = $(this).parent().parent().children(':nth-child(1)').text(),
-		email = $(this).parent().parent().children(':nth-child(2)').text();
+			nome = $(this).parent().parent().children(':nth-child(1)').text(),
+			email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);
@@ -55,6 +55,31 @@ function postarDados(rota, formulario){
 			});
 	}
 }
+
+function turnFormAtualizaValid(){
+	$formAtualiza.validate({
+			rules:{
+				'nome':{
+					required: true,
+					minlength: 3
+				},
+				'email':{
+					required: true,
+					email: true
+				}
+			},
+			messages:{
+				'nome':{
+					required: 'Digite seu nome',
+					minlength: 'O nome deve conter no mínimo 3 caracteres'
+				},
+				'email':{
+					required: 'Digite seu email',
+					email: 'Digite um email válido'
+				}
+			}
+	});
+};
 
 function turnFormUsuarioValid($form){
 	$form.validate({

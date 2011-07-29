@@ -41,10 +41,10 @@ public class EmprestimoController {
 	public void index(String nomeDoLivro, String ordenarPor){
 		try {
 			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);
-			result.include("emprestimos", emprestimos);
-			result.include("nomeDoLivro", nomeDoLivro);
-			result.include("ordenarPor", ordenarPor);
-			result.include("usuario", adminSession.getUsuario().getNome());
+			result.include("emprestimos", emprestimos)
+				.include("nomeDoLivro", nomeDoLivro)
+				.include("ordenarPor", ordenarPor)
+				.include("usuario", adminSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}

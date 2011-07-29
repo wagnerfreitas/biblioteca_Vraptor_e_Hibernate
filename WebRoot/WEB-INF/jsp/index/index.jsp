@@ -68,10 +68,6 @@
 						<td><button id="pesquisarEmprestimo">Pesquisar</button></td>
 						<td class="celulaDivisoria">
 						</td>
-						<!-- 
-						<td>Adicionar administrador: </td>
-						<td><button id="adcionarAdministrador">Adicionar</button></td>
-						 -->
 					</tr>	
 											
 					<tr>

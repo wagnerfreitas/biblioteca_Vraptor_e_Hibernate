@@ -13,6 +13,7 @@ public class Usuario{
 	private String email;
 	private String senha;
 	private boolean usuarioAtivo;
+	private TipoDePerfil tipoDePerfil;
 	
 	public String getNome() {
 		return nome;
@@ -43,5 +44,11 @@ public class Usuario{
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public TipoDePerfil getTipoDePerfil() {
+		return tipoDePerfil;
+	}
+	public void setTipoDePerfil(TipoDePerfil tipoDePerfil) {
+		this.tipoDePerfil = tipoDePerfil;
 	}
 }

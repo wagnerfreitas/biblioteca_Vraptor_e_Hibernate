@@ -1,6 +1,8 @@
 package br.com.biblioteca;
 
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doThrow;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +53,6 @@ public class LoginControllerTest {
 		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(usuario);
 		when(adminSession.getUsuario()).thenReturn(usuario);
 		loginController.login(usuario);
-//		então
 	}
 	
 	@Test
@@ -62,7 +63,17 @@ public class LoginControllerTest {
 //		quando
 		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(null);
 		loginController.login(usuario);
-//		então
+	}
+	
+	@Test
+	public void deveriaLancarExcacao() {
+//		dado
+		queEuTenhoUmUsuario();
+		
+//		quando
+		doThrow(new RuntimeException("Não foi possível acessar o sistema")).when(usuarioDAO).login(usuario.getNome(), usuario.getSenha());
+		loginController.login(usuario);
+		assertEquals("Não foi possível acessar o sistema", result.included().get("message"));
 	}
 	
 	@Test
@@ -72,7 +83,6 @@ public class LoginControllerTest {
 
 //		quando
 		when(adminSession.getUsuario()).thenReturn(usuario);
-		
 		loginController.logout();
 	}
 	
