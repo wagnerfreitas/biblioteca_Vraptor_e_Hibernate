@@ -20,3 +20,4 @@ button { width: 100px; background: #ddd }
 #content { width: 100%; padding: 15px;}
 #tabela { position: relative; left: 15% }
 #footer{ width: 100%; height: 60px; background: url(images/footer.gif) repeat-x; margin-top: 10px; }
+#divLogin { width: 160px; position: relative; margin: 0 auto; }

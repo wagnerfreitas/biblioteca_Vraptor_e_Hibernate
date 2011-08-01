@@ -9,8 +9,10 @@
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	</head>
 	<body>
+	<div id="divLogin">
 		<form id="formLogin" method="post">
 			<h1>Faça Login</h1>
 			<table>
@@ -24,10 +26,11 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="button" id="login" value="Enviar" /></td>
+					<td><input type="button" id="loginEnviar" value="Enviar" /></td>
 				</tr>
 			</table>
-		</form>	
+		</form>
+	</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>

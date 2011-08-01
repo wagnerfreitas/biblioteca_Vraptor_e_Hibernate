@@ -1,7 +1,7 @@
 var $formLogin = $("#formLogin");
 $(document).ready(function(){
 	turnFormLoginValid();
-	$("#login").click(function(){
+	$("#loginEnviar").click(function(){
 		if($formLogin.valid()){
 			$.post("login", $formLogin.serialize())
 				.success(function(msg){
