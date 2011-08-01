@@ -42,7 +42,6 @@ public class LoginIntecptor implements Interceptor {
 		}
 	}
 	
-	
 	private boolean isAcessoMetodo(ResourceMethod method) {
 		Permissao permissaoList = method.getMethod().getAnnotation(Permissao.class);
 		return isExistePermissao(permissaoList);

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
 	<head>
@@ -47,13 +48,15 @@
 			</div>
 			<div id="content">
 				<table id="tabela">
-					<tr>
-						<td>Adicionar novo usuário:</td>
-						<td><button id="adicionarUsuario">Adicionar</button></td>
-						<td class="celulaDivisoria"></td>
-						<td width="150px">Adicionar novo livro:</td>
-						<td><button id="adicionarLivro">Adicionar</button></td>
-					</tr>
+					<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+						<tr>
+							<td>Adicionar novo usuário:</td>
+							<td><button id="adicionarUsuario">Adicionar</button></td>
+							<td class="celulaDivisoria"></td>
+							<td width="150px">Adicionar novo livro:</td>
+							<td><button id="adicionarLivro">Adicionar</button></td>
+						</tr>
+					</c:if>
 					
 					<tr>
 						<td>Pesquisar usu&aacute;rio:</td>
@@ -70,9 +73,11 @@
 						</td>
 					</tr>	
 											
-					<tr>
-						<td><button id="relatorioDeAuditoria">Relatório de auditoria</button></td>
-					</tr>
+						<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+							<tr>
+								<td><button id="relatorioDeAuditoria">Relatório de auditoria</button></td>
+							</tr>
+						</c:if>
 				</table>
 				
 				<form id="Usuario" method="get" action="usuarios">

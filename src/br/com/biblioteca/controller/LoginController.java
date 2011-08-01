@@ -63,6 +63,7 @@ public class LoginController {
 		String message = "Erro ao efetuar login";
 		result.use(json()).from(message, "message").serialize();
 	}
+	
 	@Get
 	public void negado() {
 		String message = "Acesso negado";

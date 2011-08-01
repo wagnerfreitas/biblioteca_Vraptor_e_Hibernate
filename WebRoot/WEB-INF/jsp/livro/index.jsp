@@ -56,21 +56,26 @@
 					</thead>
 					<c:forEach items="${livros}" var="livro">
 						<tr idLivro="${livro.id}" livroEmprestado="${livro.emprestado}">
-							<td><a href="#" class="nome">${livro.nome}</a></td>
+							<td>
+								<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+									<a href="#" class="nome">${livro.nome}</a>
+								</c:if>
+								<c:if test="${permissaoDoUsuario == 'MEMBRO'}">
+									${livro.nome}
+								</c:if>
+							</td>
 							<td align="center">${livro.autor}</td>
 							<td>${livro.edicao}</td>
 							<c:if test="${livro.emprestado}">
-								<td>
-									<button class="devolver">Devolver</button>
-								</td>
+								<td><button class="devolver">Devolver</button></td>
 							</c:if>
 							<c:if test="${!livro.emprestado}">
-								<td>	
-									<button class="emprestar">Emprestar</button>
-								</td>
-								<td style="text-align: center;">
-									<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
-								</td>
+								<td><button class="emprestar">Emprestar</button></td>
+								<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+									<td style="text-align: center;">
+										<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
+									</td>
+								</c:if>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -82,10 +87,12 @@
 			
 			<div id="div">
 				<a href="../biblioteca">Voltar</a><br/>
-				<form id="formRelatorio" action="relatorio/livros" method="post">
-					<input type="hidden" name="filtro_relatorio" value="${nome}" />
-					<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
-				</form>
+				<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+					<form id="formRelatorio" action="relatorio/livros" method="post">
+						<input type="hidden" name="filtro_relatorio" value="${nome}" />
+						<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+					</form>
+				</c:if>
 			</div>	
 			
 			<div id="EmprestarLivro">

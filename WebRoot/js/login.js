@@ -23,21 +23,21 @@ $(document).ready(function(){
 function turnFormLoginValid(){
 	$formLogin.validate({
 		rules:{
-			'nome':{
+			'usuario.nome':{
 				required: true,
 				minlength: 3
 			},
-			'senha':{
+			'usuario.senha':{
 				required: true,
 				minlength: 3
 			}
 		},
 		messages:{
-			'nome':{
+			'usuario.nome':{
 				required: 'Digite seu nome',
 				minlength: 'O nome deve conter no mínimo 3 caracteres'
 			},
-			'senha':{
+			'usuario.senha':{
 				required: 'Digite sua senha',
 				minlength: 'A senha deve conter no mínimo 3 caracteres'
 			}

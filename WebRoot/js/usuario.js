@@ -12,10 +12,10 @@ $(document).ready(function(){
 	});
 	
 	$(".nome").click(function(){
-		turnFormAtualizaValid()
+		turnFormUsuarioValid($formAtualiza);
 		var id = $(this).parent().parent().attr("usuarioId"),
-			nome = $(this).parent().parent().children(':nth-child(1)').text(),
-			email = $(this).parent().parent().children(':nth-child(2)').text();
+		nome = $(this).parent().parent().children(':nth-child(1)').text(),
+		email = $(this).parent().parent().children(':nth-child(2)').text();
 		$("#IdUsuario").val(id);		
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);
@@ -56,31 +56,6 @@ function postarDados(rota, formulario){
 	}
 }
 
-function turnFormAtualizaValid(){
-	$formAtualiza.validate({
-			rules:{
-				'nome':{
-					required: true,
-					minlength: 3
-				},
-				'email':{
-					required: true,
-					email: true
-				}
-			},
-			messages:{
-				'nome':{
-					required: 'Digite seu nome',
-					minlength: 'O nome deve conter no mínimo 3 caracteres'
-				},
-				'email':{
-					required: 'Digite seu email',
-					email: 'Digite um email válido'
-				}
-			}
-	});
-};
-
 function turnFormUsuarioValid($form){
 	$form.validate({
 			rules:{
@@ -92,14 +67,14 @@ function turnFormUsuarioValid($form){
 					required: true,
 					email: true
 				},
-				'usuario.senha': {
+				'usuario.senha':{
 					required: true,
 					minlength: 6
 				},
-				'comfirm_password': {
-					required: true, 
-					equalTo: "#password",
-					minlength: 6
+				'confirm_password':{
+					required: true,
+					minlength: 6,
+					equalTo: '#password'
 				}
 			},
 			messages:{
@@ -111,14 +86,14 @@ function turnFormUsuarioValid($form){
 					required: 'Digite seu email',
 					email: 'Digite um email válido'
 				},
-				'usuario.senha': {
+				'usuario.senha':{
 					required: 'Digite a senha',
-					minlength: 'A senha deve conter no mínimo 6 caracteres'
+					minlength: 'A senha deve conter no minímo 6 caracteres'
 				},
-				'comfirm_password': {
+				'confirm_password':{
 					required: 'Digite a senha',
-					minlength: 'A senha deve conter no mínimo 6 caracteres',
-					equalTo: 'Senhas não conferem'	
+					minlength: 'A senha deve conter no minímo 6 caracteres',
+					equalTo: 'Senhas não conferrem'							
 				}
 			}
 	});

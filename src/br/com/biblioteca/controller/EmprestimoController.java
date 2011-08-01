@@ -44,7 +44,8 @@ public class EmprestimoController {
 			result.include("emprestimos", emprestimos)
 				.include("nomeDoLivro", nomeDoLivro)
 				.include("ordenarPor", ordenarPor)
-				.include("usuario", adminSession.getUsuario().getNome());
+				.include("usuario", adminSession.getUsuario().getNome())
+				.include("permissaoDoUsuario", adminSession.getUsuario().getTipoDePerfil());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}
@@ -82,7 +83,7 @@ public class EmprestimoController {
 				message = e.getMessage();
 			}
 		}
-		result.include("message", message);
-		result.use(json()).from(message, "message").serialize();
+		result.include("message", message)
+			.use(json()).from(message, "message").serialize();
 	}
 }

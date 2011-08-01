@@ -45,7 +45,12 @@ $(document).ready(function(){
 			callback: displayFormNovoLivro
 		});
 	});
-
+	$("#adcionarAdministrador").click(function(){
+		buscarPagina({
+			getUrl: "admin/add",
+			callback: displayFormNovoAdministrador
+		});
+	});
 });
 
 $("#dataIninio").datepicker();
@@ -146,6 +151,18 @@ displayFormNovoLivro = function(result){
 		width: 400,
 		result: result,
 		submiterName: "Enviar"
+	});
+};
+
+displayFormNovoAdministrador = function(result) {
+	displayAddForm({
+		postUrl: 'adimin/novo',
+		formId: 'administradorNovo',
+		formRulesFunction: turnFormAdministradorValid,
+		title: 'Adicionar administrador',
+		label: 'administrador',
+		result: result,
+		submiterName: 'Enviar'
 	});
 };
 

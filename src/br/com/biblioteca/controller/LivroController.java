@@ -48,9 +48,10 @@ public class LivroController {
 	public void index(String nome){
 		try {
 			List<Livro> livros = livroDAO.pesquisa(nome);
-			result.include("livros", livros);
-			result.include("nome", nome);
-			result.include("usuario", adminSession.getUsuario().getNome());
+			result.include("livros", livros)
+				.include("nome", nome)
+				.include("usuario", adminSession.getUsuario().getNome())
+				.include("permissaoDoUsuario", adminSession.getUsuario().getTipoDePerfil());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());	
 		}
@@ -190,7 +191,6 @@ public class LivroController {
 	@Path("livro/devolve")
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
-		
 		if(id == null){
 			message = "Id no livro nulo";
 		} else if (dataDeDevolucao == null) {

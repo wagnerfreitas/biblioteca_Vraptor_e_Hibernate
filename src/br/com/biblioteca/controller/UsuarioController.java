@@ -44,12 +44,12 @@ public class UsuarioController {
 	public void index(String nome){
 		try {
 			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
-			result.include("usuarios", usuarios);
-			result.include("nome", nome);
-			result.include("usuario", adminSession.getUsuario().getNome());
+			result.include("usuarios", usuarios)
+				.include("nome", nome)
+				.include("usuario", adminSession.getUsuario().getNome())
+				.include("permissaoDoUsuario", adminSession.getUsuario().getTipoDePerfil());
 		} catch (Exception e) {
-			String message = e.getMessage();
-			result.include("error", message);
+			result.include("error", e.getMessage());
 		}
 	}
 	
