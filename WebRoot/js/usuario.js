@@ -75,6 +75,9 @@ function turnFormUsuarioValid($form){
 					required: true,
 					minlength: 6,
 					equalTo: '#password'
+				},
+				'usuario.tipoDePerfil': {
+					required: true
 				}
 			},
 			messages:{
@@ -94,6 +97,9 @@ function turnFormUsuarioValid($form){
 					required: 'Digite a senha',
 					minlength: 'A senha deve conter no minímo 6 caracteres',
 					equalTo: 'Senhas não conferrem'							
+				},
+				'usuario.tipoDePerfil': {
+					required: 'Escolha uma opção'
 				}
 			}
 	});

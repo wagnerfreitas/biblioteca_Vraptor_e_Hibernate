@@ -10,7 +10,7 @@ table {	font-size: 13px; }
 #reader div { height: 100%; line-height: 35px; }
 #reader-logout { margin: 0 10px 0 10px; }
 #reader-right { width: 10px; background: url(images/img-right.gif) no-repeat ; }
-#reader-center { left: 50%;	margin-left: -60px;	width: 120px; height: 37px !important; position: absolute; }
+#reader-center { left: 50%;	margin-left: -60px;	width: 140px; height: 37px !important; position: absolute; }
 #reader-left { width: 10px; background: url(images/img-left.gif) no-repeat; }
 #login{ width: 160px; background: url(images/img-center.gif) repeat-x; }
 #sombra { width: 100%; background: url(images/sombra.gif) repeat-x;}

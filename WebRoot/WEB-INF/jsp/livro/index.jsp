@@ -34,125 +34,130 @@
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
 		</style>
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	</head>
 	<body>
 		<div id="geral">
-			<div id="login">
-				Bem vindo, ${usuario}&nbsp;&nbsp;&nbsp;
-				<a href="logout">Sair</a>
-			</div><br>
+			<div id="reader">
+				<div id="reader-left" class="lFloat"></div>
+				<div id="reader-right" class="rFloat"></div>
+				<div id="reader-logout" class="rFloat"><a href="logout" class="rFloat">sair</a></div>
+				<div id="login" class="rFloat">Bem vindo, <strong>${usuario}</strong></div>
+				<div id="reader-center"><strong>Lista de livros</strong></div>
+				<div id="sombra" class="cFloat"></div>
+			</div>
+			<div id="content">
+				<form class="formRemove" method="post">
+					<table>
+						<thead>
+							<tr>
+								<td> - Nome - </td>
+								<td width="150" align="center"> - Autor - </td>
+								<td width="80"> - Edição - </td>
+								<td></td>
+								<td width="105" align="center"> - Apagar -</td>
+							</tr>
+						</thead>
+						<c:forEach items="${livros}" var="livro">
+							<tr idLivro="${livro.id}" livroEmprestado="${livro.emprestado}">
+								<td>
+									<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+										<a href="#" class="nome">${livro.nome}</a>
+									</c:if>
+									<c:if test="${permissaoDoUsuario == 'MEMBRO'}">
+										${livro.nome}
+									</c:if>
+								</td>
+								<td align="center">${livro.autor}</td>
+								<td>${livro.edicao}</td>
+								<c:if test="${livro.emprestado}">
+									<td><button class="devolver">Devolver</button></td>
+								</c:if>
+								<c:if test="${!livro.emprestado}">
+									<td><button class="emprestar">Emprestar</button></td>
+									<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+										<td style="text-align: center;">
+											<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
+										</td>
+									</c:if>
+								</c:if>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan="5" align="right"><input type="button" style="display: none" id="apagarLivros" value="Apagar livros"></td>
+						</tr>
+					</table>
+				</form>
 				
-			<h1>Lista de livros</h1>
-			<form class="formRemove" method="post">
-				<table>
-					<thead>
+				<div id="div">
+					<a href="../biblioteca">Voltar</a><br/>
+					<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+						<form id="formRelatorio" action="relatorio/livros" method="post">
+							<input type="hidden" name="filtro_relatorio" value="${nome}" />
+							<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+						</form>
+					</c:if>
+				</div>	
+				
+				<div id="EmprestarLivro">
+					<table>
 						<tr>
-							<td> - Nome - </td>
-							<td width="150" align="center"> - Autor - </td>
-							<td width="80"> - Edição - </td>
-							<td></td>
-							<td width="105" align="center"> - Apagar -</td>
+							<td style="width: 185px">Pesquisar usuário: </td>
+							<td><input type="text" name="pesquisarUsuario" id="pesquisarUsuario"/></td>
+							<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
 						</tr>
-					</thead>
-					<c:forEach items="${livros}" var="livro">
-						<tr idLivro="${livro.id}" livroEmprestado="${livro.emprestado}">
-							<td>
-								<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-									<a href="#" class="nome">${livro.nome}</a>
-								</c:if>
-								<c:if test="${permissaoDoUsuario == 'MEMBRO'}">
-									${livro.nome}
-								</c:if>
+						<tr id="trResultadoNomePesquisa" style="display: none">
+							<td colspan="2">
+								Nome: <span id="nomeResultadoPesquisa"></span>
 							</td>
-							<td align="center">${livro.autor}</td>
-							<td>${livro.edicao}</td>
-							<c:if test="${livro.emprestado}">
-								<td><button class="devolver">Devolver</button></td>
-							</c:if>
-							<c:if test="${!livro.emprestado}">
-								<td><button class="emprestar">Emprestar</button></td>
-								<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-									<td style="text-align: center;">
-										<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
-									</td>
-								</c:if>
-							</c:if>
 						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="5" align="right"><input type="button" style="display: none" id="apagarLivros" value="Apagar livros"></td>
-					</tr>
-				</table>
-			</form>
-			
-			<div id="div">
-				<a href="../biblioteca">Voltar</a><br/>
-				<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-					<form id="formRelatorio" action="relatorio/livros" method="post">
-						<input type="hidden" name="filtro_relatorio" value="${nome}" />
-						<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+					</table>
+					<form method="post" id="formEmpresta" action="livro/emprestar">
+						<input type="hidden" name="idLivro" id="IDLivro" />
+						<input type="hidden" name="iDUsuario" id="IDUsuario" />
+						<table>
+							<tr>
+								<td>
+									Digite a data do empréstimo:
+								</td>
+								<td>
+									<input type="text" class="calendario" name="dataDeEmprestimo" />
+								</td>
+							</tr>
+						</table>
 					</form>
-				</c:if>
-			</div>	
-			
-			<div id="EmprestarLivro">
-				<table>
-					<tr>
-						<td style="width: 185px">Pesquisar usuário: </td>
-						<td><input type="text" name="pesquisarUsuario" id="pesquisarUsuario"/></td>
-						<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
-					</tr>
-					<tr id="trResultadoNomePesquisa" style="display: none">
-						<td colspan="2">
-							Nome: <span id="nomeResultadoPesquisa"></span>
-						</td>
-					</tr>
-				</table>
-				<form method="post" id="formEmpresta" action="livro/emprestar">
-					<input type="hidden" name="idLivro" id="IDLivro" />
-					<input type="hidden" name="iDUsuario" id="IDUsuario" />
-					<table>
-						<tr>
-							<td>
-								Digite a data do empréstimo:
-							</td>
-							<td>
-								<input type="text" class="calendario" name="dataDeEmprestimo" />
-							</td>
-						</tr>
-					</table>
-				</form>
+				</div>
+				<div id="DevolverLivro">
+					<form method="post" id="fomDevolve" action="livro/devolve">
+						<input type="hidden" id="id" name="id" />
+						<table>
+							<tr>
+								<td>Data de devolução: </td>
+								<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div id="atualizaLivro">
+					<form id="formAtualiza">
+						<input type="hidden" name="livro.emprestado" id="livroEmprestado" />
+						<input type="hidden" name="livro.id" id="idLivro" />
+						<table>
+							<tr>
+								<td>Nome: </td><td><input type="text" name="livro.nome" id="nome" /></td>
+							</tr>
+							<tr>
+								<td>Autor: </td><td><input type="text" name="livro.autor" id="autor"/></td>
+							</tr>
+							<tr>
+								<td>Edição: </td><td><input type="text" name="livro.edicao" id="edicao"/></td>
+							</tr>
+						</table>			
+					</form>
+				</div>
 			</div>
-			<div id="DevolverLivro">
-				<form method="post" id="fomDevolve" action="livro/devolve">
-					<input type="hidden" id="id" name="id" />
-					<table>
-						<tr>
-							<td>Data de devolução: </td>
-							<td><input type="text" class="calendario" name="dataDeDevolucao" /></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			<div id="atualizaLivro">
-				<form id="formAtualiza">
-					<input type="hidden" name="livro.emprestado" id="livroEmprestado" />
-					<input type="hidden" name="livro.id" id="idLivro" />
-					<table>
-						<tr>
-							<td>Nome: </td><td><input type="text" name="livro.nome" id="nome" /></td>
-						</tr>
-						<tr>
-							<td>Autor: </td><td><input type="text" name="livro.autor" id="autor"/></td>
-						</tr>
-						<tr>
-							<td>Edição: </td><td><input type="text" name="livro.edicao" id="edicao"/></td>
-						</tr>
-					</table>			
-				</form>
-			</div>
-			
 			<div id="retornoUsuarios"></div>
+			<div id="footer"></div>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>

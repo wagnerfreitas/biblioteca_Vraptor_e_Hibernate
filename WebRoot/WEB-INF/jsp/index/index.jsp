@@ -42,7 +42,7 @@
 				<div id="reader-left" class="lFloat"></div>
 				<div id="reader-right" class="rFloat"></div>
 				<div id="reader-logout" class="rFloat"><a href="logout" class="rFloat">sair</a></div>
-				<div id="login" class="rFloat">Bem vindo, <strong>${nome}</strong></div>
+				<div id="login" class="rFloat">Bem vindo, <strong>${usuario}</strong></div>
 				<div id="reader-center"><strong>Biblioteca</strong></div>
 				<div id="sombra" class="cFloat"></div>
 			</div>
