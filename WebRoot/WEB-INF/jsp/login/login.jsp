@@ -15,6 +15,10 @@
 	<div id="divLogin">
 		<h1 class="titleLogin">Biblioteca</h1>
 		<form id="formLogin" method="post">
+			<label for="nome" class="labelNome">Nome: </label><input type="text" name="nome" />
+			<label for="senha" class="labelSenha">Senha: </label><input type="password" name="senha" />
+			<input type="button" id="loginEnviar" value="Enviar" />
+		<!-- 
 			<table>
 				<tr>
 					<td>Nome:</td>
@@ -28,7 +32,7 @@
 					<td></td>
 					<td><input type="button" id="loginEnviar" value="Enviar" /></td>
 				</tr>
-			</table>
+			</table>  -->
 		</form>
 	</div>
 	</body>
