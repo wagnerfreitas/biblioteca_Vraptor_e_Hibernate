@@ -16,28 +16,28 @@ $(document).ready(function(){
 	
 	$formLogin.find("input").keydown(function(event){
 		if(event.keyCode === 13){
-			$("#login").click();
+			$("#loginEnviar").click();
 		}
 	});
 });
 function turnFormLoginValid(){
 	$formLogin.validate({
 		rules:{
-			'usuario.nome':{
+			'nome':{
 				required: true,
 				minlength: 3
 			},
-			'usuario.senha':{
+			'senha':{
 				required: true,
 				minlength: 3
 			}
 		},
 		messages:{
-			'usuario.nome':{
+			'nome':{
 				required: 'Digite seu nome',
 				minlength: 'O nome deve conter no mínimo 3 caracteres'
 			},
-			'usuario.senha':{
+			'senha':{
 				required: 'Digite sua senha',
 				minlength: 'A senha deve conter no mínimo 3 caracteres'
 			}

@@ -13,8 +13,8 @@
 	</head>
 	<body>
 	<div id="divLogin">
+		<h1 class="titleLogin">Biblioteca</h1>
 		<form id="formLogin" method="post">
-			<h1>Faça Login</h1>
 			<table>
 				<tr>
 					<td>Nome:</td>
