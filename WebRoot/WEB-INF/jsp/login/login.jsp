@@ -7,7 +7,7 @@
 		<title>Login</title>
 		<style type="text/css">
 			label { display: block; margin-top: 10px; }
-			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
+			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 11px }
 		</style>
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	</head>
@@ -15,9 +15,9 @@
 	<div id="divLogin">
 		<h1 class="titleLogin">Biblioteca</h1>
 		<form id="formLogin" method="post">
-			<label for="nome" class="labelNome">Nome: </label><input type="text" name="nome" />
-			<label for="senha" class="labelSenha">Senha: </label><input type="password" name="senha" />
-			<input type="button" id="loginEnviar" value="Enviar" />
+			<p><label for="nome" class="labelNome">Nome: </label><input type="text" name="nome" id="nome" /></p>
+			<p><label for="senha" class="labelSenha">Senha: </label><input type="password" name="senha" id="senha" /></p>
+			<h6><input type="button" id="loginEnviar" value="Logar" /></h6>
 		<!-- 
 			<table>
 				<tr>

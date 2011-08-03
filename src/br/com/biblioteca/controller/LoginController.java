@@ -33,13 +33,10 @@ public class LoginController {
 	@Post
 	@Path("/login")
 	public void login(String nome, String senha){
-		String message;
 		try {
 			Usuario usuarioLogado = usuarioDAO.login(nome, senha);
 			if(usuarioLogado != null){
 				adminSession.setUsuario(usuarioLogado);
-				message = "Bem Vindo " + adminSession.getUsuario().getNome();
-				result.use(json()).from(message, "message").serialize();
 				result.redirectTo(IndexController.class).index();
 			} else {
 				result.redirectTo(this).erro();

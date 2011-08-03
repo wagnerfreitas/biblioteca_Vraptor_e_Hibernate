@@ -20,7 +20,7 @@ button { width: 100px; background: #ddd }
 #content { width: 100%; padding: 15px;}
 #tabela { position: relative; left: 15% }
 #footer{ width: 100%; height: 60px; background: url(images/footer.gif) repeat-x; margin-top: 10px; }
-#divLogin { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;  width: 260px; height: 160px;
+#divLogin { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;  width: 260px; height: 190px;
 			margin: 0 auto; border: 1px solid #ddd; 
 			background: #c9c9c9; /* Old browsers */
 			background: -moz-linear-gradient(top, #c9c9c9 0%, #f0f0f0 3%, #ffffff 100%); /* FF3.6+ */
@@ -30,7 +30,9 @@ button { width: 100px; background: #ddd }
 			background: -ms-linear-gradient(top, #c9c9c9 0%,#f0f0f0 3%,#ffffff 100%); /* IE10+ */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 			background: linear-gradient(top, #c9c9c9 0%,#f0f0f0 3%,#ffffff 100%); /* W3C */ }
-#formLogin { padding: 15px; width: 200px; }
+#formLogin { padding: 15px; width: 200px; text-align: right; }
+#formLogin p { height: 30px; }
+#formLogin h6 { text-align: right; }
 #formLogin .labelNome, .labelSenha{ display: inline; }
 .titleLogin {
 			-webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; 

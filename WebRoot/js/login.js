@@ -4,8 +4,7 @@ $(document).ready(function(){
 	$("#loginEnviar").click(function(){
 		if($formLogin.valid()){
 			$.post("login", $formLogin.serialize())
-				.success(function(msg){
-					alert(msg.message);
+				.success(function(){
 					location.reload();
 				})
 				.error(function(msg){
