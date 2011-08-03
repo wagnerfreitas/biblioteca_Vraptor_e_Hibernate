@@ -6,6 +6,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
 import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.GrupoDeAcesso;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.ioc.Component;
@@ -17,6 +18,7 @@ public class BibliotecaUtilImpl implements BibliotecaUtil {
 		AnnotationConfiguration cfg = new AnnotationConfiguration().configure("hibernate.cfg.xml");
 		cfg.addAnnotatedClass(Usuario.class);
 		cfg.addAnnotatedClass(Emprestimo.class);
+		cfg.addAnnotatedClass(GrupoDeAcesso.class);
 		cfg.addAnnotatedClass(Livro.class);
 		factory = cfg.buildSessionFactory();
 	}

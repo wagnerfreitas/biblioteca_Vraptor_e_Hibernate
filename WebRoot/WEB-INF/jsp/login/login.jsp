@@ -13,26 +13,11 @@
 	</head>
 	<body>
 	<div id="divLogin">
-		<h1 class="titleLogin">Biblioteca</h1>
+		<h1 class="titleLogin">Login</h1>
 		<form id="formLogin" method="post">
 			<p><label for="nome" class="labelNome">Nome: </label><input type="text" name="nome" id="nome" /></p>
 			<p><label for="senha" class="labelSenha">Senha: </label><input type="password" name="senha" id="senha" /></p>
 			<h6><input type="button" id="loginEnviar" value="Logar" /></h6>
-		<!-- 
-			<table>
-				<tr>
-					<td>Nome:</td>
-					<td><input type="text" name="nome" /></td>
-				</tr>
-				<tr>
-					<td>Senha:</td>
-					<td><input type="password" name="senha" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="button" id="loginEnviar" value="Enviar" /></td>
-				</tr>
-			</table>  -->
 		</form>
 	</div>
 	</body>
