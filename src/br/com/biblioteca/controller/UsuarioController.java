@@ -138,7 +138,7 @@ public class UsuarioController {
 			if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0){
 				message = "\"" + usuario.getNome() + "\" com empréstimo ativo\n";
 			}else{
-				usuario.setUsuarioAtivo(false);
+				usuario.setAtivo(false);
 				
 				auditoria = new Auditoria();
 				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());

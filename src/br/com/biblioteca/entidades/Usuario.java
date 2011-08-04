@@ -12,7 +12,7 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
-	private boolean usuarioAtivo;
+	private boolean ativo;
 
 	public String getNome() {
 		return nome;
@@ -26,12 +26,13 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isUsuarioAtivo() {
-		return usuarioAtivo;
+	public boolean isAtivo() {
+		return ativo;
 	}
-	public void setUsuarioAtivo(boolean usuarioAtivo) {
-		this.usuarioAtivo = usuarioAtivo;
+	public void setAtivo(boolean usuarioAtivo) {
+		this.ativo = usuarioAtivo;
 	}
+	
 	public Long getId() {
 		return id;
 	}

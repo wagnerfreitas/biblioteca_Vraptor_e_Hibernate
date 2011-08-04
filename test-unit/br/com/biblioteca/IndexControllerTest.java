@@ -60,6 +60,6 @@ public class IndexControllerTest {
 		usuario.setNome("Usuario");
 		usuario.setSenha("123");
 		usuario.setEmail("usuario@usuario.com");
-		usuario.setUsuarioAtivo(true);
+		usuario.setAtivo(true);
 	}
 }

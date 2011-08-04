@@ -35,7 +35,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		}
 		try {
 			Transaction tx = session.beginTransaction();
-			usuario.setUsuarioAtivo(true);
+			usuario.setAtivo(true);
 			session.save(usuario);
 			tx.commit();
 		} catch (HibernateException e) {

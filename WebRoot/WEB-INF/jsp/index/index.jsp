@@ -19,7 +19,7 @@
 			.celulaDivisoria {
 				width: 70px;
 			}
-			#Usuario, #Livro, #Emprestimo, #formAuditoria{
+			#Usuario, #Livro, #Emprestimo, #formAuditoria, #adicionarGrupoDeAcesso{
 				display: none;
 			}
 			#Emprestimo fieldset {
@@ -70,7 +70,7 @@
 						<td>Pesquisar empr&eacute;stimos:</td>
 						<td><button id="pesquisarEmprestimo">Pesquisar</button></td>
 						<td class="celulaDivisoria"></td>
-						<td>Adicionar tipo de acesso</td>
+						<td>Adicionar tipo de acesso:</td>
 						<td><button id="adicionarAcesso">Adicionar</button></td>
 					</tr>	
 											
@@ -99,17 +99,16 @@
 					</table>
 				</form>
 				
-				<form id="adicionarGrupoDeAcesso" action="grupo/novo">
+				<form id="adicionarGrupoDeAcesso" method="post" action="grupo/novo">
 					<table>
 						<tr>
 							<td>Digite o nome do grupo: </td>
-							<td><input type="text" name="GrupoDeAcesso.nome" /></td>
-							<c:forEach items="${grupoDeAcesso}" var="grupo">
-								<c:forEach items="${acoes}" var="acao"></c:forEach>
-								${grupos.nome} <input type="checkbox" name="GrupoDeAcesso.acoes" value="${acao.id}" />
-							</c:forEach>
+							<td><input type="text" name="nome" /></td>
 						</tr>
 					</table>
+					<c:forEach items="${acoes}" var="acao">
+						${acao.nome} <input type="checkbox" name="id" value="${acao.id}" />
+					</c:forEach>
 				</form>
 				
 				<form id="Emprestimo" method="get" action="emprestimos">

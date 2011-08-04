@@ -388,6 +388,6 @@ public class UsuarioControllerTest{
 		usuario.setNome("usuario");
 		usuario.setSenha("123456");
 		usuario.setEmail("usuario@gmail.com");
-		usuario.setUsuarioAtivo(true);
+		usuario.setAtivo(true);
 	}
 }

@@ -198,7 +198,7 @@ public class EmprestimoControllerTest {
 		usuario.setNome("Usuario");
 		usuario.setEmail("usuario@email.com");
 		usuario.setSenha("123456");
-		usuario.setUsuarioAtivo(true);
+		usuario.setAtivo(true);
 	}
 	
 	public void queEuTenhoUmEmprestimo() {

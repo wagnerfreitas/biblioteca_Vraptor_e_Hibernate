@@ -643,7 +643,7 @@ public class LivroControllerTest {
 		usuario.setId(1L);
 		usuario.setNome("Usuario");
 		usuario.setEmail("email@email.com");
-		usuario.setUsuarioAtivo(true);
+		usuario.setAtivo(true);
 	}
 	
 	public void queEuTenhoUmLivro() {

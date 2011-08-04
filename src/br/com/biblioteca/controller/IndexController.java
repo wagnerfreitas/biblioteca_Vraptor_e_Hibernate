@@ -1,6 +1,10 @@
 package br.com.biblioteca.controller;
 
+import java.util.List;
+
+import br.com.biblioteca.dao.AcaoDAO;
 import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.entidades.Acao;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -11,10 +15,12 @@ public class IndexController {
 
 	private Result result;
 	private AdminSession adminSession;
+	private AcaoDAO acaoDAO;
 	
-	public IndexController(Result result, AdminSession adminSession){
+	public IndexController(Result result, AdminSession adminSession, AcaoDAO acaoDAO){
 		this.result = result;
 		this.adminSession = adminSession;
+		this.acaoDAO = acaoDAO;
 	}
 
 	@Get
@@ -23,7 +29,9 @@ public class IndexController {
 		if(adminSession.getUsuario() == null) {
 			result.redirectTo(LoginController.class).login();
 			result.include("null", null);
-			} else {
+		} else {
+			List<Acao> acoes = acaoDAO.acoes();
+			result.include("acoes", acoes);
 			result.include("usuario", adminSession.getUsuario().getNome());
 		}
 	}

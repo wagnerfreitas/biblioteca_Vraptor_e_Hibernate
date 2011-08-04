@@ -5,7 +5,8 @@ var templates = {},
 	$result,
 	$usuarioNovo,
 	$relatorioDeAuditoria,
-	$formAuditoria;
+	$formAuditoria,
+	$adicionarGrupoDeAcesso;
 
 $(document).ready(function(){
 	$formUsuario = $('form#Usuario');
@@ -14,6 +15,7 @@ $(document).ready(function(){
 	$result = $("#result");
 	$relatorioDeAuditoria = $("#relatorioDeAuditoria");
 	$formAuditoria = $("form#formAuditoria");
+	$adicionarGrupoDeAcesso = $("#adicionarGrupoDeAcesso");
 	
 	$("#pesquisarUsuario").click(function(){
 		exibirFormDialog($formUsuario, "Pesquisar usuário", 470)
@@ -29,7 +31,7 @@ $(document).ready(function(){
 	});
 	
 	$("#adicionarAcesso").click(function() {
-		exibirFormDialog(formulario,"Adicionar tipo de acesso",450);
+		exibirFormDialog($adicionarGrupoDeAcesso,"Adicionar grupo de acesso",450);
 	});
 	
 	$('#pesquisarEmprestimo').click(function(){
@@ -73,7 +75,7 @@ function exibirFormDialog(formulario, titulo, width){
 		width: width,
 		resizable: false,
 		buttons: {
-			Pesquisar: function(){
+			Enviar: function(){
 				formulario.submit();
 			}
 		}

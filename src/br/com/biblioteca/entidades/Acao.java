@@ -5,11 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Acoes {
+public class Acao {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String acao;
+	private String nome;
 	
 	public Long getId() {
 		return id;
@@ -17,10 +17,10 @@ public class Acoes {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getAcao() {
-		return acao;
+	public String getNome() {
+		return nome;
 	}
-	public void setAcao(String acao) {
-		this.acao = acao;
-	}	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }
