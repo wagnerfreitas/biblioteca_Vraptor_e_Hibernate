@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.IndexController;
 import br.com.biblioteca.dao.AdminSession;
-import br.com.biblioteca.entidades.TipoDePerfil;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -24,7 +23,6 @@ public class IndexControllerTest {
 	
 	@Mock
 	private AdminSession adminSession;
-	private TipoDePerfil tipoDePerfil;
 	
 	@Before
 	public void setUp() {
@@ -36,7 +34,6 @@ public class IndexControllerTest {
 	@Test
 	public void usuarioLogado(){
 //		dado
-		queEuTenhoUmPerfil();
 		queEuTenhoUmUsuario();
 		
 //		quando
@@ -57,17 +54,12 @@ public class IndexControllerTest {
 		assertEquals(null, result.included().get("null"));
 	}
 	
-	public void queEuTenhoUmPerfil() {
-		tipoDePerfil = TipoDePerfil.ADMINISTRADOR;
-	}
-	
 	public void queEuTenhoUmUsuario() {
 		usuario = new Usuario();
 		usuario.setId(1L);
 		usuario.setNome("Usuario");
 		usuario.setSenha("123");
 		usuario.setEmail("usuario@usuario.com");
-		usuario.setTipoDePerfil(tipoDePerfil);
 		usuario.setUsuarioAtivo(true);
 	}
 }

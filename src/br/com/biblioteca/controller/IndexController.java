@@ -24,8 +24,7 @@ public class IndexController {
 			result.redirectTo(LoginController.class).login();
 			result.include("null", null);
 			} else {
-			result.include("usuario", adminSession.getUsuario().getNome())
-				.include("permissaoDoUsuario", adminSession.getUsuario().getTipoDePerfil());
+			result.include("usuario", adminSession.getUsuario().getNome());
 		}
 	}
 }

@@ -69,8 +69,9 @@
 					<tr>
 						<td>Pesquisar empr&eacute;stimos:</td>
 						<td><button id="pesquisarEmprestimo">Pesquisar</button></td>
-						<td class="celulaDivisoria">
-						</td>
+						<td class="celulaDivisoria"></td>
+						<td>Adicionar tipo de acesso</td>
+						<td><button id="adicionarAcesso">Adicionar</button></td>
 					</tr>	
 											
 						<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
@@ -94,6 +95,19 @@
 						<tr>
 							<td>Digite o nome do livro:</td>
 							<td><input type="text" id="pesquisaLivroNome" name="nome" /></td>
+						</tr>
+					</table>
+				</form>
+				
+				<form id="adicionarGrupoDeAcesso" action="grupo/novo">
+					<table>
+						<tr>
+							<td>Digite o nome do grupo: </td>
+							<td><input type="text" name="GrupoDeAcesso.nome" /></td>
+							<c:forEach items="${grupoDeAcesso}" var="grupo">
+								<c:forEach items="${acoes}" var="acao"></c:forEach>
+								${grupos.nome} <input type="checkbox" name="GrupoDeAcesso.acoes" value="${acao.id}" />
+							</c:forEach>
 						</tr>
 					</table>
 				</form>

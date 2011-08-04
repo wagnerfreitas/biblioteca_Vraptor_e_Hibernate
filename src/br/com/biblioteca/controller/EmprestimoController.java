@@ -44,8 +44,7 @@ public class EmprestimoController {
 			result.include("emprestimos", emprestimos)
 				.include("nomeDoLivro", nomeDoLivro)
 				.include("ordenarPor", ordenarPor)
-				.include("usuario", adminSession.getUsuario().getNome())
-				.include("permissaoDoUsuario", adminSession.getUsuario().getTipoDePerfil());
+				.include("usuario", adminSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}

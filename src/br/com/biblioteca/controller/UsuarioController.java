@@ -11,8 +11,6 @@ import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Auditoria;
-import br.com.biblioteca.entidades.Permissao;
-import br.com.biblioteca.entidades.TipoDePerfil;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -46,8 +44,7 @@ public class UsuarioController {
 			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 			result.include("usuarios", usuarios)
 				.include("nome", nome)
-				.include("usuario", adminSession.getUsuario().getNome())
-				.include("permissaoDoUsuario", adminSession.getUsuario().getTipoDePerfil());
+				.include("usuario", adminSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}
@@ -72,7 +69,7 @@ public class UsuarioController {
 	
 	@Post
 	@Path("/usuario/novo")
-	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void novo(Usuario usuario){
 		String message;
 		try {
@@ -95,7 +92,7 @@ public class UsuarioController {
 	
 	@Put @Post
 	@Path("/usuario/atualiza")
-	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void atualiza(Long id, String nome, String email){
 		String message;
 		if(id == null){
@@ -131,7 +128,7 @@ public class UsuarioController {
 	
 	@Post
 	@Path("/usuario/delete")
-	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void delete(List<Long> idDelete){
 		List<String> messages = new ArrayList<String>();
 		String message = null;

@@ -18,7 +18,7 @@
 	</table>
 	<select>
 		<c:forEach items="${grupoDeAcesso}" var="grupo">
-			<option>${grupo}</option>
+			<option value="${grupo.codigo}">${grupo.nome}</option>
 		</c:forEach>
 	</select>
 	Membro: <input type="radio" value="MEMBRO" name="usuario.tipoDePerfil" />

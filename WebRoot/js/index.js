@@ -28,6 +28,10 @@ $(document).ready(function(){
 		exibirFormDialog($formLivro, "Pesquisar livro", 450)
 	});
 	
+	$("#adicionarAcesso").click(function() {
+		exibirFormDialog(formulario,"Adicionar tipo de acesso",450);
+	});
+	
 	$('#pesquisarEmprestimo').click(function(){
 		exibirFormDialog($formEmprestimo, "Pesquisar empréstimo", 550);
 	});
