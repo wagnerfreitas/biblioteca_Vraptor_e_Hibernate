@@ -55,6 +55,7 @@ public class UsuarioControllerTest{
 	private GrupoDePerfil grupoDeAcesso;
 	private Acao acao;
 	private ArrayList<Acao> grupoDeAcao;
+	private ArrayList<GrupoDePerfil> grupos;
 	
 	@Before
 	public void setUp() {
@@ -119,6 +120,30 @@ public class UsuarioControllerTest{
 //		então
 		assertEquals("Erro ao pesquisar usuário", result.included().get("error"));
 	}
+	
+	@Test
+	public void erroAoBuscarOGrupoDoUsuario() {
+//		dado
+		queEuTenhoUmGrupoDePerfil();
+		
+//		quando
+		doThrow(new RuntimeException("Erro ao pesquisar")).when(grupoDePerfilDAO).grupos();
+		usuarioController.novo();
+	}
+	
+	@Test
+	public void buscaDoGrupoComSucesso() {
+//		dado
+		queEuTenhoUmGrupoDePerfil();
+		queEuTenhoUmaListaDeGruposDeAcesso();
+//		quando
+		when(grupoDePerfilDAO.grupos()).thenReturn(grupos);
+		usuarioController.novo();
+		
+//		entao
+		assertTrue(result.included().containsKey("grupos"));
+	}
+	
 	
 	@Test
 	public void nomeNuloAoAdicionarUsuario() {
@@ -362,6 +387,12 @@ public class UsuarioControllerTest{
 	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
 		usuarios.add(1L);
+	}
+	
+	public void queEuTenhoUmaListaDeGruposDeAcesso() {
+		queEuTenhoUmGrupoDePerfil();
+		grupos = new ArrayList<GrupoDePerfil>();
+		grupos.add(grupoDeAcesso);
 	}
 	
 	public void queEuTenhoUmListaDeAcoes() {
