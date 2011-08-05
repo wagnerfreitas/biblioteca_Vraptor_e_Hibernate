@@ -105,6 +105,7 @@ displayAddForm = function(data){
 	var buttons = {
 		Enviar: function(){
 			if ($form.valid()){
+				console.log( $form.serialize());
 				$.post(data.postUrl, $form.serialize())
 					.success(function(msg){
 						if (confirm(msg.message +'\nDeseja inserir outro '+ data.label +'?')){

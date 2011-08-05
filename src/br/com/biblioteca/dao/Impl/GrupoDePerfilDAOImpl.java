@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.biblioteca.dao.BibliotecaUtil;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
@@ -34,7 +35,21 @@ public class GrupoDePerfilDAOImpl implements GrupoDePerfilDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<GrupoDePerfil> grupos() {
-		Criteria criteria = session.createCriteria(GrupoDePerfil.class);
-		return criteria.list();	
+		try {
+			Criteria criteria = session.createCriteria(GrupoDePerfil.class);
+			return criteria.list();	
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar");
+		}
+	}
+	
+	public GrupoDePerfil pesquisaPorId(Long id) {
+		try {
+			Criteria criteria = session.createCriteria(GrupoDePerfil.class);
+				criteria.add(Restrictions.eq("id", id));
+			return (GrupoDePerfil) criteria.uniqueResult();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao pesquisar");
+		}
 	}
 }

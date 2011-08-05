@@ -32,7 +32,8 @@ public class LivroController {
 	private AuditoriaDAO auditoriaDAO;
 	private Auditoria auditoria;
 	
-	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, UsuarioDAO usuarioDAO, AdminSession adminSession, AuditoriaDAO auditoriaDAO){
+	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, 
+			UsuarioDAO usuarioDAO, AdminSession adminSession, AuditoriaDAO auditoriaDAO) {
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;

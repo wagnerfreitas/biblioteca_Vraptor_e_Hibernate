@@ -81,9 +81,14 @@ public class UsuarioController {
 	@Post
 	@Path("/usuario/novo")
 //	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
-	public void novo(Usuario usuario){
+	public void novo(Long idGrupo, Usuario usuario){
 		String message;
 		try {
+			GrupoDePerfil grupoDePerfil = grupoDePerfilDAO.pesquisaPorId(idGrupo);
+			usuario.setGrupoDePerfil(grupoDePerfil);
+			
+			usuarioDAO.adiciona(usuario);
+			
 			auditoria = new Auditoria();
 			auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
 			auditoria.setEntidade(usuario.getNome());
@@ -92,7 +97,6 @@ public class UsuarioController {
 			
 			auditoriaDAO.salva(auditoria);
 			
-			usuarioDAO.adiciona(usuario);
 			message = "\""+ usuario.getNome() + "\" adicionado com sucesso!";
 		} catch (Exception e) {
 			message = e.getMessage();

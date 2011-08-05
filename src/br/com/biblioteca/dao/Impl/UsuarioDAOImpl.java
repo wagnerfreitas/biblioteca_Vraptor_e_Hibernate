@@ -63,7 +63,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		try {
 			if(nome != null ||  nome == ""){
 				criteria.add(Restrictions.like("nome", "%" + nome + "%"));
-				criteria.add(Restrictions.eq("usuarioAtivo", true));
+				criteria.add(Restrictions.eq("ativo", true));
 				criteria.addOrder(Order.asc("nome"));
 			}
 			return criteria.list();
@@ -78,7 +78,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		try {
 			if(nome != null ||  nome == ""){
 				criteria.add(Restrictions.eq("nome", nome));
-				criteria.add(Restrictions.eq("usuarioAtivo", true));
+				criteria.add(Restrictions.eq("ativo", true));
 			}
 			return criteria.list();
 		} catch (Exception e) {

@@ -13,9 +13,9 @@ $(document).ready(function(){
 	
 	$(".nome").click(function(){
 		turnFormUsuarioValid($formAtualiza);
-		var id = $(this).parent().parent().attr("usuarioId"),
-		nome = $(this).parent().parent().children(':nth-child(1)').text(),
-		email = $(this).parent().parent().children(':nth-child(2)').text();
+		var id = $(this).parent().parent().attr("usuarioId").trim(),
+		nome = $(this).parent().parent().children(':nth-child(1)').text().trim(),
+		email = $(this).parent().parent().children(':nth-child(2)').text().trim();
 		$("#IdUsuario").val(id);		
 		$("#usuarioNome").val(nome);
 		$("#usuarioEmail").val(email);

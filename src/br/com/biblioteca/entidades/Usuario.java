@@ -3,6 +3,7 @@ package br.com.biblioteca.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario {
@@ -12,7 +13,10 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
+	@SuppressWarnings("unused")
 	private boolean ativo;
+	@OneToOne
+	private GrupoDePerfil grupoDePerfil;
 
 	public String getNome() {
 		return nome;
@@ -26,13 +30,9 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isAtivo() {
-		return ativo;
-	}
 	public void setAtivo(boolean usuarioAtivo) {
 		this.ativo = usuarioAtivo;
 	}
-	
 	public Long getId() {
 		return id;
 	}
@@ -44,5 +44,11 @@ public class Usuario {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public GrupoDePerfil getGrupoDePerfil() {
+		return grupoDePerfil;
+	}
+	public void setGrupoDePerfil(GrupoDePerfil grupoDePerfil) {
+		this.grupoDePerfil = grupoDePerfil;
 	}
 }
