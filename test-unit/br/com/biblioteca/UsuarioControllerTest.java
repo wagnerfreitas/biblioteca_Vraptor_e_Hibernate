@@ -18,9 +18,12 @@ import br.com.biblioteca.controller.UsuarioController;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
+import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.entidades.Acao;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.GrupoDePerfil;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
@@ -32,6 +35,8 @@ public class UsuarioControllerTest{
 	private Result result;
 	private UsuarioController usuarioController;
 	
+	@Mock
+	private GrupoDePerfilDAO grupoDePerfilDAO;
 	@Mock 
 	private AdminSession adminSession;
 	@Mock 
@@ -47,12 +52,16 @@ public class UsuarioControllerTest{
 	private ArrayList<Emprestimo> emprestimos;
 	private ArrayList<Long> usuarios;
 	private Auditoria auditoria;
+	private GrupoDePerfil grupoDeAcesso;
+	private Acao acao;
+	private ArrayList<Acao> grupoDeAcao;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.usuarioController = new UsuarioController(result, usuarioDAO, adminSession, emprestimoDAO, auditoriaDAO);
+		this.usuarioController = new UsuarioController(result, usuarioDAO, adminSession, 
+				emprestimoDAO, auditoriaDAO, grupoDePerfilDAO);
 	}
 	
 	@Test
@@ -117,12 +126,14 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
+		queEuTenhoUmGrupoDePerfil();
 		usuario.setNome(null);
 		
 //		quando
 		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
-		usuarioController.novo(usuario);
+		usuarioController.novo(1L,usuario);
 		
 //		entao
 		assertEquals("Nome nulo", result.included().get("message"));
@@ -134,14 +145,16 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
+		queEuTenhoUmGrupoDePerfil();
 		usuario.setEmail(null);
 		
 //		quando
+		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
-		usuarioController.novo(usuario);
+		usuarioController.novo(1L, usuario);
 		assertEquals("Email nulo", result.included().get("message"));
 	}
 	
@@ -151,14 +164,16 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
+		queEuTenhoUmGrupoDePerfil();
 		usuario.setNome("");
 
 //		quando
+		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
-		usuarioController.novo(usuario);
+		usuarioController.novo(1L, usuario);
 		assertEquals("Nome nulo", result.included().get("message"));
 	}
 	
@@ -168,14 +183,16 @@ public class UsuarioControllerTest{
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
+		queEuTenhoUmGrupoDePerfil();
 		usuario.setEmail("");
 		
 //		quando
+		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
-		usuarioController.novo(usuario);
+		usuarioController.novo(1L, usuario);
 		assertEquals("Email nulo", result.included().get("message"));
 	}
 	
@@ -184,12 +201,14 @@ public class UsuarioControllerTest{
 //		dado 
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
+		queEuTenhoUmGrupoDePerfil();
 		queEuTenhoUmUsuario();
 		
 //		quando
+		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		when(adminSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado")).when(usuarioDAO).adiciona(usuario);
-		usuarioController.novo(usuario);
+		usuarioController.novo(1L, usuario);
 		
 //		entao
 		assertEquals("\"" + usuario.getNome() + "\" já está cadastrado",result.included().get("message"));
@@ -201,12 +220,14 @@ public class UsuarioControllerTest{
 		queEuTenhoUmaAuditoria();
 		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
+		queEuTenhoUmGrupoDePerfil();
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
 //		quando
+		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		when(adminSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa(usuario.getNome())).thenReturn(usuarios);
-		usuarioController.novo(usuario);
+		usuarioController.novo(1L, usuario);
 		
 //		entao
 		assertEquals("\""+ usuario.getNome() + "\" adicionado com sucesso!", result.included().get("message"));
@@ -341,6 +362,26 @@ public class UsuarioControllerTest{
 	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
 		usuarios.add(1L);
+	}
+	
+	public void queEuTenhoUmListaDeAcoes() {
+		queEuTenhoUmaAcao();
+		grupoDeAcao = new ArrayList<Acao>();
+		grupoDeAcao.add(acao);
+	}
+	
+	public void queEuTenhoUmGrupoDePerfil() {
+		queEuTenhoUmListaDeAcoes();
+		grupoDeAcesso = new GrupoDePerfil();
+		grupoDeAcesso.setAcao(grupoDeAcao);
+		grupoDeAcesso.setNome("Grupo");
+		grupoDeAcesso.setId(1L);
+	}
+	
+	public void queEuTenhoUmaAcao() {
+		acao = new Acao();
+		acao.setId(1L);
+		acao.setNome("Acao");
 	}
 	
 	public void queEuTenhoUmaAuditoria() {

@@ -28,7 +28,6 @@ public class IndexController {
 	public void index() {
 		if(adminSession.getUsuario() == null) {
 			result.redirectTo(LoginController.class).login();
-			result.include("null", null);
 		} else {
 			List<Acao> acoes = acaoDAO.acoes();
 			result.include("acoes", acoes)

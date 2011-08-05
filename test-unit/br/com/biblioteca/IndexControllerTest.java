@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.IndexController;
+import br.com.biblioteca.dao.AcaoDAO;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
@@ -20,7 +21,8 @@ public class IndexControllerTest {
 	private Result result;
 	private IndexController indexController;
 	private Usuario usuario;
-	
+	@Mock
+	private AcaoDAO acaoDAO; 
 	@Mock
 	private AdminSession adminSession;
 	
@@ -28,7 +30,7 @@ public class IndexControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.indexController = new IndexController(result, adminSession);
+		this.indexController = new IndexController(result, adminSession, acaoDAO);
 	}
 	
 	@Test
@@ -49,9 +51,6 @@ public class IndexControllerTest {
 //		quando
 		when(adminSession.getUsuario()).thenReturn(null);
 		indexController.index();
-		
-//		então
-		assertEquals(null, result.included().get("null"));
 	}
 	
 	public void queEuTenhoUmUsuario() {
