@@ -39,12 +39,11 @@ public class AcaoDAOImpl implements AcaoDAO{
 		return criteria.list();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Acao> pesquisaAcoesPorId(Long id) {
+	public Acao pesquisaAcoesPorId(Long id) {
 		try {
 			Criteria criteria = session.createCriteria(Acao.class);
 				criteria.add(Restrictions.eq("id", id));
-			return criteria.list();
+			return (Acao) criteria.uniqueResult();
 		} catch (Exception e) {
 			throw new RuntimeException("Erro");
 		}

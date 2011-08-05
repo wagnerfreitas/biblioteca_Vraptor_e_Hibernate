@@ -17,11 +17,14 @@
 		</tr>
 	</table>
 	<select>
-		<c:forEach items="${grupoDeAcesso}" var="grupo">
-			<option value="${grupo.codigo}">${grupo.nome}</option>
+		<option>Selecione...</option>
+		<c:forEach items="${grupos}" var="grupo">
+			<option value="${grupo.id}">${grupo.nome}</option>
 		</c:forEach>
 	</select>
+	<!-- 
 	Membro: <input type="radio" value="MEMBRO" name="usuario.tipoDePerfil" />
 	Moderador: <input type="radio" value="MODERADOR" name="usuario.tipoDePerfil" />
 	Administrador: <input type="radio" value="ADMINISTRADOR" name="usuario.tipoDePerfil" />
+	 -->
 </form>

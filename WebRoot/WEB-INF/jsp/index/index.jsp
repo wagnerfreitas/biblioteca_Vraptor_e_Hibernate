@@ -107,7 +107,7 @@
 						</tr>
 					</table>
 					<c:forEach items="${acoes}" var="acao">
-						${acao.nome} <input type="checkbox" name="id" value="${acao.id}" />
+						${acao.nome} <input type="checkbox" name="id" value="${acao.id}" /><br />
 					</c:forEach>
 				</form>
 				

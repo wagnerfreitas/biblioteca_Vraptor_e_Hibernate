@@ -1,5 +1,6 @@
 package br.com.biblioteca.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.biblioteca.dao.AcaoDAO;
@@ -14,7 +15,6 @@ import br.com.caelum.vraptor.Resource;
 public class GrupoDePerfilController {
 	
 	private GrupoDePerfilDAO grupoDePerfilDAO;
-	private GrupoDePerfil grupoDePerfil;
 	private AcaoDAO acaoDAO;
 	
 	public GrupoDePerfilController(AcaoDAO acaoDAO, GrupoDePerfilDAO grupoDePerfilDAO) {
@@ -25,12 +25,14 @@ public class GrupoDePerfilController {
 	@Post
 	@Path("grupo/novo")
 	public void novo(String nome, List<Long> id) {
-		grupoDePerfil = new GrupoDePerfil();
+		GrupoDePerfil grupoDePerfil = new GrupoDePerfil();
+		List<Acao> list = new ArrayList<Acao>();
 		grupoDePerfil.setNome(nome);
 		for (Long idAcao : id) {
-			List<Acao> acoes = acaoDAO.pesquisaAcoesPorId(idAcao);
-			grupoDePerfil.setIdAcao(acoes);
+			Acao acao = acaoDAO.pesquisaAcoesPorId(idAcao);
+			list.add(acao);
 		}
+		grupoDePerfil.setAcao(list);
 		grupoDePerfilDAO.novo(grupoDePerfil);
 	}
 }

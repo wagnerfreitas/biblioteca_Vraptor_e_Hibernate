@@ -9,8 +9,10 @@ import java.util.List;
 import br.com.biblioteca.dao.AdminSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
+import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Auditoria;
+import br.com.biblioteca.entidades.GrupoDePerfil;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -28,13 +30,16 @@ public class UsuarioController {
 	private AdminSession adminSession;
 	private AuditoriaDAO auditoriaDAO;
 	private Auditoria auditoria;
+	private GrupoDePerfilDAO grupoDePerfilDAO;
 	
-	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession, EmprestimoDAO emprestimoDAO, AuditoriaDAO auditoriaDAO){
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession, 
+			EmprestimoDAO emprestimoDAO, AuditoriaDAO auditoriaDAO, GrupoDePerfilDAO grupoDePerfilDAO){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
 		this.adminSession = adminSession;
 		this.emprestimoDAO = emprestimoDAO;
 		this.auditoriaDAO = auditoriaDAO;
+		this.grupoDePerfilDAO = grupoDePerfilDAO;
 	}
 	
 	@Get
@@ -65,6 +70,12 @@ public class UsuarioController {
 	@Get
 	@Path("/usuario/add")
 	public void novo(){
+		try {
+			List<GrupoDePerfil> grupos = grupoDePerfilDAO.grupos();
+			result.include("grupos", grupos);
+		} catch (Exception e) {
+			result.forwardTo(this).novo();
+		}
 	}
 	
 	@Post

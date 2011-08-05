@@ -2,11 +2,10 @@ package br.com.biblioteca.entidades;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class GrupoDePerfil {
@@ -14,9 +13,8 @@ public class GrupoDePerfil {
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	@Column(name="Acoes")
-	@OneToMany
-	private List<Acao> idAcao;
+	@ManyToMany
+	private List<Acao> acao;
 	
 	public Long getId() {
 		return id;
@@ -30,10 +28,10 @@ public class GrupoDePerfil {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Acao> getIdAcao() {
-		return idAcao;
+	public List<Acao> getAcao() {
+		return acao;
 	}
-	public void setIdAcao(List<Acao> idAcao) {
-		this.idAcao = idAcao;
+	public void setAcao(List<Acao> acao) {
+		this.acao = acao;
 	}
 }

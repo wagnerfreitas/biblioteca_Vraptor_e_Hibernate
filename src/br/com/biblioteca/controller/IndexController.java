@@ -31,8 +31,8 @@ public class IndexController {
 			result.include("null", null);
 		} else {
 			List<Acao> acoes = acaoDAO.acoes();
-			result.include("acoes", acoes);
-			result.include("usuario", adminSession.getUsuario().getNome());
+			result.include("acoes", acoes)
+				.include("usuario", adminSession.getUsuario().getNome());
 		}
 	}
 }

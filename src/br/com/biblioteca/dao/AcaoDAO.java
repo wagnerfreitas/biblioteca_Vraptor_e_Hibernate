@@ -8,5 +8,5 @@ public interface AcaoDAO {
 	
 	public void novo(Acao acao);
 	public List<Acao> acoes();
-	public List<Acao> pesquisaAcoesPorId(Long id);
+	public Acao pesquisaAcoesPorId(Long id);
 }
