@@ -14,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.LivroController;
 import br.com.biblioteca.controller.helper.AuditoriaHelper;
+import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
+import br.com.biblioteca.controller.helper.NovoEmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
@@ -37,6 +39,10 @@ public class LivroControllerTest {
 	private UsuarioSession usuarioSession;
 	@Mock
 	private AuditoriaHelper auditoriaHelper;
+	@Mock
+	private NovoEmprestimoHelper novoEmprestimoHelper;
+	@Mock
+	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
 
 	private static final long CODIGO_LIVRO = 1L;
 	private Result result;
@@ -52,7 +58,7 @@ public class LivroControllerTest {
 	public LivroControllerTest() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.livroController = new LivroController(result, livroDAO, emprestimoDAO, usuarioDAO, usuarioSession, auditoriaHelper);
+		this.livroController = new LivroController(result, livroDAO, novoEmprestimoHelper, usuarioSession, finalizarEmprestimoHelper, auditoriaHelper);
 	}
 	
 	@Test
@@ -268,7 +274,7 @@ public class LivroControllerTest {
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
-		assertEquals("Erro na pesquisa", result.included().get("message"));
+		assertEquals("Erro ao emprestar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -286,7 +292,7 @@ public class LivroControllerTest {
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
-		assertEquals("Erro ao pesquisar", result.included().get("message"));
+		assertEquals("Erro ao emprestar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -301,12 +307,11 @@ public class LivroControllerTest {
 		
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
-		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
-		when(livroDAO.pesquisarLivroPorId(livro.getId())).thenReturn(livro);
+		when(novoEmprestimoHelper.novoEmprestimo(usuario.getId(), livro.getId(), dataDeEmprestimo)).thenReturn(true);
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
-		assertEquals("\"" + livro.getNome() + "\" emprestado com sucesso", result.included().get("message"));
+		assertEquals("\"Livro\" emprestado com sucesso", result.included().get("message"));
 	}
 	
 	@Test
@@ -542,7 +547,7 @@ public class LivroControllerTest {
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Erro ao pesquisar livro emprestado", result.included().get("message"));
+		assertEquals("Erro ao deletar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -564,7 +569,7 @@ public class LivroControllerTest {
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Erro ao devolver livro", result.included().get("message"));
+		assertEquals("Erro ao deletar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -582,10 +587,11 @@ public class LivroControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
+		when(finalizarEmprestimoHelper.finalizarEmprestimo(livro.getId(), dataDeDevolucao)).thenReturn(true);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("\"" + livro.getNome() + "\" devolvido(a) com sucesso", result.included().get("message"));
+		assertEquals("\"Livro\" devolvido com sucesso", result.included().get("message"));
 	}
 	
 	@Test
@@ -605,7 +611,7 @@ public class LivroControllerTest {
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Erro/Livro", result.included().get("message"));
+		assertEquals("Erro ao deletar livro", result.included().get("message"));
 	}
 	
 	public void queEuTenhoUmaListaDeCodigosDeLivros() {

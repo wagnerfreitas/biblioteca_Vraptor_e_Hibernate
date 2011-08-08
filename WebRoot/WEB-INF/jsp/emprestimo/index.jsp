@@ -47,7 +47,6 @@
 								- ${emprestimo.usuario.nome}
 							</td>
 							<td>
-								${emprestimo.id}
 								${emprestimo.livro.nome}
 							</td>
 							<td align="center">

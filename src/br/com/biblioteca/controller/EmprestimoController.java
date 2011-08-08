@@ -56,7 +56,7 @@ public class EmprestimoController {
 			if (finalizarEmprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
 				message = "\"Livro\" devolvido com sucesso";
 			} else {
-				message = "Erro ao deletar livro";
+				message = "Erro ao devolver livro";
 			} 
 		}
 		result.include("message", message)

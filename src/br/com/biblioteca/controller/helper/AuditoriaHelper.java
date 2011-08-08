@@ -20,12 +20,16 @@ public class AuditoriaHelper {
 	}
 	
 	public void auditoria(String entidade, String acao, Date data) {
-		auditoria = new Auditoria();
-		auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-		auditoria.setAcao(acao);
-		auditoria.setData(data);
-		auditoria.setEntidade(entidade);
-		
-		auditoriaDAO.salva(auditoria);
+		try {
+			auditoria = new Auditoria();
+			auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
+			auditoria.setAcao(acao);
+			auditoria.setData(data);
+			auditoria.setEntidade(entidade);
+			
+			auditoriaDAO.salva(auditoria);
+		} catch (Exception e) {
+			throw new RuntimeException("Erro");
+		}
 	}
 }

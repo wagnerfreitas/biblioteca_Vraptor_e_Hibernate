@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.EmprestimoController;
-import br.com.biblioteca.controller.helper.AuditoriaHelper;
+import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
@@ -34,7 +34,7 @@ public class EmprestimoControllerTest {
 	@Mock 
 	private UsuarioSession usuarioSession;
 	@Mock
-	private AuditoriaHelper auditoriaHelper;
+	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
 
 	private Result result;
 	private EmprestimoController emprestimoController;
@@ -50,7 +50,7 @@ public class EmprestimoControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, usuarioSession, auditoriaHelper);
+		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, usuarioSession, finalizarEmprestimoHelper);
 	}
 	
 	@Test
@@ -118,7 +118,7 @@ public class EmprestimoControllerTest {
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Erro ao pesquisar empréstimo", result.included().get("message"));
+		assertEquals("Erro ao devolver livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -154,7 +154,7 @@ public class EmprestimoControllerTest {
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Erro/Livro", result.included().get("message"));
+		assertEquals("Erro ao devolver livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -168,10 +168,11 @@ public class EmprestimoControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
+		when(finalizarEmprestimoHelper.finalizarEmprestimo(1L, dataDeDevolucao)).thenReturn(true);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("\"" + livro.getNome() + "\" devolvido com sucesso", result.included().get("message"));
+		assertEquals("\"Livro\" devolvido com sucesso", result.included().get("message"));
 	}
 	
 	public void queEuTenhoUmaAuditoria() {
