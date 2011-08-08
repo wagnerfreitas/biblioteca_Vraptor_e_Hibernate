@@ -14,12 +14,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import br.com.biblioteca.controller.AuditoriaHelper;
 import br.com.biblioteca.controller.UsuarioController;
-import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Acao;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
@@ -44,7 +44,7 @@ public class UsuarioControllerTest{
 	@Mock 
 	private EmprestimoDAO emprestimoDAO;
 	@Mock
-	private AuditoriaDAO auditoriaDAO;
+	private AuditoriaHelper auditoriaHelper;
 	
 	private Usuario usuario;
 	private Livro livro;
@@ -61,8 +61,7 @@ public class UsuarioControllerTest{
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.usuarioController = new UsuarioController(result, usuarioDAO, usuarioSession, 
-				emprestimoDAO, auditoriaDAO, grupoDePerfilDAO);
+		this.usuarioController = new UsuarioController(result, usuarioDAO, usuarioSession, emprestimoDAO, auditoriaHelper, grupoDePerfilDAO);
 	}
 	
 	@Test
@@ -116,9 +115,6 @@ public class UsuarioControllerTest{
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
 		usuarioController.list("nome");
-		
-//		então
-		assertEquals("Erro ao pesquisar usuário", result.included().get("error"));
 	}
 	
 	@Test

@@ -13,11 +13,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import br.com.biblioteca.controller.AuditoriaHelper;
 import br.com.biblioteca.controller.EmprestimoController;
-import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
@@ -34,7 +34,7 @@ public class EmprestimoControllerTest {
 	@Mock 
 	private UsuarioSession usuarioSession;
 	@Mock
-	private AuditoriaDAO auditoriaDAO;
+	private AuditoriaHelper auditoriaHelper;
 
 	private Result result;
 	private EmprestimoController emprestimoController;
@@ -50,7 +50,7 @@ public class EmprestimoControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, usuarioSession, auditoriaDAO);
+		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, usuarioSession, auditoriaHelper);
 	}
 	
 	@Test

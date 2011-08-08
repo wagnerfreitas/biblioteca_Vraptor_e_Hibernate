@@ -12,12 +12,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import br.com.biblioteca.controller.AuditoriaHelper;
 import br.com.biblioteca.controller.LivroController;
-import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
@@ -36,7 +36,7 @@ public class LivroControllerTest {
 	@Mock
 	private UsuarioSession usuarioSession;
 	@Mock
-	private AuditoriaDAO auditoriaDAO;
+	private AuditoriaHelper auditoriaHelper;
 
 	private static final long CODIGO_LIVRO = 1L;
 	private Result result;
@@ -52,7 +52,7 @@ public class LivroControllerTest {
 	public LivroControllerTest() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.livroController = new LivroController(result, livroDAO, emprestimoDAO, usuarioDAO, usuarioSession, auditoriaDAO);
+		this.livroController = new LivroController(result, livroDAO, emprestimoDAO, usuarioDAO, usuarioSession, auditoriaHelper);
 	}
 	
 	@Test
