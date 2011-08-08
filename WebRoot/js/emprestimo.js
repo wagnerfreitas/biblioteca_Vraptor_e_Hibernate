@@ -2,8 +2,8 @@ var $formDevolve = $("#formDevolve");
 $(document).ready(function(){
 	$(".devolver").click(function(){
 		turnFormDevolverValid();
-		var valor = $(this).parent().parent().attr("emprestimoId");
-		$("#IdEmprestimo").val(valor); 
+		var valor = $(this).parent().parent().attr("livroId");
+		$("#IdLivro").val(valor); 
 
 		$("#devolverLivro").dialog({
 			modal: true,

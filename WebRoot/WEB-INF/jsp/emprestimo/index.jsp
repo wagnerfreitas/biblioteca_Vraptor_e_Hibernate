@@ -42,11 +42,12 @@
 						<td><strong> - Data de empréstimo - </strong></td>
 					</tr>
 					<c:forEach items="${emprestimos}" var="emprestimo">
-						<tr emprestimoId="${emprestimo.id}">
+						<tr livroId="${emprestimo.livro.id}">
 							<td style="width: 220px">
 								- ${emprestimo.usuario.nome}
 							</td>
 							<td>
+								${emprestimo.id}
 								${emprestimo.livro.nome}
 							</td>
 							<td align="center">
@@ -68,7 +69,7 @@
 				</div>				
 				<div id="devolverLivro">
 					<form method="post" id="formDevolve">
-						<input type="hidden" id="IdEmprestimo" name="id" />
+						<input type="hidden" id="IdLivro" name="id" />
 						<table>
 							<tr>
 								<td>Data de devolução: </td>

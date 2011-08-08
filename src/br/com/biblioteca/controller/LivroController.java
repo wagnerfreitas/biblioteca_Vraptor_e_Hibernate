@@ -6,13 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.biblioteca.controller.helper.AuditoriaHelper;
-import br.com.biblioteca.dao.EmprestimoDAO;
+import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
+import br.com.biblioteca.controller.helper.NovoEmprestimoHelper;
 import br.com.biblioteca.dao.LivroDAO;
-import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
-import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -25,18 +23,18 @@ public class LivroController {
 	
 	private Result result;
 	private LivroDAO livroDAO;
-	private EmprestimoDAO emprestimoDAO;
-	private UsuarioDAO usuarioDAO;
 	private UsuarioSession usuarioSession;
 	private AuditoriaHelper auditoriaHelper;
+	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
+	private NovoEmprestimoHelper novoEmprestimoHelper;
 	
-	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, 
-			UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, AuditoriaHelper auditoriaHelper) {
+	public LivroController(Result result, LivroDAO livroDAO, NovoEmprestimoHelper novoEmprestimoHelper, 
+			UsuarioSession usuarioSession, FinalizarEmprestimoHelper finalizarEmprestimoHelper, AuditoriaHelper auditoriaHelper) {
 		this.result = result;
 		this.livroDAO = livroDAO;
-		this.emprestimoDAO = emprestimoDAO;
-		this.usuarioDAO = usuarioDAO;
+		this.novoEmprestimoHelper = novoEmprestimoHelper;
 		this.usuarioSession = usuarioSession;
+		this.finalizarEmprestimoHelper = finalizarEmprestimoHelper;
 		this.auditoriaHelper = auditoriaHelper;
 	}
 	
@@ -87,27 +85,14 @@ public class LivroController {
 		} else if(dataDeEmprestimo == null || dataDeEmprestimo.equals("")) {
 			message = "Data nula";
 		} else {
-			try {
-				Emprestimo emprestimo = new Emprestimo();
-				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
-				Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
-				livro.setEmprestado(true);
-				
-				emprestimo.setUsuario(usuario);
-				emprestimo.setLivro(livro);
-				emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
-				
-				livroDAO.atualiza(livro);
-				emprestimoDAO.empresta(emprestimo);
-				auditoriaHelper.auditoria(livro.getNome() + " - " + usuario.getNome(), "EMPRESTOU", dataDeEmprestimo);
-				
-				message = "\"" + livro.getNome() + "\" emprestado com sucesso";
-			} catch (Exception e) {
-				message = e.getMessage();
+			if(novoEmprestimoHelper.novoEmprestimo(iDUsuario, idLivro, dataDeEmprestimo)) {
+				message = "\"Livro\" emprestado com sucesso";
+			} else {
+				message = "Erro ao emprestar livro";
 			}
 		}
-		result.include("message", message);
-		result.use(json()).from(message, "message").serialize();
+		result.include("message", message)
+			.use(json()).from(message, "message").serialize();
 	}
 	
 	@Put @Post
@@ -171,24 +156,13 @@ public class LivroController {
 		} else if (dataDeDevolucao == null) {
 			message = "Date de devolução nula";
 		} else {
-			try {
-				Emprestimo emprestimo = emprestimoDAO.procuraPorIdLivro(id);
-				Livro livro = emprestimo.getLivro();
-				Usuario usuario = emprestimo.getUsuario();
-				
-				emprestimo.setDataDeDevolucao(dataDeDevolucao);
-				livro.setEmprestado(false);
-				
-				emprestimoDAO.atualiza(emprestimo);
-				livroDAO.atualiza(livro);
-				auditoriaHelper.auditoria(usuario.getNome() + " - " + livro.getNome(), "DEVOLVEU", dataDeDevolucao);
-				
-				message = "\"" + livro.getNome() + "\" devolvido(a) com sucesso";
-			} catch (Exception e) {
-				message = e.getMessage();
-			}
+			if(finalizarEmprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
+				message = "\"Livro\" devolvido com sucesso";
+			} else {
+				message = "Erro ao deletar livro";
+			} 
 		}
-		result.include("message", message);
-		result.use(json()).from(message, "message").serialize();
+		result.include("message", message)
+			.use(json()).from(message, "message").serialize();
 	}   
 }

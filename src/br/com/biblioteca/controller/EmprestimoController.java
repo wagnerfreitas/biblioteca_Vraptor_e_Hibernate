@@ -5,13 +5,10 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.controller.helper.AuditoriaHelper;
+import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
-import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Emprestimo;
-import br.com.biblioteca.entidades.Livro;
-import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -23,17 +20,15 @@ public class EmprestimoController {
 	
 	private Result result;
 	private EmprestimoDAO emprestimoDAO;
-	private LivroDAO livroDAO;
 	private UsuarioSession usuarioSession;
-	private AuditoriaHelper auditoriaHelper;
+	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
 	
-	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, 
-			UsuarioSession usuarioSession, AuditoriaHelper auditoriaHelper){
+	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO,
+			UsuarioSession usuarioSession,  FinalizarEmprestimoHelper finalizarEmprestimoHelper){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
-		this.livroDAO = livroDAO;
 		this.usuarioSession = usuarioSession;
-		this.auditoriaHelper = auditoriaHelper;
+		this.finalizarEmprestimoHelper = finalizarEmprestimoHelper;
 	}
 	@Get
 	@Path("/emprestimos") 
@@ -58,22 +53,11 @@ public class EmprestimoController {
 		} else if (dataDeDevolucao == null) {
 			message = "Data de devolução nula";
 		} else {
-			try {
-				Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
-				Livro livro = emprestimo.getLivro();
-				Usuario usuario = emprestimo.getUsuario();
-
-				emprestimo.setDataDeDevolucao(dataDeDevolucao);
-				livro.setEmprestado(false);
-				
-				auditoriaHelper.auditoria(usuario.getNome() + " - " + livro.getNome(), "DEVOLVEU", dataDeDevolucao);
-				emprestimoDAO.atualiza(emprestimo);
-				livroDAO.atualiza(livro);
-				
-				message = "\"" + livro.getNome() + "\" devolvido com sucesso";
-			} catch (Exception e) {
-				message = e.getMessage();
-			}
+			if (finalizarEmprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
+				message = "\"Livro\" devolvido com sucesso";
+			} else {
+				message = "Erro ao deletar livro";
+			} 
 		}
 		result.include("message", message)
 			.use(json()).from(message, "message").serialize();
