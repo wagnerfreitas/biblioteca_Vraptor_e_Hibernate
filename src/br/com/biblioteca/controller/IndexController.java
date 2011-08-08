@@ -26,12 +26,16 @@ public class IndexController {
 	@Get
 	@Path("/")
 	public void index() {
-		if(usuarioSession.getUsuario() == null) {
-			result.redirectTo(LoginController.class).login();
-		} else {
-			List<Acao> acoes = acaoDAO.acoes();
-			result.include("acoes", acoes)
+		try {
+			if(usuarioSession.getUsuario() == null) {
+				result.redirectTo(LoginController.class).login();
+			} else {
+				List<Acao> acoes = acaoDAO.acoes();
+				result.include("acoes", acoes)
 				.include("usuario", usuarioSession.getUsuario().getNome());
+			}
+		} catch (Exception e) {
+			result.forwardTo(this).index();
 		}
 	}
 }

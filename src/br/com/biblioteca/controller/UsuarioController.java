@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.biblioteca.controller.helper.AuditoriaHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.dao.UsuarioDAO;

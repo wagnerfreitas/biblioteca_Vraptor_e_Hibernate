@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.biblioteca.controller.AuditoriaHelper;
 import br.com.biblioteca.controller.LivroController;
+import br.com.biblioteca.controller.helper.AuditoriaHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;

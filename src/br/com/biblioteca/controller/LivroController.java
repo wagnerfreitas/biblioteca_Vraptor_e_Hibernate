@@ -5,6 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
+import br.com.biblioteca.controller.helper.AuditoriaHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
