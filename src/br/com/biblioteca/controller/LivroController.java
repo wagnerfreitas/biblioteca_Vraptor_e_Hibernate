@@ -5,7 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
@@ -28,17 +28,17 @@ public class LivroController {
 	private LivroDAO livroDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioDAO usuarioDAO;
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	private AuditoriaDAO auditoriaDAO;
 	private Auditoria auditoria;
 	
 	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, 
-			UsuarioDAO usuarioDAO, AdminSession adminSession, AuditoriaDAO auditoriaDAO) {
+			UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, AuditoriaDAO auditoriaDAO) {
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioDAO = usuarioDAO;
-		this.adminSession = adminSession;
+		this.usuarioSession = usuarioSession;
 		this.auditoriaDAO = auditoriaDAO;
 	}
 	
@@ -49,7 +49,7 @@ public class LivroController {
 			List<Livro> livros = livroDAO.pesquisa(nome);
 			result.include("livros", livros)
 				.include("nome", nome)
-				.include("usuario", adminSession.getUsuario().getNome());
+				.include("usuario", usuarioSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());	
 		}
@@ -69,7 +69,7 @@ public class LivroController {
 		String message;
 		try {
 			auditoria = new Auditoria();
-			auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+			auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 			auditoria.setEntidade(livro.getNome());
 			auditoria.setAcao("ADICIONOU");
 			auditoria.setData(new Date());
@@ -102,7 +102,7 @@ public class LivroController {
 				Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
 				livro.setEmprestado(true);
 				
-				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 				auditoria.setEntidade(livro.getNome() + " - " + usuario.getNome());
 				auditoria.setAcao("EMPRESTOU");
 				auditoria.setData(dataDeEmprestimo);
@@ -138,7 +138,7 @@ public class LivroController {
 		} else {
 			try {
 				auditoria = new Auditoria();	
-				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 				auditoria.setEntidade(livro.getNome());
 				auditoria.setAcao("ATUALIZOU");
 				auditoria.setData(new Date());
@@ -169,7 +169,7 @@ public class LivroController {
 					livro.setLivroDeletado(true);
 					
 					auditoria = new Auditoria();	
-					auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+					auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 					auditoria.setEntidade(livro.getNome());
 					auditoria.setAcao("DELETOU");
 					auditoria.setData(new Date());
@@ -204,7 +204,7 @@ public class LivroController {
 				livro.setEmprestado(false);
 				
 				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome() + " - " + livro.getNome());
 				auditoria.setAcao("DEVOLVEU");
 				auditoria.setData(dataDeDevolucao);

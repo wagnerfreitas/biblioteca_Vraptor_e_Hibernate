@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
@@ -27,16 +27,16 @@ public class UsuarioController {
 	private Result result;
 	private UsuarioDAO usuarioDAO;
 	private EmprestimoDAO emprestimoDAO;
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	private AuditoriaDAO auditoriaDAO;
 	private Auditoria auditoria;
 	private GrupoDePerfilDAO grupoDePerfilDAO;
 	
-	public UsuarioController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession, 
+	public UsuarioController(Result result, UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, 
 			EmprestimoDAO emprestimoDAO, AuditoriaDAO auditoriaDAO, GrupoDePerfilDAO grupoDePerfilDAO){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
-		this.adminSession = adminSession;
+		this.usuarioSession = usuarioSession;
 		this.emprestimoDAO = emprestimoDAO;
 		this.auditoriaDAO = auditoriaDAO;
 		this.grupoDePerfilDAO = grupoDePerfilDAO;
@@ -49,7 +49,7 @@ public class UsuarioController {
 			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 			result.include("usuarios", usuarios)
 				.include("nome", nome)
-				.include("usuario", adminSession.getUsuario().getNome());
+				.include("usuario", usuarioSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}
@@ -90,7 +90,7 @@ public class UsuarioController {
 			usuarioDAO.adiciona(usuario);
 			
 			auditoria = new Auditoria();
-			auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+			auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 			auditoria.setEntidade(usuario.getNome());
 			auditoria.setAcao("ADICIONOU");
 			auditoria.setData(new Date());
@@ -124,7 +124,7 @@ public class UsuarioController {
 				
 				auditoria = new Auditoria();
 				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome());
 				auditoria.setAcao("ATUALIZOU");
 				auditoria.setData(new Date());
@@ -156,7 +156,7 @@ public class UsuarioController {
 				usuario.setAtivo(false);
 				
 				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome());
 				auditoria.setAcao("DELETOU");
 				auditoria.setData(new Date());

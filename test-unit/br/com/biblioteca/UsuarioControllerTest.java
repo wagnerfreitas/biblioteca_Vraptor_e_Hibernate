@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.UsuarioController;
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
@@ -38,7 +38,7 @@ public class UsuarioControllerTest{
 	@Mock
 	private GrupoDePerfilDAO grupoDePerfilDAO;
 	@Mock 
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	@Mock 
 	private UsuarioDAO usuarioDAO;
 	@Mock 
@@ -61,7 +61,7 @@ public class UsuarioControllerTest{
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.usuarioController = new UsuarioController(result, usuarioDAO, adminSession, 
+		this.usuarioController = new UsuarioController(result, usuarioDAO, usuarioSession, 
 				emprestimoDAO, auditoriaDAO, grupoDePerfilDAO);
 	}
 	
@@ -71,7 +71,7 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 		usuarioController.index("nome");
 
@@ -85,7 +85,7 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
 		usuarioController.index("nome");
 		
@@ -99,7 +99,7 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa("nome")).thenReturn(new ArrayList<Usuario>());
 		
 //		então
@@ -113,7 +113,7 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar usuário")).when(usuarioDAO).pesquisa("nome");
 		usuarioController.list("nome");
 		
@@ -155,7 +155,7 @@ public class UsuarioControllerTest{
 		usuario.setNome(null);
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(1L,usuario);
@@ -175,7 +175,7 @@ public class UsuarioControllerTest{
 		
 //		quando
 		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -194,7 +194,7 @@ public class UsuarioControllerTest{
 
 //		quando
 		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Nome nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -213,7 +213,7 @@ public class UsuarioControllerTest{
 		
 //		quando
 		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Email nulo")).when(usuarioDAO).adiciona(usuario);
 		
 //		entao
@@ -231,7 +231,7 @@ public class UsuarioControllerTest{
 		
 //		quando
 		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("\"" + usuario.getNome() + "\" já está cadastrado")).when(usuarioDAO).adiciona(usuario);
 		usuarioController.novo(1L, usuario);
 		
@@ -250,7 +250,7 @@ public class UsuarioControllerTest{
 		
 //		quando
 		when(grupoDePerfilDAO.pesquisaPorId(1L)).thenReturn(grupoDeAcesso);
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisa(usuario.getNome())).thenReturn(usuarios);
 		usuarioController.novo(1L, usuario);
 		
@@ -323,7 +323,7 @@ public class UsuarioControllerTest{
 		usuario.setNome("Nome Atualizado");
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
 		
@@ -338,7 +338,7 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro/Usuario")).when(usuarioDAO).atualiza(usuario);
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
@@ -376,7 +376,7 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
 		

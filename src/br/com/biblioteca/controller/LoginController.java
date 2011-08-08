@@ -1,7 +1,7 @@
 package br.com.biblioteca.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
@@ -14,18 +14,18 @@ import br.com.caelum.vraptor.Result;
 public class LoginController {
 	private Result result;
 	private UsuarioDAO usuarioDAO;
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	
-	public LoginController(Result result, UsuarioDAO usuarioDAO, AdminSession adminSession){
+	public LoginController(Result result, UsuarioDAO usuarioDAO, UsuarioSession usuarioSession){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
-		this.adminSession = adminSession;
+		this.usuarioSession = usuarioSession;
 	}
 	
 	@Get
 	@Path("/login")
 	public void login(){
-		if(adminSession.getUsuario() != null){
+		if(usuarioSession.getUsuario() != null){
 			result.redirectTo(IndexController.class).index();
 		}
 	}
@@ -36,7 +36,7 @@ public class LoginController {
 		try {
 			Usuario usuarioLogado = usuarioDAO.login(nome, senha);
 			if(usuarioLogado != null){
-				adminSession.setUsuario(usuarioLogado);
+				usuarioSession.setUsuario(usuarioLogado);
 				result.redirectTo(IndexController.class).index();
 			} else {
 				result.redirectTo(this).erro();
@@ -50,7 +50,7 @@ public class LoginController {
 	@Get
 	@Path("/logout")
 	public void logout(){
-		adminSession.setUsuario(null);
+		usuarioSession.setUsuario(null);
 		result.redirectTo(this).login();
 	}
 	

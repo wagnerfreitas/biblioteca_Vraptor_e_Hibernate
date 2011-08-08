@@ -5,7 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
@@ -25,15 +25,15 @@ public class EmprestimoController {
 	private Result result;
 	private EmprestimoDAO emprestimoDAO;
 	private LivroDAO livroDAO;
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	private AuditoriaDAO auditoriaDAO;
 	private Auditoria auditoria;
 	
-	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, AdminSession adminSession, AuditoriaDAO auditoriaDAO){
+	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioSession usuarioSession, AuditoriaDAO auditoriaDAO){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.livroDAO = livroDAO;
-		this.adminSession = adminSession;
+		this.usuarioSession = usuarioSession;
 		this.auditoriaDAO = auditoriaDAO;
 	}
 	@Get
@@ -44,7 +44,7 @@ public class EmprestimoController {
 			result.include("emprestimos", emprestimos)
 				.include("nomeDoLivro", nomeDoLivro)
 				.include("ordenarPor", ordenarPor)
-				.include("usuario", adminSession.getUsuario().getNome());
+				.include("usuario", usuarioSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}
@@ -68,7 +68,7 @@ public class EmprestimoController {
 				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				livro.setEmprestado(false);
 				
-				auditoria.setUsuarioLogado(adminSession.getUsuario().getNome());
+				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
 				auditoria.setEntidade(usuario.getNome() + " - " + livro.getNome());
 				auditoria.setAcao("DEVOLVEU");
 				auditoria.setData(dataDeDevolucao);

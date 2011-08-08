@@ -3,7 +3,7 @@ package br.com.biblioteca.controller;
 import java.util.List;
 
 import br.com.biblioteca.dao.AcaoDAO;
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Acao;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -14,24 +14,24 @@ import br.com.caelum.vraptor.Result;
 public class IndexController {
 
 	private Result result;
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	private AcaoDAO acaoDAO;
 	
-	public IndexController(Result result, AdminSession adminSession, AcaoDAO acaoDAO){
+	public IndexController(Result result, UsuarioSession usuarioSession, AcaoDAO acaoDAO){
 		this.result = result;
-		this.adminSession = adminSession;
+		this.usuarioSession = usuarioSession;
 		this.acaoDAO = acaoDAO;
 	}
 
 	@Get
 	@Path("/")
 	public void index() {
-		if(adminSession.getUsuario() == null) {
+		if(usuarioSession.getUsuario() == null) {
 			result.redirectTo(LoginController.class).login();
 		} else {
 			List<Acao> acoes = acaoDAO.acoes();
 			result.include("acoes", acoes)
-				.include("usuario", adminSession.getUsuario().getNome());
+				.include("usuario", usuarioSession.getUsuario().getNome());
 		}
 	}
 }

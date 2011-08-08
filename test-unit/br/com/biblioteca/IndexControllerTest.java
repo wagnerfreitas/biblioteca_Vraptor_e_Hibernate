@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.IndexController;
 import br.com.biblioteca.dao.AcaoDAO;
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -24,13 +24,13 @@ public class IndexControllerTest {
 	@Mock
 	private AcaoDAO acaoDAO; 
 	@Mock
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.indexController = new IndexController(result, adminSession, acaoDAO);
+		this.indexController = new IndexController(result, usuarioSession, acaoDAO);
 	}
 	
 	@Test
@@ -39,17 +39,17 @@ public class IndexControllerTest {
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		indexController.index();
 		
 //		então
-		assertEquals(adminSession.getUsuario().getNome(), result.included().get("usuario"));
+		assertEquals(usuarioSession.getUsuario().getNome(), result.included().get("usuario"));
 	}
 	
 	@Test
 	public void usuarioDeslogado() {
 //		quando
-		when(adminSession.getUsuario()).thenReturn(null);
+		when(usuarioSession.getUsuario()).thenReturn(null);
 		indexController.index();
 	}
 	

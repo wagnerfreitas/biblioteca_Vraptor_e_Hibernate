@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.LoginController;
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
@@ -25,13 +25,13 @@ public class LoginControllerTest {
 	@Mock
 	private UsuarioDAO usuarioDAO;
 	@Mock
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.loginController = new LoginController(result, usuarioDAO, adminSession);
+		this.loginController = new LoginController(result, usuarioDAO, usuarioSession);
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ public class LoginControllerTest {
 		queEuTenhoUmUsuario();
 
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		loginController.login();
 	}
 	
@@ -51,7 +51,7 @@ public class LoginControllerTest {
 		
 //		quando
 		when(usuarioDAO.login(usuario.getNome(), usuario.getSenha())).thenReturn(usuario);
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		loginController.login(usuario.getNome(), usuario.getSenha());
 	}
 	
@@ -82,7 +82,7 @@ public class LoginControllerTest {
 		queEuTenhoUmUsuario();
 
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		loginController.logout();
 	}
 	

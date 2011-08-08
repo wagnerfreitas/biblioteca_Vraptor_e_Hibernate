@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.EmprestimoController;
-import br.com.biblioteca.dao.AdminSession;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
@@ -32,7 +32,7 @@ public class EmprestimoControllerTest {
 	@Mock
 	private LivroDAO livroDAO;
 	@Mock 
-	private AdminSession adminSession;
+	private UsuarioSession usuarioSession;
 	@Mock
 	private AuditoriaDAO auditoriaDAO;
 
@@ -50,7 +50,7 @@ public class EmprestimoControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, adminSession, auditoriaDAO);
+		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, livroDAO, usuarioSession, auditoriaDAO);
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ public class EmprestimoControllerTest {
 		queEuTenhoUmUsuario();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.pesquisarEmprestimo(livro.getNome(), "")).thenReturn(emprestimos);
 		emprestimoController.index("", livro.getNome());
 		
@@ -130,7 +130,7 @@ public class EmprestimoControllerTest {
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro ao devolver livro")).when(emprestimoDAO).atualiza(emprestimo);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
@@ -148,7 +148,7 @@ public class EmprestimoControllerTest {
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
@@ -166,7 +166,7 @@ public class EmprestimoControllerTest {
 		queEuTenhoUmaDataDeDevolucao();
 		
 //		quando
-		when(adminSession.getUsuario()).thenReturn(usuario);
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
