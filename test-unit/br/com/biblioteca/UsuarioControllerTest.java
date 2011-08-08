@@ -404,7 +404,7 @@ public class UsuarioControllerTest{
 	public void queEuTenhoUmGrupoDePerfil() {
 		queEuTenhoUmListaDeAcoes();
 		grupoDeAcesso = new GrupoDePerfil();
-		grupoDeAcesso.setAcao(grupoDeAcao);
+		grupoDeAcesso.setAcoes(grupoDeAcao);
 		grupoDeAcesso.setNome("Grupo");
 		grupoDeAcesso.setId(1L);
 	}

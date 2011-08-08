@@ -17,7 +17,7 @@
 		<form id="formLogin" method="post">
 			<p><label for="nome" class="labelNome">Nome: </label><input type="text" name="nome" id="nome" /></p>
 			<p><label for="senha" class="labelSenha">Senha: </label><input type="password" name="senha" id="senha" /></p>
-			<h6><input type="button" id="loginEnviar" value="Logar" /></h6>
+			<h1><input type="button" id="loginEnviar" value="Logar" /></h1>
 		</form>
 	</div>
 	</body>

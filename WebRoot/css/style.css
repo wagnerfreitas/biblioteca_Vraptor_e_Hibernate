@@ -30,7 +30,7 @@ button { width: 100px; background: #ddd }
 			background: -ms-linear-gradient(top, #c9c9c9 0%,#f0f0f0 3%,#ffffff 100%); /* IE10+ */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 			background: linear-gradient(top, #c9c9c9 0%,#f0f0f0 3%,#ffffff 100%); /* W3C */ }
-#formLogin { padding: 15px; width: 200px; text-align: right; }
+#formLogin { padding: 12px; width: 210px; text-align: right; }
 #formLogin p { height: 36px; }
 #formLogin h6 { text-align: right; }
 #formLogin .labelNome, .labelSenha{ display: inline; }

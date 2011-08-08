@@ -14,7 +14,7 @@ public class GrupoDePerfil {
 	private Long id;
 	private String nome;
 	@ManyToMany
-	private List<Acao> acao;
+	private List<Acao> acoes;
 	
 	public Long getId() {
 		return id;
@@ -28,10 +28,10 @@ public class GrupoDePerfil {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Acao> getAcao() {
-		return acao;
+	public List<Acao> getAcoes() {
+		return acoes;
 	}
-	public void setAcao(List<Acao> acao) {
-		this.acao = acao;
+	public void setAcoes(List<Acao> acoes) {
+		this.acoes = acoes;
 	}
 }

@@ -5,11 +5,9 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
-import br.com.biblioteca.entidades.Auditoria;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
@@ -26,15 +24,15 @@ public class EmprestimoController {
 	private EmprestimoDAO emprestimoDAO;
 	private LivroDAO livroDAO;
 	private UsuarioSession usuarioSession;
-	private AuditoriaDAO auditoriaDAO;
-	private Auditoria auditoria;
+	private AuditoriaHelper auditoriaHelper;
 	
-	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, UsuarioSession usuarioSession, AuditoriaDAO auditoriaDAO){
+	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO, LivroDAO livroDAO, 
+			UsuarioSession usuarioSession, AuditoriaHelper auditoriaHelper){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.livroDAO = livroDAO;
 		this.usuarioSession = usuarioSession;
-		this.auditoriaDAO = auditoriaDAO;
+		this.auditoriaHelper = auditoriaHelper;
 	}
 	@Get
 	@Path("/emprestimos") 
@@ -60,7 +58,6 @@ public class EmprestimoController {
 			message = "Data de devolução nula";
 		} else {
 			try {
-				auditoria = new Auditoria();
 				Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
 				Livro livro = emprestimo.getLivro();
 				Usuario usuario = emprestimo.getUsuario();
@@ -68,14 +65,9 @@ public class EmprestimoController {
 				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				livro.setEmprestado(false);
 				
-				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-				auditoria.setEntidade(usuario.getNome() + " - " + livro.getNome());
-				auditoria.setAcao("DEVOLVEU");
-				auditoria.setData(dataDeDevolucao);
-				
+				auditoriaHelper.auditoria(usuario.getNome() + " - " + livro.getNome(), "DEVOLVEU", dataDeDevolucao);
 				emprestimoDAO.atualiza(emprestimo);
 				livroDAO.atualiza(livro);
-				auditoriaDAO.salva(auditoria);
 				
 				message = "\"" + livro.getNome() + "\" devolvido com sucesso";
 			} catch (Exception e) {

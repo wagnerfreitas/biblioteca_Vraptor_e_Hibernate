@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entidades.Auditoria;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.GrupoDePerfil;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
@@ -28,18 +26,17 @@ public class UsuarioController {
 	private UsuarioDAO usuarioDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioSession usuarioSession;
-	private AuditoriaDAO auditoriaDAO;
-	private Auditoria auditoria;
+	private AuditoriaHelper auditoriaHelper;
 	private GrupoDePerfilDAO grupoDePerfilDAO;
 	
 	public UsuarioController(Result result, UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, 
-			EmprestimoDAO emprestimoDAO, AuditoriaDAO auditoriaDAO, GrupoDePerfilDAO grupoDePerfilDAO){
+			EmprestimoDAO emprestimoDAO, AuditoriaHelper auditoriaHelper, GrupoDePerfilDAO grupoDePerfilDAO){
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
 		this.usuarioSession = usuarioSession;
 		this.emprestimoDAO = emprestimoDAO;
-		this.auditoriaDAO = auditoriaDAO;
 		this.grupoDePerfilDAO = grupoDePerfilDAO;
+		this.auditoriaHelper = auditoriaHelper;
 	}
 	
 	@Get
@@ -63,7 +60,7 @@ public class UsuarioController {
 			result.include("usuarios", usuarios);
 			result.use(json()).from(usuarios).serialize();
 		} catch (Exception e) {
-			result.include("error", e.getMessage());
+			result.use(json()).from(e.getMessage()).serialize();
 		}
 	}
 	
@@ -88,14 +85,7 @@ public class UsuarioController {
 			usuario.setGrupoDePerfil(grupoDePerfil);
 			
 			usuarioDAO.adiciona(usuario);
-			
-			auditoria = new Auditoria();
-			auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-			auditoria.setEntidade(usuario.getNome());
-			auditoria.setAcao("ADICIONOU");
-			auditoria.setData(new Date());
-			
-			auditoriaDAO.salva(auditoria);
+			auditoriaHelper.auditoria(usuario.getNome(), "ADICIONOU", new Date());
 			
 			message = "\""+ usuario.getNome() + "\" adicionado com sucesso!";
 		} catch (Exception e) {
@@ -110,28 +100,21 @@ public class UsuarioController {
 //	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
 	public void atualiza(Long id, String nome, String email){
 		String message;
-		if(id == null){
+		if(id == null) {
 			message = "Id do usuário nulo";
 		} else if(nome == null  ||  nome == "") {
 			message = "Nome do usuário nulo";
-		} else if(email == null || email == ""){
+		} else if(email == null || email == "") {
 			message = "Email do usuário nulo";
-		}else{
+		} else {
 			try {
 				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
 				usuario.setNome(nome);
 				usuario.setEmail(email);
-				
-				auditoria = new Auditoria();
-				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-				auditoria.setEntidade(usuario.getNome());
-				auditoria.setAcao("ATUALIZOU");
-				auditoria.setData(new Date());
-				
-				auditoriaDAO.salva(auditoria);
-				
+
 				usuarioDAO.atualiza(usuario);
+				auditoriaHelper.auditoria(usuario.getNome(), "ATUALIZOU", new Date());
+				
 				message = "\"" + usuario.getNome() + "\" atualizado com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();
@@ -150,19 +133,12 @@ public class UsuarioController {
 		
 		for (Long id : idDelete) {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
-			if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0){
+			if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0) {
 				message = "\"" + usuario.getNome() + "\" com empréstimo ativo\n";
-			}else{
+			} else {
 				usuario.setAtivo(false);
-				
-				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-				auditoria.setEntidade(usuario.getNome());
-				auditoria.setAcao("DELETOU");
-				auditoria.setData(new Date());
-				
 				usuarioDAO.atualiza(usuario);
-				auditoriaDAO.salva(auditoria);
+				auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
 				
 				message = "Usuario(s) deletado(s) com sucesso\n";
 			}

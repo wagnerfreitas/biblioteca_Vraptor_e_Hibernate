@@ -29,14 +29,18 @@ public class AcaoDAOImpl implements AcaoDAO{
 			session.save(acao);
 			tx.commit();
 		} catch (Exception e) {
-			throw new RuntimeException("Erro");
+			throw new RuntimeException("Erro ao adicionar ação");
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Acao> acoes() {
-		Criteria criteria = session.createCriteria(Acao.class);
-		return criteria.list();
+		try {
+			Criteria criteria = session.createCriteria(Acao.class);
+			return criteria.list();
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao trazer lista de ações");
+		}
 	}
 	
 	public Acao pesquisaAcoesPorId(Long id) {

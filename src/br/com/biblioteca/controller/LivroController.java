@@ -5,12 +5,10 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.dao.UsuarioSession;
-import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
-import br.com.biblioteca.entidades.Auditoria;
+import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Emprestimo;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
@@ -29,17 +27,16 @@ public class LivroController {
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioDAO usuarioDAO;
 	private UsuarioSession usuarioSession;
-	private AuditoriaDAO auditoriaDAO;
-	private Auditoria auditoria;
+	private AuditoriaHelper auditoriaHelper;
 	
 	public LivroController(Result result, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO, 
-			UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, AuditoriaDAO auditoriaDAO) {
+			UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, AuditoriaHelper auditoriaHelper) {
 		this.result = result;
 		this.livroDAO = livroDAO;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioDAO = usuarioDAO;
 		this.usuarioSession = usuarioSession;
-		this.auditoriaDAO = auditoriaDAO;
+		this.auditoriaHelper = auditoriaHelper;
 	}
 	
 	@Get
@@ -68,14 +65,9 @@ public class LivroController {
 	public void novo(Livro livro) {
 		String message;
 		try {
-			auditoria = new Auditoria();
-			auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-			auditoria.setEntidade(livro.getNome());
-			auditoria.setAcao("ADICIONOU");
-			auditoria.setData(new Date());
-			auditoriaDAO.salva(auditoria);
-			
 			livroDAO.adiciona(livro);
+			auditoriaHelper.auditoria(livro.getNome(), "ADICIONOU", new Date());
+			
 			message = "\"" + livro.getNome() + "\" adicionado com sucesso";
 		} catch (Exception e) {
 			message = e.getMessage();
@@ -95,25 +87,19 @@ public class LivroController {
 			message = "Data nula";
 		} else {
 			try {
-				auditoria = new Auditoria();
 				Emprestimo emprestimo = new Emprestimo();
 				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(iDUsuario);
-				
 				Livro livro = livroDAO.pesquisarLivroPorId(idLivro);
 				livro.setEmprestado(true);
 				
-				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-				auditoria.setEntidade(livro.getNome() + " - " + usuario.getNome());
-				auditoria.setAcao("EMPRESTOU");
-				auditoria.setData(dataDeEmprestimo);
-
 				emprestimo.setUsuario(usuario);
 				emprestimo.setLivro(livro);
 				emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
 				
 				livroDAO.atualiza(livro);
 				emprestimoDAO.empresta(emprestimo);
-				auditoriaDAO.salva(auditoria);
+				auditoriaHelper.auditoria(livro.getNome() + " - " + usuario.getNome(), "EMPRESTOU", dataDeEmprestimo);
+				
 				message = "\"" + livro.getNome() + "\" emprestado com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();
@@ -137,14 +123,9 @@ public class LivroController {
 			message = "Edição nula";
 		} else {
 			try {
-				auditoria = new Auditoria();	
-				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-				auditoria.setEntidade(livro.getNome());
-				auditoria.setAcao("ATUALIZOU");
-				auditoria.setData(new Date());
-				
 				livroDAO.atualiza(livro);
-				auditoriaDAO.salva(auditoria);
+				auditoriaHelper.auditoria(livro.getNome(), "ATUALIZOU", new Date());
+				
 				message =  "\"" + livro.getNome() + "\" atualizado com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();
@@ -163,19 +144,13 @@ public class LivroController {
 		try {
 			for (Long id : IdRemove) {
 				livro = livroDAO.pesquisarLivroPorId(id);
-				if(livro.isEmprestado()){
+				if(livro.isEmprestado()) {
 					message = "\"" + livro.getNome() + "\" está emprestado";
-				}else{
+				} else {
 					livro.setLivroDeletado(true);
-					
-					auditoria = new Auditoria();	
-					auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-					auditoria.setEntidade(livro.getNome());
-					auditoria.setAcao("DELETOU");
-					auditoria.setData(new Date());
-					
-					auditoriaDAO.salva(auditoria);
 					livroDAO.atualiza(livro);
+					auditoriaHelper.auditoria(livro.getNome(), "DELETOU", new Date());
+					
 					message = "Livro(s) deletado(s) com sucesso";
 				}
 			}
@@ -203,15 +178,10 @@ public class LivroController {
 				emprestimo.setDataDeDevolucao(dataDeDevolucao);
 				livro.setEmprestado(false);
 				
-				auditoria = new Auditoria();
-				auditoria.setUsuarioLogado(usuarioSession.getUsuario().getNome());
-				auditoria.setEntidade(usuario.getNome() + " - " + livro.getNome());
-				auditoria.setAcao("DEVOLVEU");
-				auditoria.setData(dataDeDevolucao);
-				
-				auditoriaDAO.salva(auditoria);
 				emprestimoDAO.atualiza(emprestimo);
 				livroDAO.atualiza(livro);
+				auditoriaHelper.auditoria(usuario.getNome() + " - " + livro.getNome(), "DEVOLVEU", dataDeDevolucao);
+				
 				message = "\"" + livro.getNome() + "\" devolvido(a) com sucesso";
 			} catch (Exception e) {
 				message = e.getMessage();

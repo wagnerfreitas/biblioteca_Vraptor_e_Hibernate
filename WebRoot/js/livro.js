@@ -53,7 +53,7 @@ $(document).ready(function(){
 		turnFormAtualizaValid();		
 		var id = $(this).parent().parent().attr("idLivro"),
 			livroEmprestado = $(this).parent().parent().attr("livroEmprestado"),
-			nome = $(this).parent().parent().children(':nth-child(1)').text(),
+			nome = $(this).parent().parent().children(':nth-child(1)').text().trim(),
 		 	autor = $(this).parent().parent().children(':nth-child(2)').text(),
 			edicao = $(this).parent().parent().children(':nth-child(3)').text();
 		$("#idLivro").val(id);

@@ -28,7 +28,7 @@ function turnFormLoginValid(){
 			},
 			'senha':{
 				required: true,
-				minlength: 3
+				minlength: 6
 			}
 		},
 		messages:{
@@ -38,7 +38,7 @@ function turnFormLoginValid(){
 			},
 			'senha':{
 				required: 'Digite sua senha',
-				minlength: 'A senha deve conter no mínimo 3 caracteres'
+				minlength: 'A senha deve conter no mínimo 6 caracteres'
 			}
 		}
 	});

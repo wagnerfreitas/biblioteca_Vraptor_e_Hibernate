@@ -26,13 +26,13 @@ public class GrupoDePerfilController {
 	@Path("grupo/novo")
 	public void novo(String nome, List<Long> id) {
 		GrupoDePerfil grupoDePerfil = new GrupoDePerfil();
-		List<Acao> list = new ArrayList<Acao>();
+		List<Acao> listaDeAcoes = new ArrayList<Acao>();
 		grupoDePerfil.setNome(nome);
 		for (Long idAcao : id) {
 			Acao acao = acaoDAO.pesquisaAcoesPorId(idAcao);
-			list.add(acao);
+			listaDeAcoes.add(acao);
 		}
-		grupoDePerfil.setAcao(list);
+		grupoDePerfil.setAcoes(listaDeAcoes);
 		grupoDePerfilDAO.novo(grupoDePerfil);
 	}
 }
