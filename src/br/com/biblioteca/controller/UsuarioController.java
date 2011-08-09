@@ -12,6 +12,7 @@ import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.GrupoDePerfil;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -31,13 +32,13 @@ public class UsuarioController {
 	private GrupoDePerfilDAO grupoDePerfilDAO;
 	
 	public UsuarioController(Result result, UsuarioDAO usuarioDAO, UsuarioSession usuarioSession, 
-			EmprestimoDAO emprestimoDAO, AuditoriaHelper auditoriaHelper, GrupoDePerfilDAO grupoDePerfilDAO){
+			EmprestimoDAO emprestimoDAO, AuditoriaHelper auditoriaHelper, GrupoDePerfilDAO grupoDePerfilDAO) {
 		this.result = result;
 		this.usuarioDAO = usuarioDAO;
-		this.usuarioSession = usuarioSession;
 		this.emprestimoDAO = emprestimoDAO;
-		this.grupoDePerfilDAO = grupoDePerfilDAO;
+		this.usuarioSession = usuarioSession;
 		this.auditoriaHelper = auditoriaHelper;
+		this.grupoDePerfilDAO = grupoDePerfilDAO;
 	}
 	
 	@Get
@@ -48,6 +49,7 @@ public class UsuarioController {
 			result.include("usuarios", usuarios)
 				.include("nome", nome)
 				.include("usuario", usuarioSession.getUsuario().getNome());
+					
 		} catch (Exception e) {
 			result.include("error", e.getMessage());
 		}
@@ -67,6 +69,7 @@ public class UsuarioController {
 	
 	@Get
 	@Path("/usuario/add")
+	@Permissao({"PERM_ADMIN", "PERM_ADD_USUARIO"})
 	public void novo(){
 		try {
 			List<GrupoDePerfil> grupos = grupoDePerfilDAO.grupos();
@@ -78,7 +81,7 @@ public class UsuarioController {
 	
 	@Post
 	@Path("/usuario/novo")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	@Permissao({"PERM_ADMIN", "PERM_ADD_USUARIO"})
 	public void novo(Long idGrupo, Usuario usuario){
 		String message;
 		try {
@@ -92,13 +95,13 @@ public class UsuarioController {
 		} catch (Exception e) {
 			message = e.getMessage();
 		}
-		result.include("message", message);
-		result.use(json()).from(message, "message").serialize();
+		result.include("message", message)
+			.use(json()).from(message, "message").serialize();
 	}
 	
 	@Put @Post
 	@Path("/usuario/atualiza")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	@Permissao({"PERM_ADMIN", "PERM_ATUALIZAR_USUARIO"})
 	public void atualiza(Long id, String nome, String email){
 		String message;
 		if(id == null) {
@@ -121,31 +124,34 @@ public class UsuarioController {
 				message = e.getMessage();
 			}
 		}
-		result.include("message", message);
-		result.use(json()).from(message, "message").serialize();
+		result.include("message", message)
+			.use(json()).from(message, "message").serialize();
 	}
 	
 	@Post
 	@Path("/usuario/delete")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	@Permissao({"PERM_ADMIN", "PERM_DELETAR_USUARIO"})
 	public void delete(List<Long> idDelete){
 		List<String> messages = new ArrayList<String>();
 		String message = null;
-		
-		for (Long id : idDelete) {
-			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
-			if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0) {
-				message = "\"" + usuario.getNome() + "\" com empréstimo ativo\n";
-			} else {
-				usuario.setAtivo(false);
-				usuarioDAO.atualiza(usuario);
-				auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
-				
-				message = "Usuario(s) deletado(s) com sucesso\n";
+		try {
+			for (Long id : idDelete) {
+				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
+				if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0) {
+					message = "\"" + usuario.getNome() + "\" com empréstimo ativo\n";
+				} else {
+					usuario.setAtivo(false);
+					usuarioDAO.atualiza(usuario);
+					auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
+					
+					message = "Usuario(s) deletado(s) com sucesso\n";
+				}
+				messages.add(message);
 			}
-			messages.add(message);
-		}
-		result.include("message", message);
-		result.use(json()).from(messages, "message").serialize();
+		} catch (Exception e) {
+			message = "Erro";
+		}		
+		result.include("message", message)
+			.use(json()).from(messages, "message").serialize();
 	}
 }

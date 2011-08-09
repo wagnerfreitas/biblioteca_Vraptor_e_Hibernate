@@ -11,6 +11,7 @@ import br.com.biblioteca.controller.helper.NovoEmprestimoHelper;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -53,14 +54,13 @@ public class LivroController {
 	
 	@Get
 	@Path("/livro/add")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	@Permissao({"PERM_ADMIN", "PERM_LIVRO_NOVO"})
 	public void novo(){
 	}
 	
 	@Post
 	@Path("/livro/novo")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
-//	@Permissao({"PERM_LIVRO_NOVO", "PERM_ADMIN"})
+	@Permissao({"PERM_ADMIN", "PERM_ADD_LIVRO"})
 	public void novo(Livro livro) {
 		String message;
 		try {
@@ -77,6 +77,7 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/emprestar")
+	@Permissao({"PERM_ADMIN", "PERM_ALUGAR_LIVRO"})
 	public void emprestar(Long iDUsuario, Long idLivro, Date dataDeEmprestimo){
 		String message;
 		
@@ -97,7 +98,7 @@ public class LivroController {
 	
 	@Put @Post
 	@Path("/livro/atualiza")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	@Permissao({"PERM_ADMIN", "PERM_ATUALIZAR_LIVRO"})
 	public void atualiza(Livro livro){
 		String message;
 		
@@ -123,7 +124,7 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/remove")
-//	@Permissao({TipoDePerfil.MODERADOR, TipoDePerfil.ADMINISTRADOR})
+	@Permissao({"PERM_ADMIN", "PERM_REMOVER_LIVRO"})
 	public void remove(List<Long> IdRemove){
 		Livro livro;
 		String message = null;
@@ -149,6 +150,7 @@ public class LivroController {
 	
 	@Post
 	@Path("livro/devolve")
+	@Permissao({"PERM_ADMIN", "PERM_DEVOLVER_LIVRO"})
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
 		if(id == null){

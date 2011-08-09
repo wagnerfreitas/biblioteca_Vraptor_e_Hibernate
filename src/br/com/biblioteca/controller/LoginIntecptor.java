@@ -3,6 +3,8 @@ package br.com.biblioteca.controller;
 import java.util.Arrays;
 
 import br.com.biblioteca.dao.UsuarioSession;
+import br.com.biblioteca.entidades.Acao;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -30,31 +32,33 @@ public class LoginIntecptor implements Interceptor {
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 		if(usuarioSession.getUsuario() != null || method.getResource().getType().equals(LoginController.class)){
-//			if(isAcessoMetodo(method)) {
+			if(isAcessoMetodo(method)) {
 				stack.next(method, resourceInstance);
-//			} else {
-//				result.redirectTo(LoginController.class).negado();
-//			}			
+			} else {
+				result.redirectTo(LoginController.class).negado();
+			}			
 		} else{
 			result.redirectTo(LoginController.class).login();
 		}
 	}
 	
-//	private boolean isAcessoMetodo(ResourceMethod method) {
-//		Permissao permissaoList = method.getMethod().getAnnotation(Permissao.class);
-//		return isExistePermissao(permissaoList);
-//	}
+	private boolean isAcessoMetodo(ResourceMethod method) {
+		Permissao permissaoList = method.getMethod().getAnnotation(Permissao.class);
+		return isExistePermissao(permissaoList);
+	}
 	
-//	private boolean isExistePermissao(Permissao permissao) {
-//		if(permissao != null) {
-//			for(TipoDePerfil tipoDePerfil : permissao.value()) {
-//				if(tipoDePerfil.equals(adminSession.getUsuario().getTipoDePerfil())) {
-//					return true;
-//				}
-//			}
-//		} else {
-//			return true;
-//		}
-//		return false;
-//	}
+	private boolean isExistePermissao(Permissao permissao) {
+		if(permissao != null) {
+			for(String grupoDePerfil : permissao.value()) {
+				for(Acao acao : usuarioSession.getUsuario().getGrupoDePerfil().getAcoes()) {
+					if(grupoDePerfil.equals(acao.getNome())) {
+						return true;
+					}
+				}
+			}
+		} else {
+			return true;
+		}
+		return false;
+	}
 }

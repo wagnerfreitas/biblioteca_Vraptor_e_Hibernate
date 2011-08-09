@@ -70,7 +70,7 @@
 						<td>Pesquisar empr&eacute;stimos:</td>
 						<td><button id="pesquisarEmprestimo">Pesquisar</button></td>
 						<td class="celulaDivisoria"></td>
-						<td>Adicionar tipo de acesso:</td>
+						<td>Adicionar grupo de acesso:</td>
 						<td><button id="adicionarAcesso">Adicionar</button></td>
 					</tr>	
 											

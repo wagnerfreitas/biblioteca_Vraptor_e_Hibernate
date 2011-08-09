@@ -13,16 +13,15 @@ import br.com.caelum.vraptor.Resource;
 @Resource
 public class NovoEmprestimoHelper {
 	
-	private UsuarioDAO usuarioDAO;
 	private LivroDAO livroDAO;
+	private UsuarioDAO usuarioDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private AuditoriaHelper auditoriaHelper;
 	
 	public NovoEmprestimoHelper(AuditoriaHelper auditoriaHelper, UsuarioDAO usuarioDAO, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO) {
-		this.emprestimoDAO = emprestimoDAO;
+		this.livroDAO = livroDAO;
 		this.usuarioDAO = usuarioDAO;
 		this.emprestimoDAO = emprestimoDAO;
-		this.livroDAO = livroDAO;
 		this.auditoriaHelper = auditoriaHelper;
 	}
 	

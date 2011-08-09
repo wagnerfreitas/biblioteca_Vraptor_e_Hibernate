@@ -32,7 +32,7 @@ public class IndexController {
 			} else {
 				List<Acao> acoes = acaoDAO.acoes();
 				result.include("acoes", acoes)
-				.include("usuario", usuarioSession.getUsuario().getNome());
+					.include("usuario", usuarioSession.getUsuario().getNome());
 			}
 		} catch (Exception e) {
 			result.forwardTo(this).index();
