@@ -1,5 +1,6 @@
 ﻿var $formAtualiza = $("#formAtualiza"),
-	$formDeletar = $("#formDeletar");
+	$formDeletar = $("#formDeletar"),
+	$msgModal = $("#msg-modal");
 
 $(document).ready(function(){
 	$('.idDelete').click(function(e){
@@ -46,9 +47,15 @@ $(document).ready(function(){
 function postarDados(rota, formulario){
 	if(formulario.valid()){
 		$.post(rota, formulario.serialize())
-			.success(function(msg){
-				alert(msg.message);
-				location.reload();
+			.success(function(msg) {
+				$msgModal.html(msg.message).dialog({
+					title: "Mensagem", 
+					buttons: {
+						Ok: function() {
+							location.reload();
+						}
+					}
+				}).prev().find(".ui-dialog-titlebar-close").hide();
 			})
 			.error(function(erro){
 				alert(erro.message);

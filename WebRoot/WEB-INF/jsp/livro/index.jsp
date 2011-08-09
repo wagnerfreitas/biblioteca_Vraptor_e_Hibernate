@@ -156,6 +156,7 @@
 					</form>
 				</div>
 			</div>
+			<div id="msg-modal"></div>
 			<div id="retornoUsuarios"></div>
 			<div id="footer"></div>
 		</div>

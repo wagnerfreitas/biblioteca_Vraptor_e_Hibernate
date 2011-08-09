@@ -18,10 +18,11 @@ $(document).ready(function(){
 							.success(function(msg){
 								$modalMsgs.html(msg.message).dialog({
 									title: "Mensagem",
-									buttons: {Ok: function() {
-										location.reload();
+									buttons: {
+										Ok: function() {
+											location.reload();
 									}}
-								});
+								}).prev().find(".ui-dialog-titlebar-close").hide();
 							})
 							.error(function(erro){
 								alert(erro.mensagem);

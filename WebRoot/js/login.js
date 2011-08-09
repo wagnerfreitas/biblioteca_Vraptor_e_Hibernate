@@ -1,14 +1,34 @@
-var $formLogin = $("#formLogin");
+var $formLogin = $("#formLogin"),
+	$msgModal = $("#msg-modal");
+
 $(document).ready(function(){
 	turnFormLoginValid();
 	$("#loginEnviar").click(function(){
 		if($formLogin.valid()){
 			$.post("login", $formLogin.serialize())
-				.success(function(){
-					location.reload();
+				.success(function(msg) {
+					if(msg.message == "Erro ao efetuar login") {
+						$msgModal.html(msg.message).dialog({
+							title: "Mensagem",
+							buttons: {
+								Ok: function() {
+									$msgModal.dialog("close");
+								}
+							}
+						})
+					} else {
+						location.reload();
+					}
 				})
-				.error(function(msg){
-					alert(msg.message);
+				.error(function(msg) {
+					$msgModal.html(msg.message).dialog({
+						title: "Mensagem",
+						buttons: {
+							Ok: function() {
+								$msgModal.dialog("close");
+							}
+						}
+					})
 				});
 		}
 	});

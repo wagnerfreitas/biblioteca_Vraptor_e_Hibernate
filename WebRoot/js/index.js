@@ -6,7 +6,8 @@ var templates = {},
 	$usuarioNovo,
 	$relatorioDeAuditoria,
 	$formAuditoria,
-	$adicionarGrupoDeAcesso;
+	$adicionarGrupoDeAcesso,
+	$msModal;
 
 $(document).ready(function(){
 	$formUsuario = $('form#Usuario');
@@ -16,6 +17,7 @@ $(document).ready(function(){
 	$relatorioDeAuditoria = $("#relatorioDeAuditoria");
 	$formAuditoria = $("form#formAuditoria");
 	$adicionarGrupoDeAcesso = $("#adicionarGrupoDeAcesso");
+	$msModal = $("#msg-modal");
 	
 	$("#pesquisarUsuario").click(function(){
 		exibirFormDialog($formUsuario, "Pesquisar usuário", 470)
@@ -105,15 +107,22 @@ displayAddForm = function(data){
 	var buttons = {
 		Enviar: function(){
 			if ($form.valid()){
-				console.log( $form.serialize());
 				$.post(data.postUrl, $form.serialize())
 					.success(function(msg){
-						if (confirm(msg.message +'\nDeseja inserir outro '+ data.label +'?')){
-							$form[0].reset();
-							$form.find("input:first").focus();
-						} else { 
-							$result.dialog("close");
-						}
+						$msModal.html(msg.message +'<br />Deseja inserir outro '+ data.label +'?').dialog({
+							title: "Messagem",
+							buttons: {
+								Ok: function() {
+									$msModal.dialog("close");
+									$form[0].reset();
+									$form.find("input:first").focus();
+								},
+								Cancelar: function() {
+									$msModal.dialog("close");
+									$result.dialog("close");
+								}
+							}
+						})
 					})
 					.error(function(erro){
 						alert(erro.message);

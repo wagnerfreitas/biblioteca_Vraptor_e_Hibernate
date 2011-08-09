@@ -129,6 +129,7 @@
 					</table>
 				</form>
 			</div>
+			<div id="msg-modal"></div>
 			<div id="result"></div>
 			<div id="footer"></div>
 		</div>

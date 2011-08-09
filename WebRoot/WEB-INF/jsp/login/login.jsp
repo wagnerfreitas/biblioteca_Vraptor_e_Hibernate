@@ -10,6 +10,7 @@
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 11px }
 		</style>
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.8.14.custom.css" />
 	</head>
 	<body>
 	<div id="divLogin">
@@ -20,8 +21,10 @@
 			<h1><input type="button" id="loginEnviar" value="Logar" /></h1>
 		</form>
 	</div>
+	<div id="msg-modal"></div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/login.js"></script>
 </html>

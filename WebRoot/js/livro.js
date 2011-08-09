@@ -1,7 +1,8 @@
 ﻿var $formEmpresta = $("#formEmpresta"),
 	$formDevolve = $("#fomDevolve"),
  	$formAtualiza = $("#formAtualiza"),
- 	$formRemove = $(".formRemove");
+ 	$formRemove = $(".formRemove"),
+	$msgModal = $("#msg-modal");
 
 $(document).ready(function(){
 	$(".emprestar").click(function(){
@@ -156,8 +157,14 @@ function postarDados(rota, formulario){
 	if(formulario.valid()){
 		$.post(rota, formulario.serialize())
 			.success(function(msg){
-				alert(msg.message);
-				location.reload();
+				$msgModal.html(msg.message).dialog({
+					title: "Mensagem", 
+					buttons: {
+						Ok: function() {
+							location.reload();
+						}
+					}
+				}).prev().find(".ui-dialog-titlebar-close").hide();
 			})
 			.error(function(erro){
 				alert(erro.message);

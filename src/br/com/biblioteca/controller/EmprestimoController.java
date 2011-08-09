@@ -65,5 +65,6 @@ public class EmprestimoController {
 		}
 		result.include("message", message)
 			.use(json()).from(message, "message").serialize();
+			
 	}
 }
