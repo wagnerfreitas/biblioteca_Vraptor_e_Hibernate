@@ -1,4 +1,6 @@
-var $formDevolve = $("#formDevolve");
+var $formDevolve = $("#formDevolve"),
+	$modalMsgs = $("#modal-msgs");
+
 $(document).ready(function(){
 	$(".devolver").click(function(){
 		turnFormDevolverValid();
@@ -14,8 +16,12 @@ $(document).ready(function(){
 					if($formDevolve.valid()){
 						$.post("emprestimo/devolve" , $formDevolve.serialize())
 							.success(function(msg){
-								alert(msg.message);
-								location.reload();
+								$modalMsgs.html(msg.message).dialog({
+									title: "Mensagem",
+									buttons: {Ok: function() {
+										location.reload();
+									}}
+								});
 							})
 							.error(function(erro){
 								alert(erro.mensagem);

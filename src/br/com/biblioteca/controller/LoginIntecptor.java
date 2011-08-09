@@ -44,20 +44,20 @@ public class LoginIntecptor implements Interceptor {
 	
 	private boolean isAcessoMetodo(ResourceMethod method) {
 		Permissao permissaoList = method.getMethod().getAnnotation(Permissao.class);
-		return isExistePermissao(permissaoList);
+		return hasPermissao(permissaoList);
 	}
 	
-	private boolean isExistePermissao(Permissao permissao) {
-		if(permissao != null) {
-			for(String grupoDePerfil : permissao.value()) {
-				for(Acao acao : usuarioSession.getUsuario().getGrupoDePerfil().getAcoes()) {
-					if(grupoDePerfil.equals(acao.getNome())) {
-						return true;
-					}
+	private boolean hasPermissao(Permissao permissao) {
+		boolean metodoSemRestricao = (permissao == null);
+		if(metodoSemRestricao) {
+			return true;
+		}
+		for(String grupoDePerfil : permissao.value()) {
+			for(Acao acao : usuarioSession.getUsuario().getGrupoDePerfil().getAcoes()) {
+				if(grupoDePerfil.equals(acao.getNome())) {
+					return true;
 				}
 			}
-		} else {
-			return true;
 		}
 		return false;
 	}

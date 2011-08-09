@@ -58,13 +58,11 @@
 				</table>
 				<div id="div">
 					<a href="../biblioteca">Voltar</a><br/>
-					<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
 						<form id="formRelatorio" action="relatorio/emprestimos" method="post">
 							<input type="hidden" name="nomeDoLivro" value="${nomeDoLivro}" />
 							<input type="hidden" name="ordenarPor" value="${ordenarPor}" />
 							<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
 						</form>
-					</c:if>
 				</div>				
 				<div id="devolverLivro">
 					<form method="post" id="formDevolve">
@@ -78,6 +76,7 @@
 					</form>
 				</div>
 			</div>
+			<div id="modal-msgs"></div>
 			<div id="footer"></div>
 		</div>
 	</body>
