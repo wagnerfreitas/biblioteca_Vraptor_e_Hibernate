@@ -122,7 +122,7 @@ displayAddForm = function(data){
 									$result.dialog("close");
 								}
 							}
-						})
+						}).prev().find(".ui-dialog-titlebar-close").hide();
 					})
 					.error(function(erro){
 						alert(erro.message);

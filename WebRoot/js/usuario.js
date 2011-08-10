@@ -48,16 +48,19 @@ function postarDados(rota, formulario){
 	if(formulario.valid()){
 		$.post(rota, formulario.serialize())
 			.success(function(msg) {
-				$msgModal.html(msg.message).dialog({
-					title: "Mensagem", 
-					buttons: {
-						Ok: function() {
-							location.reload();
+				$msgModal
+					.html(msg.message.join('<br />'))
+					.dialog({
+						title: "Mensagem", 
+						buttons: {
+							Ok: function() {
+								location.reload();
+							}
 						}
-					}
-				}).prev().find(".ui-dialog-titlebar-close").hide();
+					}).prev().find(".ui-dialog-titlebar-close").hide();
 			})
 			.error(function(erro){
+				erro = JSON.parse( erro.responseText);
 				alert(erro.message);
 			});
 	}

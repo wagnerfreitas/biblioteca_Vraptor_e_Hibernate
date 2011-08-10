@@ -54,19 +54,12 @@
 						<c:forEach items="${usuarios}" var="usuario">
 							<tr usuarioId="${usuario.id}">
 								<td>
-									<c:if test="${permissaoDoUsuario == 'MEMBRO'}">
-										${usuario.nome}
-									</c:if>
-									<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-										<a href="#" class="nome">${usuario.nome}</a>
-									</c:if>
+									<a href="#" class="nome">${usuario.nome}</a>
 								</td>
 								<td>${usuario.email}</td>
-								<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-									<td style="text-align: center">
-										<input type="checkbox" name="idDelete" class="idDelete" value="${usuario.id}" />
-									</td>
-								</c:if>
+								<td style="text-align: center">
+									<input type="checkbox" name="idDelete" class="idDelete" value="${usuario.id}" />
+								</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -77,12 +70,10 @@
 				
 				<div id="div">
 					<a href="../biblioteca">Voltar</a><br/>
-					<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-						<form id="formRelatorio" action="relatorio/usuarios" method="post">
-							<input type="hidden" name="filtro_relatorio" value="${nome}" />
-							<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
-						</form>
-					</c:if>
+					<form id="formRelatorio" action="relatorio/usuarios" method="post">
+						<input type="hidden" name="filtro_relatorio" value="${nome}" />
+						<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+					</form>
 				</div>
 				
 				<div id="AtualizarUsuario">

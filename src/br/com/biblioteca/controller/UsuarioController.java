@@ -144,14 +144,14 @@ public class UsuarioController {
 					usuarioDAO.atualiza(usuario);
 					auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
 					
-					message = "Usuario(s) deletado(s) com sucesso\n";
+					message = "Usuario(s) deletado(s) com sucesso<br />";
 				}
 				messages.add(message);
 			}
 		} catch (Exception e) {
 			message = "Erro";
 		}		
-		result.include("message", message)
+		result.include("message", messages)
 			.use(json()).from(messages, "message").serialize();
 	}
 }
