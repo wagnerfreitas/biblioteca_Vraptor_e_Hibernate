@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.biblioteca.dao.UsuarioDAO;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -25,6 +26,7 @@ public class UsuarioReportController {
 	
 	@Post
 	@Path("relatorio/usuarios")
+	@Permissao({"PERM_ADMIN", "PERM_GERAR_RELATORIOS"})
 	public Download relatorioUsuarios(String filtro_relatorio){
 		List<Usuario> usuarios = usuarioDAO.pesquisa(filtro_relatorio);
 		Map<String, Object> parametros = new HashMap<String, Object>();

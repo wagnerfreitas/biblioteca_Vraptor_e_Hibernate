@@ -7,6 +7,7 @@ import java.util.Map;
 
 import br.com.biblioteca.dao.AuditoriaDAO;
 import br.com.biblioteca.entidades.Auditoria;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -25,6 +26,7 @@ public class AuditoriaReport {
 	
 	@Post
 	@Path("relatorio/auditoria")
+	@Permissao({"PERM_ADMIN", "PERM_GERAR_RELATORIOS"})
 	public Download relatoriosAuditoria(Date dataIninio, Date dataFim) {
 		try {
 			List<Auditoria> listaDeAuditoria = auditoriaDAO.list(dataIninio, dataFim);

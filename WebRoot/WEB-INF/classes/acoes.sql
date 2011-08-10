@@ -9,4 +9,5 @@ INSERT INTO `acao` (`id`,`nome`, `descricao`) VALUES
  (8, 'PERM_DEVOLVER_LIVRO', 'Permissão de devolver livro'),
  (9, 'PERM_ADD_USUARIO', 'Permissão de adicionar usuário'),
  (10, 'PERM_ATUALIZAR_USUARIO', 'Permissão de atualizar usuário'),
- (11, 'PERM_DELETAR_USUARIO', 'Permissão de deletar usuário');
+ (11, 'PERM_DELETAR_USUARIO', 'Permissão de deletar usuário'),
+ (12, 'PERM_GERAR_RELATORIOS', 'Permissão de gerar relatórios');

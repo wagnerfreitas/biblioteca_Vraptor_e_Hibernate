@@ -93,12 +93,14 @@
 				
 				<div id="div">
 					<a href="../biblioteca">Voltar</a><br/>
-					<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-						<form id="formRelatorio" action="relatorio/livros" method="post">
-							<input type="hidden" name="filtro_relatorio" value="${nome}" />
-							<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
-						</form>
-					</c:if>
+					<c:forEach items="${permissoesDoUsuario}" var="permissao">
+						<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_GERAR_RELATORIOS'}">					
+							<form id="formRelatorio" action="relatorio/livros" method="post">
+								<input type="hidden" name="filtro_relatorio" value="${nome}" />
+								<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+							</form>
+						</c:if>
+					</c:forEach>
 				</div>	
 				
 				<div id="EmprestarLivro">

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -25,6 +26,7 @@ public class EmprestimoReportController {
 	
 	@Post
 	@Path("relatorio/emprestimos")
+	@Permissao({"PERM_ADMIN", "PERM_GERAR_RELATORIOS"})
 	public Download relatoriosDeLivro(String nomeDoLivro, String ordenarPor) {
 		try {
 			List<Emprestimo> emprestimos = emprestimoDAO.pesquisarEmprestimo(nomeDoLivro, ordenarPor);

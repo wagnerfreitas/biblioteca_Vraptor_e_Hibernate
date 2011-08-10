@@ -76,12 +76,14 @@
 						<td>Adicionar grupo de acesso:</td>
 						<td><button id="adicionarAcesso">Adicionar</button></td>
 					</tr>	
-											
-						<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
+	
+					<c:forEach items="${permissoesDoUsuario}" var="permissao">
+						<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_GERAR_RELATORIOS'}">
 							<tr>
 								<td><button id="relatorioDeAuditoria">Relatório de auditoria</button></td>
 							</tr>
 						</c:if>
+					</c:forEach>										
 				</table>
 				
 				<form id="Usuario" method="get" action="usuarios">

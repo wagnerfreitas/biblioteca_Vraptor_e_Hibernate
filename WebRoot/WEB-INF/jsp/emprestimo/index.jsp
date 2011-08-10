@@ -65,11 +65,15 @@
 				</table>
 				<div id="div">
 					<a href="../biblioteca">Voltar</a><br/>
-						<form id="formRelatorio" action="relatorio/emprestimos" method="post">
-							<input type="hidden" name="nomeDoLivro" value="${nomeDoLivro}" />
-							<input type="hidden" name="ordenarPor" value="${ordenarPor}" />
-							<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
-						</form>
+					<c:forEach items="${permissoesDoUsuario}" var="permissao">
+						<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_GERAR_RELATORIOS'}">
+							<form id="formRelatorio" action="relatorio/emprestimos" method="post">
+								<input type="hidden" name="nomeDoLivro" value="${nomeDoLivro}" />
+								<input type="hidden" name="ordenarPor" value="${ordenarPor}" />
+								<input type="submit" value="Gerar relatório" id="gerarRelatorio" />
+							</form>
+						</c:if>
+					</c:forEach>
 				</div>				
 				<div id="devolverLivro">
 					<form method="post" id="formDevolve">

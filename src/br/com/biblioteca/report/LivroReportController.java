@@ -7,6 +7,7 @@ import java.util.Map;
 
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.entidades.Livro;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -25,6 +26,7 @@ public class LivroReportController {
 	
 	@Post
 	@Path("relatorio/livros")
+	@Permissao({"PERM_ADMIN", "PERM_GERAR_RELATORIOS"})
 	public Download relatoriosDeLivro(String filtro_relatorio) {
 		List<Livro> livros = livroDAO.pesquisa(filtro_relatorio);
 		Map<String, Object> parametros = new HashMap<String, Object>();
