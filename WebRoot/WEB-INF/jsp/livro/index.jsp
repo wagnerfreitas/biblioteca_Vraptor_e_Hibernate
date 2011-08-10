@@ -60,14 +60,14 @@
 						</thead>
 						<c:forEach items="${livros}" var="livro">
 							<tr idLivro="${livro.id}" livroEmprestado="${livro.emprestado}">
-								<td>
-									<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-										<a href="#" class="nome">${livro.nome}</a>
+								<c:forEach items="${permissoesDoUsuario}" var="permisao">
+									<c:if test="${permisao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ATUALIZAR_LIVRO'}">
+										<td><a href="#" class="nome">${livro.nome}</a></td>
 									</c:if>
-									<c:if test="${permissaoDoUsuario == 'MEMBRO'}">
-										${livro.nome}
+									<c:if test="${permisao.nome != 'PERM_ADMIN' && permissao.nome != 'PERM_ATUALIZAR_LIVRO'}">
+										<td>${livro.nome}</td>
 									</c:if>
-								</td>
+								</c:forEach>
 								<td align="center">${livro.autor}</td>
 								<td>${livro.edicao}</td>
 								<c:if test="${livro.emprestado}">
@@ -75,11 +75,13 @@
 								</c:if>
 								<c:if test="${!livro.emprestado}">
 									<td><button class="emprestar">Emprestar</button></td>
-									<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-										<td style="text-align: center;">
-											<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
-										</td>
-									</c:if>
+									<c:forEach items="${permissoesDoUsuario}" var="permisao">
+										<c:if test="${permisao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_REMOVER_LIVRO'}">
+											<td style="text-align: center;">
+												<input type="checkbox" name="IdRemove" class="IdRemove" value="${livro.id}" />
+											</td>
+										</c:if>
+									</c:forEach>
 								</c:if>
 							</tr>
 						</c:forEach>

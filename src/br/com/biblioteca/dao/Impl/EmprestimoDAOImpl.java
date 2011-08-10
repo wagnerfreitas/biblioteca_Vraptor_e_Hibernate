@@ -42,10 +42,10 @@ public class EmprestimoDAOImpl implements EmprestimoDAO {
 	public List<Emprestimo> pesquisarEmprestimo(String nomeDoLivro, String ordenarPor) {
 		try {
 			Criteria criteria = session.createCriteria(Emprestimo.class);
-			criteria.add(Restrictions.isNull("dataDeDevolucao"));
+				criteria.add(Restrictions.isNull("dataDeDevolucao"));
 			if (ordenarPor.equals("nomeDoUsuario")){
 				criteria.createCriteria("usuario")
-				.addOrder(Order.asc("nome"));
+					.addOrder(Order.asc("nome"));
 			} else if (ordenarPor.equals("dataDeEmprestimo")){
 				criteria.addOrder(Order.asc("dataDeEmprestimo"));
 			}

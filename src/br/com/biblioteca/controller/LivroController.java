@@ -46,6 +46,7 @@ public class LivroController {
 			List<Livro> livros = livroDAO.pesquisa(nome);
 			result.include("livros", livros)
 				.include("nome", nome)
+				.include("permissoesDoUsuario", usuarioSession.getUsuario().getGrupoDePerfil().getAcoes())
 				.include("usuario", usuarioSession.getUsuario().getNome());
 		} catch (Exception e) {
 			result.include("error", e.getMessage());	
@@ -54,7 +55,7 @@ public class LivroController {
 	
 	@Get
 	@Path("/livro/add")
-	@Permissao({"PERM_ADMIN", "PERM_LIVRO_NOVO"})
+	@Permissao({"PERM_ADMIN", "PERM_ADD_LIVRO"})
 	public void novo(){
 	}
 	

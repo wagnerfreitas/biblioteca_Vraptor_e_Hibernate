@@ -32,6 +32,7 @@ public class IndexController {
 			} else {
 				List<Acao> acoes = acaoDAO.acoes();
 				result.include("acoes", acoes)
+					.include("permissoesDoUsuario", usuarioSession.getUsuario().getGrupoDePerfil().getAcoes())
 					.include("usuario", usuarioSession.getUsuario().getNome());
 			}
 		} catch (Exception e) {

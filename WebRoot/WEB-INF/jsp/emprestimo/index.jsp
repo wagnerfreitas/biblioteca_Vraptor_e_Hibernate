@@ -17,6 +17,9 @@
 				text-decoration: underline;
 				color: blue;
 			}
+			#div {
+				width: 700px;
+			}
 			
 			label { display: block; margin-top: 10px; }
 			label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 12px }
@@ -52,9 +55,13 @@
 							<td align="center">
 								<fmt:formatDate value="${emprestimo.dataDeEmprestimo}" pattern="dd/MM/yyyy" />
 							</td>
-							<td><button class="devolver">Devolver</button></td>
-						</tr>
-					</c:forEach>
+						<c:forEach items="${permissoesDoUsuario}" var="permissao">
+							<c:if test="${permissao.nome == 'PERM_ADMIN' || permisao.nome == 'PERM_DEVOLVER_LIVRO'}">
+								<td><button class="devolver">Devolver</button></td>
+							</c:if>
+						</c:forEach>
+					</tr>
+				</c:forEach>
 				</table>
 				<div id="div">
 					<a href="../biblioteca">Voltar</a><br/>

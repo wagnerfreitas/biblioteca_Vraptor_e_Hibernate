@@ -48,16 +48,19 @@
 			</div>
 			<div id="content">
 				<table id="tabela">
-					<c:if test="${permissaoDoUsuario != 'MEMBRO'}">
-						<tr>
-							<td>Adicionar novo usuário:</td>
-							<td><button id="adicionarUsuario">Adicionar</button></td>
-							<td class="celulaDivisoria"></td>
-							<td width="150px">Adicionar novo livro:</td>
-							<td><button id="adicionarLivro">Adicionar</button></td>
-						</tr>
-					</c:if>
-					
+					<tr>
+						<c:forEach items="${permissoesDoUsuario}" var="permissao">
+							<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_USUARIO'}">
+								<td>Adicionar novo usuário:</td>
+								<td><button id="adicionarUsuario">Adicionar</button></td>
+								<td class="celulaDivisoria"></td>
+							</c:if>
+							<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_LIVRO'}">
+								<td width="150px">Adicionar novo livro:</td>
+								<td><button id="adicionarLivro">Adicionar</button></td>
+							</c:if>
+						</c:forEach>
+					</tr>
 					<tr>
 						<td>Pesquisar usu&aacute;rio:</td>
 						<td><button id="pesquisarUsuario">Pesquisar</button></td>

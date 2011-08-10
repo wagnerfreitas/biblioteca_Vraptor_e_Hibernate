@@ -59,8 +59,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisa(String nome){
-		Criteria criteria = session.createCriteria(Usuario.class);
 		try {
+			Criteria criteria = session.createCriteria(Usuario.class);
 			if(nome != null ||  nome == ""){
 				criteria.add(Restrictions.like("nome", "%" + nome + "%"));
 				criteria.add(Restrictions.eq("ativo", true));

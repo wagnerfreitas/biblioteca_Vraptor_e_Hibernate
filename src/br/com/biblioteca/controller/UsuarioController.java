@@ -48,6 +48,7 @@ public class UsuarioController {
 			List<Usuario> usuarios = usuarioDAO.pesquisa(nome);
 			result.include("usuarios", usuarios)
 				.include("nome", nome)
+				.include("permissoesDoUsuario", usuarioSession.getUsuario().getGrupoDePerfil().getAcoes())
 				.include("usuario", usuarioSession.getUsuario().getNome());
 					
 		} catch (Exception e) {
