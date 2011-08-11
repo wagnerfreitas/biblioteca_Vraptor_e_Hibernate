@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.EmprestimoController;
-import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
+import br.com.biblioteca.controller.helper.EmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
@@ -34,7 +34,7 @@ public class EmprestimoControllerTest {
 	@Mock 
 	private UsuarioSession usuarioSession;
 	@Mock
-	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
+	private EmprestimoHelper emprestimoHelper;
 
 	private Result result;
 	private EmprestimoController emprestimoController;
@@ -50,7 +50,7 @@ public class EmprestimoControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, usuarioSession, finalizarEmprestimoHelper);
+		this.emprestimoController = new EmprestimoController(result, emprestimoDAO, usuarioSession, emprestimoHelper);
 	}
 	
 	@Test
@@ -168,7 +168,7 @@ public class EmprestimoControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorId(emprestimo.getId())).thenReturn(emprestimo);
-		when(finalizarEmprestimoHelper.finalizarEmprestimo(1L, dataDeDevolucao)).thenReturn(true);
+		when(emprestimoHelper.finalizarEmprestimo(1L, dataDeDevolucao)).thenReturn(true);
 		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
 		
 //		então

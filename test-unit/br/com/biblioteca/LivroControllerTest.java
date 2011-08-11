@@ -14,8 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.LivroController;
 import br.com.biblioteca.controller.helper.AuditoriaHelper;
-import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
-import br.com.biblioteca.controller.helper.NovoEmprestimoHelper;
+import br.com.biblioteca.controller.helper.EmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
@@ -40,9 +39,7 @@ public class LivroControllerTest {
 	@Mock
 	private AuditoriaHelper auditoriaHelper;
 	@Mock
-	private NovoEmprestimoHelper novoEmprestimoHelper;
-	@Mock
-	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
+	private EmprestimoHelper emprestimoHelper;
 
 	private static final long CODIGO_LIVRO = 1L;
 	private Result result;
@@ -58,7 +55,7 @@ public class LivroControllerTest {
 	public LivroControllerTest() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.livroController = new LivroController(result, livroDAO, novoEmprestimoHelper, usuarioSession, finalizarEmprestimoHelper, auditoriaHelper);
+		this.livroController = new LivroController(result, livroDAO, emprestimoHelper, usuarioSession, auditoriaHelper);
 	}
 	
 	@Test
@@ -307,7 +304,7 @@ public class LivroControllerTest {
 		
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
-		when(novoEmprestimoHelper.novoEmprestimo(usuario.getId(), livro.getId(), dataDeEmprestimo)).thenReturn(true);
+		when(emprestimoHelper.novoEmprestimo(usuario.getId(), livro.getId(), dataDeEmprestimo)).thenReturn(true);
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
@@ -587,7 +584,7 @@ public class LivroControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdLivro(livro.getId())).thenReturn(emprestimo);
-		when(finalizarEmprestimoHelper.finalizarEmprestimo(livro.getId(), dataDeDevolucao)).thenReturn(true);
+		when(emprestimoHelper.finalizarEmprestimo(livro.getId(), dataDeDevolucao)).thenReturn(true);
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então

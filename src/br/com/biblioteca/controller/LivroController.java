@@ -6,8 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.biblioteca.controller.helper.AuditoriaHelper;
-import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
-import br.com.biblioteca.controller.helper.NovoEmprestimoHelper;
+import br.com.biblioteca.controller.helper.EmprestimoHelper;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Livro;
@@ -26,16 +25,14 @@ public class LivroController {
 	private LivroDAO livroDAO;
 	private UsuarioSession usuarioSession;
 	private AuditoriaHelper auditoriaHelper;
-	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
-	private NovoEmprestimoHelper novoEmprestimoHelper;
+	private EmprestimoHelper emprestimoHelper;
 	
-	public LivroController(Result result, LivroDAO livroDAO, NovoEmprestimoHelper novoEmprestimoHelper, 
-			UsuarioSession usuarioSession, FinalizarEmprestimoHelper finalizarEmprestimoHelper, AuditoriaHelper auditoriaHelper) {
+	public LivroController(Result result, LivroDAO livroDAO, EmprestimoHelper emprestimoHelper, 
+			UsuarioSession usuarioSession, AuditoriaHelper auditoriaHelper) {
 		this.result = result;
 		this.livroDAO = livroDAO;
-		this.novoEmprestimoHelper = novoEmprestimoHelper;
+		this.emprestimoHelper = emprestimoHelper;
 		this.usuarioSession = usuarioSession;
-		this.finalizarEmprestimoHelper = finalizarEmprestimoHelper;
 		this.auditoriaHelper = auditoriaHelper;
 	}
 	
@@ -87,7 +84,7 @@ public class LivroController {
 		} else if(dataDeEmprestimo == null || dataDeEmprestimo.equals("")) {
 			message = "Data nula";
 		} else {
-			if(novoEmprestimoHelper.novoEmprestimo(iDUsuario, idLivro, dataDeEmprestimo)) {
+			if(emprestimoHelper.novoEmprestimo(iDUsuario, idLivro, dataDeEmprestimo)) {
 				message = "\"Livro\" emprestado com sucesso";
 			} else {
 				message = "Erro ao emprestar livro";
@@ -159,7 +156,7 @@ public class LivroController {
 		} else if (dataDeDevolucao == null) {
 			message = "Date de devolução nula";
 		} else {
-			if(finalizarEmprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
+			if(emprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
 				message = "\"Livro\" devolvido com sucesso";
 			} else {
 				message = "Erro ao deletar livro";

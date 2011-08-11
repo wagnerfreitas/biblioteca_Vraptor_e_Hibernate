@@ -5,7 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.Date;
 import java.util.List;
 
-import br.com.biblioteca.controller.helper.FinalizarEmprestimoHelper;
+import br.com.biblioteca.controller.helper.EmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Emprestimo;
@@ -22,14 +22,14 @@ public class EmprestimoController {
 	private Result result;
 	private EmprestimoDAO emprestimoDAO;
 	private UsuarioSession usuarioSession;
-	private FinalizarEmprestimoHelper finalizarEmprestimoHelper;
+	private EmprestimoHelper emprestimoHelper;
 	
 	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO,
-			UsuarioSession usuarioSession,  FinalizarEmprestimoHelper finalizarEmprestimoHelper){
+			UsuarioSession usuarioSession,  EmprestimoHelper emprestimoHelper){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioSession = usuarioSession;
-		this.finalizarEmprestimoHelper = finalizarEmprestimoHelper;
+		this.emprestimoHelper = emprestimoHelper;
 	}
 	
 	@Get
@@ -58,7 +58,7 @@ public class EmprestimoController {
 		} else if (dataDeDevolucao == null) {
 			message = "Data de devolução nula";
 		} else {
-			if (finalizarEmprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
+			if (emprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
 				message = "\"Livro\" devolvido com sucesso";
 			} else {
 				message = "Erro ao devolver livro";
