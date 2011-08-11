@@ -31,9 +31,9 @@ public class LivroController {
 			UsuarioSession usuarioSession, AuditoriaHelper auditoriaHelper) {
 		this.result = result;
 		this.livroDAO = livroDAO;
-		this.emprestimoHelper = emprestimoHelper;
 		this.usuarioSession = usuarioSession;
 		this.auditoriaHelper = auditoriaHelper;
+		this.emprestimoHelper = emprestimoHelper;
 	}
 	
 	@Get

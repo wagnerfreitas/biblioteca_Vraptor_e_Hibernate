@@ -25,7 +25,7 @@ public class EmprestimoController {
 	private EmprestimoHelper emprestimoHelper;
 	
 	public EmprestimoController(Result result, EmprestimoDAO emprestimoDAO,
-			UsuarioSession usuarioSession,  EmprestimoHelper emprestimoHelper){
+			UsuarioSession usuarioSession, EmprestimoHelper emprestimoHelper){
 		this.result = result;
 		this.emprestimoDAO = emprestimoDAO;
 		this.usuarioSession = usuarioSession;

@@ -106,7 +106,7 @@
 				<div id="EmprestarLivro">
 					<table>
 						<tr>
-							<td style="width: 185px">Pesquisar usuário: </td>
+							<td style="width: 190px">Pesquisar usuário: </td>
 							<td><input type="text" name="pesquisarUsuario" id="pesquisarUsuario"/></td>
 							<td><input type="button" value="Pesquisar" id="btn-pesquisar"/></td>
 						</tr>

@@ -16,6 +16,7 @@
 		<tr>
 		</tr>
 	</table>
+	<span>Grupo de perfil: </span>
 	<select name="idGrupo">
 		<option>Selecione...</option>
 		<c:forEach items="${grupos}" var="grupo">

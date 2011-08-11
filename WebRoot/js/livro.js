@@ -2,8 +2,8 @@
 	$formDevolve = $("#fomDevolve"),
  	$formAtualiza = $("#formAtualiza"),
  	$formRemove = $(".formRemove"),
-	$msgModal = $("#msg-modal");
-
+	$msgModal = $("#msg-modal"),
+	PESQUISA_USUARIO_VALOR_DEFAULT = '(Nome para pesquisa)';
 $(document).ready(function(){
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
@@ -78,6 +78,15 @@ $(document).ready(function(){
 	$('.calendario').datepicker();
 		
 	$('#btn-pesquisar').click(function(){
+		var $campo = $("#pesquisarUsuario"),
+			valor = $.trim( $campo.val() );
+		if ( valor === PESQUISA_USUARIO_VALOR_DEFAULT ){
+			return;
+		}
+		if ( valor === '' ){
+			$campo.val( PESQUISA_USUARIO_VALOR_DEFAULT );
+			return;
+		}
 		$.get("usuarios/list/"+ $("#pesquisarUsuario").val())
 			.success(function(retorno){
 				var i, 
@@ -151,7 +160,14 @@ $(document).ready(function(){
 	$("#apagarLivros").click(function(){
 		postarDados("livro/remove", $formRemove);
 	});
-});
+
+	$("#pesquisarUsuario").focus( function (){
+		if ( $("#pesquisarUsuario").val() === PESQUISA_USUARIO_VALOR_DEFAULT ){
+			$("#pesquisarUsuario").val('');
+		}
+	}); 
+
+});	// $(document).ready()
 
 function postarDados(rota, formulario){
 	if(formulario.valid()){
