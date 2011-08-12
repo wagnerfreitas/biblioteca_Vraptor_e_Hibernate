@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.8.14.custom.css" />
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 		<style>
-			#relatorioDeAuditoria {
+			#relatorioDeAuditoria, #mudarSenha {
 				border: none;
 				background: none;
 				text-decoration: underline;
@@ -19,7 +19,7 @@
 			.celulaDivisoria {
 				width: 70px;
 			}
-			#Usuario, #Livro, #Emprestimo, #formAuditoria, #adicionarGrupoDeAcesso{
+			#Usuario, #Livro, #Emprestimo, #formAuditoria, #adicionarGrupoDeAcesso, #formMudarSenha{
 				display: none;
 			}
 			#Emprestimo fieldset {
@@ -77,13 +77,15 @@
 						<td><button id="adicionarAcesso">Adicionar</button></td>
 					</tr>	
 	
-					<c:forEach items="${permissoesDoUsuario}" var="permissao">
-						<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_GERAR_RELATORIOS'}">
-							<tr>
-								<td><button id="relatorioDeAuditoria">Relatório de auditoria</button></td>
-							</tr>
-						</c:if>
-					</c:forEach>										
+					<tr>
+						<c:forEach items="${permissoesDoUsuario}" var="permissao">
+							<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_GERAR_RELATORIOS'}">
+									<td><button id="relatorioDeAuditoria">Relatório de auditoria</button></td>
+							</c:if>
+						</c:forEach>
+						<td><button id="mudarSenha">Mudar senha</button></td>
+					</tr>
+															
 				</table>
 				
 				<form id="Usuario" method="get" action="usuarios">
@@ -125,6 +127,18 @@
 					</fieldset>
 				</form>
 				
+				<form method="post" id="formMudarSenha">
+					<input type="hidden" value="${usuarioGetId}" name="usuarioId" />
+					<table>
+						<tr>
+							<td>Nova senha: </td><td><input type="password" name="senha" id="updateSenha"/></td>
+						</tr>
+						<tr>
+							<td>Confimar senha: </td><td><input type="password" name="confirm_updateSenha" id="confirm_updateSenha" /></td>
+						</tr>
+					</table>
+				</form>
+				
 				<form method="post" id="formAuditoria" action="relatorio/auditoria">
 					<table>
 						<tr>
@@ -146,5 +160,4 @@
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/livro.js"></script>
 	<script type="text/javascript" src="js/usuario.js"></script>
-	<script type="text/javascript" src="js/administrador.js"></script>
 </html>

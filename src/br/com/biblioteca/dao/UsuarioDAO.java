@@ -17,5 +17,4 @@ public interface UsuarioDAO {
 	public Usuario pesquisarUsuarioPorId(Long id);
 	
 	public Usuario login(String nome, String senha);
-	
 }

@@ -79,9 +79,7 @@ public class LivroController {
 	public void emprestar(Long iDUsuario, Long idLivro, Date dataDeEmprestimo){
 		String message;
 		
-		if(idLivro == null || iDUsuario == null) {
-			message = "Erro ao tentar realizar empréstimo";
-		} else if(dataDeEmprestimo == null || dataDeEmprestimo.equals("")) {
+		if(dataDeEmprestimo == null || dataDeEmprestimo.equals("")) {
 			message = "Data nula";
 		} else {
 			if(emprestimoHelper.novoEmprestimo(iDUsuario, idLivro, dataDeEmprestimo)) {
@@ -151,18 +149,12 @@ public class LivroController {
 	@Permissao({"PERM_ADMIN", "PERM_DEVOLVER_LIVRO"})
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
-		if(id == null){
-			message = "Id no livro nulo";
-		} else if (dataDeDevolucao == null) {
-			message = "Date de devolução nula";
+		if(emprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
+			message = "\"Livro\" devolvido com sucesso";
 		} else {
-			if(emprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {
-				message = "\"Livro\" devolvido com sucesso";
-			} else {
-				message = "Erro ao deletar livro";
-			} 
-		}
+			message = "Erro ao deletar livro";
+		} 
 		result.include("message", message)
 			.use(json()).from(message, "message").serialize();
-	}   
+	}
 }

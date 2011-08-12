@@ -155,4 +155,23 @@ public class UsuarioController {
 		result.include("message", messages)
 			.use(json()).from(messages, "message").serialize();
 	}
+	
+	@Post
+	@Path("update/senha")
+	public void mudarSenha(Long usuarioId, String senha) {
+		String message;
+		try {
+			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(usuarioId);
+			if(!usuario.getNome().equals(usuarioSession.getUsuario().getNome())) {
+				message = "Usuário não encontrado";
+			} else {
+				usuario.setSenha(senha);
+				usuarioDAO.atualiza(usuario);
+				message = "Senha autalizada com sucesso";
+			}			
+		} catch (Exception e) {
+			message = "Erro ao mudar a senha";
+		}
+		result.use(json()).from(message, "message").serialize();
+	}
 }

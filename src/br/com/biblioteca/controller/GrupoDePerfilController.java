@@ -10,16 +10,19 @@ import br.com.biblioteca.entidades.GrupoDePerfil;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
 
 @Resource
 public class GrupoDePerfilController {
 	
 	private GrupoDePerfilDAO grupoDePerfilDAO;
 	private AcaoDAO acaoDAO;
+	private Result result;
 	
-	public GrupoDePerfilController(AcaoDAO acaoDAO, GrupoDePerfilDAO grupoDePerfilDAO) {
+	public GrupoDePerfilController(Result result, AcaoDAO acaoDAO, GrupoDePerfilDAO grupoDePerfilDAO) {
 		this.acaoDAO = acaoDAO;
 		this.grupoDePerfilDAO = grupoDePerfilDAO;
+		this.result = result;
 	}
 	
 	@Post
@@ -34,5 +37,6 @@ public class GrupoDePerfilController {
 		}
 		grupoDePerfil.setAcoes(listaDeAcoes);
 		grupoDePerfilDAO.novo(grupoDePerfil);
+		result.redirectTo(IndexController.class).index();
 	}
 }

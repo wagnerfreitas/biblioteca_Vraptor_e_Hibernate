@@ -7,7 +7,9 @@ var templates = {},
 	$relatorioDeAuditoria,
 	$formAuditoria,
 	$adicionarGrupoDeAcesso,
-	$msModal;
+	$msModal,
+	$mudarSenha,
+	$formMudarSenha;
 
 $(document).ready(function(){
 	$formUsuario = $('form#Usuario');
@@ -18,17 +20,19 @@ $(document).ready(function(){
 	$formAuditoria = $("form#formAuditoria");
 	$adicionarGrupoDeAcesso = $("#adicionarGrupoDeAcesso");
 	$msModal = $("#msg-modal");
+	$mudarSenha =  $("#mudarSenha");
+	$formMudarSenha = $("#formMudarSenha");
 	
-	$("#pesquisarUsuario").click(function(){
+	$("#pesquisarUsuario").click(function() {
 		exibirFormDialog($formUsuario, "Pesquisar usuário", 470)
 	});
 	
-	$relatorioDeAuditoria.click(function(){
+	$relatorioDeAuditoria.click(function() {
 		turnFormAuditoriaValid();
 		exibirFormDialog($formAuditoria, "Digite as datas", 450);
 	});
 	
-	$("#pesquisarLivro").click(function(){
+	$("#pesquisarLivro").click(function() {
 		exibirFormDialog($formLivro, "Pesquisar livro", 450)
 	});
 	
@@ -36,8 +40,38 @@ $(document).ready(function(){
 		exibirFormDialog($adicionarGrupoDeAcesso,"Adicionar grupo de acesso",450);
 	});
 	
-	$('#pesquisarEmprestimo').click(function(){
+	$('#pesquisarEmprestimo').click(function() {
 		exibirFormDialog($formEmprestimo, "Pesquisar empréstimo", 550);
+	});
+	
+	$mudarSenha.click(function() {
+		$formMudarSenha.dialog({
+			title: "Mudar senha",
+			width: 350,
+			buttons: {
+				Enviar: function() {
+					$turnformMudarSenhaValid(); 
+					if($formMudarSenha.valid()) {
+					$.post("update/senha", $formMudarSenha.serialize())
+						.success(function(msg) {
+							$msModal.html(msg.message).dialog({
+								title: "Mensagem",
+								buttons: {
+									Ok: function() {
+										$formMudarSenha.dialog("close");
+										$msModal.dialog("close");		
+									} 
+								}
+							}).prev().find(".ui-dialog-titlebar-close").hide();				
+						})
+						.error(function(erro) {
+							erro = JSON.parse( erro.responseText);
+							alert(erro.message);
+						});
+					}
+				}
+			}
+		});
 	});
 	
 	$("#adicionarUsuario").click(function(){
@@ -189,6 +223,33 @@ onEnterSubmit = function($form, $submiter) {
 		}
 	});
 }
+
+function $turnformMudarSenhaValid() {
+	$formMudarSenha.validate({
+		rules: {
+			'senha': {
+				required: true,
+				minlength: 6
+			},
+			'confirm_updateSenha': {
+				required: true,
+				minlength: 6,
+				equalTo: "#updateSenha"
+			}			
+		},
+		messages: {
+			'senha': {
+				required: "Digite a senha",
+				minlength: "A senha deve ter 6 caracteres"
+			},
+			'confirm_updateSenha': {
+				required: "Digite a senha",
+				minlength: "A senha deve ter 6 caracteres",
+				equalTo: "Senhas não conferem"
+			}
+		}
+	});
+};
 
 function turnFormAuditoriaValid() {
 	$formAuditoria.validate({
