@@ -1,3 +1,8 @@
+CREATE DATABASE IF NOT EXISTS biblioteca;
+CREATE DATABASE IF NOT EXISTS biblioteca_aud;
+
+USE biblioteca;
+
 INSERT INTO `acao` (`id`,`nome`, `descricao`) VALUES
  (1, 'PERM_ADMIN', 'Permissão de Administrador'),
  (2, 'PERM_LISTAR_EMPRESTIMO', 'Permissão de listar empréstimos'),
