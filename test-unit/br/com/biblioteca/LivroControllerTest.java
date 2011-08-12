@@ -219,7 +219,7 @@ public class LivroControllerTest {
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
-		assertEquals("Erro ao tentar realizar empréstimo", result.included().get("message"));
+		assertEquals("Erro ao emprestar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -237,7 +237,7 @@ public class LivroControllerTest {
 		livroController.emprestar(usuario.getId(), livro.getId(), dataDeEmprestimo);
 		
 //		então
-		assertEquals("Erro ao tentar realizar empréstimo", result.included().get("message"));
+		assertEquals("Erro ao emprestar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -511,7 +511,7 @@ public class LivroControllerTest {
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Id no livro nulo", result.included().get("message"));
+		assertEquals("Erro ao deletar livro", result.included().get("message"));
 	}
 	
 	@Test
@@ -526,7 +526,7 @@ public class LivroControllerTest {
 		livroController.devolve(livro.getId(), dataDeDevolucao);
 		
 //		então
-		assertEquals("Date de devolução nula", result.included().get("message"));
+		assertEquals("Erro ao deletar livro", result.included().get("message"));
 	}	
 	
 	@Test

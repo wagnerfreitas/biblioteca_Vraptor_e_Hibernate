@@ -145,12 +145,12 @@ public class UsuarioController {
 					usuarioDAO.atualiza(usuario);
 					auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
 					
-					message = "Usuario(s) deletado(s) com sucesso<br />";
+					message = "Usuário(s) deletado(s) com sucesso";
 				}
 				messages.add(message);
 			}
 		} catch (Exception e) {
-			message = "Erro";
+			message = e.getMessage();
 		}		
 		result.include("message", messages)
 			.use(json()).from(messages, "message").serialize();
@@ -158,17 +158,14 @@ public class UsuarioController {
 	
 	@Post
 	@Path("update/senha")
-	public void mudarSenha(Long usuarioId, String senha) {
+	public void mudarSenha(String senha) {
 		String message;
 		try {
-			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(usuarioId);
-			if(!usuario.getNome().equals(usuarioSession.getUsuario().getNome())) {
-				message = "Usuário não encontrado";
-			} else {
-				usuario.setSenha(senha);
-				usuarioDAO.atualiza(usuario);
-				message = "Senha autalizada com sucesso";
-			}			
+			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(usuarioSession.getUsuario().getId());
+			usuario.setSenha(senha);
+			usuarioDAO.atualiza(usuario);
+			
+			message = "Senha autalizada com sucesso";
 		} catch (Exception e) {
 			message = "Erro ao mudar a senha";
 		}

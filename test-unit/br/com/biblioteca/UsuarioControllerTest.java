@@ -30,10 +30,6 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 
 public class UsuarioControllerTest{
-
-	private static final long CODIGO_USUARIO = 1L;
-	private Result result;
-	private UsuarioController usuarioController;
 	
 	@Mock
 	private GrupoDePerfilDAO grupoDePerfilDAO;
@@ -46,6 +42,9 @@ public class UsuarioControllerTest{
 	@Mock
 	private AuditoriaHelper auditoriaHelper;
 	
+	private static final long CODIGO_USUARIO = 1L;
+	private Result result;
+	private UsuarioController usuarioController;
 	private Usuario usuario;
 	private Livro livro;
 	private Emprestimo emprestimo;
@@ -355,10 +354,10 @@ public class UsuarioControllerTest{
 //		 quando
 		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
+		usuarioController.delete(usuarios);
 		
 //		 entao
-		usuarioController.delete(usuarios);
-		assertEquals("\"" + usuario.getNome() + "\" com empréstimo ativo"+"\n", result.included().get("message"));
+		assertEquals("\"" + usuario.getNome() + "\" com empréstimo ativo\n", result.included().get("message"));
 		
 	}
 	
@@ -375,10 +374,10 @@ public class UsuarioControllerTest{
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
+		usuarioController.delete(usuarios);
 		
 //		entao
-		usuarioController.delete(usuarios);
-		assertEquals("Usuario(s) deletado(s) com sucesso" + "\n", result.included().get("message"));
+		assertEquals("Usuário(s) deletado(s) com sucesso", result.included().get("message"));
 	}
 	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
@@ -457,5 +456,6 @@ public class UsuarioControllerTest{
 		usuario.setSenha("123456");
 		usuario.setEmail("usuario@gmail.com");
 		usuario.setAtivo(true);
+		usuario.setGrupoDePerfil(grupoDeAcesso);
 	}
 }

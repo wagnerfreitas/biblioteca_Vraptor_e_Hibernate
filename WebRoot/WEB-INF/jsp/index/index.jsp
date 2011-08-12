@@ -128,7 +128,6 @@
 				</form>
 				
 				<form method="post" id="formMudarSenha">
-					<input type="hidden" value="${usuarioGetId}" name="usuarioId" />
 					<table>
 						<tr>
 							<td>Nova senha: </td><td><input type="password" name="senha" id="updateSenha"/></td>
