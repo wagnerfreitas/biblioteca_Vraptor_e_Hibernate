@@ -64,7 +64,7 @@ public class UsuarioController {
 			result.include("usuarios", usuarios);
 			result.use(json()).from(usuarios).serialize();
 		} catch (Exception e) {
-			result.use(json()).from(e.getMessage()).serialize();
+			result.use(json()).from("Erro na listagem de usuários").serialize();
 		}
 	}
 	
@@ -125,8 +125,8 @@ public class UsuarioController {
 			} catch (Exception e) {
 				message = e.getMessage();
 			}
-			messages.add(message);
 		}
+		messages.add(message);
 		result.include("message", messages)
 			.use(json()).from(messages, "message").serialize();
 	}

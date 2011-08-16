@@ -259,9 +259,11 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		usuario.setId(null);
 		
-//		entao
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
-		assertEquals("Id do usuário nulo", result.included().get("message"));
+		List<String> messages = new ArrayList<String>();
+		messages.add("Id do usuário nulo");
+//		entao
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
@@ -270,9 +272,11 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		usuario.setNome(null);
 
-//		entao
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
-		assertEquals("Nome do usuário nulo", result.included().get("message"));
+		List<String> messages = new ArrayList<String>();
+		messages.add("Nome do usuário nulo");
+//		entao
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
@@ -281,9 +285,11 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		usuario.setEmail(null);
 		
-//		entao
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
-		assertEquals("Email do usuário nulo", result.included().get("message"));
+		List<String> messages = new ArrayList<String>();
+		messages.add("Email do usuário nulo");
+//		entao
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
@@ -292,9 +298,11 @@ public class UsuarioControllerTest{
 		queEuTenhoUmUsuario();
 		usuario.setNome("");
 		
-//		entao
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
-		assertEquals("Nome do usuário nulo", result.included().get("message"));
+		List<String> messages = new ArrayList<String>();
+		messages.add("Nome do usuário nulo");
+//		entao
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
@@ -305,9 +313,10 @@ public class UsuarioControllerTest{
 
 //		quando
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
-		
+		List<String> messages = new ArrayList<String>();
+		messages.add("Email do usuário nulo");
 //		entao
-		assertEquals("Email do usuário nulo", result.included().get("message"));
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
@@ -321,9 +330,11 @@ public class UsuarioControllerTest{
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
+		List<String> messages = new ArrayList<String>();
+		messages.add("\"" + usuario.getNome() + "\" atualizado com sucesso");
 		
 //		então
-		assertEquals("\"" + usuario.getNome() + "\" atualizado com sucesso", result.included().get("message"));
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
@@ -337,9 +348,11 @@ public class UsuarioControllerTest{
 		when(usuarioDAO.pesquisarUsuarioPorId(usuario.getId())).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro/Usuario")).when(usuarioDAO).atualiza(usuario);
 		usuarioController.atualiza(usuario.getId(), usuario.getNome(), usuario.getEmail());
+		List<String> messages = new ArrayList<String>();
+		messages.add("Erro/Usuario");
 		
 //		então
-		assertEquals("Erro/Usuario", result.included().get("message"));
+		assertEquals(messages, result.included().get("message"));
 	}
 	
 	@Test
