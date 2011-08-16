@@ -17,9 +17,9 @@ public class EmprestimoHelper {
 	private UsuarioDAO usuarioDAO;
 	private EmprestimoDAO emprestimoDAO;
 	private AuditoriaHelper auditoriaHelper;
-	private Emprestimo emprestimo;
 	private Livro livro;
 	private Usuario usuario;
+	private Emprestimo emprestimo;
 	
 	public EmprestimoHelper(AuditoriaHelper auditoriaHelper, UsuarioDAO usuarioDAO, LivroDAO livroDAO, EmprestimoDAO emprestimoDAO) {
 		this.livroDAO = livroDAO;

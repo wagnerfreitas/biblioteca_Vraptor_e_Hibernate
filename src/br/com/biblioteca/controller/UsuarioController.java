@@ -139,7 +139,7 @@ public class UsuarioController {
 			for (Long id : idDelete) {
 				Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(id);
 				if(emprestimoDAO.procuraPorIdUsuario(id).size() > 0) {
-					message = "\"" + usuario.getNome() + "\" com empréstimo ativo\n";
+					message = "\"" + usuario.getNome() + "\" com empréstimo ativo";
 				} else {
 					usuario.setAtivo(false);
 					usuarioDAO.atualiza(usuario);
@@ -147,8 +147,8 @@ public class UsuarioController {
 					
 					message = "Usuário(s) deletado(s) com sucesso";
 				}
-				messages.add(message);
 			}
+			messages.add(message);
 		} catch (Exception e) {
 			message = e.getMessage();
 		}		
@@ -167,7 +167,7 @@ public class UsuarioController {
 			
 			message = "Senha autalizada com sucesso";
 		} catch (Exception e) {
-			message = "Erro ao mudar a senha";
+			message = "Erro ao tentar mudar a senha";
 		}
 		result.use(json()).from(message, "message").serialize();
 	}

@@ -20,9 +20,9 @@ public class GrupoDePerfilController {
 	private Result result;
 	
 	public GrupoDePerfilController(Result result, AcaoDAO acaoDAO, GrupoDePerfilDAO grupoDePerfilDAO) {
+		this.result = result;
 		this.acaoDAO = acaoDAO;
 		this.grupoDePerfilDAO = grupoDePerfilDAO;
-		this.result = result;
 	}
 	
 	@Post
@@ -31,10 +31,12 @@ public class GrupoDePerfilController {
 		GrupoDePerfil grupoDePerfil = new GrupoDePerfil();
 		List<Acao> listaDeAcoes = new ArrayList<Acao>();
 		grupoDePerfil.setNome(nome);
+		
 		for (Long idAcao : id) {
 			Acao acao = acaoDAO.pesquisaAcoesPorId(idAcao);
 			listaDeAcoes.add(acao);
 		}
+		
 		grupoDePerfil.setAcoes(listaDeAcoes);
 		grupoDePerfilDAO.novo(grupoDePerfil);
 		result.redirectTo(IndexController.class).index();

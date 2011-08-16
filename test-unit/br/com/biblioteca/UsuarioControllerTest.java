@@ -356,8 +356,11 @@ public class UsuarioControllerTest{
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
 		usuarioController.delete(usuarios);
 		
+		List<String> messages = new ArrayList<String>();
+		messages.add("\"" + usuario.getNome() + "\" com empréstimo ativo");
+		
 //		 entao
-		assertEquals("\"" + usuario.getNome() + "\" com empréstimo ativo\n", result.included().get("message"));
+		assertEquals(messages , result.included().get("message"));
 		
 	}
 	
@@ -376,8 +379,11 @@ public class UsuarioControllerTest{
 		when(emprestimoDAO.procuraPorIdUsuario(CODIGO_USUARIO)).thenReturn(emprestimos);
 		usuarioController.delete(usuarios);
 		
+		List<String> messages = new ArrayList<String>();
+		messages.add("Usuário(s) deletado(s) com sucesso");
+		
 //		entao
-		assertEquals("Usuário(s) deletado(s) com sucesso", result.included().get("message"));
+		assertEquals(messages, result.included().get("message"));
 	}
 	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
@@ -450,6 +456,7 @@ public class UsuarioControllerTest{
 	}
 	
 	public void queEuTenhoUmUsuario(){
+		queEuTenhoUmGrupoDePerfil();
 		usuario = new Usuario();
 		usuario.setId(CODIGO_USUARIO);
 		usuario.setNome("usuario");

@@ -74,6 +74,12 @@ $(document).ready(function(){
 		});
 	});
 	
+	$formMudarSenha.find("input").keydown(function(event) {
+		if(event.keyCode === 13) {
+			$formMudarSenha.parent().find("button").click();
+		}
+	});
+	
 	$("#adicionarUsuario").click(function(){
 		buscarPagina({
 			getUrl: "usuario/add",

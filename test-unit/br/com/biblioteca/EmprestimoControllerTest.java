@@ -82,20 +82,6 @@ public class EmprestimoControllerTest {
 	}
 	
 	@Test
-	public void devolverLivroComIdDoEmprestimoNulo() {
-//		dado
-		queEuTenhoUmEmprestimo();
-		queEuTenhoUmaDataDeDevolucao();
-		emprestimo.setId(null);
-		
-//		quando
-		emprestimoController.devolve(emprestimo.getId(), dataDeDevolucao);
-
-//		então
-		assertEquals("Id do empréstimo nulo", result.included().get("message"));
-	}
-	
-	@Test
 	public void devolverLivroComDataDeDevolucaoNula() {
 //		dado
 		queEuTenhoUmEmprestimo();

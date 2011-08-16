@@ -53,9 +53,8 @@ public class EmprestimoController {
 	@Permissao({"PERM_ADMIN", "PERM_DEVOLVER_LIVRO"})
 	public void devolve(Long id, Date dataDeDevolucao){
 		String message;
-		if(id == null) {
-			message = "Id do empréstimo nulo";
-		} else if (dataDeDevolucao == null) {
+		
+		if (dataDeDevolucao == null) {
 			message = "Data de devolução nula";
 		} else {
 			if (emprestimoHelper.finalizarEmprestimo(id, dataDeDevolucao)) {

@@ -80,9 +80,9 @@ public class LivroControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisa("livro")).thenReturn(new ArrayList<Livro>());
+		livroController.index("livro");
 		
 //		entao
-		livroController.index("livro");
 		assertTrue(result.included().containsKey("livros"));
 	}
 	
