@@ -7,7 +7,7 @@ var templates = {},
 	$relatorioDeAuditoria,
 	$formAuditoria,
 	$adicionarGrupoDeAcesso,
-	$msModal,
+	$msgModal,
 	$mudarSenha,
 	$formMudarSenha;
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	$relatorioDeAuditoria = $("#relatorioDeAuditoria");
 	$formAuditoria = $("form#formAuditoria");
 	$adicionarGrupoDeAcesso = $("#adicionarGrupoDeAcesso");
-	$msModal = $("#msg-modal");
+	$msgModal = $("#msg-modal");
 	$mudarSenha =  $("#mudarSenha");
 	$formMudarSenha = $("#formMudarSenha");
 	
@@ -37,7 +37,33 @@ $(document).ready(function(){
 	});
 	
 	$("#adicionarAcesso").click(function() {
-		exibirFormDialog($adicionarGrupoDeAcesso,"Adicionar grupo de acesso",450);
+		$adicionarGrupoDeAcesso.dialog({
+			modal: true,
+			title: "Adicionar grupo de acesso",
+			width: 450,
+			resizable: false,
+			buttons: {
+				Enviar: function(){
+					turnFormAadicionarGrupoDeAcessoValid();
+					if($adicionarGrupoDeAcesso.valid()) {
+						$.post("grupo/novo", $adicionarGrupoDeAcesso.serialize())
+							.success(function(msg) {
+								$msgModal.html(msg.message).dialog({
+									title: "Mensagem",
+									width: 450,
+									modal: true,
+									buttons: {
+										Ok: function() {
+											$msgModal.dialog("close");
+											$adicionarGrupoDeAcesso.dialog("close");
+										}
+									}
+								}).prev().find(".ui-dialog-titlebar-close").hide();
+							})
+					}
+				}
+			}
+		});
 	});
 	
 	$('#pesquisarEmprestimo').click(function() {
@@ -50,16 +76,16 @@ $(document).ready(function(){
 			width: 350,
 			buttons: {
 				Enviar: function() {
-					$turnformMudarSenhaValid(); 
+					turnformMudarSenhaValid(); 
 					if($formMudarSenha.valid()) {
 					$.post("update/senha", $formMudarSenha.serialize())
 						.success(function(msg) {
-							$msModal.html(msg.message).dialog({
+							$msgModal.html(msg.message).dialog({
 								title: "Mensagem",
 								buttons: {
 									Ok: function() {
 										$formMudarSenha.dialog("close");
-										$msModal.dialog("close");		
+										$msgModal.dialog("close");		
 									} 
 								}
 							}).prev().find(".ui-dialog-titlebar-close").hide();				
@@ -93,21 +119,13 @@ $(document).ready(function(){
 			callback: displayFormNovoLivro
 		});
 	});
-	$("#adcionarAdministrador").click(function(){
-		buscarPagina({
-			getUrl: "admin/add",
-			callback: displayFormNovoAdministrador
-		});
+	$("#formAuditoria").find("input").keydown(function(event){
+		if(event.keyCode === 13){
+			$formAuditoria.parent().find("button").click();
+		}
 	});
-});
-
-$("#dataIninio").datepicker();
-$("#dataFim").datepicker();
-
-$("#formAuditoria").find("input").keydown(function(event){
-	if(event.keyCode === 13){
-		$formAuditoria.parent().find("button").click();
-	}
+	$("#dataIninio").datepicker();
+	$("#dataFim").datepicker();
 });
 
 function exibirFormDialog(formulario, titulo, width){
@@ -149,16 +167,16 @@ displayAddForm = function(data){
 			if ($form.valid()){
 				$.post(data.postUrl, $form.serialize())
 					.success(function(msg){
-						$msModal.html(msg.message +'<br />Deseja inserir outro '+ data.label +'?').dialog({
+						$msgModal.html(msg.message +'<br />Deseja inserir outro '+ data.label +'?').dialog({
 							title: "Messagem",
 							buttons: {
 								Ok: function() {
-									$msModal.dialog("close");
+									$msgModal.dialog("close");
 									$form[0].reset();
 									$form.find("input:first").focus();
 								},
 								Cancelar: function() {
-									$msModal.dialog("close");
+									$msgModal.dialog("close");
 									$result.dialog("close");
 								}
 							}
@@ -210,18 +228,6 @@ displayFormNovoLivro = function(result){
 	});
 };
 
-displayFormNovoAdministrador = function(result) {
-	displayAddForm({
-		postUrl: 'adimin/novo',
-		formId: 'administradorNovo',
-		formRulesFunction: turnFormAdministradorValid,
-		title: 'Adicionar administrador',
-		label: 'administrador',
-		result: result,
-		submiterName: 'Enviar'
-	});
-};
-
 onEnterSubmit = function($form, $submiter) {
 	$form.find("input").keydown (function(event){
 		if(event.keyCode === 13) {
@@ -230,7 +236,25 @@ onEnterSubmit = function($form, $submiter) {
 	});
 }
 
-function $turnformMudarSenhaValid() {
+
+function turnFormAadicionarGrupoDeAcessoValid() {
+	$adicionarGrupoDeAcesso.validate({
+		rules: {
+			'nome': {
+				required: true,
+				minlength: 3,
+			}
+		},
+		messages: {
+			'nome': {
+				required: "Digite o nome do grupo",
+				minlength: "O nome do grupo deve conter no mínimo 3 caracteres"
+			}			
+		}
+	});
+};
+
+function turnformMudarSenhaValid() {
 	$formMudarSenha.validate({
 		rules: {
 			'senhaAtual':{

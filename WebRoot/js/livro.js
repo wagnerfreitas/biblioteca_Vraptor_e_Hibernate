@@ -1,10 +1,17 @@
-﻿var $formEmpresta = $("#formEmpresta"),
-	$formDevolve = $("#fomDevolve"),
- 	$formAtualiza = $("#formAtualiza"),
- 	$formRemove = $(".formRemove"),
-	$msgModal = $("#msg-modal"),
-	PESQUISA_USUARIO_VALOR_DEFAULT = '(Nome para pesquisa)';
+﻿var $formEmpresta,
+	$formDevolve,
+ 	$formAtualiza,
+ 	$formRemove,
+	$msgModal,
+	PESQUISA_USUARIO_VALOR_DEFAULT;
 $(document).ready(function(){
+	$formEmpresta = $("#formEmpresta");
+	$formDevolve = $("#fomDevolve");
+ 	$formAtualiza = $("#formAtualiza");
+ 	$formRemove = $(".formRemove");
+	$msgModal = $("#msg-modal");
+	PESQUISA_USUARIO_VALOR_DEFAULT = '(Nome para pesquisa)';
+	
 	$(".emprestar").click(function(){
 		$("#atualizaLivro").hide();
 		$("#DevolverLivro").hide();

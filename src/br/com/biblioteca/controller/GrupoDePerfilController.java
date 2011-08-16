@@ -47,7 +47,6 @@ public class GrupoDePerfilController {
 			grupoDePerfilDAO.novo(grupoDePerfil);
 			message = "Grupo de perfil adicionado com sucesso";
 			auditoriaHelper.auditoria("Grupo de Perfil: " + grupoDePerfil.getNome(), "ADICIONOU", new Date());
-			result.redirectTo(IndexController.class).index();
 			
 			result.include("message", message)
 				.use(json()).from(message, "message").serialize();

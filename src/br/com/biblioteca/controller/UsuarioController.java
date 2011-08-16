@@ -105,6 +105,7 @@ public class UsuarioController {
 	@Permissao({"PERM_ADMIN", "PERM_ATUALIZAR_USUARIO"})
 	public void atualiza(Long id, String nome, String email){
 		String message;
+		List<String> messages = new ArrayList<String>();
 		if(id == null) {
 			message = "Id do usuário nulo";
 		} else if(nome == null  ||  nome == "") {
@@ -124,9 +125,10 @@ public class UsuarioController {
 			} catch (Exception e) {
 				message = e.getMessage();
 			}
+			messages.add(message);
 		}
-		result.include("message", message)
-			.use(json()).from(message, "message").serialize();
+		result.include("message", messages)
+			.use(json()).from(messages, "message").serialize();
 	}
 	
 	@Post
