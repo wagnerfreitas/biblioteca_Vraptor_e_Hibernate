@@ -52,6 +52,7 @@ function postarDados(rota, formulario){
 					.html(msg.message.join('<br />'))
 					.dialog({
 						title: "Mensagem", 
+						modal: true,
 						buttons: {
 							Ok: function() {
 								location.reload();

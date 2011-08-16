@@ -182,6 +182,7 @@ function postarDados(rota, formulario){
 			.success(function(msg){
 				$msgModal.html(msg.message).dialog({
 					title: "Mensagem", 
+					modal: true,
 					buttons: {
 						Ok: function() {
 							location.reload();

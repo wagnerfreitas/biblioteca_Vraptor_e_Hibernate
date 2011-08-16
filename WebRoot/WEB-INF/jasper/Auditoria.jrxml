@@ -89,7 +89,7 @@
 	<detail>
 		<band height="17" splitType="Stretch">
 			<textField>
-				<reportElement x="4" y="0" width="96" height="16"/>
+				<reportElement x="18" y="0" width="82" height="16"/>
 				<textElement>
 					<font size="9" isBold="false"/>
 				</textElement>

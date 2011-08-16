@@ -73,6 +73,7 @@ $(document).ready(function(){
 	$mudarSenha.click(function() {
 		$formMudarSenha.dialog({
 			title: "Mudar senha",
+			modal: true,
 			width: 350,
 			buttons: {
 				Enviar: function() {
@@ -82,6 +83,7 @@ $(document).ready(function(){
 						.success(function(msg) {
 							$msgModal.html(msg.message).dialog({
 								title: "Mensagem",
+								modal: true,
 								buttons: {
 									Ok: function() {
 										$formMudarSenha.dialog("close");

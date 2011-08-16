@@ -7,7 +7,7 @@ $(document).ready(function(){
 		if($formLogin.valid()){
 			$.post("login", $formLogin.serialize())
 				.success(function(msg) {
-					if(msg.message == "Erro ao efetuar login") {
+					if(msg.message === "Erro ao efetuar login") {
 						$msgModal.html(msg.message).dialog({
 							title: "Mensagem",
 							buttons: {
