@@ -32,8 +32,4 @@ public class AuditoriaHelper {
 			throw new RuntimeException("Erro");
 		}
 	}
-
-	public UsuarioSession getUsuarioSession() {
-		return usuarioSession;
-	}
 }
