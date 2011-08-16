@@ -19,8 +19,10 @@ import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioDAO;
 import br.com.biblioteca.dao.UsuarioSession;
+import br.com.biblioteca.entidades.Acao;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.GrupoDePerfil;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
@@ -49,8 +51,12 @@ public class LivroControllerTest {
 	private Emprestimo emprestimo;
 	private Date dataDeEmprestimo;
 	private Date dataDeDevolucao;
-	private ArrayList<Long> livros;
+	private ArrayList<Long> codigosLivros;
 	private Auditoria auditoria;
+	private ArrayList<Livro> livros;
+	private GrupoDePerfil grupoDePerfil;
+	private Acao acao;
+	private ArrayList<Acao> acoes;
 	
 	public LivroControllerTest() {
 		MockitoAnnotations.initMocks(this);
@@ -61,6 +67,7 @@ public class LivroControllerTest {
 	@Test
 	public void erroAoListarLivros() {
 //		dado
+		queEuTenhoUmUsuario();
 		queEuTenhoUmUsuario();
 		
 //		quando
@@ -76,11 +83,13 @@ public class LivroControllerTest {
 	public void listaLivros() {
 //		dado
 		queEuTenhoUmUsuario();
+		queEuTenhoUmUsuario();
+		queEuTenhoUmaListaDeLivros();
 
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
-		when(livroDAO.pesquisa("livro")).thenReturn(new ArrayList<Livro>());
-		livroController.index("livro");
+		when(livroDAO.pesquisa(livro.getNome())).thenReturn(livros);
+		livroController.index(livro.getNome());
 		
 //		entao
 		assertTrue(result.included().containsKey("livros"));
@@ -439,7 +448,7 @@ public class LivroControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
-		livroController.remove(livros);
+		livroController.remove(codigosLivros);
 		
 //		então
 		assertEquals("\"" + livro.getNome() + "\" está emprestado", result.included().get("message"));
@@ -456,7 +465,7 @@ public class LivroControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
-		livroController.remove(livros);
+		livroController.remove(codigosLivros);
 		
 //		então
 		assertEquals("Livro(s) deletado(s) com sucesso", result.included().get("message"));		
@@ -473,7 +482,7 @@ public class LivroControllerTest {
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		doThrow(new RuntimeException("Erro ao pesquisar")).when(livroDAO).pesquisarLivroPorId(CODIGO_LIVRO);
-		livroController.remove(livros);
+		livroController.remove(codigosLivros);
 		
 //		então
 		assertEquals("Erro ao pesquisar", result.included().get("message"));
@@ -491,7 +500,7 @@ public class LivroControllerTest {
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
 		when(livroDAO.pesquisarLivroPorId(CODIGO_LIVRO)).thenReturn(livro);
 		doThrow(new RuntimeException("Erro/Livro")).when(livroDAO).atualiza(livro);
-		livroController.remove(livros);
+		livroController.remove(codigosLivros);
 		
 //		então
 		assertEquals("Erro/Livro", result.included().get("message"));
@@ -611,9 +620,15 @@ public class LivroControllerTest {
 		assertEquals("Erro ao deletar livro", result.included().get("message"));
 	}
 	
+	public void queEuTenhoUmaListaDeLivros() {
+		queEuTenhoUmLivro();
+		livros = new ArrayList<Livro>();
+		livros.add(livro);
+	}
+	
 	public void queEuTenhoUmaListaDeCodigosDeLivros() {
-		livros = new ArrayList<Long>();
-		livros.add(CODIGO_LIVRO);
+		codigosLivros = new ArrayList<Long>();
+		codigosLivros.add(CODIGO_LIVRO);
 	}
 	
 	public void queEuTenhoUmaAuditoria() {
@@ -641,12 +656,35 @@ public class LivroControllerTest {
 		dataDeDevolucao = new Date();
 	}
 	
+	public void queEuTenhoUmaAcao() {
+		acao = new Acao();
+		acao.setId(1L);
+		acao.setNome("Acao");
+		acao.setDescricao("Descricao");
+	}
+	
+	public void queEuTenhoUmaListaDeAcoes() {
+		queEuTenhoUmaAcao();
+		acoes = new ArrayList<Acao>();
+		acoes.add(acao);
+	}
+	
+	public void queEuTenhoUmGrupoDePerfil() {
+		queEuTenhoUmaListaDeAcoes();
+		grupoDePerfil = new GrupoDePerfil();
+		grupoDePerfil.setId(1L);
+		grupoDePerfil.setNome("Grupo");
+		grupoDePerfil.setAcoes(acoes);
+	}
+	
 	public void queEuTenhoUmUsuario() {
+		queEuTenhoUmGrupoDePerfil();
 		usuario = new Usuario();
 		usuario.setId(1L);
 		usuario.setNome("Usuario");
 		usuario.setEmail("email@email.com");
 		usuario.setAtivo(true);
+		usuario.setGrupoDePerfil(grupoDePerfil);
 	}
 	
 	public void queEuTenhoUmLivro() {

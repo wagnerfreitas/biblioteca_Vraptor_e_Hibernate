@@ -18,8 +18,10 @@ import br.com.biblioteca.controller.helper.EmprestimoHelper;
 import br.com.biblioteca.dao.EmprestimoDAO;
 import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
+import br.com.biblioteca.entidades.Acao;
 import br.com.biblioteca.entidades.Auditoria;
 import br.com.biblioteca.entidades.Emprestimo;
+import br.com.biblioteca.entidades.GrupoDePerfil;
 import br.com.biblioteca.entidades.Livro;
 import br.com.biblioteca.entidades.Usuario;
 import br.com.caelum.vraptor.Result;
@@ -45,6 +47,9 @@ public class EmprestimoControllerTest {
 	private Usuario usuario;
 	private Emprestimo emprestimo;
 	private Auditoria auditoria;
+	private Acao acao;
+	private ArrayList<Acao> acoes;
+	private GrupoDePerfil grupoDePerfil;
 	
 	@Before
 	public void setUp() {
@@ -179,13 +184,36 @@ public class EmprestimoControllerTest {
 		livro.setLivroDeletado(false);
 	}
 	
+	public void queEuTenhoUmaAcao() {
+		acao = new Acao();
+		acao.setId(1L);
+		acao.setNome("Nome");
+		acao.setDescricao("Descricao");
+	}
+	
+	public void queEuTenhoUmaListaDeAcoes() {
+		queEuTenhoUmaAcao();
+		acoes = new ArrayList<Acao>();
+		acoes.add(acao);
+	}
+	
+	public void queEuTenhoUmGrupoDePerfil() {
+		queEuTenhoUmaListaDeAcoes();
+		grupoDePerfil = new GrupoDePerfil();
+		grupoDePerfil.setId(1L);
+		grupoDePerfil.setNome("Nome");
+		grupoDePerfil.setAcoes(acoes);
+	}
+	
 	public void queEuTenhoUmUsuario() {
+		queEuTenhoUmGrupoDePerfil();
 		usuario = new Usuario();
 		usuario.setId(1L);
 		usuario.setNome("Usuario");
 		usuario.setEmail("usuario@email.com");
 		usuario.setSenha("123456");
 		usuario.setAtivo(true);
+		usuario.setGrupoDePerfil(grupoDePerfil);
 	}
 	
 	public void queEuTenhoUmEmprestimo() {

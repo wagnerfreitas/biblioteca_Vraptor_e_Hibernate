@@ -368,10 +368,9 @@ public class UsuarioControllerTest{
 	public void deleteUsuarioQuandoEsteNaoTemEmprestimo() {
 //		dado
 		queEuTenhoUmUsuario();
+		queEuTenhoUmaAuditoria();
 		queEuTenhoUmaListaDeEmprestimoVazia();
 		queEuTenhoUmaListaDeCodigosDeUsuario();
-		queEuTenhoUmaAuditoria();
-		queEuTenhoUmUsuario();
 		
 //		quando
 		when(usuarioSession.getUsuario()).thenReturn(usuario);
@@ -385,6 +384,71 @@ public class UsuarioControllerTest{
 //		entao
 		assertEquals(messages, result.included().get("message"));
 	}
+	
+	@Test
+	public void erroAoDeletarUsuario() {
+//		dado
+		queEuTenhoUmUsuario();
+		queEuTenhoUmaAuditoria();
+		queEuTenhoUmaListaDeEmprestimoVazia();
+		queEuTenhoUmaListaDeCodigosDeUsuario();
+		
+//		quando
+		doThrow(new RuntimeException("Erro ao deletar usuário(s)")).when(emprestimoDAO).procuraPorIdUsuario(CODIGO_USUARIO);
+		usuarioController.delete(usuarios);
+		
+		List<String> messages = new ArrayList<String>();
+		messages.add("Erro ao deletar usuário(s)");
+		
+//		entao
+		assertEquals(messages, result.included().get("message"));
+	}
+	
+	@Test
+	public void senhasNaoConferemNaMudancaDeSenha() {
+//		dado
+		queEuTenhoUmUsuario();
+		String senha = "qwe123";
+		String senhaAtual = "qwerty";
+		
+//		quando
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
+		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
+		usuarioController.mudarSenha(senhaAtual, senha);
+		
+//		entao
+		assertEquals("Senhas não conferem", result.included().get("message"));
+	}
+	
+	@Test
+	public void erroAoTentarMudarASenha() {
+//		dado
+		queEuTenhoUmUsuario();
+		String senha = "qwe123";
+		String senhaAtual = "qwerty";
+		
+//		quando
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
+		doThrow(new RuntimeException("Erro na pesquisa")).when(usuarioDAO).pesquisarUsuarioPorId(CODIGO_USUARIO);
+		usuarioController.mudarSenha(senhaAtual, senha);
+		
+		assertEquals("Erro ao tentar mudar a senha", result.included().get("message"));
+	}
+	
+	@Test
+	public void senhaAtualizadaComSucesso() {
+		queEuTenhoUmUsuario();
+		String senhaAtual = usuario.getSenha();
+		String senha = "qwe123";
+		
+//		quando
+		when(usuarioSession.getUsuario()).thenReturn(usuario);
+		when(usuarioDAO.pesquisarUsuarioPorId(CODIGO_USUARIO)).thenReturn(usuario);
+		usuarioController.mudarSenha(senhaAtual, senha);
+		
+		assertEquals("Senha autalizada com sucesso", result.included().get("message"));
+	}
+	
 	public void queEuTenhoUmaListaDeCodigosDeUsuario() {
 		usuarios = new ArrayList<Long>();
 		usuarios.add(1L);

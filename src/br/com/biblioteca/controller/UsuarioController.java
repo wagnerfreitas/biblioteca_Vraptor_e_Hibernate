@@ -143,14 +143,15 @@ public class UsuarioController {
 				} else {
 					usuario.setAtivo(false);
 					usuarioDAO.atualiza(usuario);
-					auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
-					
 					message = "Usuário(s) deletado(s) com sucesso";
+
+					auditoriaHelper.auditoria(usuario.getNome(), "DELETOU", new Date());
 				}
+				messages.add(message);
 			}
-			messages.add(message);
 		} catch (Exception e) {
-			message = e.getMessage();
+			message = "Erro ao deletar usuário(s)";
+			messages.add(message);
 		}		
 		result.include("message", messages)
 			.use(json()).from(messages, "message").serialize();
@@ -172,6 +173,7 @@ public class UsuarioController {
 		} catch (Exception e) {
 			message = "Erro ao tentar mudar a senha";
 		}
-		result.use(json()).from(message, "message").serialize();
+		result.include("message", message)
+			.use(json()).from(message, "message").serialize();
 	}
 }
