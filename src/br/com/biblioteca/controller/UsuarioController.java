@@ -158,14 +158,17 @@ public class UsuarioController {
 	
 	@Post
 	@Path("update/senha")
-	public void mudarSenha(String senha) {
+	public void mudarSenha(String senhaAtual, String senha) {
 		String message;
 		try {
 			Usuario usuario = usuarioDAO.pesquisarUsuarioPorId(usuarioSession.getUsuario().getId());
-			usuario.setSenha(senha);
-			usuarioDAO.atualiza(usuario);
-			
-			message = "Senha autalizada com sucesso";
+			if(!senhaAtual.equals(usuario.getSenha())) {
+				message = "Senhas não conferem";
+			} else {
+				usuario.setSenha(senha);
+				usuarioDAO.atualiza(usuario);
+				message = "Senha autalizada com sucesso";
+			}
 		} catch (Exception e) {
 			message = "Erro ao tentar mudar a senha";
 		}

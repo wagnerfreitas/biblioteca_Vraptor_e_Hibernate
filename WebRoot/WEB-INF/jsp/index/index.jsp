@@ -130,6 +130,9 @@
 				<form method="post" id="formMudarSenha">
 					<table>
 						<tr>
+							<td>Senha atual: </td><td><input type="password" name="senhaAtual" /></td>
+						</tr>
+						<tr>
 							<td>Nova senha: </td><td><input type="password" name="senha" id="updateSenha"/></td>
 						</tr>
 						<tr>

@@ -233,6 +233,10 @@ onEnterSubmit = function($form, $submiter) {
 function $turnformMudarSenhaValid() {
 	$formMudarSenha.validate({
 		rules: {
+			'senhaAtual':{
+				required: true,
+				minlength: 6
+			},
 			'senha': {
 				required: true,
 				minlength: 6
@@ -244,6 +248,10 @@ function $turnformMudarSenhaValid() {
 			}			
 		},
 		messages: {
+			'senhaAtual':{
+				required: "Digite sua senha atual",
+				minlength: "A senha deve ter 6 caracteres"
+			},
 			'senha': {
 				required: "Digite a senha",
 				minlength: "A senha deve ter 6 caracteres"
