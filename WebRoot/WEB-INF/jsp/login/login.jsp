@@ -13,8 +13,8 @@
 		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.8.14.custom.css" />
 	</head>
 	<body>
-	<div id="divLogin">
-		<h1 class="titleLogin">Login</h1>
+	<div id="divLogin" class="bordaRedonda">
+		<h1 class="titleLogin bordaRedonda">Login</h1>
 		<form id="formLogin" method="post">
 			<p><label for="nome" class="labelNome">Nome: </label><input type="text" name="nome" id="nome" /></p>
 			<p><label for="senha" class="labelSenha">Senha: </label><input type="password" name="senha" id="senha" /></p>

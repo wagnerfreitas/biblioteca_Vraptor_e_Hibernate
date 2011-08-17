@@ -8,14 +8,6 @@
 		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.8.14.custom.css" />
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 		<style>
-			#relatorioDeAuditoria, #mudarSenha {
-				border: none;
-				background: none;
-				text-decoration: underline;
-				color: blue;
-				width: 150px;
-				margin-left: -12px;
-			}
 			.celulaDivisoria {
 				width: 70px;
 			}
@@ -47,46 +39,58 @@
 				<div id="sombra" class="cFloat"></div>
 			</div>
 			<div id="content">
-				<table id="tabela">
-					<tr>
-						<c:forEach items="${permissoesDoUsuario}" var="permissao">
-							<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_USUARIO'}">
-								<td>Adicionar novo usuário:</td>
-								<td><button id="adicionarUsuario">Adicionar</button></td>
-								<td class="celulaDivisoria"></td>
-							</c:if>
-							<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_LIVRO'}">
-								<td width="150px">Adicionar novo livro:</td>
-								<td><button id="adicionarLivro">Adicionar</button></td>
-							</c:if>
-						</c:forEach>
-					</tr>
-					<tr>
-						<td>Pesquisar usu&aacute;rio:</td>
-						<td><button id="pesquisarUsuario">Pesquisar</button></td>
-						<td class="celulaDivisoria"></td>
-						<td>Pesquisar livro:</td>
-						<td><button id="pesquisarLivro">Pesquisar</button></td>
-					</tr>
-					
-					<tr>
-						<td>Pesquisar empr&eacute;stimos:</td>
-						<td><button id="pesquisarEmprestimo">Pesquisar</button></td>
-						<td class="celulaDivisoria"></td>
-						<td>Adicionar grupo de acesso:</td>
-						<td><button id="adicionarAcesso">Adicionar</button></td>
-					</tr>	
-	
-					<tr>
+				<div id="menu">
+					<ul id="nav">
+						<li><a href="#">Adicionar</a>
+							<ul>
+								<c:forEach items="${permissoesDoUsuario}" var="permissao">
+									<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_USUARIO'}">
+										<li><a href="#" id="adicionarUsuario">Usuário</a></li>
+									</c:if>
+									<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_LIVRO'}">
+										<li><a href="#" id="adicionarLivro">Livro</a></li>
+									</c:if>
+									<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_GRUPO_ACESSO'}">
+										<li><a href="#" id="adicionarAcesso">Adicionar grupo de acesso</a></li>
+									</c:if>
+								</c:forEach>
+							</ul>
+						</li>
+						<li><a href="#">Pesquisar</a>
+							<ul>
+								<li><a href="#" id="pesquisarUsuario">Usuário</a></li>
+								<li><a href="#" id="pesquisarLivro">Livro</a></li>
+								<li><a href="#" id="pesquisarEmprestimo">Empréstimo</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Administração</a>
+							<ul>
+								<li><a href="#" id="mudarSenha">Mudar senha</a></li>
+							</ul>
+						</li>
 						<c:forEach items="${permissoesDoUsuario}" var="permissao">
 							<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_GERAR_RELATORIOS'}">
-									<td><button id="relatorioDeAuditoria">Relatório de auditoria</button></td>
+								<li><a href="#">Relatório</a>
+									<ul>
+										<li><a href="#" id="relatorioDeAuditoria">Auditoria</a></li>
+									</ul>
+								</li>
 							</c:if>
 						</c:forEach>
-						<td><button id="mudarSenha">Mudar senha</button></td>
-					</tr>
-															
-				</table>
+					</ul>
+				</div>
+				<div id="listDeLivros" class="bordaRedonda">
+					<div class="titleGridList bordaRedonda">Livros</div>
+					<table>
+						<c:forEach items="${listLivros}" var="livro">
+							<tr>
+								<td>Nome: ${livro.nome}</td>
+								<td>Autor: ${livro.autor}</td>
+								<td>Edição: ${livro.edicao}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 				
 				<form id="Usuario" method="get" action="usuarios">
 					<table>
@@ -152,7 +156,7 @@
 			</div>
 			<div id="msg-modal"></div>
 			<div id="result"></div>
-			<div id="footer"></div>
+			<div id="footer" class="cFloat"></div>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>

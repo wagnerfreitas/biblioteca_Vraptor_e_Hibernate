@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.biblioteca.controller.IndexController;
 import br.com.biblioteca.dao.AcaoDAO;
+import br.com.biblioteca.dao.LivroDAO;
 import br.com.biblioteca.dao.UsuarioSession;
 import br.com.biblioteca.entidades.Acao;
 import br.com.biblioteca.entidades.GrupoDePerfil;
@@ -27,7 +28,9 @@ public class IndexControllerTest {
 	private AcaoDAO acaoDAO; 
 	@Mock
 	private UsuarioSession usuarioSession;
-
+	@Mock
+	private LivroDAO livroDAO;
+	
 	private GrupoDePerfil grupoDePerfil;
 	private Result result;
 	private IndexController indexController;
@@ -39,7 +42,7 @@ public class IndexControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.result = new MockResult();
-		this.indexController = new IndexController(result, usuarioSession, acaoDAO);
+		this.indexController = new IndexController(result, usuarioSession, acaoDAO, livroDAO);
 	}
 	
 	@Test

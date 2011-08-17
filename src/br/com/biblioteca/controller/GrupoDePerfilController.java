@@ -11,6 +11,7 @@ import br.com.biblioteca.dao.AcaoDAO;
 import br.com.biblioteca.dao.GrupoDePerfilDAO;
 import br.com.biblioteca.entidades.Acao;
 import br.com.biblioteca.entidades.GrupoDePerfil;
+import br.com.biblioteca.entidades.Permissao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -33,6 +34,7 @@ public class GrupoDePerfilController {
 	
 	@Post
 	@Path("grupo/novo")
+	@Permissao({"PERM_ADMIN", "PERM_ADD_GRUPO_ACESSO"})
 	public void novo(String nome, List<Long> id) {
 		String message;
 		try {
