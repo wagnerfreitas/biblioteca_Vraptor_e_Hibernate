@@ -51,7 +51,7 @@
 										<li><a href="#" id="adicionarLivro">Livro</a></li>
 									</c:if>
 									<c:if test="${permissao.nome == 'PERM_ADMIN' || permissao.nome == 'PERM_ADD_GRUPO_ACESSO'}">
-										<li><a href="#" id="adicionarAcesso">Adicionar grupo de acesso</a></li>
+										<li><a href="#" id="adicionarAcesso">Grupo de acesso</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -84,9 +84,9 @@
 					<table>
 						<c:forEach items="${listLivros}" var="livro">
 							<tr>
-								<td>Nome: ${livro.nome}</td>
-								<td>Autor: ${livro.autor}</td>
-								<td>Edição: ${livro.edicao}</td>
+								<td width="350px"><strong>Nome:</strong> ${livro.nome}</td>
+								<td width="300px"><strong>Autor:</strong> ${livro.autor}</td>
+								<td width="85px"><strong>Edição:</strong> ${livro.edicao}</td>
 							</tr>
 						</c:forEach>
 					</table>
